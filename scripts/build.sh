@@ -5,8 +5,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 BIN="${NOTEPUB_BIN:-notepub}"
-CFG="./config.yaml"
-RULES="./rules.yaml"
+CFG="${NOTEPUB_CONFIG:-./config.yaml}"
+RULES="${NOTEPUB_RULES:-./rules.yaml}"
 ART="./.notepub/artifacts"
 OUT="./dist"
 
