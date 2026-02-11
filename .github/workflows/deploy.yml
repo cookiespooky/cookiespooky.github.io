@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [content-updated]
 
 permissions:
   contents: read
@@ -20,9 +22,26 @@ jobs:
     env:
       NOTEPUB_VERSION: v0.1.1
       NOTEPUB_BIN: ./notepub
+      CONTENT_REPO: cookiespooky/np-content
+      CONTENT_REF: main
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Checkout content repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CONTENT_REPO }}
+          ref: ${{ env.CONTENT_REF }}
+          path: .external-content
+
+      - name: Sync external content into site content/
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '.obsidian/' \
+            ./.external-content/ ./content/
 
       - name: Download notepub binary
         run: |
