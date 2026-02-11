@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-02-07T02:57:36Z",
+  "items": [
+    {
+      "title": "First Article",
+      "path": "/articles/first-article",
+      "snippet": "A short note that belongs to the Notepub hub.",
+      "type": "article",
+      "updatedAt": "2026-02-07T02:54:56Z",
+      "score": 0
+    },
+    {
+      "title": "Second Article",
+      "path": "/articles/second-article",
+      "snippet": "A self-tracking note with related links.",
+      "type": "article",
+      "updatedAt": "2026-02-07T02:55:03Z",
+      "score": 0
+    },
+    {
+      "title": "Portal Notes",
+      "path": "/portal",
+      "snippet": "A static page example with links to hubs and articles.",
+      "type": "page",
+      "updatedAt": "2026-02-07T02:55:13Z",
+      "score": 0
+    }
+  ]
+}

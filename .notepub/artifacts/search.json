@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-10T13:11:54Z",
+  "items": [
+    {
+      "title": "Обо мне",
+      "path": "/articles/aboutme",
+      "snippet": "Кто, о чем и зачем все это",
+      "type": "article",
+      "updatedAt": "2026-02-08T09:34:11Z",
+      "score": 0
+    },
+    {
+      "title": "Первая статья",
+      "path": "/articles/first-article",
+      "snippet": "Короткая заметка, относящаяся к хабу Notepub.",
+      "type": "article",
+      "updatedAt": "2026-02-10T12:41:10Z",
+      "score": 0
+    },
+    {
+      "title": "Вторая статья",
+      "path": "/articles/second-article",
+      "snippet": "Заметка о self-tracker с связанными ссылками.",
+      "type": "article",
+      "updatedAt": "2026-02-10T12:41:18Z",
+      "score": 0
+    },
+    {
+      "title": "Заметки портала",
+      "path": "/portal",
+      "snippet": "Пример статической страницы со ссылками на хабы и статьи.",
+      "type": "page",
+      "updatedAt": "2026-02-10T12:45:59Z",
+      "score": 0
+    }
+  ]
+}

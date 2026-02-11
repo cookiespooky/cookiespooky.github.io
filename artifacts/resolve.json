@@ -1,0 +1,253 @@
+{
+  "generated_at": "2026-02-07T02:57:36Z",
+  "routes": {
+    "/": {
+      "s3_key": "home.md",
+      "etag": "37be34507b0b9fd7dfdb7473af2b0bc38ab9d9ce",
+      "last_modified": "2026-02-07T02:54:34Z",
+      "status": 200,
+      "route_etag": "W/\"da74e9b870f93d44e519a9df5c8c143108659971\""
+    },
+    "/articles/first-article": {
+      "s3_key": "first-article.md",
+      "etag": "90bb07bbbc4f7e13d41ee68a23b760dfa26357cb",
+      "last_modified": "2026-02-07T02:54:56Z",
+      "status": 200,
+      "route_etag": "W/\"3ee4cf56f9379754605d881605c119c9124a448f\""
+    },
+    "/articles/second-article": {
+      "s3_key": "second-article.md",
+      "etag": "78e985835407820865c2e4f35d388ab040e74cb8",
+      "last_modified": "2026-02-07T02:55:03Z",
+      "status": 200,
+      "route_etag": "W/\"cd1bed11b2d42988ff0a948b088e5510a1a970b6\""
+    },
+    "/notepub": {
+      "s3_key": "notepub.md",
+      "etag": "d328aec616daf452ce32d82374286daa49d43d21",
+      "last_modified": "2026-02-07T02:54:42Z",
+      "status": 200,
+      "route_etag": "W/\"e0c0e5235d7f2a6263347f41e9962ac6d85f4e73\""
+    },
+    "/portal": {
+      "s3_key": "portal.md",
+      "etag": "259258a7d0630fa1219f7fbb553bcccae8a287bb",
+      "last_modified": "2026-02-07T02:55:13Z",
+      "status": 200,
+      "route_etag": "W/\"cd2a0714cebab936212d8b3254f9e55d8f39f96c\""
+    },
+    "/self-tracker": {
+      "s3_key": "self-tracker.md",
+      "etag": "137624017749ae9e327a02ffc799d7cad33387aa",
+      "last_modified": "2026-02-07T02:54:48Z",
+      "status": 200,
+      "route_etag": "W/\"d86c28e2d9e8e6be89a57ca211d9fdf1b04f9467\""
+    }
+  },
+  "meta": {
+    "/": {
+      "type": "home",
+      "slug": "home",
+      "title": "Anton’s Personal Portal",
+      "description": "Thoughts, experiments, and systems — plus a couple of hubs I use to organize my work.",
+      "canonical": "https://USERNAME.github.io/REPO/",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "Thoughts, experiments, and systems — plus a couple of hubs I use to organize my work.",
+        "title": "Anton’s Personal Portal",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/"
+      },
+      "fm": {
+        "description": "Thoughts, experiments, and systems — plus a couple of hubs I use to organize my work.",
+        "draft": false,
+        "slug": "home",
+        "title": "Anton’s Personal Portal",
+        "type": "home"
+      }
+    },
+    "/articles/first-article": {
+      "type": "article",
+      "slug": "first-article",
+      "title": "First Article",
+      "description": "A short note that belongs to the Notepub hub.",
+      "canonical": "https://USERNAME.github.io/REPO/articles/first-article",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "A short note that belongs to the Notepub hub.",
+        "title": "First Article",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/articles/first-article"
+      },
+      "fm": {
+        "description": "A short note that belongs to the Notepub hub.",
+        "draft": false,
+        "hub": "notepub",
+        "order": 1,
+        "slug": "first-article",
+        "tags": [
+          "notepub",
+          "product"
+        ],
+        "title": "First Article",
+        "type": "article"
+      }
+    },
+    "/articles/second-article": {
+      "type": "article",
+      "slug": "second-article",
+      "title": "Second Article",
+      "description": "A self-tracking note with related links.",
+      "canonical": "https://USERNAME.github.io/REPO/articles/second-article",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "A self-tracking note with related links.",
+        "title": "Second Article",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/articles/second-article"
+      },
+      "fm": {
+        "description": "A self-tracking note with related links.",
+        "draft": false,
+        "hub": "self-tracker",
+        "order": 2,
+        "related": [
+          "first-article"
+        ],
+        "slug": "second-article",
+        "tags": [
+          "tracking",
+          "systems"
+        ],
+        "title": "Second Article",
+        "type": "article"
+      }
+    },
+    "/notepub": {
+      "type": "hub",
+      "slug": "notepub",
+      "title": "Notepub",
+      "description": "Everything related to the Notepub engine, recipes, and experiments.",
+      "canonical": "https://USERNAME.github.io/REPO/notepub",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "Everything related to the Notepub engine, recipes, and experiments.",
+        "title": "Notepub",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/notepub"
+      },
+      "fm": {
+        "description": "Everything related to the Notepub engine, recipes, and experiments.",
+        "draft": false,
+        "slug": "notepub",
+        "title": "Notepub",
+        "type": "hub"
+      }
+    },
+    "/portal": {
+      "type": "page",
+      "slug": "portal",
+      "title": "Portal Notes",
+      "description": "A static page example with links to hubs and articles.",
+      "canonical": "https://USERNAME.github.io/REPO/portal",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "A static page example with links to hubs and articles.",
+        "title": "Portal Notes",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/portal"
+      },
+      "fm": {
+        "description": "A static page example with links to hubs and articles.",
+        "draft": false,
+        "slug": "portal",
+        "title": "Portal Notes",
+        "type": "page"
+      }
+    },
+    "/self-tracker": {
+      "type": "hub",
+      "slug": "self-tracker",
+      "title": "Self Tracker",
+      "description": "Habits, experiments, and reflections on personal tracking.",
+      "canonical": "https://USERNAME.github.io/REPO/self-tracker",
+      "robots": "index, follow",
+      "opengraph": {
+        "description": "Habits, experiments, and reflections on personal tracking.",
+        "title": "Self Tracker",
+        "type": "website",
+        "url": "https://USERNAME.github.io/REPO/self-tracker"
+      },
+      "fm": {
+        "description": "Habits, experiments, and reflections on personal tracking.",
+        "draft": false,
+        "slug": "self-tracker",
+        "title": "Self Tracker",
+        "type": "hub"
+      }
+    }
+  },
+  "links": {
+    "/articles/first-article": {
+      "belongs_to": [
+        "/notepub"
+      ],
+      "wiki": [
+        "/self-tracker"
+      ]
+    },
+    "/articles/second-article": {
+      "belongs_to": [
+        "/self-tracker"
+      ],
+      "related": [
+        "/articles/first-article"
+      ],
+      "wiki": [
+        "/articles/first-article"
+      ]
+    },
+    "/portal": {
+      "wiki": [
+        "/notepub",
+        "/self-tracker"
+      ]
+    }
+  },
+  "link_targets": {
+    "/": {
+      "wiki": [
+        "Notepub",
+        "Self Tracker",
+        "First Article"
+      ]
+    },
+    "/articles/first-article": {
+      "belongs_to": [
+        "notepub"
+      ],
+      "wiki": [
+        "Self Tracker"
+      ]
+    },
+    "/articles/second-article": {
+      "belongs_to": [
+        "self-tracker"
+      ],
+      "related": [
+        "first-article"
+      ],
+      "wiki": [
+        "First Article"
+      ]
+    },
+    "/notepub": {},
+    "/portal": {
+      "wiki": [
+        "Notepub",
+        "Self Tracker"
+      ]
+    },
+    "/self-tracker": {}
+  }
+}
