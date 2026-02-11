@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Checkout content repository
+        if: github.event_name == 'repository_dispatch'
         uses: actions/checkout@v4
         with:
           repository: ${{ env.CONTENT_REPO }}
@@ -36,8 +37,9 @@ jobs:
           path: .external-content
 
       - name: Sync external content into site content/
+        if: github.event_name == 'repository_dispatch'
         run: |
-          rsync -a --delete \
+          rsync -a \
             --exclude '.git/' \
             --exclude '.github/' \
             --exclude '.obsidian/' \
