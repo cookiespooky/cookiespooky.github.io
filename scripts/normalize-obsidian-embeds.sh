@@ -11,13 +11,17 @@ fi
 
 echo "normalize-obsidian-embeds: scanning $ROOT_DIR"
 
-FILES_RAW="$(find "$ROOT_DIR" -type f -name '*.md' -print)"
-if [[ -z "$FILES_RAW" ]]; then
+files=()
+while IFS= read -r -d '' file; do
+  files+=("$file")
+done < <(find "$ROOT_DIR" -type f -name '*.md' -print0)
+
+if [[ "${#files[@]}" -eq 0 ]]; then
   echo "normalize-obsidian-embeds: no markdown files found"
   exit 0
 fi
 
-perl -0777 -i - $FILES_RAW <<'PERL'
+perl -0777 -i - "${files[@]}" <<'PERL'
 use strict;
 use warnings;
 
@@ -128,6 +132,20 @@ sub normalize_hub_frontmatter {
   return join("\n", @out);
 }
 
+sub to_fm_image_path {
+  my ($raw) = @_;
+  my $p = trim($raw);
+  return $p if $p eq "";
+  return $p if $p =~ m{^(?:https?:)?//}i;
+  return $p if $p =~ m{^data:}i;
+  return $p if $p =~ m{^/media/};
+  return $p if $p =~ m{^/assets/};
+  $p =~ s{^\./}{};
+  $p =~ s{^/+}{};
+  $p =~ s/ /%20/g;
+  return "/media/$p";
+}
+
 # Pass 2: rewrite each file with normalized frontmatter + image embeds.
 for my $file (@files) {
   my $text = $content_by_file{$file};
@@ -148,6 +166,28 @@ for my $file (@files) {
     $alt = "" if $alt =~ /^\d+(?:x\d+)?$/;
     "![$alt]($path)"
   }egi;
+
+  # If image is missing in frontmatter, use first markdown image from body.
+  $text =~ s{\A---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)\z}{
+    my $fm = $1;
+    my $body = $2;
+    if ($fm !~ /^image:\s*.+$/m) {
+      my $first_img = "";
+      if ($body =~ /!\[[^\]]*\]\(([^)]+)\)/m) {
+        my $raw_img = trim($1);
+        # Strip optional markdown title part: path "title"
+        $raw_img =~ s/\s+\"[^\"]*\"\s*$//;
+        $raw_img =~ s/^\s+|\s+$//g;
+        $first_img = to_fm_image_path($raw_img);
+      }
+      if ($first_img ne "") {
+        $fm .= "\n" if $fm !~ /\n\z/;
+        $fm .= "image: $first_img\n";
+      }
+    }
+    $fm .= "\n" if $fm !~ /\n\z/;
+    "---\n$fm---\n$body";
+  }eg;
 
   open my $out, '>', $file or die "write $file: $!";
   print {$out} $text;
