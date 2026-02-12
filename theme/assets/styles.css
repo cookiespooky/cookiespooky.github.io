@@ -249,11 +249,11 @@ a:hover { text-decoration: underline; }
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
+  max-width: 700px;
 }
 
 .hub-meta h3 {
   margin: 0 0 0.5em;
-  font-size: 1.5em;
 }
 
 .hub-meta .muted {
@@ -267,7 +267,6 @@ a:hover { text-decoration: underline; }
 
 .blog-header h2 {
   margin: 2em 0 1em 0;
-  font-size: 2em;
 }
 
 .hub-pill {
@@ -362,7 +361,19 @@ a:hover { text-decoration: underline; }
 }
 
 .grid-favorites {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 980px) {
+  .grid-favorites {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .grid-favorites {
+    grid-template-columns: 1fr;
+  }
 }
 
 .favorite-card {
@@ -371,10 +382,9 @@ a:hover { text-decoration: underline; }
 }
 
 .favorite-link {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 20px;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -383,13 +393,13 @@ a:hover { text-decoration: underline; }
 
 .favorite-image {
   width: 100%;
-  height: 100%;
+  height: 180px;
   object-fit: cover;
   display: block;
 }
 
 .favorite-body {
-  padding: 18px 20px 18px 0;
+  padding: 16px 18px 20px;
 }
 
 .favorite-body h3 {
@@ -398,12 +408,12 @@ a:hover { text-decoration: underline; }
 }
 
 @media (max-width: 720px) {
-  .favorite-link {
-    grid-template-columns: 1fr;
+  .favorite-body {
+    padding: 14px 16px 18px;
   }
 
-  .favorite-body {
-    padding: 16px;
+  .favorite-image {
+    height: 160px;
   }
 }
 
@@ -570,7 +580,7 @@ a:hover { text-decoration: underline; }
 
 .home-prose {
   max-width: 700px;
-  margin: 50px auto 50px;
+  margin: 50px auto 30px;
   text-align: center;
 }
 
