@@ -530,6 +530,8 @@ a:hover { text-decoration: underline; }
 }
 
 .page { padding: 10px 0; max-width: 680px; margin: 0 auto; }
+.page h1 { line-height: 1.4; }
+.page .deck { line-height: 1.7; }
 
 .prose { line-height: 1.7; }
 .prose p { font-size: 18px; }
@@ -608,6 +610,20 @@ a:hover { text-decoration: underline; }
 .tag { background: var(--card); padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; }
 
 .section { margin-top: 28px; }
+
+.page .section {
+  margin-top: 50px;
+}
+
+.page .section .blog-grid {
+  grid-template-columns: 1fr;
+}
+
+.page .section .blog-image {
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
 
 .muted { color: var(--muted); }
 
