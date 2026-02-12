@@ -529,10 +529,13 @@ a:hover { text-decoration: underline; }
   margin-left: 6px;
 }
 
-.page { padding: 50px 0; max-width: 680px; margin: 0 auto; }
+.page { padding: 10px 0; max-width: 680px; margin: 0 auto; }
 
 .prose { line-height: 1.7; }
 .prose p { font-size: 18px; }
+.prose ul,
+.prose ol,
+.prose li { font-size: 18px; }
 .prose a {
   font-weight: 600;
   color: #475569;
