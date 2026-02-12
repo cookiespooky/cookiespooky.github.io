@@ -3,6 +3,7 @@ set -euo pipefail
 export LC_ALL=C
 
 ROOT_DIR="${1:-./content}"
+export ROOT_DIR
 
 if [[ ! -d "$ROOT_DIR" ]]; then
   echo "normalize-obsidian-embeds: directory not found: $ROOT_DIR"
@@ -24,6 +25,10 @@ fi
 perl -0777 -i - "${files[@]}" <<'PERL'
 use strict;
 use warnings;
+
+my $ROOT_DIR = $ENV{ROOT_DIR} // "./content";
+$ROOT_DIR =~ s{\\}{/}g;
+$ROOT_DIR =~ s{/$}{};
 
 sub trim {
   my ($s) = @_;
@@ -56,6 +61,48 @@ sub basename_no_ext {
   $name =~ s!.*[/\\]!!;
   $name =~ s/\.md$//i;
   return $name;
+}
+
+sub dirname_path {
+  my ($path) = @_;
+  my $dir = $path;
+  $dir =~ s{\\}{/}g;
+  $dir =~ s{/[^/]*$}{};
+  return $dir;
+}
+
+sub clean_rel_path {
+  my ($p) = @_;
+  $p //= "";
+  $p =~ s{\\}{/}g;
+  $p =~ s{^\./}{};
+  $p =~ s{//+}{/}g;
+  $p =~ s{/\./}{/}g;
+  $p =~ s{^/}{};
+  $p =~ s{/$}{};
+  return $p;
+}
+
+sub join_rel {
+  my ($left, $right) = @_;
+  $left = clean_rel_path($left);
+  $right = clean_rel_path($right);
+  return $right if $left eq "";
+  return $left if $right eq "";
+  return "$left/$right";
+}
+
+sub content_rel_dir {
+  my ($file) = @_;
+  my $dir = dirname_path($file);
+  my $root = $ROOT_DIR;
+  $dir =~ s{\\}{/}g;
+  $root =~ s{\\}{/}g;
+
+  if ($dir =~ /^\Q$root\E\/?(.*)$/) {
+    return clean_rel_path($1);
+  }
+  return clean_rel_path($dir);
 }
 
 my @files = @ARGV;
@@ -162,15 +209,22 @@ sub normalize_hub_frontmatter {
 }
 
 sub to_fm_image_path {
-  my ($raw) = @_;
+  my ($raw, $file) = @_;
   my $p = trim($raw);
   return $p if $p eq "";
   return $p if $p =~ m{^(?:https?:)?//}i;
   return $p if $p =~ m{^data:}i;
   return $p if $p =~ m{^/media/};
   return $p if $p =~ m{^/assets/};
-  $p =~ s{^\./}{};
-  $p =~ s{^/+}{};
+
+  if ($p =~ m{^/}) {
+    $p =~ s{^/+}{};
+    $p =~ s/ /%20/g;
+    return "/media/$p";
+  }
+
+  my $rel_dir = content_rel_dir($file);
+  $p = join_rel($rel_dir, $p);
   $p =~ s/ /%20/g;
   return "/media/$p";
 }
@@ -193,7 +247,8 @@ for my $file (@files) {
     my $alt = defined($2) ? $2 : "";
     $alt =~ s/^\s+|\s+$//g;
     $alt = "" if $alt =~ /^\d+(?:x\d+)?$/;
-    "![$alt]($path)"
+    my $resolved = to_fm_image_path($path, $file);
+    "![$alt]($resolved)"
   }egi;
 
   # Normalize Obsidian text wikilinks in markdown body:
@@ -225,7 +280,7 @@ for my $file (@files) {
         # Strip optional markdown title part: path "title"
         $raw_img =~ s/\s+\"[^\"]*\"\s*$//;
         $raw_img =~ s/^\s+|\s+$//g;
-        $first_img = to_fm_image_path($raw_img);
+        $first_img = to_fm_image_path($raw_img, $file);
       }
       if ($first_img ne "") {
         $fm .= "\n" if $fm !~ /\n\z/;
