@@ -60,6 +60,7 @@ sub basename_no_ext {
 
 my @files = @ARGV;
 my %slug_by_name = ();
+my %title_by_name = ();
 my %content_by_file = ();
 
 # Pass 1: build filename -> slug map from frontmatter.
@@ -73,16 +74,24 @@ for my $file (@files) {
 
   my $base = basename_no_ext($file);
   my $slug = $base;
+  my $title = $base;
   if ($text =~ /\A---\r?\n([\s\S]*?)\r?\n---\r?\n/) {
     my $fm = $1;
     if ($fm =~ /^slug:\s*(.+?)\s*$/m) {
       my $candidate = unquote($1);
       $slug = $candidate if $candidate ne "";
     }
+    if ($fm =~ /^title:\s*(.+?)\s*$/m) {
+      my $candidate = unquote($1);
+      $title = $candidate if $candidate ne "";
+    }
   }
 
   $slug_by_name{$base} = $slug;
   $slug_by_name{"$base.md"} = $slug;
+  $title_by_name{$base} = $title;
+  $title_by_name{"$base.md"} = $title;
+  $title_by_name{$slug} = $title;
 }
 
 sub resolve_to_slug {
@@ -90,6 +99,26 @@ sub resolve_to_slug {
   my $target = wiki_target($raw);
   return $target if $target eq "";
   return $slug_by_name{$target} // $target;
+}
+
+sub parse_wikilink_parts {
+  my ($raw) = @_;
+  my $inside = $raw;
+  $inside =~ s/^\[\[//;
+  $inside =~ s/\]\]$//;
+  my ($left, $alias) = split(/\|/, $inside, 2);
+  my ($target, $anchor) = split(/#/, ($left // ""), 2);
+  $target = trim($target // "");
+  $anchor = trim($anchor // "");
+  $alias  = trim($alias  // "");
+  return ($target, $anchor, $alias);
+}
+
+sub title_for_target {
+  my ($target, $slug) = @_;
+  return $title_by_name{$target} if exists $title_by_name{$target};
+  return $title_by_name{$slug}   if exists $title_by_name{$slug};
+  return $slug;
 }
 
 sub normalize_hub_frontmatter {
@@ -166,6 +195,24 @@ for my $file (@files) {
     $alt = "" if $alt =~ /^\d+(?:x\d+)?$/;
     "![$alt]($path)"
   }egi;
+
+  # Normalize Obsidian text wikilinks in markdown body:
+  # [[filename]] -> [[slug|Title]]
+  # [[slug]] -> [[slug|Title]]
+  # Keep explicit aliases as-is.
+  $text =~ s{(?<!!)\[\[[^\]]+\]\]}{
+    my $raw = $&;
+    my ($target, $anchor, $alias) = parse_wikilink_parts($raw);
+    if ($target eq "") {
+      $raw;
+    } else {
+      my $slug = $slug_by_name{$target} // $target;
+      my $label = $alias ne "" ? $alias : title_for_target($target, $slug);
+      my $left = $slug;
+      $left .= "#$anchor" if $anchor ne "";
+      "[[$left|$label]]";
+    }
+  }eg;
 
   # If image is missing in frontmatter, use first markdown image from body.
   $text =~ s{\A---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)\z}{

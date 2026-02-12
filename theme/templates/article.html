@@ -9,7 +9,14 @@
     {{- if $hubs }}
     <div class="tags">
       {{- range $hubs }}
-      <a class="tag" href="{{ $.BaseURL }}/{{ . }}">#{{ . }}</a>
+      {{- $hubSlug := . }}
+      {{- $hubTitle := . }}
+      {{- range $.Collections.home_hubs.Items }}
+        {{- if eq .Slug $hubSlug }}
+          {{- $hubTitle = .Title }}
+        {{- end }}
+      {{- end }}
+      <a class="tag" href="{{ $.BaseURL }}/{{ $hubSlug }}">#{{ $hubTitle }}</a>
       {{- end }}
     </div>
     {{- end }}
