@@ -4,7 +4,7 @@
   {{- $isHome := eq .Page.Type "home" -}}
   {{- $pageURL := .Canonical -}}
   {{- if not $pageURL }}{{- $pageURL = printf "%s/" .BaseURL -}}{{- end -}}
-  {{- $siteName := "Личный портал" -}}
+  {{- $siteName := "Системы, автоматизация, мышление, ИИ" -}}
   {{- $ogImage := printf "%s/assets/notepub.svg" .BaseURL -}}
   {{- $hasOGImage := false -}}
   {{- range .Meta.OpenGraph -}}
