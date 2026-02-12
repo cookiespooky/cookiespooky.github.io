@@ -111,14 +111,11 @@
 
   <aside class="mobile-nav" data-nav-panel aria-hidden="true">
     <div class="mobile-nav-inner">
-      <div class="mobile-nav-header">
-        <span>Навигация</span>
-      </div>
       <nav class="mobile-nav-links">
         <a href="{{ .BaseURL }}/">Главная</a>
-        <a href="{{ .BaseURL }}/notepub">Notepub</a>
-        <a href="{{ .BaseURL }}/self-tracker">Self Tracker</a>
-        <a href="{{ .BaseURL }}/search">Поиск</a>
+        {{- range .Collections.home_hubs.Items }}
+        <a href="{{ $.BaseURL }}/{{ .Slug }}">{{ .Title }}</a>
+        {{- end }}
       </nav>
       <div class="mobile-nav-footer">
         <a class="footer-telegram" href="https://t.me/thefoundersway" target="_blank" rel="noopener" aria-label="Telegram Channel">

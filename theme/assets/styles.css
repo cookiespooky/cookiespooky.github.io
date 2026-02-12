@@ -750,6 +750,9 @@ a:hover { text-decoration: underline; }
   padding: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 24px;
   z-index: 2;
   transform: translateX(100%);
@@ -764,17 +767,11 @@ a:hover { text-decoration: underline; }
   transform: translateX(0);
 }
 
-.mobile-nav-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "Nunito Sans", "Segoe UI", sans-serif;
-}
-
 .mobile-nav-links,
 .mobile-nav-footer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 14px;
   font-size: 1.05rem;
 }
