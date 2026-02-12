@@ -11,24 +11,81 @@ fi
 
 echo "normalize-obsidian-embeds: scanning $ROOT_DIR"
 
-find "$ROOT_DIR" -type f -name '*.md' -print0 | while IFS= read -r -d '' file; do
-  perl -0777 -i - "$file" <<'PERL'
+FILES_RAW="$(find "$ROOT_DIR" -type f -name '*.md' -print)"
+if [[ -z "$FILES_RAW" ]]; then
+  echo "normalize-obsidian-embeds: no markdown files found"
+  exit 0
+fi
+
+perl -0777 -i - $FILES_RAW <<'PERL'
+use strict;
+use warnings;
+
 sub trim {
   my ($s) = @_;
+  $s //= "";
   $s =~ s/^\s+|\s+$//g;
   return $s;
 }
 
-sub normalize_wikilink_value {
-  my ($raw) = @_;
-  my $v = trim($raw);
+sub unquote {
+  my ($v) = @_;
+  $v = trim($v);
   $v =~ s/^"(.*)"$/$1/s;
   $v =~ s/^'(.*)'$/$1/s;
-  # [[slug]], [[slug|alias]], [[slug#anchor]], [[slug#anchor|alias]]
+  return $v;
+}
+
+sub wiki_target {
+  my ($raw) = @_;
+  my $v = unquote($raw);
+  # [[target]], [[target|alias]], [[target#anchor]], [[target#anchor|alias]]
   if ($v =~ /^\[\[([^\]#|]+)(?:#[^\]|]+)?(?:\|[^\]]+)?\]\]$/) {
     return trim($1);
   }
   return $v;
+}
+
+sub basename_no_ext {
+  my ($path) = @_;
+  my $name = $path;
+  $name =~ s!.*[/\\]!!;
+  $name =~ s/\.md$//i;
+  return $name;
+}
+
+my @files = @ARGV;
+my %slug_by_name = ();
+my %content_by_file = ();
+
+# Pass 1: build filename -> slug map from frontmatter.
+for my $file (@files) {
+  local $/;
+  open my $fh, '<', $file or die "open $file: $!";
+  my $text = <$fh>;
+  close $fh;
+
+  $content_by_file{$file} = $text;
+
+  my $base = basename_no_ext($file);
+  my $slug = $base;
+  if ($text =~ /\A---\r?\n([\s\S]*?)\r?\n---\r?\n/) {
+    my $fm = $1;
+    if ($fm =~ /^slug:\s*(.+?)\s*$/m) {
+      my $candidate = unquote($1);
+      $slug = $candidate if $candidate ne "";
+    }
+  }
+
+  $slug_by_name{$base} = $slug;
+  $slug_by_name{"$base.md"} = $slug;
+}
+
+sub resolve_to_slug {
+  my ($raw) = @_;
+  my $target = wiki_target($raw);
+  return $target if $target eq "";
+  return $slug_by_name{$target} // $target;
 }
 
 sub normalize_hub_frontmatter {
@@ -40,9 +97,9 @@ sub normalize_hub_frontmatter {
   while ($i <= $#lines) {
     my $line = $lines[$i];
 
-    # hub scalar: hub: [[slug]]
+    # hub scalar: hub: [[filename]] / hub: slug
     if ($line =~ /^hub:\s*(\S.*)$/) {
-      my $norm = normalize_wikilink_value($1);
+      my $norm = resolve_to_slug($1);
       push @out, "hub:";
       push @out, "  - \"$norm\"";
       $i++;
@@ -51,12 +108,13 @@ sub normalize_hub_frontmatter {
 
     # hub list:
     # hub:
-    #   - [[slug]]
+    #   - [[filename]]
+    #   - slug
     if ($line =~ /^hub:\s*$/) {
       push @out, "hub:";
       $i++;
       while ($i <= $#lines && $lines[$i] =~ /^[ \t]+-\s*(.*?)\s*$/) {
-        my $norm = normalize_wikilink_value($1);
+        my $norm = resolve_to_slug($1);
         push @out, "  - \"$norm\"";
         $i++;
       }
@@ -70,17 +128,20 @@ sub normalize_hub_frontmatter {
   return join("\n", @out);
 }
 
-while (<>) {
+# Pass 2: rewrite each file with normalized frontmatter + image embeds.
+for my $file (@files) {
+  my $text = $content_by_file{$file};
+
   # Normalize Obsidian wikilinks in frontmatter hub field only.
   # Body wikilinks stay untouched.
-  s{\A---\r?\n([\s\S]*?)\r?\n---\r?\n}{
+  $text =~ s{\A---\r?\n([\s\S]*?)\r?\n---\r?\n}{
     my $fm = $1;
     my $norm = normalize_hub_frontmatter($fm);
     "---\n$norm\n---\n";
   }eg;
 
   # Normalize Obsidian image embeds in markdown body.
-  s{!\[\[([^\]|]+?\.(?:png|jpe?g|gif|webp|svg|avif|bmp|ico))(?:\#[^\]|]+)?(?:\|([^\]]+))?\]\]}{
+  $text =~ s{!\[\[([^\]|]+?\.(?:png|jpe?g|gif|webp|svg|avif|bmp|ico))(?:\#[^\]|]+)?(?:\|([^\]]+))?\]\]}{
     my $path = $1;
     my $alt = defined($2) ? $2 : "";
     $alt =~ s/^\s+|\s+$//g;
@@ -88,9 +149,10 @@ while (<>) {
     "![$alt]($path)"
   }egi;
 
-  print;
+  open my $out, '>', $file or die "write $file: $!";
+  print {$out} $text;
+  close $out;
 }
 PERL
-done
 
 echo "normalize-obsidian-embeds: done"
