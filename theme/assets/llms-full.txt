@@ -9,8 +9,10 @@
 
 ## Маршруты
 - Главная: https://cookiespooky.github.io/
-- Хаб Notepub: https://cookiespooky.github.io/notepub/
-- Хаб Self Tracker: https://cookiespooky.github.io/self-tracker/
+- Хаб Notepub: https://cookiespooky.github.io/notepub-hub
+- Хаб Self Tracker: https://cookiespooky.github.io/self-tracker-hub
+- Кейс: учебный центр: https://cookiespooky.github.io/edu-center-case
+- Статья: RFM-анализ: https://cookiespooky.github.io/articles/rfm-analysis-promo
 - Страница поиска: https://cookiespooky.github.io/search/
 
 ## Обнаружение и индексация
