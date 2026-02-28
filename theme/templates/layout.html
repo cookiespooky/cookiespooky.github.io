@@ -112,7 +112,6 @@
   <aside class="mobile-nav" data-nav-panel aria-hidden="true">
     <div class="mobile-nav-inner">
       <nav class="mobile-nav-links">
-        <a href="{{ .BaseURL }}/">Главная</a>
         {{- range .Collections.home_hubs.Items }}
         <a href="{{ $.BaseURL }}/{{ .Slug }}">{{ .Title }}</a>
         {{- end }}
@@ -146,7 +145,6 @@
       <form class="search-form" action="{{ .BaseURL }}/search" method="get">
         <input type="search" name="q" placeholder="Поиск..." minlength="2" data-search-input />
         <button type="submit">Найти</button>
-        <button type="button" class="ghost" data-search-close>Закрыть</button>
       </form>
       <div class="search-results" data-search-results></div>
     </div>

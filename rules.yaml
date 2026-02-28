@@ -47,6 +47,12 @@ types:
     include_in:
       sitemap: false
       search: false
+  footer:
+    template: "page.html"
+    permalink: "/footer/"
+    include_in:
+      sitemap: false
+      search: false
 
 links:
   - name: "belongs_to"
@@ -180,7 +186,7 @@ sitemap:
   exclude_drafts: true
 
 search:
-  include_types: ["page", "article"]
+  include_types: ["hub", "article"]
   exclude_drafts: true
   fields_boost:
     title: 3

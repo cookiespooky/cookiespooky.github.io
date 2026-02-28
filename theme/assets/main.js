@@ -123,6 +123,65 @@
 })();
 
 (function () {
+  var headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6');
+  if (!headings.length) return;
+
+  var cyrMap = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+  };
+
+  function slugify(text) {
+    var s = (text || '').toLowerCase().trim();
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      out += Object.prototype.hasOwnProperty.call(cyrMap, ch) ? cyrMap[ch] : ch;
+    }
+    out = out
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9\s-]/g, ' ')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    return out;
+  }
+
+  var used = Object.create(null);
+  headings.forEach(function (h) {
+    if (h.id) {
+      used[h.id] = true;
+      return;
+    }
+    var base = slugify(h.textContent || '');
+    if (!base) return;
+    var id = base;
+    var n = 2;
+    while (used[id] || document.getElementById(id)) {
+      id = base + '-' + n;
+      n += 1;
+    }
+    h.id = id;
+    used[id] = true;
+  });
+
+  function scrollToHash() {
+    var hash = window.location.hash ? window.location.hash.slice(1) : '';
+    if (!hash) return;
+    var id = decodeURIComponent(hash);
+    var target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView();
+  }
+
+  scrollToHash();
+  window.addEventListener('hashchange', scrollToHash);
+})();
+
+(function () {
   var filterWrap = document.querySelector('[data-hub-filters]');
   var cards = Array.prototype.slice.call(document.querySelectorAll('[data-article-card]'));
   var titleEl = document.querySelector('[data-blog-title]');
