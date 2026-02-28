@@ -1,8 +1,8 @@
 site:
   id: default
   base_url: "http://127.0.0.1:8080/" # must end with /
-  title: "Личный портал"
-  description: "Личный портал с блогом и хабами."
+  title: "Антон Ложкин"
+  description: "Личный портал"
   default_og_image: "/assets/main.webp"
 content:
   source: "local"
