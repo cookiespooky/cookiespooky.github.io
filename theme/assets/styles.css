@@ -892,6 +892,7 @@ a:hover { text-decoration: underline; }
   right: 0;
   top: var(--header-height);
   height: calc(100% - var(--header-height));
+  height: calc(100dvh - var(--header-height));
   z-index: 1100;
   opacity: 0;
   visibility: hidden;
@@ -973,8 +974,6 @@ a:hover { text-decoration: underline; }
 }
 
 body.nav-open {
-  position: fixed;
-  width: 100%;
   overflow: hidden;
 }
 

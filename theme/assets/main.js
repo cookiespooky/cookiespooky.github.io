@@ -227,18 +227,13 @@
   var navOpen = document.querySelector('[data-nav-open]');
   var navCloseBtns = document.querySelectorAll('[data-nav-close]');
   var header = document.querySelector('.site-header');
-  var pageScrollY = 0;
 
   function lockBodyScroll() {
-    pageScrollY = window.scrollY || window.pageYOffset || 0;
     document.body.classList.add('nav-open');
-    document.body.style.top = (-pageScrollY) + 'px';
   }
 
   function unlockBodyScroll() {
     document.body.classList.remove('nav-open');
-    document.body.style.top = '';
-    window.scrollTo(0, pageScrollY);
   }
 
   function openNav() {
