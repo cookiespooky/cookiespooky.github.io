@@ -954,7 +954,22 @@ a:hover { text-decoration: underline; }
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
   gap: 12px;
+}
+
+.mobile-nav-footer .footer-telegram,
+.mobile-nav-footer .footer-github,
+.mobile-nav-footer .footer-vcru {
+  width: 48px;
+  height: 48px;
+}
+
+.mobile-nav-footer .footer-telegram img,
+.mobile-nav-footer .footer-github svg,
+.mobile-nav-footer .footer-vcru svg {
+  width: 30px;
+  height: 30px;
 }
 
 body.nav-open {

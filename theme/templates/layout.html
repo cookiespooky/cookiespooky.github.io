@@ -111,11 +111,6 @@
 
   <aside class="mobile-nav" data-nav-panel aria-hidden="true">
     <div class="mobile-nav-inner">
-      <nav class="mobile-nav-links">
-        {{- range .Collections.home_hubs.Items }}
-        <a href="{{ $.BaseURL }}/{{ .Slug }}">{{ .Title }}</a>
-        {{- end }}
-      </nav>
       <div class="mobile-nav-footer">
         <a class="footer-telegram" href="https://t.me/thefoundersway" target="_blank" rel="noopener" aria-label="Telegram Channel">
           <img src="/assets/Logo.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
