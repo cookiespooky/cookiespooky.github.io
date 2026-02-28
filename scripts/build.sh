@@ -66,10 +66,7 @@ fi
 echo "[4/5] normalize robots"
 if [[ -f "$OUT/robots.txt" ]]; then
   awk '!/^LLM: /' "$OUT/robots.txt" > "$OUT/robots.txt.tmp"
-  {
-    cat "$OUT/robots.txt.tmp"
-    echo "LLM: ${BASE_URL}/llms.txt"
-  } > "$OUT/robots.txt"
+  cat "$OUT/robots.txt.tmp" > "$OUT/robots.txt"
   rm -f "$OUT/robots.txt.tmp"
 fi
 
