@@ -301,6 +301,64 @@
     window.addEventListener("resize", setHeaderHeight);
   }
 
+  function parseNpEmbedConfig(raw) {
+    var config = {};
+    if (!raw) return config;
+    raw.split(/\r?\n/).forEach(function (line) {
+      var trimmed = line.trim();
+      if (!trimmed) return;
+      var idx = trimmed.indexOf(":");
+      if (idx <= 0) return;
+      var key = trimmed.slice(0, idx).trim().toLowerCase();
+      var value = trimmed.slice(idx + 1).trim();
+      if (!value) return;
+      config[key] = value;
+    });
+    return config;
+  }
+
+  function initMarkdownEmbeds(scope) {
+    var root = scope || document;
+    var blocks = root.querySelectorAll("pre > code.language-np-embed");
+    if (!blocks.length) return;
+
+    blocks.forEach(function (code) {
+      var pre = code.parentElement;
+      if (!pre || pre.dataset.embedInited === "1") return;
+      pre.dataset.embedInited = "1";
+
+      var cfg = parseNpEmbedConfig(code.textContent || "");
+      var id = (cfg.id || "").toLowerCase();
+
+      // Allow only simple slug-like ids to avoid path injection.
+      if (!/^[a-z0-9-]+$/.test(id)) return;
+
+      var title = cfg.title || ("Animation: " + id);
+      var src = withBasePath("/assets/animations/" + id + "/index.html");
+
+      var wrapper = document.createElement("div");
+      wrapper.className = "np-embed";
+
+      var iframe = document.createElement("iframe");
+      iframe.className = "np-embed-frame";
+      iframe.src = src;
+      iframe.title = title;
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "no-referrer";
+      // Needed for fetch/XHR to same-site assets from inside the sandboxed iframe.
+      iframe.sandbox = "allow-scripts allow-same-origin";
+      iframe.style.width = "100%";
+      iframe.style.aspectRatio = "1 / 1";
+      iframe.style.border = "none";
+      iframe.style.display = "block";
+      iframe.style.background = "#fff";
+
+      wrapper.appendChild(iframe);
+      pre.replaceWith(wrapper);
+    });
+  }
+
+  initMarkdownEmbeds(document.querySelector("main") || document);
   initSearchModal();
   initHubFilters();
   initMobileNav();
