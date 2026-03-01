@@ -1,4 +1,6 @@
 (() => {
+  const params = new URLSearchParams(window.location.search);
+  const motionParam = (params.get("motion") || "").toLowerCase();
   const frame = document.getElementById("frame");
   const headRunner = document.getElementById("headRunner");
   const rearRunner = document.getElementById("rearRunner");
@@ -54,6 +56,16 @@
     },
   };
 
+  function resolveReducedMotion() {
+    if (motionParam === "on" || motionParam === "full" || motionParam === "force") {
+      return false;
+    }
+    if (motionParam === "off" || motionParam === "reduce") {
+      return true;
+    }
+    return reducedMotion.matches;
+  }
+
   const state = {
     phase: "grow",
     phaseStartedAt: 0,
@@ -64,7 +76,7 @@
     stripeThickness: CONFIG.stripe.bodyThicknessFallback,
     stripe: null,
     rafId: 0,
-    reduced: reducedMotion.matches,
+    reduced: resolveReducedMotion(),
     ready: false,
     scale: 1,
     trackStart: CONFIG.track.xStart,
@@ -328,6 +340,8 @@
   }
 
   reducedMotion.addEventListener("change", (event) => {
+    if (motionParam === "on" || motionParam === "full" || motionParam === "force") return;
+    if (motionParam === "off" || motionParam === "reduce") return;
     state.reduced = event.matches;
     scheduleNeonFlicker();
     recalc(performance.now());

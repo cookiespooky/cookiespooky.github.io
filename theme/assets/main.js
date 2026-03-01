@@ -334,7 +334,7 @@
       if (!/^[a-z0-9-]+$/.test(id)) return;
 
       var title = cfg.title || ("Animation: " + id);
-      var src = withBasePath("/assets/animations/" + id + "/index.html");
+      var src = withBasePath("/assets/animations/" + id + "/index.html?motion=on");
 
       var wrapper = document.createElement("div");
       wrapper.className = "np-embed";
