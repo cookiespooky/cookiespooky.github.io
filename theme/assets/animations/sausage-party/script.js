@@ -1,6 +1,10 @@
 (() => {
   const params = new URLSearchParams(window.location.search);
   const motionParam = (params.get("motion") || "").toLowerCase();
+  const forceMotion = motionParam === "on" || motionParam === "full" || motionParam === "force";
+  if (forceMotion) {
+    document.documentElement.classList.add("force-motion");
+  }
   const frame = document.getElementById("frame");
   const headRunner = document.getElementById("headRunner");
   const rearRunner = document.getElementById("rearRunner");

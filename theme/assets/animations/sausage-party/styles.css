@@ -331,3 +331,21 @@ body {
     animation: none !important;
   }
 }
+
+html.force-motion .front-leg,
+html.force-motion .back-leg {
+  animation: step var(--step-speed) ease-in-out infinite alternate !important;
+}
+
+html.force-motion .front-leg.leg-b,
+html.force-motion .back-leg.leg-b {
+  animation-delay: calc(var(--step-speed) / -2) !important;
+}
+
+html.force-motion .tail-shape {
+  animation: wag var(--wag-speed) ease-in-out infinite alternate !important;
+}
+
+html.force-motion .welcome-letter.is-flickering {
+  animation: neon-flicker 0.2s steps(2, end) infinite !important;
+}
