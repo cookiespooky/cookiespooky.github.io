@@ -108,6 +108,33 @@ a:hover { text-decoration: underline; }
 
 .container { width: min(900px, 92vw); margin: 0 auto; }
 
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 22px 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.breadcrumbs a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--ink);
+}
+
+.breadcrumbs-current {
+  color: var(--ink);
+}
+
+.breadcrumbs-sep {
+  opacity: 0.7;
+}
+
 .site-header {
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -834,6 +861,11 @@ a:hover { text-decoration: underline; }
 }
 
 @media (max-width: 820px) {
+  .breadcrumbs {
+    margin-top: 16px;
+    font-size: 0.85rem;
+  }
+
   .header-social {
     display: none !important;
   }
