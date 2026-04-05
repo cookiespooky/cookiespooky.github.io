@@ -1346,8 +1346,14 @@ body.nav-open {
 }
 
 .agency-tool.is-result-mode .agency-filter-wrap {
-  position: static;
+  position: relative;
   display: inline-block;
+}
+
+.agency-tool.is-result-mode .agency-filter-menu {
+  top: calc(100% + 8px);
+  bottom: auto;
+  right: 0;
 }
 
 @media (max-width: 720px) {
