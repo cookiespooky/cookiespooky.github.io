@@ -375,6 +375,7 @@
     var resultText = root.querySelector("[data-aa-result-text]");
     var resultAnalysis = root.querySelector("[data-aa-result-analysis]");
     var retryBtn = root.querySelector("[data-aa-retry]");
+    var retryWrap = root.querySelector("[data-aa-retry-wrap]");
     var errorBox = root.querySelector("[data-aa-error]");
 
     var filterWrap = root.querySelector("[data-aa-filter-wrap]");
@@ -382,7 +383,6 @@
     var filterMenu = root.querySelector("[data-aa-filter-menu]");
     var filterOptions = Array.prototype.slice.call(root.querySelectorAll("[data-aa-filter-option]"));
     var currentFilterLabel = root.querySelector("[data-aa-current-filter-label]");
-    var currentFilterLevel = root.querySelector("[data-aa-current-filter-level]");
 
     if (!form || !textArea || !inputShell || !output || !loader || !result || !retryBtn || !filterToggle || !filterMenu) return;
 
@@ -393,11 +393,11 @@
     };
 
     var filterToneMap = {
-      neutral: { label: "Нейтральный", level: "Низкая раздражимость" },
-      direct: { label: "Прямолинейный", level: "Умеренная раздражимость" },
-      radical: { label: "Радикальный", level: "Средняя раздражимость" },
-      aggressive: { label: "Агрессивный", level: "Высокая раздражимость" },
-      toxic: { label: "Токсичный", level: "Критическая раздражимость" }
+      neutral: "нейтральная",
+      direct: "прямолинейная",
+      radical: "радикальная",
+      aggressive: "агрессивная",
+      toxic: "токсичная"
     };
 
     function setError(message) {
@@ -428,8 +428,7 @@
 
     function updateFilterToggle() {
       var tone = filterToneMap[state.selectedFilter] || filterToneMap.neutral;
-      if (currentFilterLabel) currentFilterLabel.textContent = tone.label;
-      if (currentFilterLevel) currentFilterLevel.textContent = tone.level;
+      if (currentFilterLabel) currentFilterLabel.textContent = "Формулировка: " + tone;
     }
 
     function selectFilter(key) {
@@ -469,6 +468,7 @@
       loader.hidden = true;
       result.hidden = true;
       retryBtn.hidden = true;
+      if (retryWrap) retryWrap.hidden = true;
       state.results = null;
       setError("");
       textArea.focus();
@@ -549,6 +549,7 @@
         root.classList.add("is-result-mode");
         renderResult();
         retryBtn.hidden = false;
+        if (retryWrap) retryWrap.hidden = false;
       } catch (err) {
         setLoading(false);
         output.hidden = true;

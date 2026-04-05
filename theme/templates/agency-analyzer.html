@@ -3,7 +3,6 @@
     <header class="agency-tool-header">
       <h1>Опишите свою ситуацию, которую вы хотите решить</h1>
       <p class="agency-tool-subtitle">Получите перевод на объективный язык.</p>
-      <a class="agency-secondary-btn" href="/irritability-conflict-mechanism/">Как это работает?</a>
     </header>
 
     <form class="agency-form" data-aa-form>
@@ -12,14 +11,13 @@
           class="agency-textarea"
           data-aa-text
           maxlength="500"
-          placeholder="Например: Меня постоянно недооценивают, поэтому у меня ничего не получается"
+          placeholder="Например: Я хочу изменить свою жизнь, но не знаю, с чего начать"
           required
         ></textarea>
 
         <div class="agency-filter-wrap" data-aa-filter-wrap>
           <button type="button" class="agency-filter-toggle" data-aa-filter-toggle aria-expanded="false" aria-haspopup="listbox">
-            <span class="agency-filter-toggle-label" data-aa-current-filter-label>Нейтральный</span>
-            <span class="agency-filter-toggle-level" data-aa-current-filter-level>Низкая раздражимость</span>
+            <span class="agency-filter-toggle-label" data-aa-current-filter-label>Формулировка: нейтральная</span>
             <span class="agency-filter-toggle-caret" aria-hidden="true">▾</span>
           </button>
 
@@ -70,7 +68,7 @@
       <div class="agency-counter"><span data-aa-char-count>0</span>/500</div>
 
       <div class="agency-actions" data-aa-submit-row>
-        <button type="submit" class="agency-primary-btn">Сделать анализ</button>
+        <button type="submit" class="agency-primary-btn">Получить перевод</button>
       </div>
     </form>
 
@@ -91,8 +89,12 @@
 
     <p class="agency-error" data-aa-error hidden></p>
 
-    <div class="agency-actions">
+    <div class="agency-actions" data-aa-retry-wrap hidden>
       <button type="button" class="agency-secondary-btn" data-aa-retry hidden>Попробовать еще раз</button>
+    </div>
+
+    <div class="agency-actions agency-how-wrap">
+      <a class="agency-how-link" href="/irritability-conflict-mechanism/">Как это работает?</a>
     </div>
   </div>
 </section>
