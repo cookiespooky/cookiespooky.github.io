@@ -358,7 +358,209 @@
     });
   }
 
+  function initAgencyAnalyzer() {
+    var root = document.querySelector("[data-agency-analyzer]");
+    if (!root) return;
+
+    var endpoint = root.getAttribute("data-endpoint") || "";
+    var form = root.querySelector("[data-aa-form]");
+    var textArea = root.querySelector("[data-aa-text]");
+    var inputShell = root.querySelector("[data-aa-input-shell]");
+    var counter = root.querySelector("[data-aa-char-count]");
+    var submitRow = root.querySelector("[data-aa-submit-row]");
+    var output = root.querySelector("[data-aa-output]");
+    var loader = root.querySelector("[data-aa-loader]");
+    var result = root.querySelector("[data-aa-result]");
+    var resultFilter = root.querySelector("[data-aa-result-filter]");
+    var resultText = root.querySelector("[data-aa-result-text]");
+    var resultAnalysis = root.querySelector("[data-aa-result-analysis]");
+    var retryBtn = root.querySelector("[data-aa-retry]");
+    var errorBox = root.querySelector("[data-aa-error]");
+
+    var filterWrap = root.querySelector("[data-aa-filter-wrap]");
+    var filterToggle = root.querySelector("[data-aa-filter-toggle]");
+    var filterMenu = root.querySelector("[data-aa-filter-menu]");
+    var filterOptions = Array.prototype.slice.call(root.querySelectorAll("[data-aa-filter-option]"));
+    var currentFilterLabel = root.querySelector("[data-aa-current-filter-label]");
+    var currentFilterLevel = root.querySelector("[data-aa-current-filter-level]");
+
+    if (!form || !textArea || !inputShell || !output || !loader || !result || !retryBtn || !filterToggle || !filterMenu) return;
+
+    var state = {
+      selectedFilter: "neutral",
+      results: null,
+      loading: false
+    };
+
+    var filterToneMap = {
+      neutral: { label: "Нейтральный", level: "Низкая раздражимость" },
+      direct: { label: "Прямолинейный", level: "Умеренная раздражимость" },
+      radical: { label: "Радикальный", level: "Средняя раздражимость" },
+      aggressive: { label: "Агрессивный", level: "Высокая раздражимость" },
+      toxic: { label: "Токсичный", level: "Критическая раздражимость" }
+    };
+
+    function setError(message) {
+      if (!errorBox) return;
+      if (!message) {
+        errorBox.hidden = true;
+        errorBox.textContent = "";
+        return;
+      }
+      errorBox.hidden = false;
+      errorBox.textContent = message;
+    }
+
+    function updateCounter() {
+      if (!counter) return;
+      counter.textContent = String((textArea.value || "").length);
+    }
+
+    function closeFilterMenu() {
+      filterMenu.hidden = true;
+      filterToggle.setAttribute("aria-expanded", "false");
+    }
+
+    function openFilterMenu() {
+      filterMenu.hidden = false;
+      filterToggle.setAttribute("aria-expanded", "true");
+    }
+
+    function updateFilterToggle() {
+      var tone = filterToneMap[state.selectedFilter] || filterToneMap.neutral;
+      if (currentFilterLabel) currentFilterLabel.textContent = tone.label;
+      if (currentFilterLevel) currentFilterLevel.textContent = tone.level;
+    }
+
+    function selectFilter(key) {
+      state.selectedFilter = key;
+      filterOptions.forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-filter-key") === key);
+      });
+      updateFilterToggle();
+      closeFilterMenu();
+      if (state.results) renderResult();
+    }
+
+    function renderResult() {
+      if (!state.results) return;
+      var data = state.results[state.selectedFilter];
+      if (!data) return;
+      resultFilter.textContent = (data.label || "") + " фильтр";
+      resultText.textContent = data.objective_text || "";
+      resultAnalysis.textContent = data.agency_analysis || "";
+      result.hidden = false;
+    }
+
+    function setLoading(loading) {
+      state.loading = loading;
+      output.hidden = false;
+      loader.hidden = !loading;
+      if (loading) {
+        result.hidden = true;
+      }
+    }
+
+    function showInputMode() {
+      inputShell.hidden = false;
+      if (submitRow) submitRow.hidden = false;
+      output.hidden = true;
+      loader.hidden = true;
+      result.hidden = true;
+      retryBtn.hidden = true;
+      state.results = null;
+      setError("");
+      textArea.focus();
+      updateCounter();
+    }
+
+    async function submitOnce(text) {
+      var response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: text })
+      });
+
+      var data = await response.json().catch(function () { return {}; });
+      if (!response.ok) {
+        throw new Error((data && (data.details || data.error)) || "Ошибка анализа");
+      }
+      if (!data || !data.results) {
+        throw new Error("Пустой ответ от сервиса");
+      }
+      return data.results;
+    }
+
+    filterToggle.addEventListener("click", function () {
+      if (filterMenu.hidden) openFilterMenu();
+      else closeFilterMenu();
+    });
+
+    filterOptions.forEach(function (option) {
+      option.addEventListener("click", function () {
+        var key = option.getAttribute("data-filter-key");
+        if (!key) return;
+        selectFilter(key);
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!filterWrap.contains(event.target)) closeFilterMenu();
+    });
+
+    textArea.addEventListener("input", function () {
+      updateCounter();
+    });
+
+    retryBtn.addEventListener("click", function () {
+      showInputMode();
+    });
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      if (state.loading) return;
+
+      var text = (textArea.value || "").trim();
+      if (!text) {
+        setError("Введите фразу для анализа.");
+        return;
+      }
+      if (text.length > 500) {
+        setError("Лимит: 500 символов.");
+        return;
+      }
+      if (!endpoint) {
+        setError("Не задан endpoint API.");
+        return;
+      }
+
+      setError("");
+      closeFilterMenu();
+      inputShell.hidden = true;
+      if (submitRow) submitRow.hidden = true;
+      retryBtn.hidden = true;
+      setLoading(true);
+
+      try {
+        state.results = await submitOnce(text);
+        setLoading(false);
+        renderResult();
+        retryBtn.hidden = false;
+      } catch (err) {
+        setLoading(false);
+        output.hidden = true;
+        inputShell.hidden = false;
+        if (submitRow) submitRow.hidden = false;
+        setError(err && err.message ? err.message : "Не удалось выполнить анализ.");
+      }
+    });
+
+    updateCounter();
+    updateFilterToggle();
+  }
+
   initMarkdownEmbeds(document.querySelector("main") || document);
+  initAgencyAnalyzer();
   initSearchModal();
   initHubFilters();
   initMobileNav();

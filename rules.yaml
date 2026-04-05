@@ -53,6 +53,12 @@ types:
     include_in:
       sitemap: false
       search: false
+  tool:
+    template: "agency-analyzer.html"
+    permalink: "/{{ slug }}/"
+    include_in:
+      sitemap: true
+      search: false
 
 links:
   - name: "belongs_to"
@@ -182,7 +188,7 @@ collections:
       item_limit: 20
 
 sitemap:
-  include_types: ["home", "page", "article", "hub"]
+  include_types: ["home", "page", "article", "hub", "tool"]
   exclude_drafts: true
 
 search:
