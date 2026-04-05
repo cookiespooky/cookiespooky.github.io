@@ -1271,6 +1271,10 @@ body.nav-open {
   gap: 12px;
 }
 
+.agency-loader[hidden] {
+  display: none !important;
+}
+
 .agency-loader p {
   margin: 0;
   font-size: 0.95rem;
@@ -1327,6 +1331,23 @@ body.nav-open {
   margin-top: 12px;
   color: #c0302a;
   font-size: 0.92rem;
+}
+
+.agency-tool.is-result-mode .agency-textarea {
+  display: none;
+}
+
+.agency-tool.is-result-mode .agency-counter {
+  display: none;
+}
+
+.agency-tool.is-result-mode .agency-input-shell {
+  margin-top: 6px;
+}
+
+.agency-tool.is-result-mode .agency-filter-wrap {
+  position: static;
+  display: inline-block;
 }
 
 @media (max-width: 720px) {

@@ -462,6 +462,7 @@
     }
 
     function showInputMode() {
+      root.classList.remove("is-result-mode");
       inputShell.hidden = false;
       if (submitRow) submitRow.hidden = false;
       output.hidden = true;
@@ -544,6 +545,8 @@
       try {
         state.results = await submitOnce(text);
         setLoading(false);
+        inputShell.hidden = false;
+        root.classList.add("is-result-mode");
         renderResult();
         retryBtn.hidden = false;
       } catch (err) {
