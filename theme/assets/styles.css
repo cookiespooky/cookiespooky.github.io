@@ -1076,13 +1076,9 @@ body.nav-open {
 
 .agency-tool-header h1 {
   margin: 0;
-  font-size: 1.45rem;
-  line-height: 1.3;
 }
 
 .agency-tool-subtitle {
-  margin: 8px 0 16px;
-  color: var(--muted);
 }
 
 .agency-secondary-btn {
@@ -1109,31 +1105,32 @@ body.nav-open {
 
 .agency-input-shell {
   position: relative;
+  border: 1px solid #e1e4e8;
+  border-radius: 22px;
+  background: #f6f7f9;
+  padding: 14px 14px 58px;
 }
 
 .agency-textarea {
   width: 100%;
-  min-height: 180px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px 14px 62px;
+  min-height: 165px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
   resize: vertical;
   font: inherit;
   line-height: 1.5;
-  background: #fff;
+  background: transparent;
   color: var(--ink);
 }
 
 .agency-textarea:focus {
   outline: none;
-  border-color: #7ea7ff;
-  box-shadow: 0 0 0 3px rgba(126, 167, 255, 0.2);
+  box-shadow: none;
 }
 
 .agency-filter-wrap {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
+  display: none;
 }
 
 .agency-filter-toggle {
@@ -1242,14 +1239,25 @@ body.nav-open {
   margin-top: 14px;
 }
 
+.agency-submit-inline {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  margin-top: 0;
+}
+
 .agency-primary-btn {
   border: 1px solid #111111;
-  border-radius: 10px;
+  border-radius: 999px;
   background: #111111;
   color: #fff;
-  padding: 10px 14px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   font: inherit;
-  font-weight: 600;
   cursor: pointer;
 }
 
@@ -1334,12 +1342,12 @@ body.nav-open {
 }
 
 .agency-how-wrap {
-  margin-top: 8px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .agency-how-link {
   color: var(--muted);
-  font-weight: 700;
   text-decoration: none;
 }
 
@@ -1357,6 +1365,10 @@ body.nav-open {
 
 .agency-tool.is-result-mode .agency-input-shell {
   margin-top: 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
 }
 
 .agency-tool.is-result-mode .agency-filter-wrap {
@@ -1372,8 +1384,7 @@ body.nav-open {
 
 @media (max-width: 720px) {
   .agency-textarea {
-    min-height: 210px;
-    padding-bottom: 78px;
+    min-height: 200px;
   }
 
   .agency-filter-menu {
@@ -1384,9 +1395,4 @@ body.nav-open {
   .agency-filter-toggle {
     max-width: 92vw;
   }
-
-  .agency-primary-btn {
-    width: 100%;
-  }
-
 }
