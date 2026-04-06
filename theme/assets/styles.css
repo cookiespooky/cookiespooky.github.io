@@ -1239,14 +1239,14 @@ body.nav-open {
   margin-top: 14px;
 }
 
-.agency-input-footer {
+.agency-submit-inline {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
 }
 
-.agency-input-footer .agency-actions {
+.agency-submit-inline .agency-actions {
   margin-top: 0;
 }
 
