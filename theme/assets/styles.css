@@ -1304,20 +1304,20 @@ body.nav-open {
 }
 
 .agency-result {
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: 12px;
-  padding: 18px;
-  background: #fff;
+  padding: 0;
+  background: transparent;
 }
 
-.agency-result-filter {
-  display: inline-block;
-  margin: 0 0 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  padding: 4px 8px;
-  font-size: 0.78rem;
+.agency-source-label {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
   color: var(--muted);
+}
+
+.agency-source-text {
+  margin: 0 0 10px;
 }
 
 .agency-result h3,

@@ -372,6 +372,7 @@
     var loader = root.querySelector("[data-aa-loader]");
     var result = root.querySelector("[data-aa-result]");
     var resultFilter = root.querySelector("[data-aa-result-filter]");
+    var sourceTextEl = root.querySelector("[data-aa-source-text]");
     var resultText = root.querySelector("[data-aa-result-text]");
     var resultAnalysis = root.querySelector("[data-aa-result-analysis]");
     var retryBtn = root.querySelector("[data-aa-retry]");
@@ -389,6 +390,7 @@
     var state = {
       selectedFilter: "neutral",
       results: null,
+      sourceText: "",
       loading: false
     };
 
@@ -445,7 +447,8 @@
       if (!state.results) return;
       var data = state.results[state.selectedFilter];
       if (!data) return;
-      resultFilter.textContent = (data.label || "") + " фильтр";
+      if (sourceTextEl) sourceTextEl.textContent = state.sourceText || "";
+      if (resultFilter && currentFilterLabel) resultFilter.textContent = currentFilterLabel.textContent || "";
       resultText.textContent = data.objective_text || "";
       resultAnalysis.textContent = data.agency_analysis || "";
       result.hidden = false;
@@ -470,6 +473,7 @@
       retryBtn.hidden = true;
       if (retryWrap) retryWrap.hidden = true;
       state.results = null;
+      state.sourceText = "";
       setError("");
       textArea.focus();
       updateCounter();
@@ -537,6 +541,7 @@
 
       setError("");
       closeFilterMenu();
+      state.sourceText = text;
       inputShell.hidden = true;
       if (submitRow) submitRow.hidden = true;
       retryBtn.hidden = true;

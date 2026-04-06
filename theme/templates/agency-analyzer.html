@@ -63,13 +63,17 @@
             </div>
           </div>
         </div>
+
+        <div class="agency-actions agency-submit-inline" data-aa-submit-row>
+          <button type="submit" class="agency-primary-btn" aria-label="Получить перевод" title="Получить перевод">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path d="M4 12h13m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div class="agency-counter"><span data-aa-char-count>0</span>/500</div>
-
-      <div class="agency-actions" data-aa-submit-row>
-        <button type="submit" class="agency-primary-btn">Получить перевод</button>
-      </div>
     </form>
 
     <section class="agency-output" data-aa-output hidden>
@@ -79,10 +83,12 @@
       </div>
 
       <article class="agency-result" data-aa-result hidden>
-        <p class="agency-result-filter" data-aa-result-filter></p>
+        <p class="agency-source-label">Исходный текст</p>
+        <p class="agency-source-text" data-aa-source-text></p>
+        <p class="agency-filter-toggle-label" data-aa-result-filter></p>
         <h3>Объективная формулировка</h3>
         <p class="agency-result-text" data-aa-result-text></p>
-        <h4>Разбор агентности</h4>
+        <h3>Разбор агентности</h3>
         <p class="agency-result-analysis" data-aa-result-analysis></p>
       </article>
     </section>
