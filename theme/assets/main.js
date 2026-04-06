@@ -371,7 +371,6 @@
     var output = root.querySelector("[data-aa-output]");
     var loader = root.querySelector("[data-aa-loader]");
     var result = root.querySelector("[data-aa-result]");
-    var resultFilter = root.querySelector("[data-aa-result-filter]");
     var sourceTextEl = root.querySelector("[data-aa-source-text]");
     var resultText = root.querySelector("[data-aa-result-text]");
     var resultAnalysis = root.querySelector("[data-aa-result-analysis]");
@@ -453,7 +452,6 @@
       var data = state.results[state.selectedFilter];
       if (!data) return;
       if (sourceTextEl) sourceTextEl.textContent = state.sourceText || "";
-      if (resultFilter && currentFilterLabel) resultFilter.textContent = currentFilterLabel.textContent || "";
       resultText.textContent = data.objective_text || "";
       resultAnalysis.textContent = data.agency_analysis || "";
       result.hidden = false;

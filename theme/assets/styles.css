@@ -1278,6 +1278,20 @@ body.nav-open {
   height: 38px;
 }
 
+.agency-primary-btn-text {
+  border: 1px solid #111111;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 10px;
+  width: auto;
+  height: auto;
+  padding: 10px 14px;
+}
+
+.agency-primary-btn-text:hover {
+  background: #000000;
+}
+
 .agency-output {
   margin-top: 8px;
 }
@@ -1304,9 +1318,12 @@ body.nav-open {
 .agency-loader-spinner {
   width: 18px;
   height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  flex: 0 0 auto;
   border-radius: 999px;
-  border: 2px solid #d6deef;
-  border-top-color: #2b65f3;
+  border: 2px solid #c9c9c9;
+  border-top-color: #111111;
   animation: aa-spin 0.75s linear infinite;
 }
 
@@ -1376,6 +1393,10 @@ body.nav-open {
   display: none;
 }
 
+.agency-tool.is-result-mode .agency-submit-inline {
+  display: none;
+}
+
 .agency-tool.is-result-mode .agency-input-shell {
   margin-top: 6px;
   border: 0;
@@ -1403,5 +1424,9 @@ body.nav-open {
 
   .agency-filter-toggle {
     max-width: 92vw;
+  }
+
+  [data-aa-retry-wrap] {
+    text-align: center;
   }
 }
