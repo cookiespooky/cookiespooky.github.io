@@ -1108,7 +1108,7 @@ body.nav-open {
   border: 1px solid #e1e4e8;
   border-radius: 22px;
   background: #f6f7f9;
-  padding: 14px 14px 58px;
+  padding: 14px;
 }
 
 .agency-textarea {
@@ -1117,7 +1117,7 @@ body.nav-open {
   border: 0;
   border-radius: 0;
   padding: 0;
-  resize: vertical;
+  resize: none;
   font: inherit;
   line-height: 1.5;
   background: transparent;
@@ -1229,7 +1229,7 @@ body.nav-open {
 }
 
 .agency-counter {
-  margin-top: 8px;
+  margin-top: 0;
   text-align: right;
   font-size: 0.82rem;
   color: var(--muted);
@@ -1239,10 +1239,14 @@ body.nav-open {
   margin-top: 14px;
 }
 
-.agency-submit-inline {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
+.agency-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.agency-input-footer .agency-actions {
   margin-top: 0;
 }
 
@@ -1342,7 +1346,7 @@ body.nav-open {
 }
 
 .agency-how-wrap {
-  margin-top: 20px;
+  margin: 20px 0;
   text-align: center;
 }
 
