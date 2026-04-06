@@ -1105,9 +1105,9 @@ body.nav-open {
 
 .agency-input-shell {
   position: relative;
-  border: 1px solid #e1e4e8;
+  border: 0;
   border-radius: 22px;
-  background: #f6f7f9;
+  background: #eee;
   padding: 14px;
 }
 
@@ -1156,7 +1156,8 @@ body.nav-open {
 
 .agency-filter-menu {
   position: absolute;
-  right: 0;
+  left: 0;
+  right: auto;
   bottom: calc(100% + 8px);
   min-width: 320px;
   width: min(460px, calc(100vw - 24px));
@@ -1277,6 +1278,10 @@ body.nav-open {
   background: transparent;
 }
 
+.agency-primary-btn.is-icon {
+  padding: 0;
+}
+
 .agency-primary-btn svg {
   width: 38px;
   height: 38px;
@@ -1298,13 +1303,17 @@ body.nav-open {
 
 .agency-output {
   margin-top: 20px;
+  border: 0;
+  border-radius: 22px;
+  background: #eee;
+  padding: 14px;
 }
 
 .agency-loader {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px;
-  background: #fff;
+  border: 0;
+  border-radius: 22px;
+  padding: 14px;
+  background: #eee;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1415,14 +1424,15 @@ body.nav-open {
 .agency-tool.is-result-mode .agency-filter-menu {
   top: calc(100% + 8px);
   bottom: auto;
-  right: 0;
+  left: 0;
+  right: auto;
 }
 
 @media (max-width: 720px) {
   .agency-filter-menu {
-    left: 50%;
+    left: 0;
     right: auto;
-    transform: translateX(-50%);
+    transform: none;
     width: calc(100vw - 24px);
     max-width: calc(100vw - 24px);
     min-width: 0;

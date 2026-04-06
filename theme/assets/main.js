@@ -525,6 +525,18 @@
       updateCounter();
     });
 
+    textArea.addEventListener("keydown", function (event) {
+      if (event.key !== "Enter") return;
+      if (event.ctrlKey || event.metaKey) return;
+      event.preventDefault();
+      if (state.loading) return;
+      if (typeof form.requestSubmit === "function") {
+        form.requestSubmit();
+      } else {
+        form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+      }
+    });
+
     retryBtn.addEventListener("click", function () {
       showInputMode();
     });
