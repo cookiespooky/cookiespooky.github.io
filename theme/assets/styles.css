@@ -1100,7 +1100,7 @@ body.nav-open {
 }
 
 .agency-form {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .agency-input-shell {
@@ -1159,6 +1159,8 @@ body.nav-open {
   right: 0;
   bottom: calc(100% + 8px);
   min-width: 320px;
+  width: min(460px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #fff;
@@ -1264,9 +1266,11 @@ body.nav-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 8px 12px;
   font: inherit;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .agency-primary-btn:hover {
@@ -1293,7 +1297,7 @@ body.nav-open {
 }
 
 .agency-output {
-  margin-top: 8px;
+  margin-top: 20px;
 }
 
 .agency-loader {
@@ -1342,8 +1346,6 @@ body.nav-open {
 
 .agency-source-label {
   margin: 0 0 6px;
-  font-size: 0.82rem;
-  color: var(--muted);
 }
 
 .agency-source-text {
@@ -1418,8 +1420,12 @@ body.nav-open {
 
 @media (max-width: 720px) {
   .agency-filter-menu {
-    min-width: 280px;
-    right: -6px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    min-width: 0;
   }
 
   .agency-filter-toggle {
