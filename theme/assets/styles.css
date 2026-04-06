@@ -1160,7 +1160,7 @@ body.nav-open {
   right: auto;
   bottom: calc(100% + 8px);
   min-width: 320px;
-  width: min(460px, calc(100vw - 24px));
+  width: 100%;
   max-width: calc(100vw - 24px);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -1359,17 +1359,21 @@ body.nav-open {
 
 .agency-result h3,
 .agency-result h4 {
-  margin: 8px 0;
+  margin: 20px 0 6px;
 }
 
 .agency-result [data-aa-result-text],
 .agency-result [data-aa-result-analysis] {
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .agency-result [data-aa-result-analysis] {
-  margin-top: 6px;
   color: #364255;
+}
+
+.agency-result [data-aa-source-text] {
+  margin-top: 0;
 }
 
 .agency-error {
@@ -1446,4 +1450,9 @@ body.nav-open {
 
 [data-aa-retry-wrap] {
   margin: 20px;
+  text-align: center;
+}
+
+.agency-retry-btn {
+  padding: 6px 12px;
 }
