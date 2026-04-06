@@ -418,6 +418,11 @@
       counter.textContent = String((textArea.value || "").length);
     }
 
+    function autoGrowTextArea() {
+      textArea.style.height = "auto";
+      textArea.style.height = textArea.scrollHeight + "px";
+    }
+
     function closeFilterMenu() {
       filterMenu.hidden = true;
       filterToggle.setAttribute("aria-expanded", "false");
@@ -475,6 +480,7 @@
       state.results = null;
       state.sourceText = "";
       setError("");
+      autoGrowTextArea();
       textArea.focus();
       updateCounter();
     }
@@ -514,6 +520,7 @@
     });
 
     textArea.addEventListener("input", function () {
+      autoGrowTextArea();
       updateCounter();
     });
 
@@ -565,6 +572,7 @@
     });
 
     updateCounter();
+    autoGrowTextArea();
     updateFilterToggle();
   }
 

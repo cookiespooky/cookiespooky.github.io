@@ -1113,7 +1113,6 @@ body.nav-open {
 
 .agency-textarea {
   width: 100%;
-  min-height: 165px;
   border: 0;
   border-radius: 0;
   padding: 0;
@@ -1122,6 +1121,7 @@ body.nav-open {
   line-height: 1.5;
   background: transparent;
   color: var(--ink);
+  overflow: hidden;
 }
 
 .agency-textarea:focus {
@@ -1242,19 +1242,23 @@ body.nav-open {
 .agency-submit-inline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 14px;
   margin-top: 10px;
 }
 
 .agency-submit-inline .agency-actions {
   margin-top: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .agency-primary-btn {
-  border: 1px solid #111111;
+  border: none;
   border-radius: 999px;
-  background: #111111;
-  color: #fff;
+  background: transparent;
+  color: inherit;
   width: 38px;
   height: 38px;
   display: inline-flex;
@@ -1266,7 +1270,12 @@ body.nav-open {
 }
 
 .agency-primary-btn:hover {
-  background: #000000;
+  background: transparent;
+}
+
+.agency-primary-btn svg {
+  width: 38px;
+  height: 38px;
 }
 
 .agency-output {
@@ -1387,10 +1396,6 @@ body.nav-open {
 }
 
 @media (max-width: 720px) {
-  .agency-textarea {
-    min-height: 200px;
-  }
-
   .agency-filter-menu {
     min-width: 280px;
     right: -6px;
