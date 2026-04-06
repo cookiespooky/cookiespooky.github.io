@@ -1383,7 +1383,7 @@ body.nav-open {
 }
 
 .agency-how-wrap {
-  margin: 20px 0;
+  margin: 0;
   text-align: center;
 }
 
@@ -1419,6 +1419,7 @@ body.nav-open {
 .agency-tool.is-result-mode .agency-filter-wrap {
   position: relative;
   display: inline-block;
+  margin-bottom: 12px;
 }
 
 .agency-tool.is-result-mode .agency-filter-menu {
@@ -1445,4 +1446,8 @@ body.nav-open {
   [data-aa-retry-wrap] {
     text-align: center;
   }
+}
+
+[data-aa-retry-wrap] {
+  margin: 20px;
 }
