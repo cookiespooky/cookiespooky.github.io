@@ -1145,20 +1145,23 @@ body.nav-open {
   padding: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 6px;
   cursor: pointer;
   vertical-align: baseline;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 .agency-filter-toggle-label {
-  font-weight: 600;
-  font-size: 0.92em;
+  font: inherit;
   line-height: inherit;
 }
 
 .agency-filter-toggle-caret {
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.62em;
+  line-height: 1;
 }
 
 .agency-filter-menu {
