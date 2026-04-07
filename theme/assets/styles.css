@@ -1408,7 +1408,7 @@ body.nav-open {
 }
 
 .agency-how-note {
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 14px;
   color: var(--muted);
   display: none;
@@ -1446,7 +1446,7 @@ body.nav-open {
 .agency-tool.is-result-mode .agency-filter-wrap {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 0;
   width: auto;
   vertical-align: baseline;
 }
