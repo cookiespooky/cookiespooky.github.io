@@ -29,6 +29,8 @@
       }
       if (/^https?:\/\//i.test(href.trim())) {
         link.classList.add("is-external");
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
       }
     });
   }
