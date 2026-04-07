@@ -465,6 +465,7 @@
 
     function setLoading(loading) {
       state.loading = loading;
+      root.classList.toggle("is-loading", loading);
       output.hidden = false;
       loader.hidden = !loading;
       if (retryWrap) retryWrap.hidden = loading || !state.results || retryBtn.hidden;

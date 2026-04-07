@@ -1252,6 +1252,10 @@ body.nav-open {
   margin: 20px 0;
 }
 
+.agency-tool.is-loading .agency-actions {
+  display: none;
+}
+
 .agency-submit-inline {
   display: flex;
   align-items: center;
