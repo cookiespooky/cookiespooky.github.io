@@ -19,7 +19,6 @@
     var root = scope || document;
     var links = root.querySelectorAll(".prose a[href]");
     if (!links.length) return;
-    var host = window.location.hostname;
     links.forEach(function (link) {
       if (link.dataset.externalMarked === "1") return;
       link.dataset.externalMarked = "1";
@@ -28,13 +27,7 @@
       if (!href || href.indexOf("#") === 0 || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) {
         return;
       }
-      var url;
-      try {
-        url = new URL(href, window.location.href);
-      } catch (e) {
-        return;
-      }
-      if (url.hostname && url.hostname !== host) {
+      if (/^https?:\/\//i.test(href.trim())) {
         link.classList.add("is-external");
       }
     });
