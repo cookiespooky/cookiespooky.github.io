@@ -1359,7 +1359,8 @@ body.nav-open {
 }
 
 .agency-result [data-aa-source-text] {
-  margin: 0 0 10px;
+  margin: 20px 0 10px;
+  font-style: italic;
 }
 
 .agency-result h3,
@@ -1378,7 +1379,7 @@ body.nav-open {
 }
 
 .agency-result [data-aa-source-text] {
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .agency-error {
