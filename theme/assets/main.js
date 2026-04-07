@@ -390,11 +390,11 @@
     };
 
     var filterToneMap = {
-      neutral: { label: "нейтральная", color: "#1ea971" },
-      direct: { label: "прямолинейная", color: "#6ccf5a" },
-      radical: { label: "радикальная", color: "#d8a437" },
-      aggressive: { label: "агрессивная", color: "#d57431" },
-      toxic: { label: "токсичная", color: "#c2463b" }
+      neutral: { label: "нейтральный", color: "#1ea971" },
+      direct: { label: "прямолинейный", color: "#6ccf5a" },
+      radical: { label: "радикальный", color: "#d8a437" },
+      aggressive: { label: "агрессивный", color: "#d57431" },
+      toxic: { label: "токсичный", color: "#c2463b" }
     };
 
     function setError(message) {
@@ -438,7 +438,7 @@
     function updateFilterToggle() {
       var tone = filterToneMap[state.selectedFilter] || filterToneMap.neutral;
       if (currentFilterLabel) {
-        currentFilterLabel.textContent = "Формулировка: " + tone.label;
+        currentFilterLabel.textContent = tone.label;
         currentFilterLabel.style.color = tone.color;
       }
     }
