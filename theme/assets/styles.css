@@ -1463,7 +1463,7 @@ body.nav-open {
 }
 
 @media (max-width: 720px) {
-  .agency-filter-menu {
+  .agency-tool.is-result-mode .agency-filter-menu {
     left: 50%;
     right: auto;
     transform: translateX(-50%);
