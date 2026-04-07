@@ -468,6 +468,9 @@
       root.classList.toggle("is-loading", loading);
       output.hidden = false;
       loader.hidden = !loading;
+      if (loading) {
+        retryBtn.hidden = true;
+      }
       if (retryWrap) retryWrap.hidden = loading || !state.results || retryBtn.hidden;
       if (loading) {
         result.hidden = true;

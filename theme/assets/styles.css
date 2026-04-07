@@ -1252,7 +1252,7 @@ body.nav-open {
   margin: 20px 0;
 }
 
-.agency-tool.is-loading .agency-actions {
+.agency-tool.is-loading [data-aa-retry-wrap] {
   display: none;
 }
 
