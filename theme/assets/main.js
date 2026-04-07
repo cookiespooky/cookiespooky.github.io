@@ -377,6 +377,7 @@
     var retryBtn = root.querySelector("[data-aa-retry]");
     var retryWrap = root.querySelector("[data-aa-retry-wrap]");
     var errorBox = root.querySelector("[data-aa-error]");
+    var creatorLink = root.querySelector("[data-aa-creator-link]");
 
     var filterWrap = root.querySelector("[data-aa-filter-wrap]");
     var filterToggle = root.querySelector("[data-aa-filter-toggle]");
@@ -415,6 +416,13 @@
     function updateCounter() {
       if (!counter) return;
       counter.textContent = String((textArea.value || "").length);
+    }
+
+    function updateCreatorLink(sourceText) {
+      if (!creatorLink) return;
+      var text = (sourceText || textArea.value || "").trim();
+      var message = text ? ("Привет, Антон! " + text) : "Привет, Антон!";
+      creatorLink.href = "https://t.me/cookiespooky?text=" + encodeURIComponent(message);
     }
 
     function autoGrowTextArea() {
@@ -480,6 +488,7 @@
       if (retryWrap) retryWrap.hidden = true;
       state.results = null;
       state.sourceText = "";
+      updateCreatorLink("");
       setError("");
       autoGrowTextArea();
       textArea.focus();
@@ -523,6 +532,7 @@
     textArea.addEventListener("input", function () {
       autoGrowTextArea();
       updateCounter();
+      if (!state.sourceText) updateCreatorLink("");
     });
 
     textArea.addEventListener("keydown", function (event) {
@@ -562,6 +572,7 @@
       setError("");
       closeFilterMenu();
       state.sourceText = text;
+      updateCreatorLink(text);
       inputShell.hidden = true;
       if (submitRow) submitRow.hidden = true;
       retryBtn.hidden = true;
@@ -587,6 +598,7 @@
     updateCounter();
     autoGrowTextArea();
     updateFilterToggle();
+    updateCreatorLink("");
   }
 
   initMarkdownEmbeds(document.querySelector("main") || document);

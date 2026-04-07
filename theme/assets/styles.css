@@ -1402,6 +1402,17 @@ body.nav-open {
   text-decoration: underline;
 }
 
+.agency-how-note {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.agency-how-note a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .agency-tool.is-result-mode .agency-textarea {
   display: none;
 }
@@ -1467,4 +1478,9 @@ body.nav-open {
 .agency-retry-btn {
   padding: 6px 12px;
   margin: 0;
+}
+
+.agency-retry-btn svg {
+  width: 20px;
+  height: 20px;
 }
