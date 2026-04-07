@@ -1406,6 +1406,7 @@ body.nav-open {
   margin: 8px 0 0;
   font-size: 14px;
   color: var(--muted);
+  display: none;
 }
 
 .agency-how-note a {
@@ -1415,6 +1416,10 @@ body.nav-open {
 
 .agency-tool.is-result-mode .agency-textarea {
   display: none;
+}
+
+.agency-tool.is-result-mode .agency-how-note {
+  display: block;
 }
 
 .agency-tool.is-result-mode .agency-counter {
