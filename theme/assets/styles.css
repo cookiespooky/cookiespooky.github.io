@@ -1434,7 +1434,7 @@ body.nav-open {
     left: 0;
     right: auto;
     transform: none;
-    width: calc(100vw - 24px);
+    width: 100%;
     max-width: calc(100vw - 24px);
     min-width: 0;
   }
