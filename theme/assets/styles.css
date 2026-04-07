@@ -1192,8 +1192,8 @@ body.nav-open {
 }
 
 .agency-filter-option.is-active {
-  border-color: #b7cffc;
-  background: #eff5ff;
+  border: none;
+  background: #eee;
 }
 
 .agency-filter-name {
