@@ -467,7 +467,7 @@
       state.loading = loading;
       output.hidden = false;
       loader.hidden = !loading;
-      if (retryWrap) retryWrap.hidden = loading || retryBtn.hidden;
+      if (retryWrap) retryWrap.hidden = loading || !state.results || retryBtn.hidden;
       if (loading) {
         result.hidden = true;
       }
