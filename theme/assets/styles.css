@@ -1133,6 +1133,11 @@ body.nav-open {
   display: none;
 }
 
+.agency-filter-main {
+  position: relative;
+  flex: 1 1 auto;
+}
+
 .agency-filter-toggle {
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -1418,8 +1423,11 @@ body.nav-open {
 }
 
 .agency-tool.is-result-mode .agency-filter-wrap {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
 }
 
 .agency-tool.is-result-mode .agency-filter-menu {
@@ -1449,10 +1457,14 @@ body.nav-open {
 }
 
 [data-aa-retry-wrap] {
-  margin: 20px;
-  text-align: center;
+  margin: 0;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .agency-retry-btn {
   padding: 6px 12px;
+  margin: 0;
 }
