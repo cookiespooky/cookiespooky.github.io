@@ -31,7 +31,7 @@ types:
       search: true
   article:
     template: "article.html"
-    permalink: "/articles/{{ slug }}/"
+    permalink: "/{{ slug }}/"
     include_in:
       sitemap: true
       search: true
