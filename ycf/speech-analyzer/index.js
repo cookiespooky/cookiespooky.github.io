@@ -1,5 +1,8 @@
 "use strict";
 
+const crypto = require("node:crypto");
+const aws4 = require("aws4");
+
 const REQUIRED_FILTERS = [
   "neutral",
   "direct",
@@ -15,6 +18,15 @@ const FILTER_METADATA = {
   aggressive: { label: "Агрессивный", irritabilityLevel: 78 },
   toxic: { label: "Токсичный", irritabilityLevel: 95 }
 };
+
+const DOCAPI_ENDPOINT = process.env.DOCAPI_ENDPOINT || "";
+const DOCAPI_REGION = process.env.DOCAPI_REGION || "ru-central1";
+const DOCAPI_ACCESS_KEY_ID = process.env.DOCAPI_ACCESS_KEY_ID || "";
+const DOCAPI_SECRET_ACCESS_KEY = process.env.DOCAPI_SECRET_ACCESS_KEY || "";
+const YDB_TABLE = process.env.YDB_TABLE || "speech_agency_logs";
+
+let ydbTableReady = false;
+let ydbEnsureTablePromise = null;
 
 function corsHeaders(origin) {
   return {
@@ -80,27 +92,134 @@ function normalizeResponse(parsed) {
   return out;
 }
 
+async function callDocApi(target, payload) {
+  if (!DOCAPI_ENDPOINT || !DOCAPI_ACCESS_KEY_ID || !DOCAPI_SECRET_ACCESS_KEY) {
+    throw new Error("Document API environment is not configured");
+  }
+
+  const url = new URL(DOCAPI_ENDPOINT);
+  const body = JSON.stringify(payload);
+  const request = {
+    host: url.host,
+    path: url.pathname,
+    service: "dynamodb",
+    region: DOCAPI_REGION,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-amz-json-1.0",
+      "X-Amz-Target": target
+    },
+    body
+  };
+
+  aws4.sign(request, {
+    accessKeyId: DOCAPI_ACCESS_KEY_ID,
+    secretAccessKey: DOCAPI_SECRET_ACCESS_KEY
+  });
+
+  const response = await fetch(url.toString(), {
+    method: "POST",
+    headers: request.headers,
+    body
+  });
+
+  const text = await response.text();
+  const data = text ? JSON.parse(text) : {};
+  if (!response.ok) {
+    const code = data.__type || data.code || response.status;
+    const msg = data.message || data.Message || "DocAPI request failed";
+    const err = new Error(`${code}: ${msg}`);
+    err.code = code;
+    throw err;
+  }
+  return data;
+}
+
+async function ensureYdbTable() {
+  if (ydbTableReady) return;
+  if (ydbEnsureTablePromise) return ydbEnsureTablePromise;
+
+  ydbEnsureTablePromise = (async () => {
+    try {
+      await callDocApi("DynamoDB_20120810.DescribeTable", {
+        TableName: YDB_TABLE
+      });
+      ydbTableReady = true;
+      return;
+    } catch (err) {
+      const code = String(err && err.code ? err.code : "");
+      if (!code.includes("ResourceNotFoundException")) {
+        throw err;
+      }
+    }
+
+    await callDocApi("DynamoDB_20120810.CreateTable", {
+      TableName: YDB_TABLE,
+      BillingMode: "PAY_PER_REQUEST",
+      AttributeDefinitions: [
+        { AttributeName: "id", AttributeType: "S" }
+      ],
+      KeySchema: [
+        { AttributeName: "id", KeyType: "HASH" }
+      ]
+    });
+
+    ydbTableReady = true;
+  });
+  try {
+    await ydbEnsureTablePromise;
+  } catch (err) {
+    ydbEnsureTablePromise = null;
+    throw err;
+  }
+  return ydbEnsureTablePromise;
+}
+
+async function persistInteraction(text, results) {
+  if (!DOCAPI_ENDPOINT) return;
+  await ensureYdbTable();
+
+  const id = crypto.randomUUID();
+  const createdAt = new Date().toISOString();
+  const payload = {
+    text,
+    results
+  };
+
+  await callDocApi("DynamoDB_20120810.PutItem", {
+    TableName: YDB_TABLE,
+    Item: {
+      id: { S: id },
+      payload: { S: JSON.stringify(payload) },
+      created_at: { S: createdAt }
+    }
+  });
+}
+
 async function analyzeWithDeepSeek(text, apiKey) {
   const systemPrompt = [
     "Ты лингвистический аналитик агентности высказывания.",
-    "Твоя задача: проанализировать исходную фразу и дать 5 версий переформулировки на более объективный язык.",
-    "Сохраняй факты исходного сообщения, убирай когнитивные искажения, ярлыки, чтение мыслей и эмоциональные обобщения.",
-    "Ответ строго в JSON без пояснений и без markdown.",
-    "Формат JSON:",
-    "{",
-    "  \"neutral\": { \"objective_text\": string, \"agency_analysis\": string },",
-    "  \"direct\": { \"objective_text\": string, \"agency_analysis\": string },",
-    "  \"radical\": { \"objective_text\": string, \"agency_analysis\": string },",
-    "  \"aggressive\": { \"objective_text\": string, \"agency_analysis\": string },",
-    "  \"toxic\": { \"objective_text\": string, \"agency_analysis\": string }",
-    "}",
-    "Требования к стилям:",
-    "neutral: максимально спокойный, фактический, без оценок.",
-    "direct: коротко и прямо, но без оскорблений.",
-    "radical: предельно жесткая деконструкция самообмана, но в рамках анализа.",
-    "aggressive: резкий, конфронтационный тон без прямых угроз.",
-    "toxic: намеренно провокационный и манипулятивный тон (как антипример).",
-    "agency_analysis: 1-2 предложения о том, где в исходной фразе снимается ответственность и как вернуть субъектность."
+"Твоя задача: проанализировать исходную фразу и дать 5 версий переформулировки на более объективный язык.",
+"Сохраняй факты исходного сообщения. Убирай когнитивные искажения, ярлыки, чтение мыслей и эмоциональные обобщения.",
+"Каждая версия ДОЛЖНА содержать субъект 'я' и конкретное действие или бездействие.",
+"Если действие не указано, формулируй его как отсутствие действия ('я не делаю', 'я не начинаю', 'я откладываю').",
+"Ответ строго в валидном JSON без пояснений и без markdown.",
+"Формат JSON:",
+"{",
+"  \"neutral\": { \"objective_text\": string, \"agency_analysis\": string },",
+"  \"direct\": { \"objective_text\": string, \"agency_analysis\": string },",
+"  \"radical\": { \"objective_text\": string, \"agency_analysis\": string },",
+"  \"aggressive\": { \"objective_text\": string, \"agency_analysis\": string },",
+"  \"toxic\": { \"objective_text\": string, \"agency_analysis\": string }",
+"}",
+"Требования к стилям:",
+"neutral: максимально нейтральный, спокойный, фактический, без оценок.",
+"direct: коротко и прямо, но без оскорблений.",
+"radical: предельно жесткая деконструкция самообмана, но в рамках анализа.",
+"aggressive: резкий, конфронтационный тон без прямых угроз.",
+"toxic: намеренно провокационный и манипулятивный тон (антипример).",
+"objective_text: формулируй через субъектность 'я', с указанием действия/бездействия и ответственности. Избегай безличных и внешне-детерминированных конструкций (\"у меня не получается\", \"мне мешают обстоятельства\", \"так вышло\"). Преобразуй их в субъектные формулировки: \"я не делаю\", \"я не начинаю\", \"я откладываю\", \"я выбираю\". Если в исходной фразе ответственность вынесена вовне, явно верни её субъекту.",
+"agency_analysis: укажи языковой маркер снятия ответственности и способ возврата субъектности (1-2 предложения)."
   ].join("\n");
 
   const payload = {
@@ -191,6 +310,16 @@ module.exports.handler = async function handler(event) {
 
   try {
     const results = await analyzeWithDeepSeek(text, apiKey);
+
+    // Fire-and-forget persistence: response should not wait for DB write.
+    (async () => {
+      try {
+        await persistInteraction(text, results);
+      } catch (err) {
+        console.error("YDB persistence failed:", err && err.message ? err.message : err);
+      }
+    })();
+
     return jsonResponse(200, { results }, origin);
   } catch (err) {
     return jsonResponse(502, {

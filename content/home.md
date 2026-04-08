@@ -1,8 +1,8 @@
 ---
 type: home
 slug: home
-title: Антон Ложкин - Главная
-description: Системы, автоматизация, мышление, ИИ
+title: Антон Ложкин
+description: Наблюдения, автоматизация, смысл
 image: /media/main.webp
 ---
 ![](/media/main.webp)
