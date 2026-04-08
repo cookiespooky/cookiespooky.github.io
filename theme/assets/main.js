@@ -504,7 +504,7 @@
 
       var data = await response.json().catch(function () { return {}; });
       if (!response.ok) {
-        throw new Error((data && (data.details || data.error)) || "Ошибка анализа");
+        throw new Error((data && (data.details || data.error)) || "Что-то пошло не так. Попробуйте еще раз");
       }
       if (!data || !data.results) {
         throw new Error("Пустой ответ от сервиса");
@@ -591,7 +591,7 @@
         output.hidden = true;
         inputShell.hidden = false;
         if (submitRow) submitRow.hidden = false;
-        setError(err && err.message ? err.message : "Не удалось выполнить анализ.");
+        setError(err && err.message ? err.message : "Что-то пошло не так. Попробуйте еще раз");
       }
     });
 
