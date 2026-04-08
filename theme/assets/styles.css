@@ -653,6 +653,7 @@ a:hover { text-decoration: underline; }
 
 .page { padding: 10px 0; max-width: 900px; margin: 0 auto; }
 .page h1 { line-height: 1.4; }
+.page h2 { line-height: 1.4; }
 .page .deck { line-height: 1.7; }
 
 .prose { line-height: 1.7; }
