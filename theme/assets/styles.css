@@ -673,6 +673,15 @@ a:hover { text-decoration: underline; }
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.prose :not(pre) > code {
+  display: inline;
+  background: #eee;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 .prose pre .token.comment,
 .prose pre .token.prolog,
 .prose pre .token.doctype,
