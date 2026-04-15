@@ -659,6 +659,64 @@ a:hover { text-decoration: underline; }
 .prose { line-height: 1.7; }
 .prose p { font-size: 16px; }
 .prose p { white-space: pre-line; }
+.prose pre {
+  width: 100%;
+  overflow-x: auto;
+  background: #eee;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.prose pre code {
+  background: transparent;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.prose pre .token.comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata {
+  color: #8b95a7;
+}
+
+.prose pre .token.punctuation {
+  color: #5f6b7a;
+}
+
+.prose pre .token.property,
+.prose pre .token.tag,
+.prose pre .token.boolean,
+.prose pre .token.number,
+.prose pre .token.constant,
+.prose pre .token.symbol {
+  color: #b45042;
+}
+
+.prose pre .token.selector,
+.prose pre .token.attr-name,
+.prose pre .token.string,
+.prose pre .token.char,
+.prose pre .token.builtin {
+  color: #2b7a44;
+}
+
+.prose pre .token.operator,
+.prose pre .token.entity,
+.prose pre .token.url {
+  color: #3a5cad;
+}
+
+.prose pre .token.atrule,
+.prose pre .token.attr-value,
+.prose pre .token.keyword {
+  color: #6a46c9;
+}
+
+.prose pre .token.function,
+.prose pre .token.class-name {
+  color: #1e6b80;
+}
 .prose ul,
 .prose ol,
 .prose li { font-size: 16px; }

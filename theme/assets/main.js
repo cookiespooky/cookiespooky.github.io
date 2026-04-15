@@ -15,6 +15,57 @@
     window.setTimeout(fn, 350);
   }
 
+  function loadScript(src, attrs) {
+    return new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      if (attrs) {
+        Object.keys(attrs).forEach(function (key) {
+          script.setAttribute(key, attrs[key]);
+        });
+      }
+      script.onload = function () { resolve(); };
+      script.onerror = function () { reject(new Error("Failed to load script: " + src)); };
+      document.head.appendChild(script);
+    });
+  }
+
+  function initCodeHighlighting(scope) {
+    var root = scope || document;
+    var blocks = root.querySelectorAll(".prose pre code");
+    if (!blocks.length) return;
+
+    blocks.forEach(function (code) {
+      var cls = code.className || "";
+      if (!/\blanguage-/.test(cls)) {
+        code.classList.add("language-none");
+      }
+    });
+
+    function highlightNow() {
+      if (!window.Prism || typeof window.Prism.highlightAllUnder !== "function") return;
+      window.Prism.highlightAllUnder(root);
+    }
+
+    if (window.Prism) {
+      highlightNow();
+      return;
+    }
+
+    loadScript("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js")
+      .then(function () {
+        return loadScript(
+          "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js",
+          { "data-autoloader-path": "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/" }
+        );
+      })
+      .then(highlightNow)
+      .catch(function () {
+        // Fallback: keep default pre/code styles without syntax highlighting.
+      });
+  }
+
   function markExternalLinks(scope) {
     var root = scope || document;
     var links = root.querySelectorAll(".prose a[href]");
@@ -635,5 +686,9 @@
 
   onIdle(function () {
     markExternalLinks(document.querySelector("main") || document);
+  });
+
+  onIdle(function () {
+    initCodeHighlighting(document.querySelector("main") || document);
   });
 })();
