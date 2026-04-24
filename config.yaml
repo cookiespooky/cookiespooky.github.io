@@ -1,9 +1,17 @@
 site:
   id: default
   base_url: "http://127.0.0.1:8080/" # must end with /
+  media_base_url: "http://127.0.0.1:8080/media/" # local fallback; CI injects the deploy media URL automatically
   title: "Антон Ложкин"
   description: "Личный портал"
   default_og_image: "/assets/main.webp"
+runtime:
+  mode: "auto" # auto|dev|prod
+  dev:
+    base_url: "http://127.0.0.1:8080/"
+    media_base_url: "http://127.0.0.1:8080/media/"
+  # Production URLs are normally inferred by the build script.
+  # Add a root CNAME file for a custom domain, or set NOTEPUB_BASE_URL / NOTEPUB_MEDIA_BASE_URL.
 content:
   source: "local"
   local_dir: "./content"

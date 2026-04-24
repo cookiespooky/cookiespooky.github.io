@@ -13,3 +13,4 @@ notepub
 .idea/
 .vscode/
 *.swp
+config.resolved.yaml
