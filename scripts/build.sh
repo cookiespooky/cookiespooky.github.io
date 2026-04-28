@@ -7,10 +7,47 @@ cd "$ROOT"
 BIN="${NOTEPUB_BIN:-notepub}"
 CFG="${NOTEPUB_CONFIG:-./config.yaml}"
 RULES="${NOTEPUB_RULES:-./rules.yaml}"
-ART="./.notepub/artifacts"
-OUT="./dist"
-CONTENT_DIR="./content"
-MEDIA_DIR="./media"
+ART="${NOTEPUB_ARTIFACTS_DIR:-./.notepub/artifacts}"
+OUT="${NOTEPUB_DIST_DIR:-./dist}"
+
+resolve_content_dir() {
+  python3 - "$CFG" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+cfg = Path(sys.argv[1])
+if not cfg.exists():
+    print(str(Path("./content").resolve()))
+    raise SystemExit(0)
+
+lines = cfg.read_text(encoding="utf-8").splitlines()
+in_content = False
+for line in lines:
+    if re.match(r'^content:\s*$', line):
+        in_content = True
+        continue
+    if in_content and re.match(r'^[A-Za-z_][A-Za-z0-9_]*:\s*$', line):
+        in_content = False
+    if in_content:
+        m = re.match(r'^\s{2}local_dir:\s*(.+?)\s*$', line)
+        if m:
+            value = m.group(1).strip().strip('"').strip("'")
+            target = Path(value or "./content")
+            if not target.is_absolute():
+                target = (cfg.parent / target).resolve()
+            print(str(target))
+            raise SystemExit(0)
+
+fallback = Path("./content")
+if not fallback.is_absolute():
+    fallback = (cfg.parent / fallback).resolve()
+print(str(fallback))
+PY
+}
+
+CONTENT_DIR="${NOTEPUB_CONTENT_DIR:-$(resolve_content_dir)}"
+MEDIA_DIR="${NOTEPUB_MEDIA_DIR:-./media}"
 
 infer_custom_domain_base_url() {
   local cname="${ROOT}/CNAME"
@@ -162,13 +199,14 @@ echo "[1/8] index"
 "$BIN" index --config "$CFG" --rules "$RULES"
 
 echo "[2/8] validate links + markdown"
-if "$BIN" validate --help 2>&1 | grep -q -- " -links"; then
+VALIDATE_HELP="$("$BIN" validate --help 2>&1 || true)"
+if printf '%s\n' "$VALIDATE_HELP" | grep -q -- "-links"; then
   "$BIN" validate --config "$CFG" --rules "$RULES" --links
 else
   echo "validate --links is not supported by this notepub binary; skipping"
 fi
 
-if "$BIN" validate --help 2>&1 | grep -q -- " -markdown"; then
+if printf '%s\n' "$VALIDATE_HELP" | grep -q -- "-markdown"; then
   "$BIN" validate --config "$CFG" --rules "$RULES" --markdown --markdown-format text
 else
   echo "validate --markdown is not supported by this notepub binary; skipping"
