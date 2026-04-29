@@ -78,10 +78,19 @@
       if (!href || href.indexOf("#") === 0 || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) {
         return;
       }
-      if (/^https?:\/\//i.test(href.trim())) {
+      var url;
+      try {
+        url = new URL(href, window.location.href);
+      } catch (e) {
+        return;
+      }
+      var isHttp = /^https?:$/i.test(url.protocol);
+      if (isHttp && url.origin !== window.location.origin) {
         link.classList.add("is-external");
         link.target = "_blank";
         link.rel = "noopener noreferrer";
+      } else {
+        link.classList.remove("is-external");
       }
     });
   }

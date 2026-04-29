@@ -14,7 +14,6 @@
       function markExternalLinks(scope) {
         var links = scope.querySelectorAll('a[href]');
         if (!links.length) return;
-        var host = window.location.hostname;
         links.forEach(function (link) {
           var href = link.getAttribute('href') || '';
           if (!href || href.indexOf('#') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) {
@@ -26,8 +25,11 @@
           } catch (e) {
             return;
           }
-          if (url.hostname && url.hostname !== host) {
+          var isHttp = /^https?:$/i.test(url.protocol);
+          if (isHttp && url.origin !== window.location.origin) {
             link.classList.add('is-external');
+          } else {
+            link.classList.remove('is-external');
           }
         });
       }
