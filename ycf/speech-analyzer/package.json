@@ -1,0 +1,15 @@
+{
+  "name": "speech-analyzer",
+  "version": "1.0.0",
+  "description": "HTTP function for linguistic analysis of statement agency and objective rewriting through DeepSeek API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws4": "^1.13.2"
+  }
+}

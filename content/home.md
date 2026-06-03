@@ -32,7 +32,7 @@ image: /media/main.webp
 живой материал → граф связей → модель → формулировка → действие
 ```
 
-Так появляются мои проекты: LAT, Self Tracker, Notepub, Marketing OS и Recca.
+Так появляются мои проекты: LAT, Self Tracker, Notepub и Recca.
 
 ## Выберите точку входа
 
