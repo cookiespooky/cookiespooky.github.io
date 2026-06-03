@@ -78,8 +78,10 @@ Directus / vault → Notepub content repo → validate → build → deploy
 - [[marketing-os-notepub-integration|Marketing OS + Notepub]]
 - [[seo-fabric|SEO-фабрика]]
 - [[marketing-os-offer|Оффер: собрать Marketing OS]]
+
 ---
 ## Связанные страницы
+
 - [[home|Антон Ложкин — инженер скрытых структур]] — вернуться к общей карте проектов и смыслов.
 - [[marketing-os|Marketing OS — локальная операционная система маркетинга]] — перейти к системе производства и публикации контента.
 - [[content-system|Контент-система для соцсетей]] — перейти к системе контента для соцсетей.

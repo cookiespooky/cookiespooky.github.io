@@ -107,8 +107,11 @@ noindex: false
 
 Начните со страницы [[expert-positioning-through-speech|позиционирование эксперта через анализ речи]] или сразу с [[diagnostic-session|LAT-сессии]].
 
+> Или напишите мне в [Telegram](https://t.me/cookiespooky)
+
 ---
 ## Связанные страницы
+
 - [[how-to-find-your-positioning|Как найти свое позиционирование]] — общий маршрут.
 - [[expert-positioning-through-speech|Позиционирование эксперта через анализ речи]] — страница ситуации.
 - [[not-coaching-not-marketing|Не коучинг и не маркетинговая упаковка]] — позиция через контраст.

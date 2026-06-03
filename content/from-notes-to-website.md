@@ -123,6 +123,7 @@ noindex: false
 
 ---
 ## Связанные страницы
+
 - [[notepub|Notepub]] — хаб публикационного слоя.
 - [[notepub-offer|Сайт из заметок]] — формат работы.
 - [[markdown-to-seo-site|Markdown в SEO-сайт]] — смежная статья.

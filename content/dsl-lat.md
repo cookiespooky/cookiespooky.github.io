@@ -1,11 +1,10 @@
 ---
 type: article
-title: 'DSL: Linguistic Agency Transformation'
+title: "DSL: Linguistic Agency Transformation"
 slug: dsl-lat
-description: Формальный DSL LAT для анализа агента, действия, модальности, наблюдаемости
-  и режима высказывания.
+description: Формальный DSL LAT для анализа агента, действия, модальности, наблюдаемости и режима высказывания.
 draft: false
-noindex: true
+noindex: false
 ---
 
 # DSL: Linguistic Agency Transformation
@@ -174,15 +173,16 @@ DSL нужен, чтобы LAT не оставался метафорой. Он 
 
 Связанные страницы:
 
-- [[agentnost-i-rezhim-vyskazyvaniya-kak-bazovyi-sloy-analiza-rechi|White Paper LAT]]
+- [[lat-white-paper|White Paper LAT]]
 - [[lat-use-cases|Области применения LAT]]
 - [[lat-for-positioning|LAT для позиционирования эксперта]]
 
 ---
 ## Связанные страницы
+
 - [[home|Антон Ложкин — инженер скрытых структур]] — вернуться к общей карте проектов и смыслов.
 - [[lat|LAT — лингвистический анализ мышления]] — перейти к языковому анализу мышления и агентности.
-- [[agentnost-i-rezhim-vyskazyvaniya-kak-bazovyi-sloy-analiza-rechi|Агентность и режим высказывания как базовый слой анализа речи]] — прочитать развернутое теоретическое основание LAT.
+- [[lat-white-paper|Агентность и режим высказывания как базовый слой анализа речи]] — прочитать развернутое теоретическое основание LAT.
 - [[marketing-os|Marketing OS — локальная операционная система маркетинга]] — перейти к системе производства и публикации контента.
 - [[content-system|Контент-система для соцсетей]] — перейти к системе контента для соцсетей.
 - [[seo-fabric|SEO-фабрика]] — связать публикацию с SEO-производством.

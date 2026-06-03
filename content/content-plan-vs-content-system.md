@@ -69,6 +69,7 @@ noindex: false
 
 ---
 ## Связанные страницы
+
 - [[content-system-for-expert|Контент-система для эксперта]] — покупательская ситуация.
 - [[marketing-os|Marketing OS]] — хаб системы.
 - [[marketing-os-offer|Собрать Marketing OS]] — формат работы.
@@ -79,3 +80,5 @@ noindex: false
 Если у вас уже есть голосовые, транскрипты, заметки и идеи, но они не проходят путь до публикации, начните со страницы [[content-system-for-expert|контент-система для эксперта]].
 
 Если нужна локальная инфраструктура для такого процесса, перейдите к [[marketing-os-offer|офферу Marketing OS]].
+
+> Или напишите мне в [Telegram](https://t.me/cookiespooky)

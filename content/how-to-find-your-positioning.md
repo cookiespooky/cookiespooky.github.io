@@ -98,6 +98,8 @@ noindex: false
 
 Начните со страницы [[expert-positioning-through-speech|позиционирование эксперта через анализ речи]] или сразу с [[diagnostic-session|LAT-сессии]].
 
+> Или напишите мне в [Telegram](https://t.me/cookiespooky)
+
 ---
 ## Связанные страницы
 - [[expert-positioning-through-speech|Позиционирование эксперта через анализ речи]] — основной сценарий.

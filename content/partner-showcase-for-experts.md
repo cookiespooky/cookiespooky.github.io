@@ -75,6 +75,8 @@ noindex: false
 
 Если задача уже прикладная, перейдите к [[recca-offer|офферу Recca]].
 
+> Или напишите мне в [Telegram](https://t.me/cookiespooky)
+
 ---
 ## Связанные страницы
 - [[partner-referral-system|Система партнерских рекомендаций]] — общая архитектура.
