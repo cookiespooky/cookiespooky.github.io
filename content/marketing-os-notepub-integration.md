@@ -79,7 +79,7 @@ Marketing OS делает производство знаний регулярн
 ## Связанные страницы
 - [[home|Антон Ложкин — инженер скрытых структур]] — вернуться к общей карте проектов и смыслов.
 - [[marketing-os|Marketing OS — локальная операционная система маркетинга]] — перейти к системе производства и публикации контента.
-- [[notepub-hub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
+- [[notepub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
 - [[markdown-to-seo-site|Как превратить Markdown в SEO-сайт]] — увидеть путь от Markdown к SEO-структуре.
 - [[seo-fabric|SEO-фабрика]] — связать публикацию с SEO-производством.
 - [[marketing-os-content-pipeline|Контент-пайплайн Marketing OS]] — разобрать контент-пайплайн Marketing OS.

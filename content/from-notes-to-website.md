@@ -64,7 +64,7 @@ noindex: false
 
 ## Где здесь Notepub
 
-[[notepub-hub|Notepub]] — это публикационный слой для сайта из Obsidian, Markdown и связанных страниц.
+[[notepub|Notepub]] — это публикационный слой для сайта из Obsidian, Markdown и связанных страниц.
 
 Но Notepub важен не только как технический инструмент. Сильная часть — в том, что сайт строится из уже существующего материала, а не с чистого листа.
 
@@ -123,7 +123,7 @@ noindex: false
 
 ---
 ## Связанные страницы
-- [[notepub-hub|Notepub]] — хаб публикационного слоя.
+- [[notepub|Notepub]] — хаб публикационного слоя.
 - [[notepub-offer|Сайт из заметок]] — формат работы.
 - [[markdown-to-seo-site|Markdown в SEO-сайт]] — смежная статья.
 - [[obsidian-as-website|Obsidian как сайт]] — смежная статья.

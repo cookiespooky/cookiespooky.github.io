@@ -43,7 +43,7 @@ Markdown удобен тем, что не заставляет думать ка
 
 Хаб собирает тему и помогает человеку понять область.
 
-Примеры хабов: [[lat|LAT]], [[notepub-hub|Notepub]], [[marketing-os|Marketing OS]], [[recca|Recca]], [[self-tracker|Self Tracker]].
+Примеры хабов: [[lat|LAT]], [[notepub|Notepub]], [[marketing-os|Marketing OS]], [[recca|Recca]], [[self-tracker|Self Tracker]].
 
 ### Статьи
 
@@ -83,7 +83,7 @@ proof/
 supporting-articles/
 ```
 
-Физические папки могут быть другими. В [[notepub-hub|Notepub]] публичный URL задается через `slug`, поэтому папки нужны для удобства мышления, а не для диктата структуры сайта.
+Физические папки могут быть другими. В [[notepub|Notepub]] публичный URL задается через `slug`, поэтому папки нужны для удобства мышления, а не для диктата структуры сайта.
 
 ## Первый шаг
 
@@ -115,7 +115,7 @@ supporting-articles/
 
 ---
 ## Связанные страницы
-- [[notepub-hub|Notepub]] — хаб о публикационном слое.
+- [[notepub|Notepub]] — хаб о публикационном слое.
 - [[from-notes-to-website|Как превратить заметки в сайт]] — путь от архива к публичной структуре.
 - [[site-from-notes-vs-blog|Сайт из заметок — не блог]] — контраст с обычным блогом.
 - [[obsidian-to-website-workflow|Obsidian → сайт]] — рабочий процесс публикации.

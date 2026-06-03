@@ -78,7 +78,7 @@ LAT помогает проверять язык SEO-страницы.
 - [[marketing-os|Marketing OS — локальная операционная система маркетинга]] — перейти к системе производства и публикации контента.
 - [[marketing-os-content-pipeline|Контент-пайплайн Marketing OS]] — разобрать контент-пайплайн Marketing OS.
 - [[markdown-to-seo-site|Как превратить Markdown в SEO-сайт]] — увидеть путь от Markdown к SEO-структуре.
-- [[notepub-hub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
+- [[notepub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
 - [[content-system|Контент-система для соцсетей]] — перейти к системе контента для соцсетей.
 
 ## Что делать дальше

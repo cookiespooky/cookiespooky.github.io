@@ -116,7 +116,7 @@ noindex: false
 
 ---
 ## Связанные страницы
-- [[notepub-hub|Notepub — SEO-сайт из Obsidian и Markdown]] — хаб публикационного слоя.
+- [[notepub|Notepub — SEO-сайт из Obsidian и Markdown]] — хаб публикационного слоя.
 - [[from-notes-to-website|Как превратить заметки в сайт]] — главный маршрут от архива к сайту.
 - [[markdown-to-seo-site|Как превратить Markdown в SEO-сайт]] — смежная статья.
 - [[notepub-for-experts|Notepub для экспертов]] — сценарий для экспертного архива.

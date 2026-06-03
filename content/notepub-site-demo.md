@@ -84,7 +84,7 @@ noindex: false
 
 ## Связанные страницы
 
-- [[notepub-hub|Notepub]]
+- [[notepub|Notepub]]
 - [[notepub-offer|Сайт из заметок]]
 - [[markdown-to-seo-site|Markdown в SEO-сайт]]
 - [[obsidian-as-website|Obsidian как сайт]]

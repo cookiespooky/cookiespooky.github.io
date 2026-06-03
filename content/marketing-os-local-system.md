@@ -89,7 +89,7 @@ Marketing OS продает другое:
 - [[marketing-os-content-pipeline|Контент-пайплайн Marketing OS]] — разобрать контент-пайплайн Marketing OS.
 - [[marketing-os-offer|Оффер: собрать Marketing OS]] — посмотреть оффер сборки Marketing OS.
 - [[seo-fabric|SEO-фабрика]] — связать публикацию с SEO-производством.
-- [[notepub-hub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
+- [[notepub|Notepub — SEO-сайт из Obsidian]] — перейти к публикационному слою для Markdown и Obsidian.
 
 ## Что делать дальше
 

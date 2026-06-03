@@ -37,7 +37,7 @@ noindex: false
 
 ### Хабовые ссылки
 
-Они ведут от статей к центральной теме: [[notepub-hub|Notepub]], [[lat|LAT]], [[marketing-os|Marketing OS]].
+Они ведут от статей к центральной теме: [[notepub|Notepub]], [[lat|LAT]], [[marketing-os|Marketing OS]].
 
 Хаб помогает поисковику и человеку понять, какая тема главная.
 
@@ -115,6 +115,6 @@ noindex: false
 ## Связанные страницы
 - [[obsidian-to-website-workflow|Obsidian → сайт]] — общий workflow публикации.
 - [[markdown-website-structure|Структура Markdown-сайта]] — роли страниц.
-- [[notepub-hub|Notepub]] — хаб кластера.
+- [[notepub|Notepub]] — хаб кластера.
 - [[notepub-offer|Сайт из заметок]] — коммерческий формат.
 - [[from-notes-to-website|Как превратить заметки в сайт]] — входная страница кластера.
