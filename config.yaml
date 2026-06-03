@@ -8,6 +8,14 @@ site:
 runtime:
   # auto keeps local builds on 127.0.0.1 and lets CI inject production URLs.
   mode: "auto"
+overrides:
+  site_note: "./Site.md"
+  interface_note: "./Interface.md"
+settings:
+  site_title: "Антон Ложкин"
+  site_description: "Личный портал"
+  site_language: "en"
+  site_default_og_image: "/assets/main.webp"
 content:
   source: "local"
   local_dir: "./content"

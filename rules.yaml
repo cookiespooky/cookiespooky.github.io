@@ -2,7 +2,7 @@ version: 1
 
 fields:
   required: ["type", "slug", "title"]
-  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image"]
+  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image", "redirect_to", "canonical_slug", "legacy_from_old_site"]
   defaults:
     draft: false
 
@@ -13,6 +13,7 @@ fields:
     related: string[]
     draft: boolean
     noindex: boolean
+    redirect_to: string
   favorite: boolean
   image: string
 
@@ -58,6 +59,12 @@ types:
     permalink: "/{{ slug }}/"
     include_in:
       sitemap: true
+      search: false
+  redirect:
+    template: "redirect.html"
+    permalink: "/{{ slug }}/"
+    include_in:
+      sitemap: false
       search: false
 
 links:

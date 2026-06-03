@@ -2,6 +2,12 @@
 <html lang="ru">
 <head>
   {{- $isHome := eq .Page.Type "home" -}}
+  {{- $redirectTo := "" -}}
+  {{- if eq .Page.Type "redirect" -}}
+    {{- with .FM.redirect_to -}}
+      {{- $redirectTo = . -}}
+    {{- end -}}
+  {{- end -}}
   {{- $pageURL := .Canonical -}}
   {{- if not $pageURL }}{{- $pageURL = printf "%s/" .BaseURL -}}{{- end -}}
   {{- $hubSlug := "" -}}
@@ -65,7 +71,10 @@
   {{- if .Meta.Robots }}
   <meta name="robots" content="{{ .Meta.Robots }}" />
   {{- end }}
-  {{- if .Canonical }}
+  {{- if ne $redirectTo "" }}
+  <meta http-equiv="refresh" content="0; url={{ $redirectTo }}" />
+  <link rel="canonical" href="{{ $redirectTo }}" />
+  {{- else if .Canonical }}
   <link rel="canonical" href="{{ .Canonical }}" />
   {{- end }}
   <meta name="twitter:card" content="summary_large_image" />

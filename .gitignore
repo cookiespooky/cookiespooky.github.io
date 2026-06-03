@@ -8,9 +8,12 @@ artifacts/
 # Local binaries and caches
 notepub
 *.log
+node_modules/
 
 # Editor/system
 .idea/
 .vscode/
 *.swp
+.obsidian/
+.tools/bin/
 config.resolved.yaml

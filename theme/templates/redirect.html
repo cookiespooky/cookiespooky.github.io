@@ -1,0 +1,12 @@
+<article class="page redirect-page">
+  <div class="prose">
+    <p>Страница перенесена.</p>
+    {{- with .FM.redirect_to }}
+    <p><a href="{{ . }}">Перейти к актуальной версии</a></p>
+    <script>
+      window.location.replace({{ printf "%q" . }});
+    </script>
+    {{- end }}
+    {{ .Body }}
+  </div>
+</article>

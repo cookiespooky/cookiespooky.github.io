@@ -2,6 +2,8 @@
 type: search
 slug: search
 title: Поиск
-description: Поиск по страницам и статьям.
+description:
+draft: false
+noindex: true
 ---
-Используйте поиск, чтобы находить заметки по заголовку и содержанию.
+# Поиск
