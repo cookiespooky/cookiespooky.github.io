@@ -1,3 +1,156 @@
-<div class="prose home-prose">
-  {{ .Body }}
+<div class="np-home">
+  {{- range .Collections.home_hero_section.Items }}
+  <section class="np-home-hero">
+    <div class="np-home-hero-copy">
+      {{- $ctaURL := index .FM "cta_url" -}}
+      {{- $ctaLabel := index .FM "cta_label" -}}
+      {{- $secondaryURL := index .FM "secondary_url" -}}
+      {{- $secondaryLabel := index .FM "secondary_label" -}}
+      {{- with index .FM "eyebrow" }}
+      <p class="np-home-eyebrow">{{ . }}</p>
+      {{- end }}
+      <h1>{{ .Title }}</h1>
+      {{- if .Description }}
+      <p class="np-home-lead">{{ .Description }}</p>
+      {{- end }}
+      {{- with index .FM "badges" }}
+      <ul class="np-home-badges">
+        {{- range . }}
+        <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+      {{- with index .FM "bullets" }}
+      <ul class="np-home-bullets">
+        {{- range . }}
+        <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+      <div class="np-home-actions">
+        {{- if $ctaURL }}
+        <a class="np-home-button np-home-button-primary" href="{{ $ctaURL }}">{{ $ctaLabel }}</a>
+        {{- end }}
+        {{- if $secondaryURL }}
+        <a class="np-home-button np-home-button-secondary" href="{{ $secondaryURL }}" target="_blank" rel="noopener">{{ $secondaryLabel }}</a>
+        {{- end }}
+      </div>
+    </div>
+    <div class="np-home-hero-media">
+      <div class="np-home-portrait">
+        {{- if .Image }}
+        <img src="{{ .Image }}" alt="{{ index .FM "image_alt" }}" loading="eager" decoding="async">
+        {{- else }}
+        <div class="np-home-portrait-fallback" aria-hidden="true"></div>
+        {{- end }}
+      </div>
+      <div class="np-home-hero-aside">
+        {{- with index .FM "aside_title" }}
+        <p class="np-home-aside-title">{{ . }}</p>
+        {{- end }}
+        {{- with index .FM "aside_text" }}
+        <p class="np-home-aside-text">{{ . }}</p>
+        {{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
+
+  {{- range .Collections.home_trust_section.Items }}
+  <section class="np-home-section">
+    <div class="np-home-section-head">
+      <p class="np-home-kicker">Почему это работает</p>
+      <h2>{{ .Title }}</h2>
+      {{- if .Description }}
+      <p class="np-home-section-lead">{{ .Description }}</p>
+      {{- end }}
+      {{- with index .FM "lead" }}
+      <p class="np-home-section-note">{{ . }}</p>
+      {{- end }}
+    </div>
+    <div class="np-home-stats">
+      {{- range $.Collections.home_trust_stats.Items }}
+      <article class="np-home-stat">
+        <p class="np-home-stat-label">{{ .Title }}</p>
+        {{- with index .FM "value" }}
+        <p class="np-home-stat-value">{{ . }}</p>
+        {{- end }}
+        {{- if .Description }}
+        <p class="np-home-stat-desc">{{ .Description }}</p>
+        {{- end }}
+        {{- with index .FM "note" }}
+        <p class="np-home-stat-note">{{ . }}</p>
+        {{- end }}
+      </article>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- range .Collections.home_services_section.Items }}
+  <section class="np-home-section">
+    <div class="np-home-section-head">
+      <p class="np-home-kicker">Форматы</p>
+      <h2>{{ .Title }}</h2>
+      {{- if .Description }}
+      <p class="np-home-section-lead">{{ .Description }}</p>
+      {{- end }}
+    </div>
+    <div class="np-home-services">
+      {{- range $.Collections.home_service_cards.Items }}
+      <article class="np-home-service{{ with index .FM "accent" }} np-home-service-{{ . }}{{ end }}">
+        <a class="np-home-service-link" href="{{ index .FM "cta_url" }}">
+          <div class="np-home-service-body">
+            {{- with index .FM "price" }}
+            <p class="np-home-service-price">{{ . }}</p>
+            {{- end }}
+            <h3>{{ with index .FM "display_title" }}{{ . }}{{ else }}{{ .Title }}{{ end }}</h3>
+            {{- if .Description }}
+            <p>{{ .Description }}</p>
+            {{- end }}
+          </div>
+          <div class="np-home-service-media">
+            {{- if .Image }}
+            <img src="{{ .Image }}" alt="{{ index .FM "image_alt" }}" loading="lazy" decoding="async">
+            {{- else }}
+            <span class="np-home-service-arrow" aria-hidden="true">↗</span>
+            {{- end }}
+          </div>
+        </a>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- range .Collections.home_about_section.Items }}
+  {{- $ctaURL := index .FM "cta_url" -}}
+  {{- $ctaLabel := index .FM "cta_label" -}}
+  <section class="np-home-section np-home-about">
+    <div class="np-home-about-media">
+      {{- if .Image }}
+      <img src="{{ .Image }}" alt="{{ index .FM "image_alt" }}" loading="lazy" decoding="async">
+      {{- else }}
+      <div class="np-home-about-fallback" aria-hidden="true"></div>
+      {{- end }}
+    </div>
+    <div class="np-home-about-copy">
+      <p class="np-home-kicker">О работе</p>
+      <h2>{{ .Title }}</h2>
+      {{- if .Description }}
+      <p class="np-home-section-lead">{{ .Description }}</p>
+      {{- end }}
+      {{- with index .FM "facts" }}
+      <ul class="np-home-facts">
+        {{- range . }}
+        <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+      {{- if $ctaURL }}
+      <a class="np-home-button np-home-button-primary" href="{{ $ctaURL }}">{{ $ctaLabel }}</a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
 </div>
