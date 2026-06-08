@@ -2,7 +2,7 @@ version: 1
 
 fields:
   required: ["type", "slug", "title"]
-  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image", "redirect_to", "canonical_slug", "legacy_from_old_site", "eyebrow", "image_alt", "cta_label", "cta_url", "secondary_label", "secondary_url", "price", "note", "value", "lead", "aside_title", "aside_text", "accent", "display_title", "badges", "bullets", "facts"]
+  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image", "redirect_to", "canonical_slug", "legacy_from_old_site"]
   defaults:
     draft: false
 
@@ -16,9 +16,6 @@ fields:
     redirect_to: string
   favorite: boolean
   image: string
-  badges: string[]
-  bullets: string[]
-  facts: string[]
 
 types:
   home:
@@ -66,42 +63,6 @@ types:
   redirect:
     template: "redirect.html"
     permalink: "/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_hero:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_trust:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_stat:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_services:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_service:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
-    include_in:
-      sitemap: false
-      search: false
-  home_about:
-    template: "page.html"
-    permalink: "/_home/{{ slug }}/"
     include_in:
       sitemap: false
       search: false
@@ -185,84 +146,6 @@ collections:
       dir: "asc"
       nulls_last: true
     limit: 20
-
-  home_hero_section:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_hero"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 1
-
-  home_trust_section:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_trust"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 1
-
-  home_trust_stats:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_stat"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 12
-
-  home_services_section:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_services"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 1
-
-  home_service_cards:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_service"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 12
-
-  home_about_section:
-    kind: "filter"
-    materialize: false
-    where:
-      all:
-        - fm_eq: { key: "draft", value: false }
-        - type_in: ["home_about"]
-    sort:
-      by: "fm.order"
-      dir: "asc"
-      nulls_last: true
-    limit: 1
 
   hub_items:
     kind: "backrefs"
