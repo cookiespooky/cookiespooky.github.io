@@ -5,6 +5,7 @@ slug: "lat-for-hr"
 description: "Как применять LAT в HR: разбирать речь кандидатов, hiring manager, интервьюеров и команды, чтобы принимать более точные решения в найме и оценке."
 draft: false
 noindex: false
+image: /media/main.webp
 ---
 # LAT для HR: речь, интервью и решения в найме
 
