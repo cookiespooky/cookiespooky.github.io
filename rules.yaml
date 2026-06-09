@@ -19,7 +19,7 @@ fields:
 
 types:
   home:
-    template: "home.html"
+    template: "page.html"
     permalink: "/"
     include_in:
       sitemap: true
