@@ -2,7 +2,7 @@
 type: article
 title: Материалы для анализа заметок
 slug: cognitive-reconstruction-materials
-description: Как понять и решить любую ситуацию самостоятельно за 1 час
+description: Загрузите ваш архив в чат с любой нейросетью и используйте промпты для базового анализа.
 draft: false
 noindex: false
 ---
