@@ -7,7 +7,7 @@ draft: false
 noindex: false
 image: /media/main.webp
 ---
-![Anton Lozhkin](main.webp)
+![Anton Lozhkin](content/main.webp)
 # Пишу о своих наблюдениях за окружающей средой и проектах, которые из них рождаются
 
 > ***Антон Ложкин***
