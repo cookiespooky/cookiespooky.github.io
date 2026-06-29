@@ -1,6 +1,6 @@
 ---
 type: hub
-title: Recca
+title: Recca legacy
 slug: recca-old
 description: Recca делает рекомендации, партнерские связи и вклад участников наблюдаемыми через события, роли, веса и граф рекомендаций.
 draft: false

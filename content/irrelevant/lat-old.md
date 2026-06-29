@@ -1,6 +1,6 @@
 ---
 type: hub
-title: LAT
+title: LAT legacy
 slug: lat-old
 description: LAT показывает, как речь отражает агентность, режим действия, внутренние конфликты и способы взаимодействия человека с реальностью.
 draft: false

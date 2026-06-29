@@ -1,5 +1,5 @@
 ---
-type: hub
+type: article
 title: Marketing OS — своё железо, весь маркетинговый цикл
 slug: marketing-os
 description: Локальная AI-маркетинговая система полного цикла
