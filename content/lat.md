@@ -207,10 +207,7 @@ score(risk_of_non_action)
 
 ### Читайте также
 
-[[cognitive-reconstruction-brief|Когнитивная реконструкция]] - понять и решить любую ситуацию самостоятельно за 1 час
-
-[[recca|Recca]] - построить партнерскую сеть и оцифровать продажи по рекомендации
-
-[[marketing-os|Marketing OS]] - маркетинг полного цикла на вашем компьютере
-
-[Notepub](https://cookiespooky.github.io/np/ru) - сделать SEO-сайт из Obsidian
+- [Когнитивная реконструкция](/cognitive-reconstruction-brief) - понять и решить любую ситуацию самостоятельно за 1 час
+- [Recca](/recca) - построить партнерскую сеть и оцифровать продажи по рекомендации
+- [Marketing OS](/marketing-os) - маркетинг полного цикла на вашем компьютере
+- [Notepub](https://cookiespooky.github.io/np/ru) - сделать SEO-сайт из Obsidian
