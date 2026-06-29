@@ -7,7 +7,7 @@ draft: false
 noindex: false
 image: /media/main.webp
 ---
-![Anton Lozhkin](content/main.webp)
+![Anton Lozhkin](/media/main.webp)
 # Хаос → система
 
 Я - Антон Ложкин, лингвист, разработчик. Основа всех моих проектов - организовать разрозненные элементы в структуру и увидеть большую картину.
