@@ -37,7 +37,7 @@ noindex: false
 
 ### Хабовые ссылки
 
-Они ведут от статей к центральной теме: [[notepub-hub|Notepub]], [[lat|LAT]], [[marketing-os|Marketing OS]].
+Они ведут от статей к центральной теме: [[notepub-hub|Notepub]], [[lat-old|LAT]], [[marketing-os-old|Marketing OS]].
 
 Хаб помогает поисковику и человеку понять, какая тема главная.
 

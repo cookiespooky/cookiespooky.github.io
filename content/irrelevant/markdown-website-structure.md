@@ -45,7 +45,7 @@ Markdown удобен тем, что не заставляет думать ка
 
 Хаб собирает тему и помогает человеку понять область.
 
-Примеры хабов: [[lat|LAT]], [[notepub-hub|Notepub]], [[marketing-os|Marketing OS]], [[recca|Recca]], [[self-tracker|Self Tracker]].
+Примеры хабов: [[lat-old|LAT]], [[notepub-hub|Notepub]], [[marketing-os-old|Marketing OS]], [[recca-old|Recca]], [[self-tracker|Self Tracker]].
 
 ### Статьи
 

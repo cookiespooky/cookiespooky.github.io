@@ -88,7 +88,7 @@ D — участник сообщества
 
 ## Связанные страницы
 
-- [[recca|Recca]]
+- [[recca-old|Recca]]
 - [[referral-graph|Граф рекомендаций]]
 - [[event-based-attribution|Событийная атрибуция]]
 - [[recca-offer|Собрать систему рекомендаций]]

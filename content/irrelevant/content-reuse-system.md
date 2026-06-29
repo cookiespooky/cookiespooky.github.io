@@ -59,7 +59,7 @@ noindex: false
 
 ## Где помогает Marketing OS
 
-[[marketing-os|Marketing OS]] задает учет исходников, статусов, форматов и связей.
+[[marketing-os-old|Marketing OS]] задает учет исходников, статусов, форматов и связей.
 
 В системе видно:
 

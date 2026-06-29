@@ -123,7 +123,7 @@ Marketing OS нужен там, где важен весь маршрут:
 ---
 ## Связанные страницы
 
-- [[marketing-os|Marketing OS]] — хаб системы.
+- [[marketing-os-old|Marketing OS]] — хаб системы.
 - [[marketing-os-local-system|Локальная маркетинговая система]] — почему локальность важна.
 - [[marketing-os-content-pipeline|Контент-пайплайн Marketing OS]] — как движутся артефакты внутри цикла.
 - [[marketing-os-notepub-integration|Marketing OS + Notepub]] — если нужен связанный сайт.

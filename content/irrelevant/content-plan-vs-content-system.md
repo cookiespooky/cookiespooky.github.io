@@ -61,7 +61,7 @@ noindex: false
 
 ## Где здесь Marketing OS
 
-[[marketing-os|Marketing OS]] — это способ собрать такой pipeline локально: из речи, заметок, транскриптов и идей в статьи, посты, SEO-страницы и архив.
+[[marketing-os-old|Marketing OS]] — это способ собрать такой pipeline локально: из речи, заметок, транскриптов и идей в статьи, посты, SEO-страницы и архив.
 
 ## Первый шаг
 
@@ -71,7 +71,7 @@ noindex: false
 ## Связанные страницы
 
 - [[content-system-for-expert|Контент-система для эксперта]] — покупательская ситуация.
-- [[marketing-os|Marketing OS]] — хаб системы.
+- [[marketing-os-old|Marketing OS]] — хаб системы.
 - [[marketing-os-offer|Собрать Marketing OS]] — формат работы.
 - [[seo-fabric|SEO-фабрика]] — слой SEO-публикации.
 

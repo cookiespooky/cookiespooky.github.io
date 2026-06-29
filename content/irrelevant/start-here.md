@@ -50,7 +50,7 @@ noindex: false
 
 **Что получите:** локальную контент-систему, pipeline задач и статусов, human-review, vault артефактов и повторное использование материала.
 
-Начните с [[marketing-os|Marketing OS]] или [[marketing-os-offer|внедрения Marketing OS]].
+Начните с [[marketing-os-old|Marketing OS]] или [[marketing-os-offer|внедрения Marketing OS]].
 
 ## Рекомендации есть, но партнерский вклад теряется
 
@@ -58,7 +58,7 @@ noindex: false
 
 **Что получите:** карту ролей, событий и рекомендаций, основу партнерской витрины и понятные правила учета вклада.
 
-Начните с [[recca|Recca]] или [[recca-offer|оффера Recca]].
+Начните с [[recca-old|Recca]] или [[recca-offer|оффера Recca]].
 
 ## Я пока не хочу входить в проект, но хочу понять контекст
 

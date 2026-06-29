@@ -184,7 +184,7 @@ Directus / vault → Notepub content repo → validate → build → deploy
 ---
 ## Связанные страницы
 
-- [[marketing-os|Marketing OS]] — хаб системы.
+- [[marketing-os-old|Marketing OS]] — хаб системы.
 - [[marketing-os-local-system|Локальная маркетинговая система]] — почему система локальна.
 - [[marketing-os-notepub-integration|Marketing OS + Notepub]] — публикация через Markdown-граф.
 - [[seo-fabric|SEO-фабрика]] — связать pipeline с SEO.

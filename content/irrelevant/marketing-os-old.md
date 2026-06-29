@@ -1,7 +1,7 @@
 ---
 type: hub
-title: "Marketing OS — локальная AI-маркетинговая система полного цикла"
-slug: "marketing-os"
+title: Marketing OS
+slug: marketing-os-old
 description: "Marketing OS помогает маркетологу, эксперту или малой команде вести весь цикл маркетинга на своём железе: позиционирование, тексты, визуалы, публикации, статусы и архив артефактов."
 draft: false
 noindex: false

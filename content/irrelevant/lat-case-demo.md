@@ -82,7 +82,7 @@ noindex: true
 
 ## Связанные страницы
 
-- [[lat|LAT]]
+- [[lat-old|LAT]]
 - [[lat-for-positioning|LAT для позиционирования]]
 - [[diagnostic-session|Диагностическая LAT-сессия]]
 - [[proof-library|Библиотека доказательств]]

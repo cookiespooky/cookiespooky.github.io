@@ -194,7 +194,7 @@ Marketing OS говорит иначе:
 ---
 ## Связанные страницы
 
-- [[marketing-os|Marketing OS]] — хаб системы.
+- [[marketing-os-old|Marketing OS]] — хаб системы.
 - [[marketing-os-content-pipeline|Контент-пайплайн Marketing OS]] — маршрут артефактов.
 - [[marketing-os-notepub-integration|Marketing OS + Notepub]] — связка с SEO-сайтом.
 - [[marketing-os-offer|Собрать Marketing OS]] — оффер внедрения.
