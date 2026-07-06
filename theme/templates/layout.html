@@ -15,11 +15,7 @@
     {{- $hubSlug = .Page.Slug -}}
   {{- else -}}
     {{- with .FM.hub -}}
-      {{- range . -}}
-        {{- if and (eq $hubSlug "") . -}}
-          {{- $hubSlug = . -}}
-        {{- end -}}
-      {{- end -}}
+      {{- $hubSlug = printf "%v" . -}}
     {{- end -}}
   {{- end -}}
   {{- $hubTitle := "" -}}

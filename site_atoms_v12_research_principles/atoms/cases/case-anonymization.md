@@ -1,0 +1,39 @@
+---
+id: case-anonymization
+title: Анонимизация кейса
+slug: case-anonymization
+kind: method
+hub: methods
+summary: Очистка кейса от личных деталей перед публикацией или использованием как примера в публичном графе.
+status: public
+links:
+- id: case-to-article
+  rel: uses
+- id: case-evidence
+  rel: related_to
+- id: research-notes
+  rel: compatible_with
+actions:
+- label: Подготовить кейс к публикации
+  target: case-to-article
+  help: Поможет сохранить пользу кейса без лишней личной информации.
+seo:
+  title: Анонимизация кейса
+  description: Очистка кейса от личных деталей перед публикацией или использованием как примера в публичном графе.
+---
+
+# Анонимизация кейса
+
+Анонимизация сохраняет структуру ситуации, но убирает имена, конкретные события, узнаваемые детали и лишние биографические элементы. Для публичного графа важна не частная история, а повторяющийся механизм и маршрут решения.
+
+Связанные элементы графа: [[case-to-article]], [[case-evidence]], [[research-notes]].
+
+## Связи
+
+- [[case-to-article]] — uses
+- [[case-evidence]] — related_to
+- [[research-notes]] — compatible_with
+
+## Следующие действия
+
+- **Подготовить кейс к публикации** → [[case-to-article]]: Поможет сохранить пользу кейса без лишней личной информации.

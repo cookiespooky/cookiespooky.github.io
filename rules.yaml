@@ -2,7 +2,7 @@ version: 1
 
 fields:
   required: ["type", "slug", "title"]
-  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image", "redirect_to", "canonical_slug", "legacy_from_old_site"]
+  optional: ["description", "draft", "hub", "related", "tags", "order", "noindex", "jsonld", "favorite", "image", "redirect_to", "canonical_slug", "legacy_from_old_site", "id", "kind", "summary", "status", "lang", "links", "actions", "translations", "aliases", "audience", "stage", "seo", "products", "topics"]
   defaults:
     draft: false
 
@@ -19,7 +19,7 @@ fields:
 
 types:
   home:
-    template: "page.html"
+    template: "home.html"
     permalink: "/"
     include_in:
       sitemap: true

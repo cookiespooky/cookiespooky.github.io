@@ -1,0 +1,932 @@
+[
+  {
+    "id": "marketing-os",
+    "title": "Marketing OS",
+    "type": "product",
+    "category": "products",
+    "summary": "Система для сборки маркетинговой логики вокруг продукта, эксперта или проекта.",
+    "links": [
+      "positioning",
+      "icp",
+      "content-system",
+      "offer",
+      "cognitive-reconstruction",
+      "product-thinking"
+    ],
+    "actions": [
+      "Понять, кому подходит",
+      "Разобрать мой маркетинг",
+      "Посмотреть связь с позиционированием"
+    ]
+  },
+  {
+    "id": "recca",
+    "title": "Recca",
+    "type": "product",
+    "category": "products",
+    "summary": "Продуктовая среда для витрин, офферов, партнерств и реферальных механик.",
+    "links": [
+      "marketing-os",
+      "offer",
+      "funnel",
+      "product-thinking",
+      "saas"
+    ],
+    "actions": [
+      "Понять сценарии Recca",
+      "Посмотреть связь с Marketing OS",
+      "Изучить партнерскую логику"
+    ]
+  },
+  {
+    "id": "notepub",
+    "title": "Notepub",
+    "type": "product",
+    "category": "products",
+    "summary": "Инструмент для публикации заметок и превращения базы знаний в человекочитаемый сайт.",
+    "links": [
+      "obsidian",
+      "knowledge-graph",
+      "atomic-notes",
+      "llm-site",
+      "self-tracking"
+    ],
+    "actions": [
+      "Посмотреть, как заметки становятся сайтом",
+      "Изучить связь с Obsidian",
+      "Понять модель LLM-сайта"
+    ]
+  },
+  {
+    "id": "cognitive-reconstruction",
+    "title": "Когнитивная реконструкция",
+    "type": "method",
+    "category": "products",
+    "summary": "Метод восстановления карты ситуации, скрытых связей, повторяющихся сценариев и точек действия.",
+    "links": [
+      "situation-map",
+      "lat",
+      "repeating-scenarios",
+      "agency",
+      "obsidian"
+    ],
+    "actions": [
+      "Построить карту ситуации",
+      "Понять метод",
+      "Посмотреть связь с LAT"
+    ]
+  },
+  {
+    "id": "obsidian-tools",
+    "title": "Инструменты для Obsidian",
+    "type": "product",
+    "category": "products",
+    "summary": "Шаблоны и рабочие процессы для заметок, графа знаний, self-tracking и анализа данных.",
+    "links": [
+      "obsidian",
+      "self-tracking",
+      "knowledge-graph",
+      "atomic-notes",
+      "cognitive-reconstruction"
+    ],
+    "actions": [
+      "Открыть Obsidian-сценарии",
+      "Понять self-tracking",
+      "Посмотреть шаблоны"
+    ]
+  },
+  {
+    "id": "self-tracking-toolkit",
+    "title": "Self-tracking toolkit",
+    "type": "product",
+    "category": "products",
+    "summary": "Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами.",
+    "links": [
+      "self-tracking",
+      "diary",
+      "repeating-scenarios",
+      "situation-map",
+      "obsidian"
+    ],
+    "actions": [
+      "Понять, что отслеживать",
+      "Связать с дневником",
+      "Посмотреть сценарии анализа"
+    ]
+  },
+  {
+    "id": "lat",
+    "title": "LAT",
+    "type": "method",
+    "category": "mind",
+    "summary": "Анализ речи по маркерам мышления, агентности, времени, причинности и источника знания.",
+    "links": [
+      "language-markers",
+      "agency",
+      "cognitive-reconstruction",
+      "causality",
+      "world-model"
+    ],
+    "actions": [
+      "Показать языковые маркеры",
+      "Связать с реконструкцией",
+      "Разобрать фразу"
+    ]
+  },
+  {
+    "id": "cognitive-superposition",
+    "title": "Когнитивная суперпозиция",
+    "type": "concept",
+    "category": "mind",
+    "summary": "Состояние, в котором несколько возможных сценариев удерживаются одновременно и мешают выбрать действие.",
+    "links": [
+      "choice-paralysis",
+      "loss-of-options",
+      "no-selection-criterion",
+      "founder-chaos"
+    ],
+    "actions": [
+      "Показать механизм",
+      "Найти критерий выбора",
+      "Посмотреть пример"
+    ]
+  },
+  {
+    "id": "choice-paralysis",
+    "title": "Паралич выбора",
+    "type": "problem",
+    "category": "mind",
+    "summary": "Ситуация, когда количество вариантов мешает перейти к действию.",
+    "links": [
+      "cognitive-superposition",
+      "loss-of-options",
+      "no-selection-criterion",
+      "product-choice"
+    ],
+    "actions": [
+      "Сформировать критерий",
+      "Понять причину",
+      "Перейти к продуктовой логике"
+    ]
+  },
+  {
+    "id": "agency",
+    "title": "Агентность",
+    "type": "concept",
+    "category": "mind",
+    "summary": "Способность видеть себя действующим лицом ситуации и влиять на следующий шаг.",
+    "links": [
+      "lat",
+      "language-markers",
+      "situation-map",
+      "understand-but-do-not-act"
+    ],
+    "actions": [
+      "Проверить агентность в речи",
+      "Понять потерю действия",
+      "Связать с LAT"
+    ]
+  },
+  {
+    "id": "situation-map",
+    "title": "Карта ситуации",
+    "type": "artifact",
+    "category": "mind",
+    "summary": "Структурированное представление элементов ситуации и связей между ними.",
+    "links": [
+      "cognitive-reconstruction",
+      "knowledge-graph",
+      "repeating-scenarios",
+      "agency"
+    ],
+    "actions": [
+      "Построить карту",
+      "Посмотреть пример",
+      "Связать с графом знаний"
+    ]
+  },
+  {
+    "id": "repeating-scenarios",
+    "title": "Повторяющиеся сценарии",
+    "type": "concept",
+    "category": "mind",
+    "summary": "Устойчивые паттерны решений, реакций и действий, которые повторяются в разных ситуациях.",
+    "links": [
+      "self-tracking",
+      "diary",
+      "cognitive-reconstruction",
+      "system-before-sales"
+    ],
+    "actions": [
+      "Найти сценарий",
+      "Связать с дневником",
+      "Посмотреть пример"
+    ]
+  },
+  {
+    "id": "ai-development",
+    "title": "AI-разработка",
+    "type": "domain",
+    "category": "ai-dev",
+    "summary": "Создание продуктов и рабочих процессов, где LLM используется как часть системы, а не декоративная кнопка.",
+    "links": [
+      "llm-apps",
+      "ai-agents",
+      "prompt-engineering",
+      "vibe-coding",
+      "llm-site"
+    ],
+    "actions": [
+      "Понять архитектуру",
+      "Перейти к LLM-приложениям",
+      "Посмотреть AI-first продукт"
+    ]
+  },
+  {
+    "id": "vibe-coding",
+    "title": "Vibe coding",
+    "type": "approach",
+    "category": "ai-dev",
+    "summary": "Разработка через быструю итерацию с AI, где человек управляет направлением, а модель ускоряет реализацию.",
+    "links": [
+      "ai-development",
+      "mvp",
+      "prompt-engineering",
+      "full-stack-mvp"
+    ],
+    "actions": [
+      "Собрать MVP",
+      "Понять ограничения",
+      "Перейти к AI-разработке"
+    ]
+  },
+  {
+    "id": "llm-apps",
+    "title": "LLM-приложения",
+    "type": "domain",
+    "category": "ai-dev",
+    "summary": "Приложения, в которых языковая модель работает с контекстом, данными и действиями пользователя.",
+    "links": [
+      "ai-development",
+      "llm-site",
+      "ai-agents",
+      "knowledge-graph"
+    ],
+    "actions": [
+      "Посмотреть интерфейсы без чата",
+      "Связать с сайтом",
+      "Понять архитектуру"
+    ]
+  },
+  {
+    "id": "ai-agents",
+    "title": "AI-агенты",
+    "type": "concept",
+    "category": "ai-dev",
+    "summary": "Системы, где модель выполняет последовательность действий с учетом цели, инструментов и обратной связи.",
+    "links": [
+      "ai-development",
+      "automation",
+      "prompt-engineering",
+      "llm-apps"
+    ],
+    "actions": [
+      "Понять сценарии агентов",
+      "Связать с автоматизацией",
+      "Посмотреть ограничения"
+    ]
+  },
+  {
+    "id": "prompt-engineering",
+    "title": "Промпт-инжиниринг",
+    "type": "method",
+    "category": "ai-dev",
+    "summary": "Проектирование инструкций, контекста и формата работы модели для стабильного результата.",
+    "links": [
+      "ai-development",
+      "llm-apps",
+      "vibe-coding",
+      "atomic-notes"
+    ],
+    "actions": [
+      "Улучшить промпт",
+      "Связать с продуктом",
+      "Посмотреть шаблон"
+    ]
+  },
+  {
+    "id": "llm-site",
+    "title": "LLM-сайт",
+    "type": "concept",
+    "category": "ai-dev",
+    "summary": "Сайт, где модель использует граф знаний для генерации текста, ссылок и маршрутов пользователя.",
+    "links": [
+      "notepub",
+      "knowledge-graph",
+      "atomic-notes",
+      "llm-apps",
+      "seo"
+    ],
+    "actions": [
+      "Понять архитектуру сайта",
+      "Связать с Notepub",
+      "Открыть главную логику"
+    ]
+  },
+  {
+    "id": "positioning",
+    "title": "Позиционирование",
+    "type": "method",
+    "category": "marketing",
+    "summary": "Формулировка места продукта, эксперта или идеи в сознании конкретной аудитории.",
+    "links": [
+      "marketing-os",
+      "icp",
+      "offer",
+      "content-system"
+    ],
+    "actions": [
+      "Проверить позиционирование",
+      "Найти ICP",
+      "Связать с оффером"
+    ]
+  },
+  {
+    "id": "icp",
+    "title": "ICP",
+    "type": "concept",
+    "category": "marketing",
+    "summary": "Описание конкретного типа клиента, для которого продукт особенно релевантен.",
+    "links": [
+      "positioning",
+      "offer",
+      "content-system",
+      "marketing-os"
+    ],
+    "actions": [
+      "Сформировать ICP",
+      "Проверить аудиторию",
+      "Перейти к офферу"
+    ]
+  },
+  {
+    "id": "content-system",
+    "title": "Контентная система",
+    "type": "system",
+    "category": "marketing",
+    "summary": "Связанный набор тем, форматов и маршрутов, который ведет аудиторию от интереса к доверию и заявке.",
+    "links": [
+      "positioning",
+      "icp",
+      "threads",
+      "offer",
+      "marketing-os"
+    ],
+    "actions": [
+      "Построить контентную карту",
+      "Связать с Threads",
+      "Найти продающие темы"
+    ]
+  },
+  {
+    "id": "threads",
+    "title": "Threads",
+    "type": "channel",
+    "category": "marketing",
+    "summary": "Канал короткого контента, быстрых реакций, тестирования формулировок и привлечения аудитории.",
+    "links": [
+      "content-system",
+      "positioning",
+      "offer",
+      "marketing-os"
+    ],
+    "actions": [
+      "Найти углы для Threads",
+      "Проверить посты",
+      "Связать с оффером"
+    ]
+  },
+  {
+    "id": "offer",
+    "title": "Оффер",
+    "type": "concept",
+    "category": "marketing",
+    "summary": "Конкретное предложение, которое связывает проблему клиента, результат, формат работы и следующий шаг.",
+    "links": [
+      "positioning",
+      "icp",
+      "content-system",
+      "funnel"
+    ],
+    "actions": [
+      "Собрать оффер",
+      "Связать с ICP",
+      "Проверить ясность"
+    ]
+  },
+  {
+    "id": "funnel",
+    "title": "Воронка",
+    "type": "system",
+    "category": "marketing",
+    "summary": "Последовательность шагов, через которые человек проходит от первого контакта до покупки или заявки.",
+    "links": [
+      "offer",
+      "content-system",
+      "threads",
+      "recca"
+    ],
+    "actions": [
+      "Посмотреть путь клиента",
+      "Связать с контентом",
+      "Найти слабое место"
+    ]
+  },
+  {
+    "id": "saas",
+    "title": "SaaS",
+    "type": "model",
+    "category": "startups",
+    "summary": "Продуктовая модель, где пользователь получает доступ к сервису по подписке или регулярной оплате.",
+    "links": [
+      "mvp",
+      "hypothesis-testing",
+      "product-thinking",
+      "recca"
+    ],
+    "actions": [
+      "Проверить SaaS-идею",
+      "Связать с MVP",
+      "Посмотреть риски"
+    ]
+  },
+  {
+    "id": "hypothesis-testing",
+    "title": "Проверка гипотез",
+    "type": "method",
+    "category": "startups",
+    "summary": "Быстрая проверка предположений о клиенте, проблеме, ценности, канале или продукте.",
+    "links": [
+      "mvp",
+      "product-thinking",
+      "offer",
+      "system-before-sales"
+    ],
+    "actions": [
+      "Сформулировать гипотезу",
+      "Выбрать тест",
+      "Связать с оффером"
+    ]
+  },
+  {
+    "id": "product-thinking",
+    "title": "Product thinking",
+    "type": "approach",
+    "category": "startups",
+    "summary": "Способ смотреть на идею через пользователя, задачу, ценность, ограничения и повторяемый сценарий.",
+    "links": [
+      "marketing-os",
+      "mvp",
+      "hypothesis-testing",
+      "saas"
+    ],
+    "actions": [
+      "Разложить идею",
+      "Проверить ценность",
+      "Связать с маркетингом"
+    ]
+  },
+  {
+    "id": "mvp",
+    "title": "MVP",
+    "type": "method",
+    "category": "startups",
+    "summary": "Минимальная версия продукта или проверки, которая дает данные для следующего решения.",
+    "links": [
+      "hypothesis-testing",
+      "vibe-coding",
+      "saas",
+      "product-thinking"
+    ],
+    "actions": [
+      "Выбрать MVP",
+      "Проверить гипотезу",
+      "Связать с vibe coding"
+    ]
+  },
+  {
+    "id": "founder-chaos",
+    "title": "Фаундерский хаос",
+    "type": "problem",
+    "category": "startups",
+    "summary": "Состояние основателя, когда идеи, задачи, продукты и тревоги конкурируют за внимание.",
+    "links": [
+      "cognitive-superposition",
+      "choice-paralysis",
+      "situation-map",
+      "system-before-sales"
+    ],
+    "actions": [
+      "Построить карту",
+      "Найти главное действие",
+      "Связать с реконструкцией"
+    ]
+  },
+  {
+    "id": "system-before-sales",
+    "title": "Система вместо продаж",
+    "type": "pattern",
+    "category": "startups",
+    "summary": "Паттерн, в котором человек строит инфраструктуру до проверки спроса и живого контакта с рынком.",
+    "links": [
+      "hypothesis-testing",
+      "mvp",
+      "false-preparation",
+      "repeating-scenarios"
+    ],
+    "actions": [
+      "Найти ближайшую проверку",
+      "Сократить инфраструктуру",
+      "Связать с повторяющимся сценарием"
+    ]
+  },
+  {
+    "id": "obsidian",
+    "title": "Obsidian",
+    "type": "tool",
+    "category": "systems",
+    "summary": "Локальная среда для заметок, связей, графа знаний, дневника и личной базы данных.",
+    "links": [
+      "notepub",
+      "knowledge-graph",
+      "atomic-notes",
+      "diary",
+      "self-tracking"
+    ],
+    "actions": [
+      "Открыть сценарии Obsidian",
+      "Связать с Notepub",
+      "Понять граф знаний"
+    ]
+  },
+  {
+    "id": "knowledge-graph",
+    "title": "Граф знаний",
+    "type": "system",
+    "category": "systems",
+    "summary": "Сеть связанных понятий, заметок, продуктов, методов, кейсов и отношений между ними.",
+    "links": [
+      "atomic-notes",
+      "obsidian",
+      "llm-site",
+      "situation-map"
+    ],
+    "actions": [
+      "Посмотреть структуру графа",
+      "Связать с атомами",
+      "Открыть LLM-сайт"
+    ]
+  },
+  {
+    "id": "atomic-notes",
+    "title": "Атомарные заметки",
+    "type": "method",
+    "category": "systems",
+    "summary": "Короткие самостоятельные заметки, каждая из которых объясняет одно понятие, продукт, метод или связь.",
+    "links": [
+      "knowledge-graph",
+      "obsidian",
+      "llm-site",
+      "seo"
+    ],
+    "actions": [
+      "Создать атом",
+      "Связать заметку",
+      "Понять SEO-роль"
+    ]
+  },
+  {
+    "id": "self-tracking",
+    "title": "Self-tracking",
+    "type": "method",
+    "category": "systems",
+    "summary": "Регулярное наблюдение за состояниями, действиями, событиями и повторяющимися связями.",
+    "links": [
+      "diary",
+      "obsidian",
+      "repeating-scenarios",
+      "self-tracking-toolkit"
+    ],
+    "actions": [
+      "Выбрать метрики",
+      "Связать с дневником",
+      "Найти сценарии"
+    ]
+  },
+  {
+    "id": "diary",
+    "title": "Дневник",
+    "type": "practice",
+    "category": "systems",
+    "summary": "Поток личных наблюдений, событий, мыслей и решений, который со временем становится материалом для анализа.",
+    "links": [
+      "obsidian",
+      "self-tracking",
+      "repeating-scenarios",
+      "cognitive-reconstruction"
+    ],
+    "actions": [
+      "Проанализировать дневник",
+      "Связать с графом",
+      "Найти повторения"
+    ]
+  },
+  {
+    "id": "seo",
+    "title": "SEO",
+    "type": "channel",
+    "category": "systems",
+    "summary": "Оптимизация контента и структуры сайта для поиска, индексации и понятной навигации.",
+    "links": [
+      "atomic-notes",
+      "llm-site",
+      "notepub",
+      "knowledge-graph"
+    ],
+    "actions": [
+      "Оптимизировать атом",
+      "Связать страницы",
+      "Понять LLM и SEO"
+    ]
+  },
+  {
+    "id": "archetypes",
+    "title": "Архетипы",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Устойчивые символические роли и сценарии, через которые человек описывает себя, путь и конфликты.",
+    "links": [
+      "personal-myth",
+      "identity",
+      "world-model",
+      "positioning"
+    ],
+    "actions": [
+      "Понять свой архетип",
+      "Связать с позиционированием",
+      "Посмотреть личный миф"
+    ]
+  },
+  {
+    "id": "personal-myth",
+    "title": "Личный миф",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Связная история о том, кто человек, куда он идет и какие испытания считает значимыми.",
+    "links": [
+      "archetypes",
+      "identity",
+      "world-model",
+      "cognitive-superposition"
+    ],
+    "actions": [
+      "Собрать личный миф",
+      "Связать с архетипами",
+      "Найти конфликт сценариев"
+    ]
+  },
+  {
+    "id": "identity",
+    "title": "Идентичность",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Представление человека о себе, своих ролях, границах, ценностях и допустимых действиях.",
+    "links": [
+      "personal-myth",
+      "agency",
+      "positioning",
+      "world-model"
+    ],
+    "actions": [
+      "Проверить роли",
+      "Связать с действием",
+      "Посмотреть влияние на продукт"
+    ]
+  },
+  {
+    "id": "world-model",
+    "title": "Картина мира",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Система представлений, через которую человек объясняет события, причины, возможности и ограничения.",
+    "links": [
+      "lat",
+      "identity",
+      "agency",
+      "causality"
+    ],
+    "actions": [
+      "Понять модель мира",
+      "Связать с речью",
+      "Найти ограничения"
+    ]
+  },
+  {
+    "id": "philosophy-of-action",
+    "title": "Философия действия",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Размышление о том, как человек переходит от понимания к поступку.",
+    "links": [
+      "agency",
+      "understand-but-do-not-act",
+      "choice-paralysis",
+      "no-selection-criterion"
+    ],
+    "actions": [
+      "Найти ближайшее действие",
+      "Связать с агентностью",
+      "Понять блокировку"
+    ]
+  },
+  {
+    "id": "meaning",
+    "title": "Смысл",
+    "type": "concept",
+    "category": "philosophy",
+    "summary": "Связь между действием, ценностью, направлением и ощущением значимости происходящего.",
+    "links": [
+      "personal-myth",
+      "identity",
+      "world-model",
+      "positioning"
+    ],
+    "actions": [
+      "Прояснить смысл",
+      "Связать с продуктом",
+      "Посмотреть личный миф"
+    ]
+  },
+  {
+    "id": "language-markers",
+    "title": "Языковые маркеры",
+    "type": "concept",
+    "category": "mind",
+    "summary": "Повторяющиеся элементы речи, которые показывают способ описания действия, знания, времени и причинности.",
+    "links": [
+      "lat",
+      "agency",
+      "causality",
+      "world-model"
+    ],
+    "actions": [
+      "Разобрать текст",
+      "Связать с LAT",
+      "Проверить агентность"
+    ]
+  },
+  {
+    "id": "causality",
+    "title": "Причинность",
+    "type": "concept",
+    "category": "mind",
+    "summary": "Способ связывать события, решения и последствия в объяснении ситуации.",
+    "links": [
+      "lat",
+      "world-model",
+      "language-markers",
+      "situation-map"
+    ],
+    "actions": [
+      "Проверить причинность",
+      "Отделить факт от версии",
+      "Связать с картой"
+    ]
+  },
+  {
+    "id": "understand-but-do-not-act",
+    "title": "Всё понимаю, но не делаю",
+    "type": "problem",
+    "category": "mind",
+    "summary": "Ситуация, где знание не превращается в действие, несмотря на ясное рациональное объяснение.",
+    "links": [
+      "agency",
+      "philosophy-of-action",
+      "choice-paralysis",
+      "system-before-sales"
+    ],
+    "actions": [
+      "Найти действие",
+      "Проверить конфликт",
+      "Связать с агентностью"
+    ]
+  },
+  {
+    "id": "no-selection-criterion",
+    "title": "Нет критерия выбора",
+    "type": "problem",
+    "category": "mind",
+    "summary": "Состояние, где варианты сравниваются без ясного основания для решения.",
+    "links": [
+      "choice-paralysis",
+      "cognitive-superposition",
+      "product-choice",
+      "hypothesis-testing"
+    ],
+    "actions": [
+      "Собрать критерий",
+      "Сузить выбор",
+      "Проверить гипотезу"
+    ]
+  },
+  {
+    "id": "loss-of-options",
+    "title": "Страх потери вариантов",
+    "type": "mechanism",
+    "category": "mind",
+    "summary": "Ощущение, что выбор одного направления закрывает ценные альтернативы.",
+    "links": [
+      "cognitive-superposition",
+      "choice-paralysis",
+      "no-selection-criterion",
+      "founder-chaos"
+    ],
+    "actions": [
+      "Сократить варианты",
+      "Понять механизм",
+      "Выбрать тест"
+    ]
+  },
+  {
+    "id": "false-preparation",
+    "title": "Подготовка вместо действия",
+    "type": "pattern",
+    "category": "startups",
+    "summary": "Паттерн, при котором подготовительные задачи заменяют проверку, разговор, продажу или запуск.",
+    "links": [
+      "system-before-sales",
+      "mvp",
+      "hypothesis-testing",
+      "understand-but-do-not-act"
+    ],
+    "actions": [
+      "Найти реальное действие",
+      "Сократить подготовку",
+      "Проверить спрос"
+    ]
+  },
+  {
+    "id": "automation",
+    "title": "Автоматизация",
+    "type": "method",
+    "category": "ai-dev",
+    "summary": "Передача повторяющихся действий системе, скрипту, интеграции или AI-агенту.",
+    "links": [
+      "ai-agents",
+      "ai-development",
+      "llm-apps",
+      "self-tracking"
+    ],
+    "actions": [
+      "Найти процесс",
+      "Связать с агентом",
+      "Проверить входы и выходы"
+    ]
+  },
+  {
+    "id": "full-stack-mvp",
+    "title": "Full-stack MVP",
+    "type": "method",
+    "category": "ai-dev",
+    "summary": "Рабочая минимальная версия продукта с интерфейсом, логикой, данными и базовой инфраструктурой.",
+    "links": [
+      "mvp",
+      "vibe-coding",
+      "ai-development",
+      "saas"
+    ],
+    "actions": [
+      "Собрать MVP",
+      "Сократить объем",
+      "Связать с проверкой"
+    ]
+  },
+  {
+    "id": "product-choice",
+    "title": "Выбор продукта",
+    "type": "process",
+    "category": "startups",
+    "summary": "Процесс выбора главного продукта, направления или оффера для ближайшей проверки.",
+    "links": [
+      "no-selection-criterion",
+      "hypothesis-testing",
+      "product-thinking",
+      "offer"
+    ],
+    "actions": [
+      "Выбрать критерий",
+      "Проверить оффер",
+      "Связать с гипотезой"
+    ]
+  }
+]

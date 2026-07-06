@@ -1,0 +1,48 @@
+---
+type: article
+id: "case-psychologist-no-positioning"
+title: "Кейс психолога без узкого позиционирования"
+slug: "case-psychologist-no-positioning"
+kind: "case"
+hub: "research"
+summary: "Кейс эксперта с несколькими компетенциями, который ведет контент, но не получает стабильные заявки из-за размытого позиционирования."
+description: "Кейс эксперта с несколькими компетенциями, который ведет контент, но не получает стабильные заявки из-за размытого позиционирования."
+status: "public"
+lang: "ru"
+links:
+  - id: "positioning"
+    rel: "explains"
+  - id: "icp"
+    rel: "uses"
+  - id: "content-system"
+    rel: "related_to"
+  - id: "marketing-os"
+    rel: "solved_by"
+  - id: "lead-case-diagnostic"
+    rel: "leads_to"
+actions:
+  - label: "Разобрать похожий кейс"
+    target: "lead-case-diagnostic"
+    help: "Поможет определить, где именно теряется заявка: в теме, оффере, аудитории или маршруте."
+  - label: "Проверить позиционирование"
+    target: "positioning"
+    help: "Поможет сузить вход для клиента."
+---
+# Кейс психолога без узкого позиционирования
+
+Кейс описывает ситуацию, где у специалиста есть опыт, темы и желание работать с клиентами, но нет ясного входа для аудитории. Контент воспринимается как полезный, однако не собирает устойчивый поток заявок, потому что читатель не понимает, с какой конкретной проблемой можно прийти. Для разбора важны [[positioning]], [[icp]], [[content-system]] и [[marketing-os]].
+
+Связанные элементы графа: [[positioning]], [[icp]], [[content-system]], [[marketing-os]], [[lead-case-diagnostic]].
+
+## Связи
+
+- [[positioning]] — explains
+- [[icp]] — uses
+- [[content-system]] — related_to
+- [[marketing-os]] — solved_by
+- [[lead-case-diagnostic]] — leads_to
+
+## Следующие действия
+
+- **Разобрать похожий кейс** → [[lead-case-diagnostic]]: Поможет определить, где именно теряется заявка: в теме, оффере, аудитории или маршруте.
+- **Проверить позиционирование** → [[positioning]]: Поможет сузить вход для клиента.

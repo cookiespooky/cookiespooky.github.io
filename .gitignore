@@ -17,3 +17,4 @@ node_modules/
 .obsidian/
 .tools/bin/
 config.resolved.yaml
+.env.graph-runtime.local

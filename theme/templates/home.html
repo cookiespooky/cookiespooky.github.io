@@ -1,3 +1,29 @@
-<div class="prose home-prose">
-  {{ .Body }}
-</div>
+<section
+  class="graph-home"
+  data-graph-home
+  data-graph-url="{{ .AssetsBase }}/site-graph.json"
+  data-graph-endpoint="http://127.0.0.1:8787/v1/graph/article"
+  data-graph-stream-endpoint="http://127.0.0.1:8787/v1/graph/article/stream"
+>
+  <div class="graph-home-stage">
+    <div class="graph-home-start prose" data-graph-start>
+      {{ .Body }}
+    </div>
+    <article class="graph-home-article" data-graph-article-view hidden>
+      <div class="graph-story-meta">
+        <span class="graph-kind" data-graph-kind></span>
+        <span class="graph-hub-label" data-graph-hub-label></span>
+      </div>
+
+      <h1 class="graph-article-title" data-graph-title>Подготовка статьи</h1>
+      <p class="graph-summary" data-graph-summary></p>
+      <div class="graph-article-body prose" data-graph-generated>
+        <div class="graph-article-copy" data-graph-copy>
+          <p>Подготавливаю статью.</p>
+        </div>
+        <div class="graph-stream-visual" data-graph-visual aria-hidden="true"></div>
+      </div>
+      <div class="graph-actions-inline" data-graph-actions></div>
+    </article>
+  </div>
+</section>

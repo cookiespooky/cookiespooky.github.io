@@ -1,5 +1,33 @@
-<article class="page">
-  <div class="prose">
-    {{ .Body }}
+<article
+  class="page atom-page"
+  data-graph-article
+  data-graph-url="{{ .BaseURL }}/media/data/site-graph.json"
+  data-atom-id="{{ .FM.id }}"
+>
+  <div class="atom-layout">
+    <div class="atom-main">
+      <div class="prose">
+        {{ .Body }}
+      </div>
+    </div>
+
+    <aside class="atom-sidebar">
+      <a class="atom-home-link" href="{{ .BaseURL }}/?atom={{ .FM.id }}">Открыть как маршрут на главной</a>
+      <p class="atom-sidebar-summary">{{ .FM.summary }}</p>
+
+      <section class="atom-side-panel">
+        <p class="graph-kicker">Связанные понятия</p>
+        <div class="atom-related-list" data-atom-related>
+          <p class="muted">Загрузка связей.</p>
+        </div>
+      </section>
+
+      <section class="atom-side-panel">
+        <p class="graph-kicker">Следующие действия</p>
+        <div class="atom-actions-list" data-atom-actions>
+          <p class="muted">Загрузка действий.</p>
+        </div>
+      </section>
+    </aside>
   </div>
 </article>

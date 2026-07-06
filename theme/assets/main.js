@@ -295,6 +295,526 @@
     });
   }
 
+  var graphDataPromise = null;
+
+  function fetchJson(path) {
+    return fetch(path).then(function (res) {
+      if (!res.ok) throw new Error("Failed to fetch " + path);
+      return res.json();
+    });
+  }
+
+  function getGraphData(url) {
+    if (!graphDataPromise) {
+      graphDataPromise = fetchJson(url);
+    }
+    return graphDataPromise;
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function buildGraphLookup(graph) {
+    var atoms = (graph && graph.atoms) || [];
+    var map = Object.create(null);
+    atoms.forEach(function (atom) {
+      map[atom.id] = atom;
+    });
+    return map;
+  }
+
+  function graphAtomURL(atom) {
+    return withBasePath(atom && atom.url ? atom.url : "/");
+  }
+
+  function createActionButton(action, atomMap) {
+    var targetAtom = atomMap[action.target || action.id];
+    var element = document.createElement("button");
+    element.type = "button";
+    element.className = "graph-action-pill";
+    var label = action.label || "Открыть";
+    label = label.replace(/^Перейти к\s+/i, "").trim();
+    element.textContent = label || "Открыть";
+    if (targetAtom) {
+      element.setAttribute("data-graph-target", targetAtom.id);
+    } else {
+      element.disabled = true;
+    }
+    return element;
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, ms);
+    });
+  }
+
+  function initGraphHome() {
+    var root = document.querySelector("[data-graph-home]");
+    if (!root) return;
+
+    var graphUrl = root.getAttribute("data-graph-url");
+    var endpointUrl = root.getAttribute("data-graph-endpoint");
+    var streamEndpointUrl = root.getAttribute("data-graph-stream-endpoint") || endpointUrl;
+    var startView = root.querySelector("[data-graph-start]");
+    var articleView = root.querySelector("[data-graph-article-view]");
+    var titleEl = root.querySelector("[data-graph-title]");
+    var summaryEl = root.querySelector("[data-graph-summary]");
+    var generatedEl = root.querySelector("[data-graph-generated]");
+    var copyEl = root.querySelector("[data-graph-copy]");
+    var actionsEl = root.querySelector("[data-graph-actions]");
+    var kindEl = root.querySelector("[data-graph-kind]");
+    var hubLabelEl = root.querySelector("[data-graph-hub-label]");
+    var visualEl = root.querySelector("[data-graph-visual]");
+    if (!graphUrl || !endpointUrl || !startView || !articleView || !copyEl) return;
+
+    function normalizePathname(input) {
+      if (!input) return "/";
+      var path = input.replace(/^https?:\/\/[^/]+/i, "");
+      path = path.replace(/[?#].*$/, "");
+      path = path.replace(/\/+$/, "");
+      return path || "/";
+    }
+
+    function renderLinkMarkup(text) {
+      var source = String(text || "");
+      var result = "";
+      var cursor = 0;
+      var match;
+      var pattern = /\[\[([a-z0-9-]+)(?:\|([^\]]+))?\]\]/gi;
+
+      while ((match = pattern.exec(source)) !== null) {
+        result += escapeHtml(source.slice(cursor, match.index));
+        result += '<a href="#" data-graph-target="' + escapeHtml(match[1]) + '">' + escapeHtml(match[2] || match[1]) + "</a>";
+        cursor = pattern.lastIndex;
+      }
+
+      result += escapeHtml(source.slice(cursor));
+      return result;
+    }
+
+    function renderArticleBody(markdownLike) {
+      var blocks = String(markdownLike || "").replace(/\r\n/g, "\n").split(/\n{2,}/);
+      return blocks.map(function (block) {
+        var trimmed = block.trim();
+        if (!trimmed) return "";
+        if (trimmed.indexOf("## ") === 0) {
+          return "<h2>" + renderLinkMarkup(trimmed.slice(3).trim()) + "</h2>";
+        }
+        return "<p>" + renderLinkMarkup(trimmed) + "</p>";
+      }).join("");
+    }
+
+    function buildRouteLookup(graph) {
+      var routeMap = Object.create(null);
+      (graph.atoms || []).forEach(function (atom) {
+        routeMap[normalizePathname(atom.url)] = atom.id;
+      });
+      return routeMap;
+    }
+
+    function showStartView() {
+      startView.hidden = false;
+      articleView.hidden = true;
+      copyEl.innerHTML = "<p>Подготавливаю статью.</p>";
+      actionsEl.innerHTML = "";
+      root.classList.remove("is-streaming");
+      root.classList.remove("is-graph-active");
+      var url = new URL(window.location.href);
+      url.searchParams.delete("atom");
+      window.history.replaceState({}, "", url.toString());
+    }
+
+    function setLoading(atom) {
+      startView.hidden = true;
+      articleView.hidden = false;
+      titleEl.textContent = "";
+      summaryEl.textContent = "";
+      kindEl.textContent = atom.kind;
+      hubLabelEl.textContent = atom.hub;
+      copyEl.innerHTML = "";
+      actionsEl.innerHTML = "";
+      if (visualEl) visualEl.innerHTML = "";
+      root.classList.remove("is-streaming");
+      root.classList.remove("is-graph-active");
+    }
+
+    function setError(message) {
+      copyEl.innerHTML = '<p class="graph-error">' + escapeHtml(message) + "</p>";
+      root.classList.remove("is-streaming");
+      root.classList.remove("is-graph-active");
+    }
+
+    function typeText(element, text, speed, requestToken, state) {
+      var content = String(text || "");
+      element.textContent = "";
+      if (!content) return Promise.resolve();
+
+      return new Promise(function (resolve) {
+        var index = 0;
+        function tick() {
+          if (state.requestToken !== requestToken) {
+            resolve();
+            return;
+          }
+          index += 1;
+          element.textContent = content.slice(0, index);
+          if (index >= content.length) {
+            resolve();
+            return;
+          }
+          window.setTimeout(tick, speed);
+        }
+        tick();
+      });
+    }
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function renderMiniGraph(seed) {
+      if (!visualEl) return;
+      visualEl.innerHTML = "";
+
+      var mainNode = document.createElement("span");
+      mainNode.className = "graph-stream-node graph-stream-node-main";
+      mainNode.style.left = "21px";
+      mainNode.style.top = "21px";
+      mainNode.style.setProperty("--graph-delay", "0s");
+      visualEl.appendChild(mainNode);
+
+      var used = [{ x: 25, y: 25 }];
+      var auxCount = 4;
+
+      for (var i = 0; i < auxCount; i += 1) {
+        var x = 0;
+        var y = 0;
+        var attempts = 0;
+
+        do {
+          x = randomInt(3, 41);
+          y = randomInt(3, 41);
+          attempts += 1;
+        } while (attempts < 20 && used.some(function (point) {
+          var dx = point.x - (x + 3);
+          var dy = point.y - (y + 3);
+          return Math.sqrt(dx * dx + dy * dy) < 12;
+        }));
+
+        used.push({ x: x + 3, y: y + 3 });
+
+        var node = document.createElement("span");
+        node.className = "graph-stream-node graph-stream-node-aux";
+        node.style.left = x + "px";
+        node.style.top = y + "px";
+        node.style.setProperty("--graph-delay", (0.18 * (i + 1)).toFixed(2) + "s");
+        visualEl.appendChild(node);
+
+        var edge = document.createElement("span");
+        edge.className = "graph-stream-edge";
+        var dxMain = (x + 3) - 25;
+        var dyMain = (y + 3) - 25;
+        var length = Math.sqrt(dxMain * dxMain + dyMain * dyMain);
+        var angle = Math.atan2(dyMain, dxMain) * 180 / Math.PI;
+        edge.style.left = "25px";
+        edge.style.top = "25px";
+        edge.style.width = Math.max(10, length) + "px";
+        edge.style.transform = "rotate(" + angle.toFixed(2) + "deg)";
+        edge.style.setProperty("--graph-delay", (0.12 + 0.18 * (i + 1)).toFixed(2) + "s");
+        visualEl.appendChild(edge);
+      }
+    }
+
+    function requestRuntimeArticle(atomId, trailIds) {
+      return fetch(endpointUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          atomId: atomId,
+          trail: trailIds || []
+        })
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (payload) {
+          if (!res.ok) {
+            throw new Error(payload.error || "Не удалось сгенерировать статью.");
+          }
+          return payload;
+        });
+      });
+    }
+
+    function requestRuntimeArticleStream(atomId, trailIds, signal, handlers) {
+      return fetch(streamEndpointUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          atomId: atomId,
+          trail: trailIds || []
+        }),
+        signal: signal
+      }).then(function (res) {
+        if (!res.ok) {
+          return res.json().catch(function () { return {}; }).then(function (payload) {
+            throw new Error(payload.error || "Не удалось сгенерировать статью.");
+          });
+        }
+        if (!res.body || !window.TextDecoder) {
+          return requestRuntimeArticle(atomId, trailIds).then(function (payload) {
+            if (handlers && typeof handlers.onDone === "function") {
+              handlers.onDone(payload);
+            }
+          });
+        }
+
+        var reader = res.body.getReader();
+        var decoder = new TextDecoder("utf-8");
+        var buffer = "";
+
+        function processLine(line) {
+          if (!line) return;
+          var payload;
+          try {
+            payload = JSON.parse(line);
+          } catch (error) {
+            return;
+          }
+
+          if (payload.type === "start" && handlers && typeof handlers.onStart === "function") {
+            handlers.onStart(payload);
+          } else if (payload.type === "delta" && handlers && typeof handlers.onDelta === "function") {
+            handlers.onDelta(payload);
+          } else if (payload.type === "phase" && handlers && typeof handlers.onPhase === "function") {
+            handlers.onPhase(payload);
+          } else if (payload.type === "meta" && handlers && typeof handlers.onMeta === "function") {
+            handlers.onMeta(payload);
+          } else if (payload.type === "done" && handlers && typeof handlers.onDone === "function") {
+            handlers.onDone(payload.article || payload);
+          }
+        }
+
+        function pump() {
+          return reader.read().then(function (chunk) {
+            if (chunk.done) {
+              if (buffer.trim()) processLine(buffer.trim());
+              return;
+            }
+
+            buffer += decoder.decode(chunk.value, { stream: true });
+            var lines = buffer.split(/\r?\n/);
+            buffer = lines.pop() || "";
+            lines.forEach(function (line) {
+              processLine(line.trim());
+            });
+            return pump();
+          });
+        }
+
+        return pump();
+      });
+    }
+
+    getGraphData(graphUrl).then(function (graph) {
+      var atomMap = buildGraphLookup(graph);
+      var routeMap = buildRouteLookup(graph);
+      var hubMap = Object.create(null);
+      (graph.hubs || []).forEach(function (hub) {
+        hubMap[hub.id] = hub;
+      });
+
+      var params = new URLSearchParams(window.location.search);
+      var initialAtomId = params.get("atom") || routeMap[normalizePathname(window.location.pathname)];
+      var state = {
+        trail: [],
+        currentAtomId: "",
+        streamController: null,
+        requestToken: 0
+      };
+
+      function abortCurrentStream() {
+        if (state.streamController) {
+          state.streamController.abort();
+          state.streamController = null;
+        }
+        root.classList.remove("is-streaming");
+        root.classList.remove("is-graph-active");
+      }
+
+      async function renderRuntimeArticle(atomId) {
+        var atom = atomMap[atomId];
+        if (!atom) return;
+        var hub = hubMap[atom.hub];
+        var requestToken = state.requestToken + 1;
+        var bodyBuffer = "";
+
+        abortCurrentStream();
+        state.requestToken = requestToken;
+
+        state.currentAtomId = atom.id;
+        if (state.trail[state.trail.length - 1] !== atom.id) {
+          state.trail.push(atom.id);
+        }
+
+        setLoading(atom);
+        kindEl.textContent = atom.kind;
+        hubLabelEl.textContent = hub ? hub.title : atom.hub;
+
+        await typeText(titleEl, atom.title, 18, requestToken, state);
+        await typeText(summaryEl, atom.summary || "", 10, requestToken, state);
+        if (state.requestToken !== requestToken) return;
+
+        renderMiniGraph(atom.id);
+        root.classList.add("is-graph-active");
+        await wait(460);
+        if (state.requestToken !== requestToken) return;
+
+        copyEl.innerHTML = '<p class="graph-loading">Генерирую статью по связанным атомам...</p>';
+        state.streamController = new AbortController();
+
+        requestRuntimeArticleStream(
+          atom.id,
+          state.trail.slice(0, -1),
+          state.streamController.signal,
+          {
+            onStart: function (payload) {
+              if (state.requestToken !== requestToken) return;
+              titleEl.textContent = payload.title || atom.title;
+              summaryEl.textContent = payload.summary || atom.summary || "";
+              actionsEl.innerHTML = "";
+              copyEl.innerHTML = "";
+              root.classList.remove("is-graph-active");
+              root.classList.add("is-streaming");
+            },
+            onDelta: function (payload) {
+              if (state.requestToken !== requestToken) return;
+              bodyBuffer = payload.body || (bodyBuffer + (payload.delta || ""));
+              copyEl.innerHTML = renderArticleBody(bodyBuffer);
+            },
+            onMeta: function (payload) {
+              if (state.requestToken !== requestToken) return;
+              titleEl.textContent = payload.title || titleEl.textContent;
+              summaryEl.textContent = payload.summary || summaryEl.textContent;
+              actionsEl.innerHTML = "";
+              var metaActions = Array.isArray(payload.next_actions) ? payload.next_actions : [];
+              metaActions.forEach(function (action) {
+                actionsEl.appendChild(createActionButton(action, atomMap));
+              });
+            },
+            onPhase: function (payload) {
+              if (state.requestToken !== requestToken) return;
+            },
+            onDone: function (payload) {
+              if (state.requestToken !== requestToken) return;
+              state.streamController = null;
+              root.classList.remove("is-streaming");
+              root.classList.remove("is-graph-active");
+              titleEl.textContent = payload.title || atom.title;
+              summaryEl.textContent = payload.warning
+                ? (payload.summary || atom.summary || "") + " Сейчас показан черновой графовый режим."
+                : (payload.summary || atom.summary || "");
+              copyEl.innerHTML = renderArticleBody(payload.body || bodyBuffer || "");
+              actionsEl.innerHTML = "";
+
+              var nextActions = Array.isArray(payload.next_actions) ? payload.next_actions : [];
+              nextActions.forEach(function (action) {
+                actionsEl.appendChild(createActionButton(action, atomMap));
+              });
+
+              var url = new URL(window.location.href);
+              url.searchParams.set("atom", atom.id);
+              window.history.replaceState({}, "", url.toString());
+            }
+          }
+        ).catch(function (error) {
+          if (error && error.name === "AbortError") return;
+          if (state.requestToken !== requestToken) return;
+          state.streamController = null;
+          root.classList.remove("is-streaming");
+          root.classList.remove("is-graph-active");
+          setError(error && error.message ? error.message : "Не удалось сгенерировать статью.");
+        });
+      }
+
+      if (initialAtomId && atomMap[initialAtomId]) {
+        renderRuntimeArticle(initialAtomId);
+      } else {
+        showStartView();
+      }
+
+      root.addEventListener("click", function (event) {
+        var runtimeTarget = event.target.closest("[data-graph-target]");
+        if (runtimeTarget) {
+          event.preventDefault();
+          renderRuntimeArticle(runtimeTarget.getAttribute("data-graph-target"));
+          return;
+        }
+
+        var anchor = event.target.closest("a[href]");
+        if (!anchor) return;
+        var href = anchor.getAttribute("href") || "";
+        if (!href) return;
+        var route = normalizePathname(href);
+        var atomId = routeMap[route];
+        if (atomId) {
+          event.preventDefault();
+          renderRuntimeArticle(atomId);
+        }
+      });
+
+    }).catch(function () {
+      setError("Не удалось загрузить граф.");
+    });
+  }
+
+  function initGraphArticle() {
+    var root = document.querySelector("[data-graph-article]");
+    if (!root) return;
+
+    var atomId = root.getAttribute("data-atom-id");
+    var graphUrl = root.getAttribute("data-graph-url");
+    var relatedEl = root.querySelector("[data-atom-related]");
+    var actionsEl = root.querySelector("[data-atom-actions]");
+    if (!atomId || !graphUrl || !relatedEl || !actionsEl) return;
+
+    getGraphData(graphUrl).then(function (graph) {
+      var atomMap = buildGraphLookup(graph);
+      var atom = atomMap[atomId];
+      if (!atom) return;
+
+      relatedEl.innerHTML = "";
+      (atom.links || []).map(function (link) {
+        return atomMap[link.id];
+      }).filter(Boolean).forEach(function (relatedAtom) {
+        var link = document.createElement("a");
+        link.className = "atom-side-link";
+        link.href = graphAtomURL(relatedAtom);
+        link.innerHTML = "<strong>" + escapeHtml(relatedAtom.title) + "</strong><span>" + escapeHtml(relatedAtom.summary) + "</span>";
+        relatedEl.appendChild(link);
+      });
+
+      actionsEl.innerHTML = "";
+      (atom.actions || []).forEach(function (action) {
+        var targetAtom = atomMap[action.target];
+        var link = document.createElement(targetAtom ? "a" : "span");
+        link.className = "graph-action-pill";
+        link.textContent = action.label || "Открыть";
+        if (targetAtom) {
+          link.href = withBasePath("/?atom=" + encodeURIComponent(targetAtom.id));
+        }
+        actionsEl.appendChild(link);
+      });
+    }).catch(function () {
+      relatedEl.innerHTML = "<p class='muted'>Не удалось загрузить связи.</p>";
+      actionsEl.innerHTML = "<p class='muted'>Не удалось загрузить действия.</p>";
+    });
+  }
+
   function initMobileNav() {
     var navPanel = document.querySelector("[data-nav-panel]");
     var navOpen = document.querySelector("[data-nav-open]");
@@ -663,6 +1183,8 @@
 
   initMarkdownEmbeds(document.querySelector("main") || document);
   initAgencyAnalyzer();
+  initGraphHome();
+  initGraphArticle();
   initSearchModal();
   initHubFilters();
   initMobileNav();

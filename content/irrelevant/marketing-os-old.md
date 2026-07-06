@@ -1,6 +1,6 @@
 ---
 type: hub
-title: Marketing OS
+title: "Архив: Marketing OS"
 slug: marketing-os-old
 description: "Marketing OS помогает маркетологу, эксперту или малой команде вести весь цикл маркетинга на своём железе: позиционирование, тексты, визуалы, публикации, статусы и архив артефактов."
 draft: false
