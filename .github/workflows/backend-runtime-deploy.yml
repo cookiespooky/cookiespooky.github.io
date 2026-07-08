@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 concurrency:
   group: backend-runtime-deploy
@@ -13,7 +12,6 @@ concurrency:
 
 env:
   YC_FOLDER_ID: b1gebm0a43a8g5saqhlu
-  YC_SA_ID: ajeqmt4fr1acruob80h1
   YCF_FUNCTION_NAME: np-personal-graph-runtime
   YCF_GATEWAY_NAME: np-personal-graph-runtime-ws
   YCF_RUNTIME_SA_NAME: np-personal-runtime-sa
@@ -30,21 +28,20 @@ jobs:
       - name: Generate runtime graph
         run: node ./scripts/build-site-graph-mvp.js
 
-      - name: Get Yandex Cloud IAM token
-        id: yc-token
-        uses: docker://ghcr.io/yc-actions/yc-iam-token-fed:1.0.0
-        with:
-          yc-sa-id: ${{ env.YC_SA_ID }}
-
       - name: Install yc CLI
         run: |
           curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /tmp/yc -n
           echo "/tmp/yc/bin" >> "$GITHUB_PATH"
 
+      - name: Write service account key
+        run: |
+          printf '%s' '${{ secrets.YC_SA_JSON_CREDENTIALS }}' > /tmp/yc-sa-key.json
+          chmod 600 /tmp/yc-sa-key.json
+
       - name: Configure yc CLI
         run: |
           yc config profile create ci || true
-          yc config set iam-token "${{ steps.yc-token.outputs.token }}"
+          yc config set service-account-key /tmp/yc-sa-key.json
           yc config set folder-id "${{ env.YC_FOLDER_ID }}"
 
       - name: Deploy function and websocket gateway

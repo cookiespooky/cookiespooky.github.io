@@ -29,7 +29,7 @@
 - `memory=128m`
 - `timeout=45s`
 - без provisioned instances
-- без API Gateway, если не нужен красивый URL
+- c WebSocket API Gateway для realtime stream
 
 ## Что отдается наружу
 
@@ -90,3 +90,12 @@ graph_stream_endpoint: wss://<gateway-domain>.apigw.yandexcloud.net/ws
 ```
 
 Если `graph_stream_endpoint` не задан, фронт работает через обычный JSON endpoint.
+
+## GitHub Actions deploy
+
+Workflow `.github/workflows/backend-runtime-deploy.yml` ожидает два секрета:
+
+- `DEEPSEEK_API_KEY`
+- `YC_SA_JSON_CREDENTIALS`
+
+`YC_SA_JSON_CREDENTIALS` должен содержать JSON-ключ service account с правами на деплой функции и gateway.
