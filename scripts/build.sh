@@ -189,16 +189,21 @@ if ! command -v "$BIN" >/dev/null 2>&1; then
   exit 1
 fi
 
+if [[ -f "./scripts/build-site-graph-mvp.js" ]]; then
+  echo "[0/9] refresh graph content"
+  node ./scripts/build-site-graph-mvp.js
+fi
+
 if [[ -d "$CONTENT_DIR" && -f "./scripts/normalize-obsidian-embeds.sh" ]]; then
-  echo "[0/8] normalize obsidian embeds"
+  echo "[1/9] normalize obsidian embeds"
   chmod +x ./scripts/normalize-obsidian-embeds.sh
   ./scripts/normalize-obsidian-embeds.sh "$CONTENT_DIR"
 fi
 
-echo "[1/8] index"
+echo "[2/9] index"
 "$BIN" index --config "$CFG" --rules "$RULES"
 
-echo "[2/8] validate links + markdown"
+echo "[3/9] validate links + markdown"
 VALIDATE_HELP="$("$BIN" validate --help 2>&1 || true)"
 if printf '%s\n' "$VALIDATE_HELP" | grep -q -- "-links"; then
   "$BIN" validate --config "$CFG" --rules "$RULES" --links
@@ -212,10 +217,10 @@ else
   echo "validate --markdown is not supported by this notepub binary; skipping"
 fi
 
-echo "[3/8] build"
+echo "[4/9] build"
 "$BIN" build --config "$CFG" --rules "$RULES" --artifacts "$ART" --dist "$OUT"
 
-echo "[4/8] export content media"
+echo "[5/9] export content media"
 rm -rf "$OUT/media"
 mkdir -p "$OUT/media"
 
@@ -257,7 +262,7 @@ if [[ -f "./CNAME" ]]; then
   cp ./CNAME "$OUT/CNAME"
 fi
 
-echo "[5/8] copy llms files"
+echo "[6/9] copy llms files"
 if [[ -f "$OUT/assets/llms.txt" ]]; then
   cp "$OUT/assets/llms.txt" "$OUT/llms.txt"
 fi
@@ -265,11 +270,11 @@ if [[ -f "$OUT/assets/llms-full.txt" ]]; then
   cp "$OUT/assets/llms-full.txt" "$OUT/llms-full.txt"
 fi
 
-echo "[6/8] normalize robots"
+echo "[8/9] normalize robots"
 if [[ -f "$OUT/robots.txt" ]]; then
   awk '!/^LLM: /' "$OUT/robots.txt" > "$OUT/robots.txt.tmp"
   cat "$OUT/robots.txt.tmp" > "$OUT/robots.txt"
   rm -f "$OUT/robots.txt.tmp"
 fi
 
-echo "[8/8] done -> $OUT"
+echo "[9/9] done -> $OUT"

@@ -1,0 +1,24 @@
+openapi: 3.0.0
+info:
+  title: np-personal-graph-runtime-ws
+  version: 1.0.0
+paths:
+  /ws:
+    x-yc-apigateway-websocket-connect:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "$latest"
+        service_account_id: __SERVICE_ACCOUNT_ID__
+    x-yc-apigateway-websocket-message:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "$latest"
+        service_account_id: __SERVICE_ACCOUNT_ID__
+    x-yc-apigateway-websocket-disconnect:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "$latest"
+        service_account_id: __SERVICE_ACCOUNT_ID__

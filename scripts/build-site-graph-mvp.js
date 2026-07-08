@@ -324,7 +324,7 @@ function inferStreamEndpoint(graphEndpoint) {
 
   try {
     const url = new URL(graphEndpoint);
-    if ((url.hostname === "127.0.0.1" || url.hostname === "localhost") && url.pathname === "/v1/graph/article") {
+    if (url.pathname === "/v1/graph/article") {
       url.pathname = "/v1/graph/article/stream";
       return url.toString();
     }

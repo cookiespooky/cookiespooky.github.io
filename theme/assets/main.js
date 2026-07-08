@@ -1,10 +1,34 @@
 (function () {
+  function isLoopbackHost(hostname) {
+    return hostname === "localhost" || hostname === "127.0.0.1";
+  }
+
+  function alignLoopbackOrigin(rawUrl) {
+    if (!rawUrl || /^\/(?!\/)/.test(rawUrl)) return rawUrl;
+    var parsed;
+    try {
+      parsed = new URL(rawUrl, window.location.href);
+    } catch (_error) {
+      return rawUrl;
+    }
+    if (!isLoopbackHost(parsed.hostname) || !isLoopbackHost(window.location.hostname)) {
+      return parsed.toString();
+    }
+    if (parsed.origin === window.location.origin) {
+      return parsed.toString();
+    }
+    parsed.protocol = window.location.protocol;
+    parsed.hostname = window.location.hostname;
+    parsed.port = window.location.port;
+    return parsed.toString();
+  }
+
   function withBasePath(path) {
     var base = (window.__notepubBaseURL || "").replace(/\/+$/, "");
     if (!path) return base || "/";
     if (/^https?:\/\//.test(path)) return path;
     if (path.charAt(0) !== "/") path = "/" + path;
-    return (base || "") + path;
+    return alignLoopbackOrigin((base || "") + path);
   }
 
   function onIdle(fn) {
@@ -298,7 +322,7 @@
   var graphDataPromise = null;
 
   function fetchJson(path) {
-    return fetch(path).then(function (res) {
+    return fetch(alignLoopbackOrigin(path)).then(function (res) {
       if (!res.ok) throw new Error("Failed to fetch " + path);
       return res.json();
     });
@@ -361,7 +385,7 @@
 
     var graphUrl = root.getAttribute("data-graph-url");
     var endpointUrl = root.getAttribute("data-graph-endpoint");
-    var streamEndpointUrl = root.getAttribute("data-graph-stream-endpoint") || endpointUrl;
+    var streamEndpointUrl = root.getAttribute("data-graph-stream-endpoint");
     var startView = root.querySelector("[data-graph-start]");
     var articleView = root.querySelector("[data-graph-article-view]");
     var titleEl = root.querySelector("[data-graph-title]");
@@ -387,11 +411,36 @@
       var result = "";
       var cursor = 0;
       var match;
-      var pattern = /\[\[([a-z0-9-]+)(?:\|([^\]]+))?\]\]/gi;
+      var pattern = /\[([^\]]+)\]\(([^)]+)\)|\[\[([a-z0-9-]+)(?:\|([^\]]+))?\]\]/gi;
+
+      function resolveGraphTarget(rawTarget) {
+        var value = String(rawTarget || "").trim();
+        if (!value) return "";
+        if (/^(https?:|mailto:|tel:|#)/i.test(value)) return "";
+        value = value.replace(/^\.?\//, "").replace(/\/+$/, "");
+        if (!value) return "";
+        if (/^[a-z0-9-]+$/i.test(value)) return value.toLowerCase();
+        var parts = value.split("/").filter(Boolean);
+        if (parts.length && /^[a-z0-9-]+$/i.test(parts[parts.length - 1])) {
+          return parts[parts.length - 1].toLowerCase();
+        }
+        return "";
+      }
 
       while ((match = pattern.exec(source)) !== null) {
         result += escapeHtml(source.slice(cursor, match.index));
-        result += '<a href="#" data-graph-target="' + escapeHtml(match[1]) + '">' + escapeHtml(match[2] || match[1]) + "</a>";
+        if (match[1] && match[2]) {
+          var label = match[1];
+          var href = match[2];
+          var graphTarget = resolveGraphTarget(href);
+          if (graphTarget) {
+            result += '<a href="#" data-graph-target="' + escapeHtml(graphTarget) + '">' + escapeHtml(label) + "</a>";
+          } else {
+            result += '<a href="' + escapeHtml(href) + '">' + escapeHtml(label) + "</a>";
+          }
+        } else {
+          result += '<a href="#" data-graph-target="' + escapeHtml(match[3]) + '">' + escapeHtml(match[4] || match[3]) + "</a>";
+        }
         cursor = pattern.lastIndex;
       }
 
@@ -404,11 +453,72 @@
       return blocks.map(function (block) {
         var trimmed = block.trim();
         if (!trimmed) return "";
+        if (trimmed.indexOf("# ") === 0) {
+          return "<h1>" + renderLinkMarkup(trimmed.slice(2).trim()) + "</h1>";
+        }
         if (trimmed.indexOf("## ") === 0) {
           return "<h2>" + renderLinkMarkup(trimmed.slice(3).trim()) + "</h2>";
         }
+        if (trimmed.indexOf("### ") === 0) {
+          return "<h3>" + renderLinkMarkup(trimmed.slice(4).trim()) + "</h3>";
+        }
+        var listLines = trimmed.split("\n").filter(function (line) {
+          return /^[-*]\s+/.test(line.trim());
+        });
+        if (listLines.length && listLines.length === trimmed.split("\n").length) {
+          return "<ul>" + listLines.map(function (line) {
+            return "<li>" + renderLinkMarkup(line.trim().replace(/^[-*]\s+/, "")) + "</li>";
+          }).join("") + "</ul>";
+        }
         return "<p>" + renderLinkMarkup(trimmed) + "</p>";
       }).join("");
+    }
+
+    var loadingPhrases = [
+      "Проверяю имеющиеся знания",
+      "Захожу в граф и поднимаю связи",
+      "Собираю подграф вокруг выбранной темы",
+      "Проверяю соседние атомы и действия",
+      "Собираю черновик статьи из контекста"
+    ];
+
+    function renderLoadingMarkup(label) {
+      return '<p class="graph-loading"><span class="graph-loading-text">' + escapeHtml(label || "") + '</span><span class="graph-loading-caret" aria-hidden="true"></span></p>';
+    }
+
+    function startLoadingTicker(state, requestToken) {
+      var phraseIndex = 0;
+      var disposed = false;
+
+      function isActive() {
+        return !disposed && state.requestToken === requestToken;
+      }
+
+      function delay(ms) {
+        return new Promise(function (resolve) {
+          var id = window.setTimeout(resolve, ms);
+          state.loadingTimerIds.push(id);
+        });
+      }
+
+      async function loop() {
+        while (isActive()) {
+          copyEl.innerHTML = renderLoadingMarkup("");
+          var textEl = copyEl.querySelector(".graph-loading-text");
+          if (!textEl) return;
+          await typeText(textEl, loadingPhrases[phraseIndex % loadingPhrases.length], 32, requestToken, state);
+          if (!isActive()) return;
+          await delay(1200);
+          if (!isActive()) return;
+          phraseIndex += 1;
+        }
+      }
+
+      loop();
+
+      return function stopTicker() {
+        disposed = true;
+      };
     }
 
     function buildRouteLookup(graph) {
@@ -449,6 +559,11 @@
       copyEl.innerHTML = '<p class="graph-error">' + escapeHtml(message) + "</p>";
       root.classList.remove("is-streaming");
       root.classList.remove("is-graph-active");
+    }
+
+    function renderWarning(message) {
+      if (!message) return "";
+      return '<div class="graph-warning">' + escapeHtml(message) + "</div>";
     }
 
     function typeText(element, text, speed, requestToken, state) {
@@ -551,6 +666,97 @@
     }
 
     function requestRuntimeArticleStream(atomId, trailIds, signal, handlers) {
+      if (!streamEndpointUrl) {
+        return requestRuntimeArticle(atomId, trailIds).then(function (payload) {
+          if (handlers && typeof handlers.onDone === "function") {
+            handlers.onDone(payload);
+          }
+        });
+      }
+
+      if (/^wss?:\/\//i.test(streamEndpointUrl) && typeof window.WebSocket === "function") {
+        return new Promise(function (resolve, reject) {
+          var socket = new window.WebSocket(streamEndpointUrl);
+          var settled = false;
+          var receivedDone = false;
+
+          function fail(message) {
+            if (settled) return;
+            settled = true;
+            reject(new Error(message || "Не удалось подключиться к stream gateway."));
+          }
+
+          function finish() {
+            if (settled) return;
+            settled = true;
+            resolve();
+          }
+
+          function abortSocket() {
+            if (socket.readyState === window.WebSocket.OPEN || socket.readyState === window.WebSocket.CONNECTING) {
+              socket.close(1000, "aborted");
+            }
+          }
+
+          if (signal && typeof signal.addEventListener === "function") {
+            signal.addEventListener("abort", abortSocket, { once: true });
+          }
+
+          socket.addEventListener("open", function () {
+            socket.send(JSON.stringify({
+              type: "generate_article",
+              request_id: "req_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8),
+              atomId: atomId,
+              trail: trailIds || []
+            }));
+          });
+
+          socket.addEventListener("message", function (event) {
+            if (!event || typeof event.data !== "string" || !event.data.trim()) return;
+            var payload;
+            try {
+              payload = JSON.parse(event.data);
+            } catch (_error) {
+              return;
+            }
+
+            if (!payload || !payload.type) return;
+
+            if (payload.type === "start" && handlers && typeof handlers.onStart === "function") {
+              handlers.onStart(payload);
+            } else if (payload.type === "delta" && handlers && typeof handlers.onDelta === "function") {
+              handlers.onDelta(payload);
+            } else if (payload.type === "phase" && handlers && typeof handlers.onPhase === "function") {
+              handlers.onPhase(payload);
+            } else if (payload.type === "meta" && handlers && typeof handlers.onMeta === "function") {
+              handlers.onMeta(payload);
+            } else if (payload.type === "done" && handlers && typeof handlers.onDone === "function") {
+              receivedDone = true;
+              handlers.onDone(payload.article || payload);
+              if (socket.readyState === window.WebSocket.OPEN) {
+                socket.close(1000, "done");
+              }
+            }
+          });
+
+          socket.addEventListener("error", function () {
+            fail("Stream gateway недоступен.");
+          });
+
+          socket.addEventListener("close", function () {
+            if (signal && signal.aborted) {
+              finish();
+              return;
+            }
+            if (receivedDone) {
+              finish();
+              return;
+            }
+            fail("Поток генерации был прерван.");
+          });
+        });
+      }
+
       return fetch(streamEndpointUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -634,7 +840,9 @@
         trail: [],
         currentAtomId: "",
         streamController: null,
-        requestToken: 0
+        requestToken: 0,
+        loadingTimerIds: [],
+        stopLoadingTicker: null
       };
 
       function abortCurrentStream() {
@@ -642,6 +850,14 @@
           state.streamController.abort();
           state.streamController = null;
         }
+        if (typeof state.stopLoadingTicker === "function") {
+          state.stopLoadingTicker();
+          state.stopLoadingTicker = null;
+        }
+        state.loadingTimerIds.forEach(function (id) {
+          window.clearTimeout(id);
+        });
+        state.loadingTimerIds = [];
         root.classList.remove("is-streaming");
         root.classList.remove("is-graph-active");
       }
@@ -674,7 +890,7 @@
         await wait(460);
         if (state.requestToken !== requestToken) return;
 
-        copyEl.innerHTML = '<p class="graph-loading">Генерирую статью по связанным атомам...</p>';
+        state.stopLoadingTicker = startLoadingTicker(state, requestToken);
         state.streamController = new AbortController();
 
         requestRuntimeArticleStream(
@@ -687,12 +903,14 @@
               titleEl.textContent = payload.title || atom.title;
               summaryEl.textContent = payload.summary || atom.summary || "";
               actionsEl.innerHTML = "";
-              copyEl.innerHTML = "";
-              root.classList.remove("is-graph-active");
               root.classList.add("is-streaming");
             },
             onDelta: function (payload) {
               if (state.requestToken !== requestToken) return;
+              if (typeof state.stopLoadingTicker === "function") {
+                state.stopLoadingTicker();
+                state.stopLoadingTicker = null;
+              }
               bodyBuffer = payload.body || (bodyBuffer + (payload.delta || ""));
               copyEl.innerHTML = renderArticleBody(bodyBuffer);
             },
@@ -708,17 +926,24 @@
             },
             onPhase: function (payload) {
               if (state.requestToken !== requestToken) return;
+              if (payload && payload.status) {
+                copyEl.innerHTML = renderWarning(payload.status) + copyEl.innerHTML;
+              }
             },
             onDone: function (payload) {
               if (state.requestToken !== requestToken) return;
               state.streamController = null;
+              if (typeof state.stopLoadingTicker === "function") {
+                state.stopLoadingTicker();
+                state.stopLoadingTicker = null;
+              }
               root.classList.remove("is-streaming");
               root.classList.remove("is-graph-active");
               titleEl.textContent = payload.title || atom.title;
               summaryEl.textContent = payload.warning
                 ? (payload.summary || atom.summary || "") + " Сейчас показан черновой графовый режим."
                 : (payload.summary || atom.summary || "");
-              copyEl.innerHTML = renderArticleBody(payload.body || bodyBuffer || "");
+              copyEl.innerHTML = renderWarning(payload.warning) + renderArticleBody(payload.body || bodyBuffer || "");
               actionsEl.innerHTML = "";
 
               var nextActions = Array.isArray(payload.next_actions) ? payload.next_actions : [];
@@ -735,6 +960,10 @@
           if (error && error.name === "AbortError") return;
           if (state.requestToken !== requestToken) return;
           state.streamController = null;
+          if (typeof state.stopLoadingTicker === "function") {
+            state.stopLoadingTicker();
+            state.stopLoadingTicker = null;
+          }
           root.classList.remove("is-streaming");
           root.classList.remove("is-graph-active");
           setError(error && error.message ? error.message : "Не удалось сгенерировать статью.");

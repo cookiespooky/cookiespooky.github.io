@@ -2,11 +2,6 @@ name: Deploy Graph Runtime Backend
 
 on:
   workflow_dispatch:
-    inputs:
-      image_tag:
-        description: Optional image tag override
-        required: false
-        type: string
 
 permissions:
   contents: read
@@ -19,9 +14,9 @@ concurrency:
 env:
   YC_FOLDER_ID: b1gebm0a43a8g5saqhlu
   YC_SA_ID: ajeqmt4fr1acruob80h1
-  YC_CR_REGISTRY_ID: crpd0f6lbnsuvts858c1
-  YC_CR_REPOSITORY: np-personal-graph-runtime
-  YC_CONTAINER_NAME: np-personal-graph-runtime
+  YCF_FUNCTION_NAME: np-personal-graph-runtime
+  YCF_GATEWAY_NAME: np-personal-graph-runtime-ws
+  YCF_RUNTIME_SA_NAME: np-personal-runtime-sa
 
 jobs:
   deploy:
@@ -32,16 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set image tag
-        id: meta
-        run: |
-          TAG="${{ inputs.image_tag }}"
-          if [ -z "$TAG" ]; then
-            TAG="${GITHUB_SHA}"
-          fi
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "image=cr.yandex/${YC_CR_REGISTRY_ID}/${YC_CR_REPOSITORY}:$TAG" >> "$GITHUB_OUTPUT"
-
       - name: Generate runtime graph
         run: node ./scripts/build-site-graph-mvp.js
 
@@ -51,46 +36,30 @@ jobs:
         with:
           yc-sa-id: ${{ env.YC_SA_ID }}
 
-      - name: Login to Yandex Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: cr.yandex
-          username: iam
-          password: ${{ steps.yc-token.outputs.token }}
-
-      - name: Build and push backend image
+      - name: Install yc CLI
         run: |
-          docker build \
-            -f ./ysc/graph-runtime/Dockerfile \
-            -t "${{ steps.meta.outputs.image }}" \
-            .
-          docker push "${{ steps.meta.outputs.image }}"
+          curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /tmp/yc -n
+          echo "/tmp/yc/bin" >> "$GITHUB_PATH"
 
-      - name: Deploy serverless container
-        id: deploy
-        uses: yc-actions/yc-sls-container-deploy@v4
-        with:
-          yc-sa-id: ${{ env.YC_SA_ID }}
-          folder-id: ${{ env.YC_FOLDER_ID }}
-          container-name: ${{ env.YC_CONTAINER_NAME }}
-          public: true
-          revision-service-account-id: ${{ env.YC_SA_ID }}
-          revision-image-url: ${{ steps.meta.outputs.image }}
-          revision-runtime: http
-          revision-memory: 128Mb
-          revision-cores: 1
-          revision-core-fraction: 20
-          revision-concurrency: 1
-          revision-execution-timeout: 45
-          revision-env: |
-            GRAPH_RUNTIME_PROVIDER=deepseek
-            GRAPH_RUNTIME_MODEL=deepseek-v4-flash
-            DEEPSEEK_API_KEY=${{ secrets.DEEPSEEK_API_KEY }}
-
-      - name: Print invoke url
+      - name: Configure yc CLI
         run: |
-          curl -sS \
-            -H "Authorization: Bearer ${{ steps.yc-token.outputs.token }}" \
-            "https://serverless-containers.api.cloud.yandex.net/containers/v1/containers/${{ steps.deploy.outputs.id }}" \
-            | tee container.json
-          node -e 'const fs=require("fs"); const data=JSON.parse(fs.readFileSync("container.json","utf8")); const url=data.url||data.invoke_url||data.invokeUrl||""; if(!url){process.exit(1)} console.log("Container URL:", url); fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `Container URL: ${url}\\n`);'
+          yc config profile create ci || true
+          yc config set token "${{ steps.yc-token.outputs.token }}"
+          yc config set folder-id "${{ env.YC_FOLDER_ID }}"
+
+      - name: Deploy function and websocket gateway
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: ./ycf/graph-runtime/deploy.sh
+
+      - name: Allow unauthenticated HTTP invoke
+        run: yc serverless function allow-unauthenticated-invoke --name "${{ env.YCF_FUNCTION_NAME }}"
+
+      - name: Print backend endpoints
+        run: |
+          FUNCTION_URL="$(yc serverless function get --name "${YCF_FUNCTION_NAME}" --format json | jq -r '.http_invoke_url')"
+          GATEWAY_DOMAIN="$(yc serverless api-gateway get --name "${YCF_GATEWAY_NAME}" --format json | jq -r '.domain // .connect_url // .service_domain // .url // empty')"
+          echo "Function URL: ${FUNCTION_URL}" | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ -n "${GATEWAY_DOMAIN}" ] && [ "${GATEWAY_DOMAIN}" != "null" ]; then
+            echo "WebSocket URL: wss://${GATEWAY_DOMAIN}/ws" | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
