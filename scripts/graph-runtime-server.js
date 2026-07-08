@@ -314,7 +314,49 @@ async function postStream(url, payload, headers) {
   return response;
 }
 
+async function streamResponseLines(response, onLine) {
+  if (!response.body) {
+    throw new Error("Streaming response body is missing");
+  }
+
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  if (typeof response.body.getReader === "function") {
+    const reader = response.body.getReader();
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split(/\r?\n/);
+      buffer = lines.pop() || "";
+      for (const line of lines) {
+        onLine(line);
+      }
+    }
+    buffer += decoder.decode();
+  } else {
+    for await (const chunk of response.body) {
+      buffer += typeof chunk === "string" ? chunk : decoder.decode(chunk, { stream: true });
+      const lines = buffer.split(/\r?\n/);
+      buffer = lines.pop() || "";
+      for (const line of lines) {
+        onLine(line);
+      }
+    }
+    buffer += decoder.decode();
+  }
+
+  if (buffer.trim()) {
+    onLine(buffer.trim());
+  }
+}
+
 function streamWithCurl(url, payload, headers, onLine) {
+  if (process.platform !== "win32") {
+    return postStream(url, payload, headers).then((response) => streamResponseLines(response, onLine));
+  }
+
   return new Promise((resolve, reject) => {
     const args = [
       "-N",
@@ -412,6 +454,10 @@ function resolveDeepSeekIp() {
 }
 
 function postJsonWithCurl(url, payload, headers) {
+  if (process.platform !== "win32") {
+    return postJson(url, payload, headers);
+  }
+
   return new Promise((resolve, reject) => {
     const args = [
       "-sS",
