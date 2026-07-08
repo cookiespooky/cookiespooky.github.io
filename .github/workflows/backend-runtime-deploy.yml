@@ -44,7 +44,7 @@ jobs:
       - name: Configure yc CLI
         run: |
           yc config profile create ci || true
-          yc config set token "${{ steps.yc-token.outputs.token }}"
+          yc config set iam-token "${{ steps.yc-token.outputs.token }}"
           yc config set folder-id "${{ env.YC_FOLDER_ID }}"
 
       - name: Deploy function and websocket gateway
