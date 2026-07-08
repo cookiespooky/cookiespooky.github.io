@@ -97,10 +97,17 @@ function writeStreamHeaders(res) {
     "Content-Type": "application/x-ndjson; charset=utf-8",
     "Cache-Control": "no-cache, no-transform",
     "Connection": "keep-alive",
+    "X-Accel-Buffering": "no",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type"
   });
+  if (res.socket && typeof res.socket.setNoDelay === "function") {
+    res.socket.setNoDelay(true);
+  }
+  if (typeof res.flushHeaders === "function") {
+    res.flushHeaders();
+  }
 }
 
 function writeStreamEvent(res, payload) {
@@ -663,6 +670,7 @@ async function runDeepSeek(prompt) {
         content: `${prompt}\n\nВерни ответ в JSON.`
       }
     ],
+    thinking: { type: "disabled" },
     response_format: { type: "json_object" },
     temperature: 0.7,
     max_tokens: 1800,
@@ -711,6 +719,7 @@ async function runDeepSeekMetadata(graphContext, articleBody) {
         content: `${buildMetadataPrompt(graphContext, articleBody)}\n\nВерни ответ в JSON.`
       }
     ],
+    thinking: { type: "disabled" },
     response_format: { type: "json_object" },
     temperature: 0.5,
     max_tokens: 500,
@@ -757,6 +766,7 @@ async function streamDeepSeekArticle(graphContext, res) {
         content: prompt
       }
     ],
+    thinking: { type: "disabled" },
     temperature: 0.7,
     max_tokens: 1800,
     stream: true
