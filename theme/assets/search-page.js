@@ -1,6 +1,30 @@
 (function () {
   if (window.NotepubSearchPage) return;
 
+  function isLoopbackHost(hostname) {
+    return hostname === 'localhost' || hostname === '127.0.0.1';
+  }
+
+  function alignLoopbackOrigin(rawUrl) {
+    if (!rawUrl || /^\/(?!\/)/.test(rawUrl)) return rawUrl;
+    var parsed;
+    try {
+      parsed = new URL(rawUrl, window.location.href);
+    } catch (_error) {
+      return rawUrl;
+    }
+    if (!isLoopbackHost(parsed.hostname) || !isLoopbackHost(window.location.hostname)) {
+      return parsed.toString();
+    }
+    if (parsed.origin === window.location.origin) {
+      return parsed.toString();
+    }
+    parsed.protocol = window.location.protocol;
+    parsed.hostname = window.location.hostname;
+    parsed.port = window.location.port;
+    return parsed.toString();
+  }
+
   var state = {
     form: null,
     input: null,
@@ -14,7 +38,7 @@
     if (!path) return base || '/';
     if (/^https?:\/\//.test(path)) return path;
     if (path.charAt(0) !== '/') path = '/' + path;
-    return (base || '') + path;
+    return alignLoopbackOrigin((base || '') + path);
   }
 
   function readQueryFromURL() {

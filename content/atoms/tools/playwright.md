@@ -4,7 +4,8 @@ id: "playwright"
 title: "Playwright"
 slug: "playwright"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Playwright — инструмент для управления браузером из кода: открытия страниц, кликов, заполнения форм, тестов и автоматизации пользовательских сценариев."
 description: "Playwright — инструмент для управления браузером из кода: открытия страниц, кликов, заполнения форм, тестов и автоматизации пользовательских сценариев."
 status: "public"
@@ -27,15 +28,15 @@ actions:
 
 Playwright — инструмент для управления браузером из кода: открытия страниц, кликов, заполнения форм, тестов и автоматизации пользовательских сценариев.
 
-Связанные элементы графа: [[browser-automation]], [[ai-agents]], [[automation]], [[lead-ai-mvp-build]].
+Связанные элементы графа: [[browser-automation|Браузерная автоматизация]], [[ai-agents|AI-агенты]], [[automation|Автоматизация]], [[lead-ai-mvp-build|Собрать AI-MVP]].
 
 ## Связи
 
-- [[browser-automation]] — implements
-- [[ai-agents]] — supports
-- [[automation]] — part_of
-- [[lead-ai-mvp-build]] — leads_to
+- [[browser-automation|Браузерная автоматизация]] — implements
+- [[ai-agents|AI-агенты]] — supports
+- [[automation|Автоматизация]] — part_of
+- [[lead-ai-mvp-build|Собрать AI-MVP]] — leads_to
 
 ## Следующие действия
 
-- **Разобрать сценарий автоматизации** → [[lead-ai-mvp-build]]: Поможет понять, можно ли собрать нужное действие через браузер без официального API.
+- **Разобрать сценарий автоматизации** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет понять, можно ли собрать нужное действие через браузер без официального API.

@@ -4,7 +4,8 @@ id: "research-library"
 title: "Библиотека исследований"
 slug: "research-library"
 kind: "collection"
-hub: "research"
+hub:
+  - "research"
 summary: "Библиотека исследований собирает авторские наблюдения, принципы, гипотезы и кейсы в отдельный слой графа."
 description: "Библиотека исследований собирает авторские наблюдения, принципы, гипотезы и кейсы в отдельный слой графа."
 status: "public"
@@ -41,17 +42,17 @@ seo:
 
 ## Связанные элементы
 
-[[field-observation]] · [[hypothesis]] · [[research-note]] · [[case-library]] · [[lead-research-to-product-map]]
+[[field-observation|Полевое наблюдение]] · [[hypothesis|Гипотеза]] · [[research-note|Исследовательская заметка]] · [[case-library|case-library]] · [[lead-research-to-product-map|Связать исследования с продуктом]]
 
 ## Связи
 
-- [[field-observation]] — contains
-- [[hypothesis]] — contains
-- [[research-note]] — contains
-- [[case-library]] — related_to
-- [[lead-research-to-product-map]] — leads_to
+- [[field-observation|Полевое наблюдение]] — contains
+- [[hypothesis|Гипотеза]] — contains
+- [[research-note|Исследовательская заметка]] — contains
+- [[case-library|case-library]] — related_to
+- [[lead-research-to-product-map|Связать исследования с продуктом]] — leads_to
 
 ## Следующие действия
 
-- **Посмотреть принципы** → [[principle-map-before-plan]]: Поможет перейти от общего слоя исследований к рабочим правилам принятия решений.
-- **Связать исследования с продуктом** → [[lead-research-to-product-map]]: Поможет понять, какие наблюдения можно превратить в продукт, метод или контент.
+- **Посмотреть принципы** → [[principle-map-before-plan|Сначала карта, потом план]]: Поможет перейти от общего слоя исследований к рабочим правилам принятия решений.
+- **Связать исследования с продуктом** → [[lead-research-to-product-map|Связать исследования с продуктом]]: Поможет понять, какие наблюдения можно превратить в продукт, метод или контент.

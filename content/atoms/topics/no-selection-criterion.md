@@ -4,7 +4,8 @@ id: "no-selection-criterion"
 title: "Нет критерия выбора"
 slug: "no-selection-criterion"
 kind: "problem"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Состояние, где варианты сравниваются без ясного основания для решения."
 description: "Состояние, где варианты сравниваются без ясного основания для решения."
 status: "public"
@@ -40,13 +41,13 @@ seo:
 
 ## Связи
 
-- [[choice-paralysis]] — explained_by
-- [[cognitive-superposition]] — explained_by
-- [[product-choice]] — uses
-- [[hypothesis-testing]] — uses
+- [[choice-paralysis|Паралич выбора]] — explained_by
+- [[cognitive-superposition|Когнитивная суперпозиция]] — explained_by
+- [[product-choice|Выбор продукта]] — uses
+- [[hypothesis-testing|Проверка гипотез]] — uses
 
 ## Следующие действия
 
-- **Собрать критерий** → [[choice-paralysis]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Сузить выбор** → [[choice-paralysis]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Проверить гипотезу** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Собрать критерий** → [[choice-paralysis|Паралич выбора]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Сузить выбор** → [[choice-paralysis|Паралич выбора]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Проверить гипотезу** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.

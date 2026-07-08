@@ -4,7 +4,8 @@ id: "decision-log"
 title: "Журнал решений"
 slug: "decision-log"
 kind: "practice"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Журнал решений фиксирует выбор, причину выбора, альтернативы, ожидание и фактический результат."
 description: "Журнал решений фиксирует выбор, причину выбора, альтернативы, ожидание и фактический результат."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Такой журнал помогает увидеть, где человек принимает решения осознанно, а где действует из страха потери вариантов, внешнего давления или привычного сценария.
 
-Связанные элементы графа: [[self-tracking]], [[agency]], [[no-selection-criterion]], [[product-choice]], [[weekly-review]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[agency|Агентность]], [[no-selection-criterion|Нет критерия выбора]], [[product-choice|Выбор продукта]], [[weekly-review|Еженедельный обзор]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[self-tracking]] — part_of
-- [[agency]] — related_to
-- [[no-selection-criterion]] — explains
-- [[product-choice]] — related_to
-- [[weekly-review]] — uses
-- [[cognitive-reconstruction]] — compatible_with
+- [[self-tracking|Self-tracking]] — part_of
+- [[agency|Агентность]] — related_to
+- [[no-selection-criterion|Нет критерия выбора]] — explains
+- [[product-choice|Выбор продукта]] — related_to
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — compatible_with
 
 ## Следующие действия
 
-- **Найти критерии выбора** → [[no-selection-criterion]]: Поможет понять, почему выбор зависает и какие параметры нужны для решения.
-- **Связать с продуктовым выбором** → [[product-choice]]: Поможет применить журнал решений к выбору продукта или направления.
-- **Разобрать решения за период** → [[lead-self-tracking-setup]]: Поможет увидеть повторяющийся способ выбора и точки, где решение распадается.
+- **Найти критерии выбора** → [[no-selection-criterion|Нет критерия выбора]]: Поможет понять, почему выбор зависает и какие параметры нужны для решения.
+- **Связать с продуктовым выбором** → [[product-choice|Выбор продукта]]: Поможет применить журнал решений к выбору продукта или направления.
+- **Разобрать решения за период** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет увидеть повторяющийся способ выбора и точки, где решение распадается.

@@ -4,7 +4,8 @@ id: "case-intake-form"
 title: "Форма сбора кейса"
 slug: "case-intake-form"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Минимальная форма, которая собирает контекст кейса без превращения пользователя в заложника анкеты."
 description: "Минимальная форма, которая собирает контекст кейса без превращения пользователя в заложника анкеты."
 status: "public"
@@ -25,17 +26,17 @@ actions:
 ---
 # Форма сбора кейса
 
-Форма сбора кейса должна получать только материал, нужный для первичной диагностики: что происходит, что уже пробовали, какой результат нужен, где застревание, какие есть факты. Ее задача — подготовить данные для [[case-route]], [[situation-map]] и [[lead-case-diagnostic]].
+Форма сбора кейса должна получать только материал, нужный для первичной диагностики: что происходит, что уже пробовали, какой результат нужен, где застревание, какие есть факты. Ее задача — подготовить данные для [[case-route|Маршрут кейса]], [[situation-map|Карта ситуации]] и [[lead-case-diagnostic|Диагностика кейса]].
 
-Связанные элементы графа: [[case-route]], [[situation-map]], [[lead-case-diagnostic]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[case-route|Маршрут кейса]], [[situation-map|Карта ситуации]], [[lead-case-diagnostic|Диагностика кейса]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[case-route]] — produces
-- [[situation-map]] — produces
-- [[lead-case-diagnostic]] — leads_to
-- [[cognitive-reconstruction]] — compatible_with
+- [[case-route|Маршрут кейса]] — produces
+- [[situation-map|Карта ситуации]] — produces
+- [[lead-case-diagnostic|Диагностика кейса]] — leads_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — compatible_with
 
 ## Следующие действия
 
-- **Собрать вводные** → [[lead-case-diagnostic]]: Поможет начать разбор с фактов и контекста.
+- **Собрать вводные** → [[lead-case-diagnostic|Диагностика кейса]]: Поможет начать разбор с фактов и контекста.

@@ -4,7 +4,8 @@ id: "obsidian-tools"
 title: "Инструменты для Obsidian"
 slug: "obsidian-tools"
 kind: "product"
-hub: "products"
+hub:
+  - "products"
 summary: "Шаблоны и рабочие процессы для заметок, графа знаний, self-tracking и анализа данных."
 description: "Шаблоны и рабочие процессы для заметок, графа знаний, self-tracking и анализа данных."
 status: "public"
@@ -42,14 +43,14 @@ seo:
 
 ## Связи
 
-- [[obsidian]] — compatible_with
-- [[self-tracking]] — uses
-- [[knowledge-graph]] — compatible_with
-- [[atomic-notes]] — uses
-- [[cognitive-reconstruction]] — uses
+- [[obsidian|Obsidian]] — compatible_with
+- [[self-tracking|Self-tracking]] — uses
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
 
 ## Следующие действия
 
-- **Открыть Obsidian-сценарии** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Понять self-tracking** → [[obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть шаблоны** → [[obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Открыть Obsidian-сценарии** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Понять self-tracking** → [[obsidian|Obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Посмотреть шаблоны** → [[obsidian|Obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.

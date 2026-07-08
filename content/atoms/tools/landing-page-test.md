@@ -4,7 +4,8 @@ id: "landing-page-test"
 title: "Тест лендинга"
 slug: "landing-page-test"
 kind: "method"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Тест лендинга — проверка идеи через короткую страницу, понятный оффер и измеримое действие пользователя."
 description: "Тест лендинга — проверка идеи через короткую страницу, понятный оффер и измеримое действие пользователя."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Тест лендинга — проверка идеи через короткую страницу, понятный оффер и измеримое действие пользователя.
 
-Связанные элементы графа: [[demand-validation]], [[offer]], [[traction-signal]], [[marketing-os]].
+Связанные элементы графа: [[demand-validation|Проверка спроса]], [[offer|Оффер]], [[traction-signal|Сигнал тяги]], [[marketing-os|Marketing OS]].
 
 ## Связи
 
-- [[demand-validation]] — uses
-- [[offer]] — uses
-- [[traction-signal]] — produces
-- [[marketing-os]] — related_product
+- [[demand-validation|Проверка спроса]] — uses
+- [[offer|Оффер]] — uses
+- [[traction-signal|Сигнал тяги]] — produces
+- [[marketing-os|Marketing OS]] — related_product
 
 ## Следующие действия
 
-- **Собрать тест лендинга** → [[lead-startup-diagnostic]]: Поможет быстро проверить формулировку, аудиторию и интерес.
-- **Уточнить оффер** → [[offer]]: Поможет сделать страницу конкретнее.
-- **Связать с Marketing OS** → [[marketing-os]]: Поможет встроить тест в маркетинговую систему.
+- **Собрать тест лендинга** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет быстро проверить формулировку, аудиторию и интерес.
+- **Уточнить оффер** → [[offer|Оффер]]: Поможет сделать страницу конкретнее.
+- **Связать с Marketing OS** → [[marketing-os|Marketing OS]]: Поможет встроить тест в маркетинговую систему.

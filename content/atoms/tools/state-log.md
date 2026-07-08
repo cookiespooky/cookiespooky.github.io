@@ -4,7 +4,8 @@ id: "state-log"
 title: "Журнал состояний"
 slug: "state-log"
 kind: "practice"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Журнал состояний фиксирует энергию, внимание, настроение, телесные сигналы и контекст дня в короткой форме."
 description: "Журнал состояний фиксирует энергию, внимание, настроение, телесные сигналы и контекст дня в короткой форме."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Задача журнала не в тотальном контроле, а в накоплении наблюдений, из которых позже видны связи между состояниями, решениями и повторяющимися сценариями.
 
-Связанные элементы графа: [[self-tracking]], [[energy-tracking]], [[attention-tracking]], [[baseline-state]], [[weekly-review]], [[lead-self-tracking-setup]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[energy-tracking|Отслеживание энергии]], [[attention-tracking|Отслеживание внимания]], [[baseline-state|Базовое состояние]], [[weekly-review|Еженедельный обзор]], [[lead-self-tracking-setup|Настроить self-tracking систему]].
 
 ## Связи
 
-- [[self-tracking]] — part_of
-- [[energy-tracking]] — contains
-- [[attention-tracking]] — contains
-- [[baseline-state]] — produces
-- [[weekly-review]] — uses
-- [[lead-self-tracking-setup]] — leads_to
+- [[self-tracking|Self-tracking]] — part_of
+- [[energy-tracking|Отслеживание энергии]] — contains
+- [[attention-tracking|Отслеживание внимания]] — contains
+- [[baseline-state|Базовое состояние]] — produces
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[lead-self-tracking-setup|Настроить self-tracking систему]] — leads_to
 
 ## Следующие действия
 
-- **Понять, что фиксировать** → [[self-tracking-signals]]: Поможет отделить полезные наблюдения от случайного дневникового шума.
-- **Собрать еженедельный обзор** → [[weekly-review]]: Поможет увидеть повторения в состояниях и действиях.
-- **Настроить мою систему отслеживания** → [[lead-self-tracking-setup]]: Поможет выбрать минимальный набор полей, чтобы наблюдение не превратилось в еще одну обязанность.
+- **Понять, что фиксировать** → [[self-tracking-signals|Сигналы self-tracking]]: Поможет отделить полезные наблюдения от случайного дневникового шума.
+- **Собрать еженедельный обзор** → [[weekly-review|Еженедельный обзор]]: Поможет увидеть повторения в состояниях и действиях.
+- **Настроить мою систему отслеживания** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет выбрать минимальный набор полей, чтобы наблюдение не превратилось в еще одну обязанность.

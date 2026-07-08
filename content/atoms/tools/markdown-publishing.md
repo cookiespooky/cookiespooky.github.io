@@ -4,7 +4,8 @@ id: "markdown-publishing"
 title: "Публикация Markdown"
 slug: "markdown-publishing"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Подход, при котором Markdown-заметки становятся страницами сайта без потери структуры, ссылок, frontmatter и графа."
 description: "Подход, при котором Markdown-заметки становятся страницами сайта без потери структуры, ссылок, frontmatter и графа."
 status: "public"
@@ -34,17 +35,17 @@ seo:
 
 Подход, при котором Markdown-заметки становятся страницами сайта без потери структуры, ссылок, frontmatter и графа.
 
-Связанные элементы графа: [[notepub]], [[frontmatter]], [[wikilinks]], [[public-vault]], [[seo]], [[lead-notepub-setup]].
+Связанные элементы графа: [[notepub|Notepub]], [[frontmatter|Frontmatter]], [[wikilinks|Wikilinks]], [[public-vault|Публичный vault]], [[seo|SEO]], [[lead-notepub-setup|Собрать публикацию из заметок]].
 
 ## Связи
 
-- [[notepub]] — uses
-- [[frontmatter]] — uses
-- [[wikilinks]] — uses
-- [[public-vault]] — publishes
-- [[seo]] — supports
-- [[lead-notepub-setup]] — leads_to
+- [[notepub|Notepub]] — uses
+- [[frontmatter|Frontmatter]] — uses
+- [[wikilinks|Wikilinks]] — uses
+- [[public-vault|Публичный vault]] — publishes
+- [[seo|SEO]] — supports
+- [[lead-notepub-setup|Собрать публикацию из заметок]] — leads_to
 
 ## Следующие действия
 
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.

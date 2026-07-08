@@ -4,7 +4,8 @@ id: "traction-signal"
 title: "Сигнал тяги"
 slug: "traction-signal"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Сигнал тяги — наблюдаемое действие пользователя, которое показывает интерес сильнее лайка, мнения или общей похвалы."
 description: "Сигнал тяги — наблюдаемое действие пользователя, которое показывает интерес сильнее лайка, мнения или общей похвалы."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Сигнал тяги — наблюдаемое действие пользователя, которое показывает интерес сильнее лайка, мнения или общей похвалы.
 
-Связанные элементы графа: [[demand-validation]], [[presale]], [[landing-page-test]], [[product-market-fit]].
+Связанные элементы графа: [[demand-validation|Проверка спроса]], [[presale|Предпродажа]], [[landing-page-test|Тест лендинга]], [[product-market-fit|Product market fit]].
 
 ## Связи
 
-- [[demand-validation]] — produces
-- [[presale]] — example_of
-- [[landing-page-test]] — example_of
-- [[product-market-fit]] — related_to
+- [[demand-validation|Проверка спроса]] — produces
+- [[presale|Предпродажа]] — example_of
+- [[landing-page-test|Тест лендинга]] — example_of
+- [[product-market-fit|Product market fit]] — related_to
 
 ## Следующие действия
 
-- **Понять сигналы спроса** → [[demand-validation]]: Поможет не путать внимание с намерением купить.
-- **Запустить тест страницы** → [[landing-page-test]]: Поможет проверить формулировку на реальном переходе.
-- **Перейти к диагностике** → [[lead-startup-diagnostic]]: Поможет выбрать метрику первого теста.
+- **Понять сигналы спроса** → [[demand-validation|Проверка спроса]]: Поможет не путать внимание с намерением купить.
+- **Запустить тест страницы** → [[landing-page-test|Тест лендинга]]: Поможет проверить формулировку на реальном переходе.
+- **Перейти к диагностике** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать метрику первого теста.

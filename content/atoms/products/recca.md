@@ -4,7 +4,8 @@ id: "recca"
 title: "Recca"
 slug: "recca"
 kind: "product"
-hub: "products"
+hub:
+  - "products"
 summary: "Recca — продуктовая среда для витрин, экспертных офферов, партнерских сетей и реферальных механик. Она помогает собрать предложения, участников и маршруты заявок в одну связанную систему."
 description: "Recca — продуктовая среда для витрин, экспертных офферов, партнерских сетей и реферальных механик. Она помогает собрать предложения, участников и маршруты заявок в одну связанную систему."
 status: "public"
@@ -46,24 +47,24 @@ seo:
 
 Recca — продуктовая среда для витрин, экспертных офферов, партнерских сетей и реферальных механик. Она помогает собрать предложения, участников и маршруты заявок в одну связанную систему.
 
-Связанные элементы графа: [[product-showcase]], [[storefront]], [[partner-network]], [[expert-offers]], [[referral-mechanics]], [[partner-leads]], [[marketing-os]].
+Связанные элементы графа: [[product-showcase|Витрина продукта]], [[storefront|Storefront]], [[partner-network|Партнерская сеть]], [[expert-offers|Экспертные офферы]], [[referral-mechanics|Реферальная механика]], [[partner-leads|Лиды через партнерства]], [[marketing-os|Marketing OS]].
 
 Recca полезна в сценариях, где один эксперт или продукт уже имеет несколько предложений, партнеров или источников трафика. Система должна показывать не только “что купить”, но и “почему это связано” и “какой следующий шаг логичен”.
 
 ## Связи
 
-- [[product-showcase]] — contains
-- [[storefront]] — contains
-- [[partner-network]] — supports
-- [[expert-offers]] — shows
-- [[referral-mechanics]] — uses
-- [[partner-leads]] — produces
-- [[marketing-os]] — related_product
-- [[offer]] — uses
-- [[funnel]] — compatible_with
+- [[product-showcase|Витрина продукта]] — contains
+- [[storefront|Storefront]] — contains
+- [[partner-network|Партнерская сеть]] — supports
+- [[expert-offers|Экспертные офферы]] — shows
+- [[referral-mechanics|Реферальная механика]] — uses
+- [[partner-leads|Лиды через партнерства]] — produces
+- [[marketing-os|Marketing OS]] — related_product
+- [[offer|Оффер]] — uses
+- [[funnel|Воронка]] — compatible_with
 
 ## Следующие действия
 
-- **Понять Recca-сценарий** → [[partner-network]]: Поможет увидеть Recca как сеть витрин, офферов и партнерских переходов.
-- **Собрать партнерскую витрину** → [[lead-recca-network]]: Поможет определить офферы, участников, реферальную механику и первый маршрут заявок.
-- **Связать с Marketing OS** → [[marketing-os]]: Поможет сначала уточнить позиционирование и логику офферов, если витрина еще не готова.
+- **Понять Recca-сценарий** → [[partner-network|Партнерская сеть]]: Поможет увидеть Recca как сеть витрин, офферов и партнерских переходов.
+- **Собрать партнерскую витрину** → [[lead-recca-network|Собрать партнерскую витрину]]: Поможет определить офферы, участников, реферальную механику и первый маршрут заявок.
+- **Связать с Marketing OS** → [[marketing-os|Marketing OS]]: Поможет сначала уточнить позиционирование и логику офферов, если витрина еще не готова.

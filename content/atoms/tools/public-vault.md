@@ -4,7 +4,8 @@ id: "public-vault"
 title: "Публичный vault"
 slug: "public-vault"
 kind: "concept"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Часть базы знаний, которую можно показывать пользователям, индексировать поисковиками и использовать как контекст для модели."
 description: "Часть базы знаний, которую можно показывать пользователям, индексировать поисковиками и использовать как контекст для модели."
 status: "public"
@@ -34,17 +35,17 @@ seo:
 
 Часть базы знаний, которую можно показывать пользователям, индексировать поисковиками и использовать как контекст для модели.
 
-Связанные элементы графа: [[obsidian]], [[notepub]], [[knowledge-garden]], [[graph-hygiene]], [[seo]], [[lead-notepub-setup]].
+Связанные элементы графа: [[obsidian|Obsidian]], [[notepub|Notepub]], [[knowledge-garden|Сад знаний]], [[graph-hygiene|Гигиена графа]], [[seo|SEO]], [[lead-notepub-setup|Собрать публикацию из заметок]].
 
 ## Связи
 
-- [[obsidian]] — stored_in
-- [[notepub]] — published_by
-- [[knowledge-garden]] — related_to
-- [[graph-hygiene]] — requires
-- [[seo]] — compatible_with
-- [[lead-notepub-setup]] — leads_to
+- [[obsidian|Obsidian]] — stored_in
+- [[notepub|Notepub]] — published_by
+- [[knowledge-garden|Сад знаний]] — related_to
+- [[graph-hygiene|Гигиена графа]] — requires
+- [[seo|SEO]] — compatible_with
+- [[lead-notepub-setup|Собрать публикацию из заметок]] — leads_to
 
 ## Следующие действия
 
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.

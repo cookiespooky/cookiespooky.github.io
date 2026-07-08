@@ -4,7 +4,8 @@ id: "observation-system-before-sales"
 title: "Система перед продажей как повторяющийся сценарий"
 slug: "observation-system-before-sales"
 kind: "observation"
-hub: "research"
+hub:
+  - "research"
 summary: "Сценарий системы перед продажей появляется, когда человек строит инфраструктуру вместо контакта с рынком, клиентом или конкретным предложением."
 description: "Сценарий системы перед продажей появляется, когда человек строит инфраструктуру вместо контакта с рынком, клиентом или конкретным предложением."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[system-before-sales]] · [[false-preparation]] · [[principle-sell-before-system]] · [[founder-chaos]]
+[[system-before-sales|Система вместо продаж]] · [[false-preparation|Подготовка вместо действия]] · [[principle-sell-before-system|Спрос проверяется до системы]] · [[founder-chaos|Фаундерский хаос]]
 
 ## Связи
 
-- [[system-before-sales]] — explains
-- [[false-preparation]] — related_to
-- [[principle-sell-before-system]] — related_to
-- [[founder-chaos]] — related_to
+- [[system-before-sales|Система вместо продаж]] — explains
+- [[false-preparation|Подготовка вместо действия]] — related_to
+- [[principle-sell-before-system|Спрос проверяется до системы]] — related_to
+- [[founder-chaos|Фаундерский хаос]] — related_to
 
 ## Следующие действия
 
-- **Проверить стартап-идею** → [[lead-startup-diagnostic]]: Поможет выбрать действие, которое проверяет спрос, а не расширяет инфраструктуру.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction]]: Поможет увидеть, где подготовка стала заменой действия.
+- **Проверить стартап-идею** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать действие, которое проверяет спрос, а не расширяет инфраструктуру.
+- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть, где подготовка стала заменой действия.

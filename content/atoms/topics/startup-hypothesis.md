@@ -4,7 +4,8 @@ id: "startup-hypothesis"
 title: "Стартап-гипотеза"
 slug: "startup-hypothesis"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Стартап-гипотеза — проверяемое предположение о проблеме, аудитории, решении, канале или готовности платить."
 description: "Стартап-гипотеза — проверяемое предположение о проблеме, аудитории, решении, канале или готовности платить."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Стартап-гипотеза — проверяемое предположение о проблеме, аудитории, решении, канале или готовности платить.
 
-Связанные элементы графа: [[hypothesis-testing]], [[demand-validation]], [[icp]], [[product-thinking]].
+Связанные элементы графа: [[hypothesis-testing|Проверка гипотез]], [[demand-validation|Проверка спроса]], [[icp|ICP]], [[product-thinking|Product thinking]].
 
 ## Связи
 
-- [[hypothesis-testing]] — uses
-- [[demand-validation]] — checked_by
-- [[icp]] — defines
-- [[product-thinking]] — part_of
+- [[hypothesis-testing|Проверка гипотез]] — uses
+- [[demand-validation|Проверка спроса]] — checked_by
+- [[icp|ICP]] — defines
+- [[product-thinking|Product thinking]] — part_of
 
 ## Следующие действия
 
-- **Сформулировать гипотезу** → [[lead-startup-diagnostic]]: Поможет превратить расплывчатую идею в проверяемое утверждение.
-- **Выбрать аудиторию** → [[icp]]: Поможет понять, у кого проверять гипотезу.
-- **Проверить спрос** → [[demand-validation]]: Поможет выбрать первый тест.
+- **Сформулировать гипотезу** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет превратить расплывчатую идею в проверяемое утверждение.
+- **Выбрать аудиторию** → [[icp|ICP]]: Поможет понять, у кого проверять гипотезу.
+- **Проверить спрос** → [[demand-validation|Проверка спроса]]: Поможет выбрать первый тест.

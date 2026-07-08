@@ -4,7 +4,8 @@ id: "research-note"
 title: "Исследовательская заметка"
 slug: "research-note"
 kind: "research"
-hub: "research"
+hub:
+  - "research"
 summary: "Исследовательская заметка хранит короткое объяснение наблюдения, принципа или гипотезы и связывает его с другими атомами."
 description: "Исследовательская заметка хранит короткое объяснение наблюдения, принципа или гипотезы и связывает его с другими атомами."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[atomic-notes]] · [[knowledge-graph]] · [[notepub]] · [[research-library]]
+[[atomic-notes|Атомарные заметки]] · [[knowledge-graph|Граф знаний]] · [[notepub|Notepub]] · [[research-library|Библиотека исследований]]
 
 ## Связи
 
-- [[atomic-notes]] — example_of
-- [[knowledge-graph]] — part_of
-- [[notepub]] — compatible_with
-- [[research-library]] — part_of
+- [[atomic-notes|Атомарные заметки]] — example_of
+- [[knowledge-graph|Граф знаний]] — part_of
+- [[notepub|Notepub]] — compatible_with
+- [[research-library|Библиотека исследований]] — part_of
 
 ## Следующие действия
 
-- **Опубликовать заметки как граф** → [[lead-notepub-setup]]: Поможет отделить публичные атомы от черновиков и сохранить связи для сайта и Obsidian.
-- **Посмотреть публичный vault** → [[public-vault]]: Поможет понять, как заметки становятся навигационной системой для человека и модели.
+- **Опубликовать заметки как граф** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет отделить публичные атомы от черновиков и сохранить связи для сайта и Obsidian.
+- **Посмотреть публичный vault** → [[public-vault|Публичный vault]]: Поможет понять, как заметки становятся навигационной системой для человека и модели.

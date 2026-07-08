@@ -4,7 +4,8 @@ id: "signal-vs-noise"
 title: "Сигнал и шум"
 slug: "signal-vs-noise"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Различение сигнала и шума помогает отделять устойчивые наблюдения от случайных эмоций, мыслей и единичных событий."
 description: "Различение сигнала и шума помогает отделять устойчивые наблюдения от случайных эмоций, мыслей и единичных событий."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 В self-tracking это различение защищает от перегруза: не каждую мысль нужно превращать в вывод, не каждое состояние — в диагноз, не каждую заметку — в атом.
 
-Связанные элементы графа: [[self-tracking]], [[weekly-review]], [[cognitive-reconstruction]], [[graph-hygiene]], [[content-system]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[weekly-review|Еженедельный обзор]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[graph-hygiene|Гигиена графа]], [[content-system|Контентная система]].
 
 ## Связи
 
-- [[self-tracking]] — explains
-- [[weekly-review]] — uses
-- [[cognitive-reconstruction]] — related_to
-- [[graph-hygiene]] — related_to
-- [[content-system]] — related_to
+- [[self-tracking|Self-tracking]] — explains
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — related_to
+- [[graph-hygiene|Гигиена графа]] — related_to
+- [[content-system|Контентная система]] — related_to
 
 ## Следующие действия
 
-- **Применить к заметкам** → [[graph-hygiene]]: Поможет не превращать граф в свалку одинаково важных элементов.
-- **Применить к неделе** → [[weekly-review]]: Поможет выделить повторения, а не реагировать на каждую вспышку.
-- **Разобрать сигналы в данных** → [[lead-self-tracking-setup]]: Поможет понять, какие наблюдения реально влияют на решения.
+- **Применить к заметкам** → [[graph-hygiene|Гигиена графа]]: Поможет не превращать граф в свалку одинаково важных элементов.
+- **Применить к неделе** → [[weekly-review|Еженедельный обзор]]: Поможет выделить повторения, а не реагировать на каждую вспышку.
+- **Разобрать сигналы в данных** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет понять, какие наблюдения реально влияют на решения.

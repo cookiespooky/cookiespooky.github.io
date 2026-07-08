@@ -4,7 +4,8 @@ id: "loss-of-options"
 title: "Страх потери вариантов"
 slug: "loss-of-options"
 kind: "mechanism"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Ощущение, что выбор одного направления закрывает ценные альтернативы."
 description: "Ощущение, что выбор одного направления закрывает ценные альтернативы."
 status: "public"
@@ -40,13 +41,13 @@ seo:
 
 ## Связи
 
-- [[cognitive-superposition]] — related_to
-- [[choice-paralysis]] — related_to
-- [[no-selection-criterion]] — related_to
-- [[founder-chaos]] — related_to
+- [[cognitive-superposition|Когнитивная суперпозиция]] — related_to
+- [[choice-paralysis|Паралич выбора]] — related_to
+- [[no-selection-criterion|Нет критерия выбора]] — related_to
+- [[founder-chaos|Фаундерский хаос]] — related_to
 
 ## Следующие действия
 
-- **Сократить варианты** → [[cognitive-superposition]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Понять механизм** → [[cognitive-superposition]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Выбрать тест** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Сократить варианты** → [[cognitive-superposition|Когнитивная суперпозиция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Понять механизм** → [[cognitive-superposition|Когнитивная суперпозиция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Выбрать тест** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.

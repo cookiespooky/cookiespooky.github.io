@@ -4,7 +4,8 @@ id: "note-to-site-pipeline"
 title: "Пайплайн заметки → сайт"
 slug: "note-to-site-pipeline"
 kind: "method"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Процесс превращения личных заметок в публичные атомы, связанные страницы, маршруты пользователя и материал для модели."
 description: "Процесс превращения личных заметок в публичные атомы, связанные страницы, маршруты пользователя и материал для модели."
 status: "public"
@@ -37,18 +38,18 @@ seo:
 
 Процесс превращения личных заметок в публичные атомы, связанные страницы, маршруты пользователя и материал для модели.
 
-Связанные элементы графа: [[obsidian]], [[atomic-notes]], [[llm-readable-notes]], [[notepub]], [[knowledge-garden]], [[lead-notepub-setup]].
+Связанные элементы графа: [[obsidian|Obsidian]], [[atomic-notes|Атомарные заметки]], [[llm-readable-notes|LLM-читаемые заметки]], [[notepub|Notepub]], [[knowledge-garden|Сад знаний]], [[lead-notepub-setup|Собрать публикацию из заметок]].
 
 ## Связи
 
-- [[obsidian]] — starts_from
-- [[atomic-notes]] — uses
-- [[llm-readable-notes]] — requires
-- [[notepub]] — published_by
-- [[knowledge-garden]] — produces
-- [[lead-notepub-setup]] — leads_to
+- [[obsidian|Obsidian]] — starts_from
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[llm-readable-notes|LLM-читаемые заметки]] — requires
+- [[notepub|Notepub]] — published_by
+- [[knowledge-garden|Сад знаний]] — produces
+- [[lead-notepub-setup|Собрать публикацию из заметок]] — leads_to
 
 ## Следующие действия
 
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
-- **Разобрать мои заметки** → [[lead-notes-analysis]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.

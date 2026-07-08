@@ -4,7 +4,8 @@ id: "self-tracking"
 title: "Self-tracking"
 slug: "self-tracking"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Регулярное наблюдение за состояниями, действиями, событиями и повторяющимися связями."
 description: "Регулярное наблюдение за состояниями, действиями, событиями и повторяющимися связями."
 status: "public"
@@ -57,27 +58,27 @@ seo:
 
 Регулярное наблюдение за состояниями, действиями, событиями и повторяющимися связями.
 
-Связанные элементы графа: [[diary]], [[obsidian]], [[repeating-scenarios]], [[self-tracking-toolkit]], [[daily-notes]], [[self-tracking-signals]], [[personal-knowledge-base]], [[state-log]], [[decision-log]], [[weekly-review]], [[tracking-questions]], [[self-tracking-dashboard]], [[lead-self-tracking-setup]].
+Связанные элементы графа: [[diary|Дневник]], [[obsidian|Obsidian]], [[repeating-scenarios|Повторяющиеся сценарии]], [[self-tracking-toolkit|Self-tracking toolkit]], [[daily-notes|Ежедневные заметки]], [[self-tracking-signals|Сигналы self-tracking]], [[personal-knowledge-base|Личная база знаний]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[weekly-review|Еженедельный обзор]], [[tracking-questions|Вопросы для self-tracking]], [[self-tracking-dashboard|Дашборд self-tracking]], [[lead-self-tracking-setup|Настроить self-tracking систему]].
 
 ## Связи
 
-- [[diary]] — related_to
-- [[obsidian]] — compatible_with
-- [[repeating-scenarios]] — related_to
-- [[self-tracking-toolkit]] — related_product
-- [[daily-notes]] — uses
-- [[self-tracking-signals]] — contains
-- [[personal-knowledge-base]] — part_of
-- [[state-log]] — uses
-- [[decision-log]] — uses
-- [[weekly-review]] — uses
-- [[tracking-questions]] — uses
-- [[self-tracking-dashboard]] — produces
-- [[lead-self-tracking-setup]] — leads_to
+- [[diary|Дневник]] — related_to
+- [[obsidian|Obsidian]] — compatible_with
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[self-tracking-toolkit|Self-tracking toolkit]] — related_product
+- [[daily-notes|Ежедневные заметки]] — uses
+- [[self-tracking-signals|Сигналы self-tracking]] — contains
+- [[personal-knowledge-base|Личная база знаний]] — part_of
+- [[state-log|Журнал состояний]] — uses
+- [[decision-log|Журнал решений]] — uses
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[tracking-questions|Вопросы для self-tracking]] — uses
+- [[self-tracking-dashboard|Дашборд self-tracking]] — produces
+- [[lead-self-tracking-setup|Настроить self-tracking систему]] — leads_to
 
 ## Следующие действия
 
-- **Выбрать метрики** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
-- **Связать с дневником** → [[diary]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Найти сценарии** → [[diary]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Настроить систему наблюдения** → [[lead-self-tracking-setup]]: Поможет выбрать минимальные поля, вопросы и обзор недели под вашу задачу.
+- **Выбрать метрики** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Связать с дневником** → [[diary|Дневник]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Найти сценарии** → [[diary|Дневник]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Настроить систему наблюдения** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет выбрать минимальные поля, вопросы и обзор недели под вашу задачу.

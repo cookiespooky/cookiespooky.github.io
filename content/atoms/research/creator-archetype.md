@@ -4,7 +4,8 @@ id: "creator-archetype"
 title: "Архетип создателя"
 slug: "creator-archetype"
 kind: "concept"
-hub: "research"
+hub:
+  - "research"
 summary: "Роль человека, который собирает новые формы, продукты, тексты, системы и инструменты из разрозненного материала."
 description: "Роль человека, который собирает новые формы, продукты, тексты, системы и инструменты из разрозненного материала."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Архетип создателя описывает стремление собирать новые формы: продукты, инструменты, тексты, системы, карты и интерфейсы. Этот архетип полезен для понимания человека, который мыслит через сборку, прототипы и постоянное создание новых связей.
 
-Связанные элементы: [[archetypes]], [[product-thinking]], [[notepub]], [[ai-mvp]].
+Связанные элементы: [[archetypes|Архетипы]], [[product-thinking|Product thinking]], [[notepub|Notepub]], [[ai-mvp|ai-mvp]].
 
 ## Связи
 
-- [[archetypes]] — example_of
-- [[product-thinking]] — related_to
-- [[notepub]] — related_to
-- [[ai-mvp]] — related_to
+- [[archetypes|Архетипы]] — example_of
+- [[product-thinking|Product thinking]] — related_to
+- [[notepub|Notepub]] — related_to
+- [[ai-mvp|ai-mvp]] — related_to
 
 ## Следующие действия
 
-- **Связать с продуктами** → [[product-thinking]]: Поможет перевести творческую роль в продуктовую логику.
-- **Посмотреть Notepub** → [[notepub]]: Поможет увидеть инструментальную форму архетипа создателя.
-- **Собрать AI-MVP** → [[ai-mvp]]: Поможет превратить идею в рабочий прототип.
+- **Связать с продуктами** → [[product-thinking|Product thinking]]: Поможет перевести творческую роль в продуктовую логику.
+- **Посмотреть Notepub** → [[notepub|Notepub]]: Поможет увидеть инструментальную форму архетипа создателя.
+- **Собрать AI-MVP** → [[ai-mvp|ai-mvp]]: Поможет превратить идею в рабочий прототип.

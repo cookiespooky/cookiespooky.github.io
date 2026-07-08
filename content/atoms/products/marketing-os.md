@@ -4,7 +4,8 @@ id: "marketing-os"
 title: "Marketing OS"
 slug: "marketing-os"
 kind: "product"
-hub: "products"
+hub:
+  - "products"
 summary: "Система для сборки маркетинговой логики вокруг продукта, эксперта или проекта."
 description: "Система для сборки маркетинговой логики вокруг продукта, эксперта или проекта."
 status: "public"
@@ -55,16 +56,16 @@ seo:
 
 ## Связи
 
-- [[positioning]] — uses
-- [[icp]] — related_to
-- [[content-system]] — compatible_with
-- [[offer]] — related_to
-- [[cognitive-reconstruction]] — uses
-- [[product-thinking]] — uses
-- [[lead-marketing-diagnostic]] — leads_to
+- [[positioning|Позиционирование]] — uses
+- [[icp|ICP]] — related_to
+- [[content-system|Контентная система]] — compatible_with
+- [[offer|Оффер]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
+- [[product-thinking|Product thinking]] — uses
+- [[lead-marketing-diagnostic|Диагностика маркетинга]] — leads_to
 
 ## Следующие действия
 
-- **Понять, кому подходит** → [[positioning]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Разобрать мой маркетинг** → [[lead-marketing-diagnostic]]: Поможет найти слабое место в позиционировании, оффере, контенте или пути клиента.
-- **Посмотреть связь с позиционированием** → [[positioning]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Понять, кому подходит** → [[positioning|Позиционирование]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Разобрать мой маркетинг** → [[lead-marketing-diagnostic|Диагностика маркетинга]]: Поможет найти слабое место в позиционировании, оффере, контенте или пути клиента.
+- **Посмотреть связь с позиционированием** → [[positioning|Позиционирование]]: Поможет уточнить контекст и перейти к следующему связанному понятию.

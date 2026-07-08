@@ -277,4 +277,33 @@ if [[ -f "$OUT/robots.txt" ]]; then
   rm -f "$OUT/robots.txt.tmp"
 fi
 
-echo "[9/9] done -> $OUT"
+if [[ -n "${NOTEPUB_BASE_URL:-}" ]]; then
+  echo "[9/9] normalize absolute URLs"
+  BASE_ESCAPED="${NOTEPUB_BASE_URL%/}"
+  MEDIA_ESCAPED="${NOTEPUB_MEDIA_BASE_URL%/}"
+
+  python3 - "$OUT" "$BASE_ESCAPED" "$MEDIA_ESCAPED" <<'PY'
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+base = sys.argv[2]
+media = sys.argv[3]
+base_json = base.replace("/", "\\/")
+media_json = media.replace("/", "\\/")
+
+for path in root.rglob("*"):
+    if not path.is_file():
+        continue
+    if path.suffix.lower() not in {".html", ".xml", ".txt", ".json"}:
+        continue
+    text = path.read_text(encoding="utf-8")
+    text = text.replace("http://127.0.0.1:8080/media", media)
+    text = text.replace("http://127.0.0.1:8080", base)
+    text = text.replace("http:\\/\\/127.0.0.1:8080\\/media", media_json)
+    text = text.replace("http:\\/\\/127.0.0.1:8080", base_json)
+    path.write_text(text, encoding="utf-8")
+PY
+fi
+
+echo "[10/10] done -> $OUT"

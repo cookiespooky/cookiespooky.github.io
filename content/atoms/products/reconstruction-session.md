@@ -4,7 +4,8 @@ id: "reconstruction-session"
 title: "Сессия разбора ситуации"
 slug: "reconstruction-session"
 kind: "action"
-hub: "products"
+hub:
+  - "products"
 summary: "Практический формат работы, в котором ситуация разбирается через диалог, заметки, атомизацию и построение карты."
 description: "Практический формат работы, в котором ситуация разбирается через диалог, заметки, атомизацию и построение карты."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Результатом становится карта ситуации, где видны ключевые элементы, связи, повторяющиеся сценарии, пустоты и ближайшие точки действия.
 
-Связанные элементы графа: [[cognitive-reconstruction]], [[situation-map]], [[source-material]], [[action-point]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[cognitive-reconstruction|Когнитивная реконструкция]], [[situation-map|Карта ситуации]], [[source-material|Исходный материал]], [[action-point|Точка действия]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[cognitive-reconstruction]] — implements
-- [[situation-map]] — produces
-- [[source-material]] — uses
-- [[action-point]] — produces
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — implements
+- [[situation-map|Карта ситуации]] — produces
+- [[source-material|Исходный материал]] — uses
+- [[action-point|Точка действия]] — produces
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Оставить заявку на разбор** → [[lead-cognitive-reconstruction]]: Поможет применить метод к вашей ситуации и получить карту вместо общей рефлексии.
-- **Понять метод** → [[cognitive-reconstruction]]: Поможет увидеть, из чего состоит разбор.
-- **Посмотреть результат** → [[situation-map]]: Поможет понять, какой артефакт появляется после работы.
+- **Оставить заявку на разбор** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет применить метод к вашей ситуации и получить карту вместо общей рефлексии.
+- **Понять метод** → [[cognitive-reconstruction|Когнитивная реконструкция]]: Поможет увидеть, из чего состоит разбор.
+- **Посмотреть результат** → [[situation-map|Карта ситуации]]: Поможет понять, какой артефакт появляется после работы.

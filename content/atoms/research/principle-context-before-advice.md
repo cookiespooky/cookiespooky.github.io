@@ -4,7 +4,8 @@ id: "principle-context-before-advice"
 title: "Сначала контекст, потом совет"
 slug: "principle-context-before-advice"
 kind: "principle"
-hub: "research"
+hub:
+  - "research"
 summary: "Совет полезен, когда известны цель, ограничения, текущий этап, ресурсы, повторяющиеся сценарии и критерий результата."
 description: "Совет полезен, когда известны цель, ограничения, текущий этап, ресурсы, повторяющиеся сценарии и критерий результата."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[case-route]] · [[cognitive-reconstruction]] · [[situation-map]] · [[lead-case-diagnostic]]
+[[case-route|Маршрут кейса]] · [[cognitive-reconstruction|Когнитивная реконструкция]] · [[situation-map|Карта ситуации]] · [[lead-case-diagnostic|Диагностика кейса]]
 
 ## Связи
 
-- [[case-route]] — uses
-- [[cognitive-reconstruction]] — related_to
-- [[situation-map]] — produces
-- [[lead-case-diagnostic]] — leads_to
+- [[case-route|Маршрут кейса]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — related_to
+- [[situation-map|Карта ситуации]] — produces
+- [[lead-case-diagnostic|Диагностика кейса]] — leads_to
 
 ## Следующие действия
 
-- **Сопоставить с кейсом** → [[lead-case-diagnostic]]: Поможет сравнить вашу ситуацию с похожими структурами и выбрать точку разбора.
-- **Построить карту ситуации** → [[situation-map]]: Поможет собрать контекст до выбора действия.
+- **Сопоставить с кейсом** → [[lead-case-diagnostic|Диагностика кейса]]: Поможет сравнить вашу ситуацию с похожими структурами и выбрать точку разбора.
+- **Построить карту ситуации** → [[situation-map|Карта ситуации]]: Поможет собрать контекст до выбора действия.

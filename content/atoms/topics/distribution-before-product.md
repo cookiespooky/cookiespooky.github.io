@@ -4,7 +4,8 @@ id: "distribution-before-product"
 title: "Дистрибуция до продукта"
 slug: "distribution-before-product"
 kind: "principle"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Дистрибуция до продукта — подход, при котором канал привлечения и понятный вход для аудитории проверяются до сложной разработки."
 description: "Дистрибуция до продукта — подход, при котором канал привлечения и понятный вход для аудитории проверяются до сложной разработки."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Дистрибуция до продукта — подход, при котором канал привлечения и понятный вход для аудитории проверяются до сложной разработки.
 
-Связанные элементы графа: [[threads]], [[landing-page-test]], [[content-system]], [[marketing-os]].
+Связанные элементы графа: [[threads|Threads]], [[landing-page-test|Тест лендинга]], [[content-system|Контентная система]], [[marketing-os|Marketing OS]].
 
 ## Связи
 
-- [[threads]] — channel
-- [[landing-page-test]] — uses
-- [[content-system]] — uses
-- [[marketing-os]] — related_product
+- [[threads|Threads]] — channel
+- [[landing-page-test|Тест лендинга]] — uses
+- [[content-system|Контентная система]] — uses
+- [[marketing-os|Marketing OS]] — related_product
 
 ## Следующие действия
 
-- **Проверить канал** → [[lead-marketing-diagnostic]]: Поможет понять, через какой вход люди приходят к продукту.
-- **Запустить тест лендинга** → [[landing-page-test]]: Поможет связать канал с оффером.
-- **Посмотреть контентную систему** → [[content-system]]: Поможет регулярно создавать входы в продукт.
+- **Проверить канал** → [[lead-marketing-diagnostic|Диагностика маркетинга]]: Поможет понять, через какой вход люди приходят к продукту.
+- **Запустить тест лендинга** → [[landing-page-test|Тест лендинга]]: Поможет связать канал с оффером.
+- **Посмотреть контентную систему** → [[content-system|Контентная система]]: Поможет регулярно создавать входы в продукт.

@@ -4,7 +4,8 @@ id: "atomic-notes"
 title: "Атомарные заметки"
 slug: "atomic-notes"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Короткие самостоятельные заметки, каждая из которых объясняет одно понятие, продукт, метод или связь."
 description: "Короткие самостоятельные заметки, каждая из которых объясняет одно понятие, продукт, метод или связь."
 status: "public"
@@ -45,21 +46,21 @@ seo:
 
 Короткие самостоятельные заметки, каждая из которых объясняет одно понятие, продукт, метод или связь.
 
-Связанные элементы графа: [[knowledge-graph]], [[obsidian]], [[llm-site]], [[seo]], [[llm-readable-notes]], [[note-to-site-pipeline]], [[vault-migration]].
+Связанные элементы графа: [[knowledge-graph|Граф знаний]], [[obsidian|Obsidian]], [[llm-site|LLM-сайт]], [[seo|SEO]], [[llm-readable-notes|LLM-читаемые заметки]], [[note-to-site-pipeline|Пайплайн заметки → сайт]], [[vault-migration|Миграция vault]].
 
 ## Связи
 
-- [[knowledge-graph]] — compatible_with
-- [[obsidian]] — compatible_with
-- [[llm-site]] — related_to
-- [[seo]] — related_to
-- [[llm-readable-notes]] — extends_to
-- [[note-to-site-pipeline]] — part_of
-- [[vault-migration]] — produced_by
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[obsidian|Obsidian]] — compatible_with
+- [[llm-site|LLM-сайт]] — related_to
+- [[seo|SEO]] — related_to
+- [[llm-readable-notes|LLM-читаемые заметки]] — extends_to
+- [[note-to-site-pipeline|Пайплайн заметки → сайт]] — part_of
+- [[vault-migration|Миграция vault]] — produced_by
 
 ## Следующие действия
 
-- **Создать атом** → [[knowledge-graph]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать заметку** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Понять SEO-роль** → [[knowledge-graph]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Создать атом** → [[knowledge-graph|Граф знаний]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать заметку** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Понять SEO-роль** → [[knowledge-graph|Граф знаний]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.

@@ -4,7 +4,8 @@ id: "energy-tracking"
 title: "Отслеживание энергии"
 slug: "energy-tracking"
 kind: "practice"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Отслеживание энергии показывает, какие действия, люди, среды и решения повышают или снижают доступный ресурс."
 description: "Отслеживание энергии показывает, какие действия, люди, среды и решения повышают или снижают доступный ресурс."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Полезность появляется не в одной записи, а в накоплении. Через несколько недель становится видно, какие задачи, среды и сценарии стабильно расходуют или возвращают ресурс.
 
-Связанные элементы графа: [[state-log]], [[burnout-from-no-response]], [[self-tracking-signals]], [[repeating-scenarios]], [[weekly-review]].
+Связанные элементы графа: [[state-log|Журнал состояний]], [[burnout-from-no-response|burnout-from-no-response]], [[self-tracking-signals|Сигналы self-tracking]], [[repeating-scenarios|Повторяющиеся сценарии]], [[weekly-review|Еженедельный обзор]].
 
 ## Связи
 
-- [[state-log]] — part_of
-- [[burnout-from-no-response]] — explains
-- [[self-tracking-signals]] — uses
-- [[repeating-scenarios]] — related_to
-- [[weekly-review]] — uses
+- [[state-log|Журнал состояний]] — part_of
+- [[burnout-from-no-response|burnout-from-no-response]] — explains
+- [[self-tracking-signals|Сигналы self-tracking]] — uses
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[weekly-review|Еженедельный обзор]] — uses
 
 ## Следующие действия
 
-- **Связать с выгоранием** → [[burnout-from-no-response]]: Поможет увидеть, где энергия зависит от отклика, продаж или внешней оценки.
-- **Посмотреть сигналы** → [[self-tracking-signals]]: Поможет выбрать простые показатели для наблюдения.
-- **Собрать обзор энергии** → [[weekly-review]]: Поможет найти повторяющиеся источники подъема и провала.
+- **Связать с выгоранием** → [[burnout-from-no-response|burnout-from-no-response]]: Поможет увидеть, где энергия зависит от отклика, продаж или внешней оценки.
+- **Посмотреть сигналы** → [[self-tracking-signals|Сигналы self-tracking]]: Поможет выбрать простые показатели для наблюдения.
+- **Собрать обзор энергии** → [[weekly-review|Еженедельный обзор]]: Поможет найти повторяющиеся источники подъема и провала.

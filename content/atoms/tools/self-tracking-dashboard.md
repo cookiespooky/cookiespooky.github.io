@@ -4,7 +4,8 @@ id: "self-tracking-dashboard"
 title: "Дашборд self-tracking"
 slug: "self-tracking-dashboard"
 kind: "artifact"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Дашборд self-tracking собирает ключевые сигналы, обзоры и повторения в одном месте для быстрого просмотра."
 description: "Дашборд self-tracking собирает ключевые сигналы, обзоры и повторения в одном месте для быстрого просмотра."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Он нужен не для красивой статистики, а для быстрого доступа к тому, что помогает принимать решения и замечать изменения в собственной системе.
 
-Связанные элементы графа: [[self-tracking]], [[state-log]], [[decision-log]], [[weekly-review]], [[obsidian]], [[notepub]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[weekly-review|Еженедельный обзор]], [[obsidian|Obsidian]], [[notepub|Notepub]].
 
 ## Связи
 
-- [[self-tracking]] — produces
-- [[state-log]] — uses
-- [[decision-log]] — uses
-- [[weekly-review]] — uses
-- [[obsidian]] — compatible_with
-- [[notepub]] — related_to
+- [[self-tracking|Self-tracking]] — produces
+- [[state-log|Журнал состояний]] — uses
+- [[decision-log|Журнал решений]] — uses
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[obsidian|Obsidian]] — compatible_with
+- [[notepub|Notepub]] — related_to
 
 ## Следующие действия
 
-- **Выбрать показатели** → [[tracking-questions]]: Поможет определить, что должно попасть в дашборд.
-- **Связать с Obsidian** → [[obsidian]]: Поможет встроить дашборд в существующий vault.
-- **Собрать мой дашборд** → [[lead-self-tracking-setup]]: Поможет сделать минимальную панель без лишней аналитической мишуры.
+- **Выбрать показатели** → [[tracking-questions|Вопросы для self-tracking]]: Поможет определить, что должно попасть в дашборд.
+- **Связать с Obsidian** → [[obsidian|Obsidian]]: Поможет встроить дашборд в существующий vault.
+- **Собрать мой дашборд** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет сделать минимальную панель без лишней аналитической мишуры.

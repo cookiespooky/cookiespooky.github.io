@@ -4,7 +4,8 @@ id: "lead-notepub-setup"
 title: "Собрать публикацию из заметок"
 slug: "lead-notepub-setup"
 kind: "action"
-hub: "products"
+hub:
+  - "products"
 summary: "Лидовое действие для пользователя, который хочет превратить Obsidian, Markdown-заметки или базу знаний в публичный граф и сайт."
 description: "Лидовое действие для пользователя, который хочет превратить Obsidian, Markdown-заметки или базу знаний в публичный граф и сайт."
 status: "public"
@@ -34,7 +35,7 @@ seo:
 
 Задача — выделить публичную часть базы, разрезать длинные материалы на атомы, задать явные связи, определить хабы и собрать первый маршрут пользователя.
 
-Связанные элементы графа: [[notepub]], [[obsidian]], [[note-to-site-pipeline]], [[public-vault]], [[markdown-publishing]].
+Связанные элементы графа: [[notepub|Notepub]], [[obsidian|Obsidian]], [[note-to-site-pipeline|Пайплайн заметки → сайт]], [[public-vault|Публичный vault]], [[markdown-publishing|Публикация Markdown]].
 
 ## Что это даст
 

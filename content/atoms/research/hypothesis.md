@@ -4,7 +4,8 @@ id: "hypothesis"
 title: "Гипотеза"
 slug: "hypothesis"
 kind: "research"
-hub: "research"
+hub:
+  - "research"
 summary: "Гипотеза формулирует проверяемое предположение о связи между проблемой, механизмом, действием и результатом."
 description: "Гипотеза формулирует проверяемое предположение о связи между проблемой, механизмом, действием и результатом."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[field-observation]] · [[demand-validation]] · [[startup-hypothesis]] · [[product-thinking]]
+[[field-observation|Полевое наблюдение]] · [[demand-validation|Проверка спроса]] · [[startup-hypothesis|Стартап-гипотеза]] · [[product-thinking|Product thinking]]
 
 ## Связи
 
-- [[field-observation]] — based_on
-- [[demand-validation]] — tested_by
-- [[startup-hypothesis]] — related_to
-- [[product-thinking]] — uses
+- [[field-observation|Полевое наблюдение]] — based_on
+- [[demand-validation|Проверка спроса]] — tested_by
+- [[startup-hypothesis|Стартап-гипотеза]] — related_to
+- [[product-thinking|Product thinking]] — uses
 
 ## Следующие действия
 
-- **Проверить гипотезу спросом** → [[demand-validation]]: Поможет отделить интересную мысль от идеи, которую можно проверить на людях.
-- **Проверить стартап-идею** → [[lead-startup-diagnostic]]: Поможет выбрать минимальный тест и критерий, по которому будет понятно, есть ли спрос.
+- **Проверить гипотезу спросом** → [[demand-validation|Проверка спроса]]: Поможет отделить интересную мысль от идеи, которую можно проверить на людях.
+- **Проверить стартап-идею** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать минимальный тест и критерий, по которому будет понятно, есть ли спрос.

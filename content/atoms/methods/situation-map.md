@@ -4,7 +4,8 @@ id: "situation-map"
 title: "Карта ситуации"
 slug: "situation-map"
 kind: "artifact"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Структурированное представление элементов ситуации и связей между ними."
 description: "Структурированное представление элементов ситуации и связей между ними."
 status: "public"
@@ -57,25 +58,25 @@ seo:
 
 Карта нужна, когда проблема не сводится к одному вопросу и требует увидеть систему целиком.
 
-Связанные элементы графа: [[cognitive-reconstruction]], [[knowledge-graph]], [[repeating-scenarios]], [[agency]], [[lead-cognitive-reconstruction]], [[situation-graph]], [[cognitive-gaps]].
+Связанные элементы графа: [[cognitive-reconstruction|Когнитивная реконструкция]], [[knowledge-graph|Граф знаний]], [[repeating-scenarios|Повторяющиеся сценарии]], [[agency|Агентность]], [[lead-cognitive-reconstruction|Разбор ситуации]], [[situation-graph|Граф ситуации]], [[cognitive-gaps|Когнитивные пустоты]].
 
 ## Связи
 
-- [[cognitive-reconstruction]] — uses
-- [[knowledge-graph]] — compatible_with
-- [[repeating-scenarios]] — related_to
-- [[agency]] — related_to
-- [[lead-cognitive-reconstruction]] — leads_to
-- [[situation-graph]] — visualized_as
-- [[cognitive-gaps]] — shows
-- [[action-point]] — shows
-- [[map-first-approach]] — principle_of
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[agency|Агентность]] — related_to
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
+- [[situation-graph|Граф ситуации]] — visualized_as
+- [[cognitive-gaps|Когнитивные пустоты]] — shows
+- [[action-point|Точка действия]] — shows
+- [[map-first-approach|Подход от карты]] — principle_of
 
 ## Следующие действия
 
-- **Построить карту** → [[cognitive-reconstruction]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть пример** → [[cognitive-reconstruction]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с графом знаний** → [[cognitive-reconstruction]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
-- **Построить карту моей ситуации** → [[lead-cognitive-reconstruction]]: Поможет собрать элементы ситуации в структуру и увидеть следующий шаг.
-- **Посмотреть граф ситуации** → [[situation-graph]]: Поможет понять визуальный формат карты.
+- **Построить карту** → [[cognitive-reconstruction|Когнитивная реконструкция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Посмотреть пример** → [[cognitive-reconstruction|Когнитивная реконструкция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с графом знаний** → [[cognitive-reconstruction|Когнитивная реконструкция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
+- **Построить карту моей ситуации** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет собрать элементы ситуации в структуру и увидеть следующий шаг.
+- **Посмотреть граф ситуации** → [[situation-graph|Граф ситуации]]: Поможет понять визуальный формат карты.

@@ -1,10 +1,10 @@
 ---
 type: footer
 slug: footer
-title: Футер
-description: Единый футер сайта
+title: Footer
+description: Footer note
+draft: false
 noindex: true
 ---
-**Открыт для любых обсуждений - добро пожаловать в [Telegram](https://t.me/cookiespooky)**
 
-[[home|Главная]] • [GitHub](https://github.com/cookiespooky) • [Threads](https://www.threads.com/@antoniospoony) • [Telegram-канал](https://t.me/thefoundersway)
+[Сайт](/) • [Threads](https://www.threads.com/@antoniospoony) • [Telegram](https://t.me/thefoundersway)

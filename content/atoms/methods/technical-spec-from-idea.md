@@ -4,7 +4,8 @@ id: "technical-spec-from-idea"
 title: "Техническое ТЗ из идеи"
 slug: "technical-spec-from-idea"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Техническое ТЗ из идеи — перевод свободного описания продукта в структуру: цель, пользовательский сценарий, данные, интерфейс, ограничения и первый проход разработки."
 description: "Техническое ТЗ из идеи — перевод свободного описания продукта в структуру: цель, пользовательский сценарий, данные, интерфейс, ограничения и первый проход разработки."
 status: "public"
@@ -27,15 +28,15 @@ actions:
 
 Техническое ТЗ из идеи — перевод свободного описания продукта в структуру: цель, пользовательский сценарий, данные, интерфейс, ограничения и первый проход разработки.
 
-Связанные элементы графа: [[prompt-brief]], [[ai-dev-workflow]], [[mvp]], [[product-thinking]].
+Связанные элементы графа: [[prompt-brief|Промпт-бриф]], [[ai-dev-workflow|AI-dev workflow]], [[mvp|MVP]], [[product-thinking|Product thinking]].
 
 ## Связи
 
-- [[prompt-brief]] — produces
-- [[ai-dev-workflow]] — starts
-- [[mvp]] — supports
-- [[product-thinking]] — uses
+- [[prompt-brief|Промпт-бриф]] — produces
+- [[ai-dev-workflow|AI-dev workflow]] — starts
+- [[mvp|MVP]] — supports
+- [[product-thinking|Product thinking]] — uses
 
 ## Следующие действия
 
-- **Собрать ТЗ для идеи** → [[lead-ai-mvp-build]]: Поможет перейти от размытой задумки к задаче, которую можно разработать через AI или обычным способом.
+- **Собрать ТЗ для идеи** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет перейти от размытой задумки к задаче, которую можно разработать через AI или обычным способом.

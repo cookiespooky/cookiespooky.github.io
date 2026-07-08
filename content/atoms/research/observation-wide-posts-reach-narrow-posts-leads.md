@@ -4,7 +4,8 @@ id: "observation-wide-posts-reach-narrow-posts-leads"
 title: "Широкие посты дают охват, узкие приводят заявки"
 slug: "observation-wide-posts-reach-narrow-posts-leads"
 kind: "observation"
-hub: "research"
+hub:
+  - "research"
 summary: "Широкий контент помогает людям заметить автора, а узкий контент помогает человеку узнать свою ситуацию и перейти к действию."
 description: "Широкий контент помогает людям заметить автора, а узкий контент помогает человеку узнать свою ситуацию и перейти к действию."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[threads]] · [[narrow-pain-post]] · [[content-to-leads]] · [[lead-content-map]]
+[[threads|Threads]] · [[narrow-pain-post|Пост под узкую боль]] · [[content-to-leads|Контент в заявки]] · [[lead-content-map|Собрать карту контента и заявок]]
 
 ## Связи
 
-- [[threads]] — related_to
-- [[narrow-pain-post]] — explains
-- [[content-to-leads]] — related_to
-- [[lead-content-map]] — leads_to
+- [[threads|Threads]] — related_to
+- [[narrow-pain-post|Пост под узкую боль]] — explains
+- [[content-to-leads|Контент в заявки]] — related_to
+- [[lead-content-map|Собрать карту контента и заявок]] — leads_to
 
 ## Следующие действия
 
-- **Собрать карту контента** → [[lead-content-map]]: Поможет связать охватные темы, узкие боли, комментарии, личку и заявки.
-- **Посмотреть пост под узкую боль** → [[narrow-pain-post]]: Поможет понять, как контент превращается в узнавание ситуации.
+- **Собрать карту контента** → [[lead-content-map|Собрать карту контента и заявок]]: Поможет связать охватные темы, узкие боли, комментарии, личку и заявки.
+- **Посмотреть пост под узкую боль** → [[narrow-pain-post|Пост под узкую боль]]: Поможет понять, как контент превращается в узнавание ситуации.

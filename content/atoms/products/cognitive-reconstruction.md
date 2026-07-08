@@ -4,7 +4,8 @@ id: "cognitive-reconstruction"
 title: "Когнитивная реконструкция"
 slug: "cognitive-reconstruction"
 kind: "method"
-hub: "products"
+hub:
+  - "products"
 summary: "Метод восстановления карты ситуации, скрытых связей, повторяющихся сценариев и точек действия."
 description: "Метод восстановления карты ситуации, скрытых связей, повторяющихся сценариев и точек действия."
 status: "public"
@@ -62,28 +63,28 @@ seo:
 
 Реконструкция работает с исходным материалом: заметками, диалогом, списком проектов, постами или дневником. Итогом становится карта ситуации или граф, пригодный для дальнейшего анализа.
 
-Связанные элементы графа: [[situation-map]], [[lat]], [[repeating-scenarios]], [[agency]], [[obsidian]], [[lead-cognitive-reconstruction]], [[lead-notes-analysis]].
+Связанные элементы графа: [[situation-map|Карта ситуации]], [[lat|LAT]], [[repeating-scenarios|Повторяющиеся сценарии]], [[agency|Агентность]], [[obsidian|Obsidian]], [[lead-cognitive-reconstruction|Разбор ситуации]], [[lead-notes-analysis|Разбор заметок]].
 
 ## Связи
 
-- [[situation-map]] — produces
-- [[lat]] — uses
-- [[repeating-scenarios]] — related_to
-- [[agency]] — related_to
-- [[obsidian]] — compatible_with
-- [[lead-cognitive-reconstruction]] — leads_to
-- [[lead-notes-analysis]] — leads_to
-- [[cognitive-gaps]] — detects
-- [[lens-analysis]] — uses
-- [[situation-graph]] — produces
-- [[source-material]] — uses
-- [[action-point]] — produces
-- [[reconstruction-session]] — implemented_as
+- [[situation-map|Карта ситуации]] — produces
+- [[lat|LAT]] — uses
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[agency|Агентность]] — related_to
+- [[obsidian|Obsidian]] — compatible_with
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
+- [[cognitive-gaps|Когнитивные пустоты]] — detects
+- [[lens-analysis|Линзирование]] — uses
+- [[situation-graph|Граф ситуации]] — produces
+- [[source-material|Исходный материал]] — uses
+- [[action-point|Точка действия]] — produces
+- [[reconstruction-session|Сессия разбора ситуации]] — implemented_as
 
 ## Следующие действия
 
-- **Построить карту ситуации** → [[lead-cognitive-reconstruction]]: Поможет собрать карту ситуации и увидеть связи, которые трудно удержать в голове.
-- **Понять метод** → [[situation-map]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть связь с LAT** → [[situation-map]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Разобрать мою ситуацию** → [[reconstruction-session]]: Поможет применить метод к личному материалу и получить карту с точками действия.
-- **Найти когнитивные пустоты** → [[cognitive-gaps]]: Поможет увидеть недостающие звенья в описании ситуации.
+- **Построить карту ситуации** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет собрать карту ситуации и увидеть связи, которые трудно удержать в голове.
+- **Понять метод** → [[situation-map|Карта ситуации]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Посмотреть связь с LAT** → [[situation-map|Карта ситуации]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Разобрать мою ситуацию** → [[reconstruction-session|Сессия разбора ситуации]]: Поможет применить метод к личному материалу и получить карту с точками действия.
+- **Найти когнитивные пустоты** → [[cognitive-gaps|Когнитивные пустоты]]: Поможет увидеть недостающие звенья в описании ситуации.

@@ -4,7 +4,8 @@ id: "case-developer-ai-mvp"
 title: "Кейс разработчика, который собирает AI-MVP"
 slug: "case-developer-ai-mvp"
 kind: "case"
-hub: "research"
+hub:
+  - "research"
 summary: "Кейс разработчика или продуктового специалиста, который хочет быстро собрать AI-продукт через модель, контекст и минимальную архитектуру."
 description: "Кейс разработчика или продуктового специалиста, который хочет быстро собрать AI-продукт через модель, контекст и минимальную архитектуру."
 status: "public"
@@ -30,19 +31,19 @@ actions:
 ---
 # Кейс разработчика, который собирает AI-MVP
 
-Кейс фокусируется на переходе от идеи к работающему прототипу. Главная задача — не доказать техническую сложность, а собрать минимальный маршрут: контекст, промпт, интерфейс, данные и действие пользователя. Для такого маршрута важны [[vibe-coding]], [[codex]], [[prompt-brief]], [[context-package]] и [[ai-mvp]].
+Кейс фокусируется на переходе от идеи к работающему прототипу. Главная задача — не доказать техническую сложность, а собрать минимальный маршрут: контекст, промпт, интерфейс, данные и действие пользователя. Для такого маршрута важны [[vibe-coding|Vibe coding]], [[codex|Codex]], [[prompt-brief|Промпт-бриф]], [[context-package|Пакет контекста]] и [[ai-mvp|ai-mvp]].
 
-Связанные элементы графа: [[vibe-coding]], [[codex]], [[prompt-brief]], [[context-package]], [[lead-ai-mvp-build]].
+Связанные элементы графа: [[vibe-coding|Vibe coding]], [[codex|Codex]], [[prompt-brief|Промпт-бриф]], [[context-package|Пакет контекста]], [[lead-ai-mvp-build|Собрать AI-MVP]].
 
 ## Связи
 
-- [[vibe-coding]] — uses
-- [[codex]] — compatible_with
-- [[prompt-brief]] — produces
-- [[context-package]] — uses
-- [[lead-ai-mvp-build]] — leads_to
+- [[vibe-coding|Vibe coding]] — uses
+- [[codex|Codex]] — compatible_with
+- [[prompt-brief|Промпт-бриф]] — produces
+- [[context-package|Пакет контекста]] — uses
+- [[lead-ai-mvp-build|Собрать AI-MVP]] — leads_to
 
 ## Следующие действия
 
-- **Собрать AI-MVP** → [[lead-ai-mvp-build]]: Поможет определить минимальный объем разработки и контекст для модели.
-- **Подготовить промпт-бриф** → [[prompt-brief]]: Поможет передать Codex задачу без хаоса.
+- **Собрать AI-MVP** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет определить минимальный объем разработки и контекст для модели.
+- **Подготовить промпт-бриф** → [[prompt-brief|Промпт-бриф]]: Поможет передать Codex задачу без хаоса.

@@ -4,7 +4,8 @@ id: "llm-site"
 title: "LLM-сайт"
 slug: "llm-site"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Сайт, где модель использует граф знаний для генерации текста, ссылок и маршрутов пользователя."
 description: "Сайт, где модель использует граф знаний для генерации текста, ссылок и маршрутов пользователя."
 status: "public"
@@ -44,21 +45,21 @@ seo:
 
 Сайт, где модель использует граф знаний для генерации текста, ссылок и маршрутов пользователя.
 
-Связанные элементы графа: [[notepub]], [[knowledge-graph]], [[atomic-notes]], [[llm-apps]], [[seo]], [[llm-readable-notes]], [[public-vault]], [[knowledge-garden]].
+Связанные элементы графа: [[notepub|Notepub]], [[knowledge-graph|Граф знаний]], [[atomic-notes|Атомарные заметки]], [[llm-apps|LLM-приложения]], [[seo|SEO]], [[llm-readable-notes|LLM-читаемые заметки]], [[public-vault|Публичный vault]], [[knowledge-garden|Сад знаний]].
 
 ## Связи
 
-- [[notepub]] — related_product
-- [[knowledge-graph]] — compatible_with
-- [[atomic-notes]] — uses
-- [[llm-apps]] — related_to
-- [[seo]] — related_to
-- [[llm-readable-notes]] — requires
-- [[public-vault]] — uses
-- [[knowledge-garden]] — related_to
+- [[notepub|Notepub]] — related_product
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[llm-apps|LLM-приложения]] — related_to
+- [[seo|SEO]] — related_to
+- [[llm-readable-notes|LLM-читаемые заметки]] — requires
+- [[public-vault|Публичный vault]] — uses
+- [[knowledge-garden|Сад знаний]] — related_to
 
 ## Следующие действия
 
-- **Понять архитектуру сайта** → [[notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с Notepub** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Открыть главную логику** → [[notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Понять архитектуру сайта** → [[notepub|Notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с Notepub** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Открыть главную логику** → [[notepub|Notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.

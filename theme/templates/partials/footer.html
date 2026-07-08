@@ -11,6 +11,28 @@
     (function() {
       var target = document.querySelector('[data-site-footer]');
       if (!target) return;
+      function isLoopbackHost(hostname) {
+        return hostname === 'localhost' || hostname === '127.0.0.1';
+      }
+      function alignLoopbackOrigin(rawUrl) {
+        if (!rawUrl || /^\/(?!\/)/.test(rawUrl)) return rawUrl;
+        var parsed;
+        try {
+          parsed = new URL(rawUrl, window.location.href);
+        } catch (e) {
+          return rawUrl;
+        }
+        if (!isLoopbackHost(parsed.hostname) || !isLoopbackHost(window.location.hostname)) {
+          return parsed.toString();
+        }
+        if (parsed.origin === window.location.origin) {
+          return parsed.toString();
+        }
+        parsed.protocol = window.location.protocol;
+        parsed.hostname = window.location.hostname;
+        parsed.port = window.location.port;
+        return parsed.toString();
+      }
       function markExternalLinks(scope) {
         var links = scope.querySelectorAll('a[href]');
         if (!links.length) return;
@@ -33,7 +55,7 @@
           }
         });
       }
-      var footerURL = '{{ .BaseURL }}/footer';
+      var footerURL = alignLoopbackOrigin('{{ .BaseURL }}/footer');
       fetch(footerURL, { credentials: 'same-origin' })
         .then(function(resp) { return resp.ok ? resp.text() : ''; })
         .then(function(html) {

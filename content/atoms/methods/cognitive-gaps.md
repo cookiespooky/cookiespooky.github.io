@@ -4,7 +4,8 @@ id: "cognitive-gaps"
 title: "Когнитивные пустоты"
 slug: "cognitive-gaps"
 kind: "concept"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Участки ситуации, где отсутствует важное звено: субъект, критерий, причина, действие, ресурс или связь."
 description: "Участки ситуации, где отсутствует важное звено: субъект, критерий, причина, действие, ресурс или связь."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Пустота не равна ошибке. Она показывает, где модель ситуации недостроена. После заполнения пустоты часто появляется простой следующий шаг.
 
-Связанные элементы графа: [[cognitive-reconstruction]], [[situation-map]], [[agency]], [[no-selection-criterion]], [[lat]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[cognitive-reconstruction|Когнитивная реконструкция]], [[situation-map|Карта ситуации]], [[agency|Агентность]], [[no-selection-criterion|Нет критерия выбора]], [[lat|LAT]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[cognitive-reconstruction]] — detected_by
-- [[situation-map]] — visible_on
-- [[agency]] — related_to
-- [[no-selection-criterion]] — example_of
-- [[lat]] — detected_by
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — detected_by
+- [[situation-map|Карта ситуации]] — visible_on
+- [[agency|Агентность]] — related_to
+- [[no-selection-criterion|Нет критерия выбора]] — example_of
+- [[lat|LAT]] — detected_by
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Найти пустоты в моей ситуации** → [[lead-cognitive-reconstruction]]: Поможет перейти от общего понимания к личной карте ситуации, где видны элементы, связи и следующий шаг.
-- **Посмотреть карту ситуации** → [[situation-map]]: Поможет понять, где именно пустоты становятся видимыми.
-- **Связать с LAT** → [[lat]]: Поможет увидеть, как пустоты проявляются в речи.
+- **Найти пустоты в моей ситуации** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет перейти от общего понимания к личной карте ситуации, где видны элементы, связи и следующий шаг.
+- **Посмотреть карту ситуации** → [[situation-map|Карта ситуации]]: Поможет понять, где именно пустоты становятся видимыми.
+- **Связать с LAT** → [[lat|LAT]]: Поможет увидеть, как пустоты проявляются в речи.

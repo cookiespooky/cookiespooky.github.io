@@ -4,7 +4,8 @@ id: "lead-self-tracking-setup"
 title: "Настроить self-tracking систему"
 slug: "lead-self-tracking-setup"
 kind: "action"
-hub: "products"
+hub:
+  - "products"
 summary: "Лидовое действие для сборки минимальной системы наблюдения за состояниями, решениями, энергией и повторяющимися сценариями."
 description: "Лидовое действие для сборки минимальной системы наблюдения за состояниями, решениями, энергией и повторяющимися сценариями."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Цель действия — не добавить еще одну систему контроля, а сделать наблюдение легким и полезным. На выходе появляется структура, которую можно вести в Obsidian, Notepub или другом рабочем пространстве.
 
-Связанные элементы графа: [[self-tracking-toolkit]], [[self-tracking]], [[state-log]], [[weekly-review]], [[obsidian]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[self-tracking-toolkit|Self-tracking toolkit]], [[self-tracking|Self-tracking]], [[state-log|Журнал состояний]], [[weekly-review|Еженедельный обзор]], [[obsidian|Obsidian]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[self-tracking-toolkit]] — part_of
-- [[self-tracking]] — uses
-- [[state-log]] — uses
-- [[weekly-review]] — uses
-- [[obsidian]] — compatible_with
-- [[cognitive-reconstruction]] — leads_to
+- [[self-tracking-toolkit|Self-tracking toolkit]] — part_of
+- [[self-tracking|Self-tracking]] — uses
+- [[state-log|Журнал состояний]] — uses
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[obsidian|Obsidian]] — compatible_with
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — leads_to
 
 ## Следующие действия
 
-- **Связать с Obsidian** → [[obsidian]]: Поможет понять, где хранить записи и как сохранить связи.
-- **Перейти к когнитивной реконструкции** → [[cognitive-reconstruction]]: Поможет превратить накопленные наблюдения в карту ситуации.
-- **Посмотреть шаблон отслеживания** → [[tracking-questions]]: Поможет начать с минимального набора вопросов.
+- **Связать с Obsidian** → [[obsidian|Obsidian]]: Поможет понять, где хранить записи и как сохранить связи.
+- **Перейти к когнитивной реконструкции** → [[cognitive-reconstruction|Когнитивная реконструкция]]: Поможет превратить накопленные наблюдения в карту ситуации.
+- **Посмотреть шаблон отслеживания** → [[tracking-questions|Вопросы для self-tracking]]: Поможет начать с минимального набора вопросов.

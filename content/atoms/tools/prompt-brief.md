@@ -4,7 +4,8 @@ id: "prompt-brief"
 title: "Промпт-бриф"
 slug: "prompt-brief"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Промпт-бриф — короткое техническое задание для модели: цель изменения, текущий контекст, ограничения, ожидаемый результат и критерии проверки."
 description: "Промпт-бриф — короткое техническое задание для модели: цель изменения, текущий контекст, ограничения, ожидаемый результат и критерии проверки."
 status: "public"
@@ -30,16 +31,16 @@ actions:
 
 Промпт-бриф — короткое техническое задание для модели: цель изменения, текущий контекст, ограничения, ожидаемый результат и критерии проверки.
 
-Связанные элементы графа: [[context-package]], [[codex]], [[technical-spec-from-idea]], [[ai-dev-workflow]].
+Связанные элементы графа: [[context-package|Пакет контекста]], [[codex|Codex]], [[technical-spec-from-idea|Техническое ТЗ из идеи]], [[ai-dev-workflow|AI-dev workflow]].
 
 ## Связи
 
-- [[context-package]] — uses
-- [[codex]] — used_by
-- [[technical-spec-from-idea]] — extends
-- [[ai-dev-workflow]] — part_of
+- [[context-package|Пакет контекста]] — uses
+- [[codex|Codex]] — used_by
+- [[technical-spec-from-idea|Техническое ТЗ из идеи]] — extends
+- [[ai-dev-workflow|AI-dev workflow]] — part_of
 
 ## Следующие действия
 
-- **Собрать бриф проекта** → [[technical-spec-from-idea]]: Поможет превратить идею в задачу, которую можно дать модели или разработчику.
-- **Обсудить AI-MVP** → [[lead-ai-mvp-build]]: Поможет быстро собрать первый контекст для разработки.
+- **Собрать бриф проекта** → [[technical-spec-from-idea|Техническое ТЗ из идеи]]: Поможет превратить идею в задачу, которую можно дать модели или разработчику.
+- **Обсудить AI-MVP** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет быстро собрать первый контекст для разработки.

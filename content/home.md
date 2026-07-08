@@ -6,56 +6,9 @@ description: Главная страница как интерфейс к гра
 draft: false
 noindex: false
 image: /media/main.webp
+graph_endpoint: "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6"
+graph_stream_endpoint: "wss://d5dldktr6e9jr03hm045.nkhmighe.apigw.yandexcloud.net/ws"
 ---
----
-id: home
-title: Главная
-slug: home
-kind: page
-hub: products
-summary: Единая входная страница к продуктам, темам, методам, инструментам и исследованиям.
-status: public
-links:
-- id: marketing-os
-  rel: features
-- id: recca
-  rel: features
-- id: notepub
-  rel: features
-- id: cognitive-reconstruction
-  rel: features
-- id: lead-startup-diagnostic
-  rel: features
-- id: demand-validation
-  rel: features
-- id: startup-hypothesis
-  rel: features
-- id: research-library
-  rel: features
-- id: principle-map-before-plan
-  rel: features
-- id: observation-wide-posts-reach-narrow-posts-leads
-  rel: features
-actions:
-- label: Разобрать мой маркетинг
-  target: lead-marketing-diagnostic
-  help: Поможет связать позиционирование, аудиторию, оффер и контент в одну карту.
-- label: Разобрать мою ситуацию
-  target: lead-cognitive-reconstruction
-  help: Поможет увидеть структуру сложной ситуации, связи и ближайшие действия.
-- label: Разобрать мои заметки
-  target: lead-notes-analysis
-  help: Поможет превратить дневник или Obsidian-базу в граф тем и сценариев.
-- label: Проверить стартап-идею
-  target: lead-startup-diagnostic
-  help: Поможет сформулировать гипотезу, выбрать минимальный тест спроса и не уйти
-    в лишнюю разработку.
-seo:
-  title: Граф знаний о продуктах, мышлении, AI-разработке и маркетинге
-  description: Главная страница сайта-графа с продуктами, темами, методами, инструментами
-    и исследованиями.
----
-
 # Исследуйте продукты, темы и методы через связанные понятия
 
 Этот сайт устроен как граф знаний. Главная страница дает вход в продукты, темы, методы, инструменты и исследования. Дальше движение строится через короткие заметки, связанные понятия и действия.
@@ -105,22 +58,22 @@ seo:
 
 ## Новый маршрут для теста
 
-**Публичный граф из заметок** — путь для тех, кто ведет Obsidian, дневник или Markdown-базу и хочет понять, как превратить материалы в сайт, SEO-страницы и контекст для модели: [[notepub]] → [[obsidian]] → [[note-to-site-pipeline]] → [[lead-notepub-setup]].
+**Публичный граф из заметок** — путь для тех, кто ведет Obsidian, дневник или Markdown-базу и хочет понять, как превратить материалы в сайт, SEO-страницы и контекст для модели: [[notepub|Notepub]] → [[obsidian|Obsidian]] → [[note-to-site-pipeline|Пайплайн заметки → сайт]] → [[lead-notepub-setup|Собрать публикацию из заметок]].
 
 
 ## Новый маршрут: AI-разработка
 
-Для технических запросов добавлен маршрут: [[ai-development]] → [[vibe-coding]] → [[codex]] → [[ai-product-prototype]] → [[lead-ai-mvp-build]]. Он помогает перейти от интереса к AI к MVP, ТЗ, автоматизации или первому техническому проходу.
+Для технических запросов добавлен маршрут: [[ai-development|AI-разработка]] → [[vibe-coding|Vibe coding]] → [[codex|Codex]] → [[ai-product-prototype|AI-прототип продукта]] → [[lead-ai-mvp-build|Собрать AI-MVP]]. Он помогает перейти от интереса к AI к MVP, ТЗ, автоматизации или первому техническому проходу.
 
 
 ## Новый маршрут: Recca и партнерские витрины
 
-Для продуктовых и партнерских сценариев добавлен маршрут: [[recca]] → [[product-showcase]] → [[partner-network]] → [[referral-mechanics]] → [[lead-recca-network]]. Он помогает перейти от набора офферов и партнерских идей к витрине, маршруту заявок и понятной реферальной логике.
+Для продуктовых и партнерских сценариев добавлен маршрут: [[recca|Recca]] → [[product-showcase|Витрина продукта]] → [[partner-network|Партнерская сеть]] → [[referral-mechanics|Реферальная механика]] → [[lead-recca-network|Собрать партнерскую витрину]]. Он помогает перейти от набора офферов и партнерских идей к витрине, маршруту заявок и понятной реферальной логике.
 
 
 ## Новый маршрут: стартапы и SaaS
 
-Для фаундерских и продуктовых сценариев добавлен маршрут: [[startup-hypothesis]] → [[demand-validation]] → [[traction-signal]] → [[mvp]] → [[product-scope]] → [[lead-startup-diagnostic]]. Он помогает перейти от идеи к проверке спроса, минимальному MVP и понятному сигналу тяги.
+Для фаундерских и продуктовых сценариев добавлен маршрут: [[startup-hypothesis|Стартап-гипотеза]] → [[demand-validation|Проверка спроса]] → [[traction-signal|Сигнал тяги]] → [[mvp|MVP]] → [[product-scope|Скоуп продукта]] → [[lead-startup-diagnostic|Диагностика стартап-идеи]]. Он помогает перейти от идеи к проверке спроса, минимальному MVP и понятному сигналу тяги.
 
 
 ## Новый маршрут: архетипы и личный миф

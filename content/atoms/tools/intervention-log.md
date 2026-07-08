@@ -4,7 +4,8 @@ id: "intervention-log"
 title: "Журнал вмешательств"
 slug: "intervention-log"
 kind: "practice"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Журнал вмешательств фиксирует действия, которые человек пробует для изменения состояния, поведения или результата."
 description: "Журнал вмешательств фиксирует действия, которые человек пробует для изменения состояния, поведения или результата."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Он связывает self-tracking с проверкой гипотез. Действие становится наблюдаемым экспериментом: что было сделано, в каком контексте и какой эффект появился.
 
-Связанные элементы графа: [[self-tracking]], [[baseline-state]], [[weekly-review]], [[hypothesis-testing]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[baseline-state|Базовое состояние]], [[weekly-review|Еженедельный обзор]], [[hypothesis-testing|Проверка гипотез]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[self-tracking]] — part_of
-- [[baseline-state]] — uses
-- [[weekly-review]] — uses
-- [[hypothesis-testing]] — related_to
-- [[cognitive-reconstruction]] — compatible_with
+- [[self-tracking|Self-tracking]] — part_of
+- [[baseline-state|Базовое состояние]] — uses
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[hypothesis-testing|Проверка гипотез]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — compatible_with
 
 ## Следующие действия
 
-- **Связать с гипотезами** → [[hypothesis-testing]]: Поможет проверять изменения как маленькие эксперименты, а не как веру в новый ритуал.
-- **Сравнить с базовым состоянием** → [[baseline-state]]: Поможет увидеть эффект действия относительно обычного уровня.
-- **Собрать систему экспериментов** → [[lead-self-tracking-setup]]: Поможет выбрать, что проверять и как понять, что это работает.
+- **Связать с гипотезами** → [[hypothesis-testing|Проверка гипотез]]: Поможет проверять изменения как маленькие эксперименты, а не как веру в новый ритуал.
+- **Сравнить с базовым состоянием** → [[baseline-state|Базовое состояние]]: Поможет увидеть эффект действия относительно обычного уровня.
+- **Собрать систему экспериментов** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет выбрать, что проверять и как понять, что это работает.

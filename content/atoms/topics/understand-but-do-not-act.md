@@ -4,7 +4,8 @@ id: "understand-but-do-not-act"
 title: "Всё понимаю, но не делаю"
 slug: "understand-but-do-not-act"
 kind: "problem"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Ситуация, где знание не превращается в действие, несмотря на ясное рациональное объяснение."
 description: "Ситуация, где знание не превращается в действие, несмотря на ясное рациональное объяснение."
 status: "public"
@@ -50,23 +51,23 @@ seo:
 
 Ситуация, где знание не превращается в действие, несмотря на ясное рациональное объяснение.
 
-Связанные элементы графа: [[agency]], [[philosophy-of-action]], [[choice-paralysis]], [[system-before-sales]], [[lead-cognitive-reconstruction]], [[decision-log]], [[intervention-log]], [[behavior-pattern]].
+Связанные элементы графа: [[agency|Агентность]], [[philosophy-of-action|Философия действия]], [[choice-paralysis|Паралич выбора]], [[system-before-sales|Система вместо продаж]], [[lead-cognitive-reconstruction|Разбор ситуации]], [[decision-log|Журнал решений]], [[intervention-log|Журнал вмешательств]], [[behavior-pattern|Поведенческий паттерн]].
 
 ## Связи
 
-- [[agency]] — explained_by
-- [[philosophy-of-action]] — explained_by
-- [[choice-paralysis]] — explained_by
-- [[system-before-sales]] — explained_by
-- [[lead-cognitive-reconstruction]] — leads_to
-- [[decision-log]] — related_to
-- [[intervention-log]] — related_to
-- [[behavior-pattern]] — explains
+- [[agency|Агентность]] — explained_by
+- [[philosophy-of-action|Философия действия]] — explained_by
+- [[choice-paralysis|Паралич выбора]] — explained_by
+- [[system-before-sales|Система вместо продаж]] — explained_by
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
+- [[decision-log|Журнал решений]] — related_to
+- [[intervention-log|Журнал вмешательств]] — related_to
+- [[behavior-pattern|Поведенческий паттерн]] — explains
 
 ## Следующие действия
 
-- **Найти действие** → [[agency]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Проверить конфликт** → [[agency]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с агентностью** → [[agency]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
-- **Проверить через журнал решений** → [[decision-log]]: Поможет увидеть, где понимание не переходит в действие.
+- **Найти действие** → [[agency|Агентность]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Проверить конфликт** → [[agency|Агентность]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с агентностью** → [[agency|Агентность]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
+- **Проверить через журнал решений** → [[decision-log|Журнал решений]]: Поможет увидеть, где понимание не переходит в действие.

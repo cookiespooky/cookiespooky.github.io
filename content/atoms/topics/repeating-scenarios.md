@@ -4,7 +4,8 @@ id: "repeating-scenarios"
 title: "Повторяющиеся сценарии"
 slug: "repeating-scenarios"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Устойчивые паттерны решений, реакций и действий, которые повторяются в разных ситуациях."
 description: "Устойчивые паттерны решений, реакций и действий, которые повторяются в разных ситуациях."
 status: "public"
@@ -59,26 +60,26 @@ seo:
 
 Сценарии проще находить на материале: дневнике, заметках, постах, историях решений или расшифровках разговоров.
 
-Связанные элементы графа: [[self-tracking]], [[diary]], [[cognitive-reconstruction]], [[system-before-sales]], [[lead-cognitive-reconstruction]], [[scenario-detection]], [[source-material]], [[behavior-pattern]], [[weekly-review]], [[trigger-map]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[diary|Дневник]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[system-before-sales|Система вместо продаж]], [[lead-cognitive-reconstruction|Разбор ситуации]], [[scenario-detection|Поиск сценариев]], [[source-material|Исходный материал]], [[behavior-pattern|Поведенческий паттерн]], [[weekly-review|Еженедельный обзор]], [[trigger-map|Карта триггеров]].
 
 ## Связи
 
-- [[self-tracking]] — uses
-- [[diary]] — related_to
-- [[cognitive-reconstruction]] — uses
-- [[system-before-sales]] — related_to
-- [[lead-cognitive-reconstruction]] — leads_to
-- [[scenario-detection]] — detected_by
-- [[source-material]] — derived_from
-- [[behavior-pattern]] — contains
-- [[weekly-review]] — produces
-- [[trigger-map]] — related_to
+- [[self-tracking|Self-tracking]] — uses
+- [[diary|Дневник]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
+- [[system-before-sales|Система вместо продаж]] — related_to
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
+- [[scenario-detection|Поиск сценариев]] — detected_by
+- [[source-material|Исходный материал]] — derived_from
+- [[behavior-pattern|Поведенческий паттерн]] — contains
+- [[weekly-review|Еженедельный обзор]] — produces
+- [[trigger-map|Карта триггеров]] — related_to
 
 ## Следующие действия
 
-- **Найти сценарий** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с дневником** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть пример** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
-- **Найти сценарии в моих заметках** → [[lead-notes-analysis]]: Поможет обнаружить повторяющиеся схемы в дневнике, постах или описаниях ситуаций.
-- **Найти сценарии в наблюдениях** → [[lead-self-tracking-setup]]: Поможет связать записи, состояния и решения в повторяющиеся паттерны.
+- **Найти сценарий** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с дневником** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Посмотреть пример** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть структуру ситуации, повторяющиеся сценарии и ближайшие действия.
+- **Найти сценарии в моих заметках** → [[lead-notes-analysis|Разбор заметок]]: Поможет обнаружить повторяющиеся схемы в дневнике, постах или описаниях ситуаций.
+- **Найти сценарии в наблюдениях** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет связать записи, состояния и решения в повторяющиеся паттерны.

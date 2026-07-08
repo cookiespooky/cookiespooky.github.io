@@ -4,7 +4,8 @@ id: "founder-decision-map"
 title: "Карта решений фаундера"
 slug: "founder-decision-map"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Карта решений фаундера — способ разложить идеи, гипотезы, ресурсы, риски и ближайшие действия в одну схему."
 description: "Карта решений фаундера — способ разложить идеи, гипотезы, ресурсы, риски и ближайшие действия в одну схему."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Карта решений фаундера — способ разложить идеи, гипотезы, ресурсы, риски и ближайшие действия в одну схему.
 
-Связанные элементы графа: [[founder-chaos]], [[product-choice]], [[situation-map]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[founder-chaos|Фаундерский хаос]], [[product-choice|Выбор продукта]], [[situation-map|Карта ситуации]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[founder-chaos]] — solves
-- [[product-choice]] — uses
-- [[situation-map]] — extends
-- [[cognitive-reconstruction]] — uses
+- [[founder-chaos|Фаундерский хаос]] — solves
+- [[product-choice|Выбор продукта]] — uses
+- [[situation-map|Карта ситуации]] — extends
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
 
 ## Следующие действия
 
-- **Собрать карту решений** → [[lead-startup-diagnostic]]: Поможет выбрать фокус и ближайшую проверку.
-- **Выбрать главный продукт** → [[lead-product-choice]]: Поможет сузить несколько идей до одного направления.
-- **Разобрать ситуацию** → [[lead-cognitive-reconstruction]]: Поможет увидеть связи между идеями, страхами и действиями.
+- **Собрать карту решений** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать фокус и ближайшую проверку.
+- **Выбрать главный продукт** → [[lead-product-choice|Выбор главного продукта]]: Поможет сузить несколько идей до одного направления.
+- **Разобрать ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть связи между идеями, страхами и действиями.

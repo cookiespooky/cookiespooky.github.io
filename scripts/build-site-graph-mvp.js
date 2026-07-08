@@ -290,7 +290,7 @@ function writeHomeMarkdown() {
     fs.readFileSync(sourceHomePath, "utf8").replace(/\r\n/g, "\n").trim()
   );
   const graphEndpoint = process.env.GRAPH_ENDPOINT || defaultGraphEndpoint();
-  const graphStreamEndpoint = process.env.GRAPH_STREAM_ENDPOINT || inferStreamEndpoint(graphEndpoint);
+  const graphStreamEndpoint = process.env.GRAPH_STREAM_ENDPOINT || defaultGraphStreamEndpoint(graphEndpoint);
   const frontmatter = [
     "---",
     "type: home",
@@ -310,11 +310,28 @@ function writeHomeMarkdown() {
 }
 
 function defaultGraphEndpoint() {
-  if (process.env.GITHUB_ACTIONS === "true") {
-    return "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6";
+  return "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6";
+}
+
+function defaultGraphStreamEndpoint(graphEndpoint) {
+  if (!graphEndpoint) {
+    return "";
   }
 
-  return "http://127.0.0.1:8787/v1/graph/article";
+  try {
+    const url = new URL(graphEndpoint);
+    if (
+      url.protocol === "https:" &&
+      url.hostname === "functions.yandexcloud.net" &&
+      url.pathname === "/d4eqlv2pdrq0ckas1eq6"
+    ) {
+      return "wss://d5dldktr6e9jr03hm045.nkhmighe.apigw.yandexcloud.net/ws";
+    }
+  } catch (_error) {
+    return "";
+  }
+
+  return inferStreamEndpoint(graphEndpoint);
 }
 
 function inferStreamEndpoint(graphEndpoint) {

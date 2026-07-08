@@ -1,9 +1,19 @@
+{{- $graphEndpoint := "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6" -}}
+{{- with .FM.graph_endpoint -}}
+  {{- $graphEndpoint = . -}}
+{{- end -}}
+{{- $graphStreamEndpoint := "wss://d5dldktr6e9jr03hm045.nkhmighe.apigw.yandexcloud.net/ws" -}}
+{{- with .FM.graph_stream_endpoint -}}
+  {{- $graphStreamEndpoint = . -}}
+{{- end -}}
 <section
   class="graph-home"
   data-graph-home
   data-graph-url="{{ .AssetsBase }}/site-graph.json"
-  data-graph-endpoint="http://127.0.0.1:8787/v1/graph/article"
-  data-graph-stream-endpoint="http://127.0.0.1:8787/v1/graph/article/stream"
+  data-graph-endpoint="{{ $graphEndpoint }}"
+  {{- if ne $graphStreamEndpoint "" }}
+  data-graph-stream-endpoint="{{ $graphStreamEndpoint }}"
+  {{- end }}
 >
   <div class="graph-home-stage">
     <div class="graph-home-start prose" data-graph-start>

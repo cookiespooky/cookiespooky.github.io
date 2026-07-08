@@ -4,7 +4,8 @@ id: "hypothesis-testing"
 title: "Проверка гипотез"
 slug: "hypothesis-testing"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Быстрая проверка предположений о клиенте, проблеме, ценности, канале или продукте."
 description: "Быстрая проверка предположений о клиенте, проблеме, ценности, канале или продукте."
 status: "public"
@@ -51,19 +52,19 @@ seo:
 
 ## Связи
 
-- [[mvp]] — uses
-- [[product-thinking]] — uses
-- [[offer]] — related_to
-- [[system-before-sales]] — related_to
-- [[lead-product-choice]] — leads_to
+- [[mvp|MVP]] — uses
+- [[product-thinking|Product thinking]] — uses
+- [[offer|Оффер]] — related_to
+- [[system-before-sales|Система вместо продаж]] — related_to
+- [[lead-product-choice|Выбор главного продукта]] — leads_to
 
 ## Следующие действия
 
-- **Сформулировать гипотезу** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
-- **Выбрать тест** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
-- **Связать с оффером** → [[mvp]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Сформулировать гипотезу** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Выбрать тест** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Связать с оффером** → [[mvp|MVP]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
 
 
 ## Дополнение: стартап-маршрут
 
-Проверка гипотез связана с [[startup-hypothesis]], [[traction-signal]] и [[landing-page-test]].
+Проверка гипотез связана с [[startup-hypothesis|Стартап-гипотеза]], [[traction-signal|Сигнал тяги]] и [[landing-page-test|Тест лендинга]].

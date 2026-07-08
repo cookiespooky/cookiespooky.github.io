@@ -4,7 +4,8 @@ id: "analysis-lens"
 title: "Аналитическая линза"
 slug: "analysis-lens"
 kind: "concept"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Рамка анализа, которая задает, какие элементы ситуации считать значимыми и какие вопросы к ним применять."
 description: "Рамка анализа, которая задает, какие элементы ситуации считать значимыми и какие вопросы к ним применять."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 В одной ситуации можно применять несколько линз: языковую, продуктовую, маркетинговую, сценарную, поведенческую или философскую.
 
-Связанные элементы графа: [[lens-analysis]], [[lat]], [[marketing-os]], [[product-thinking]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[lens-analysis|Линзирование]], [[lat|LAT]], [[marketing-os|Marketing OS]], [[product-thinking|Product thinking]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[lens-analysis]] — part_of
-- [[lat]] — example_of
-- [[marketing-os]] — example_of
-- [[product-thinking]] — example_of
-- [[cognitive-reconstruction]] — uses
+- [[lens-analysis|Линзирование]] — part_of
+- [[lat|LAT]] — example_of
+- [[marketing-os|Marketing OS]] — example_of
+- [[product-thinking|Product thinking]] — example_of
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
 
 ## Следующие действия
 
-- **Понять линзирование** → [[lens-analysis]]: Поможет увидеть, как разные рамки меняют прочтение одной ситуации.
-- **Посмотреть LAT как линзу** → [[lat]]: Поможет увидеть языковую рамку анализа.
-- **Посмотреть продуктовую линзу** → [[product-thinking]]: Поможет анализировать ситуацию через продуктовые решения.
+- **Понять линзирование** → [[lens-analysis|Линзирование]]: Поможет увидеть, как разные рамки меняют прочтение одной ситуации.
+- **Посмотреть LAT как линзу** → [[lat|LAT]]: Поможет увидеть языковую рамку анализа.
+- **Посмотреть продуктовую линзу** → [[product-thinking|Product thinking]]: Поможет анализировать ситуацию через продуктовые решения.

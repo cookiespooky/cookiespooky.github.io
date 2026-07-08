@@ -4,7 +4,8 @@ id: "principle-sell-before-system"
 title: "Спрос проверяется до системы"
 slug: "principle-sell-before-system"
 kind: "principle"
-hub: "research"
+hub:
+  - "research"
 summary: "Система становится полезной после проверки спроса. До этого она может маскировать избегание продажи, выбора и контакта с рынком."
 description: "Система становится полезной после проверки спроса. До этого она может маскировать избегание продажи, выбора и контакта с рынком."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[system-before-sales]] · [[demand-validation]] · [[mvp]] · [[startup-validation-trap]]
+[[system-before-sales|Система вместо продаж]] · [[demand-validation|Проверка спроса]] · [[mvp|MVP]] · [[startup-validation-trap|startup-validation-trap]]
 
 ## Связи
 
-- [[system-before-sales]] — explains
-- [[demand-validation]] — uses
-- [[mvp]] — related_to
-- [[startup-validation-trap]] — related_to
+- [[system-before-sales|Система вместо продаж]] — explains
+- [[demand-validation|Проверка спроса]] — uses
+- [[mvp|MVP]] — related_to
+- [[startup-validation-trap|startup-validation-trap]] — related_to
 
 ## Следующие действия
 
-- **Проверить спрос** → [[lead-startup-diagnostic]]: Поможет выбрать минимальный тест до разработки полноценной системы.
-- **Посмотреть ловушку разработки** → [[startup-validation-trap]]: Поможет отличить нужную разработку от подготовки вместо проверки.
+- **Проверить спрос** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать минимальный тест до разработки полноценной системы.
+- **Посмотреть ловушку разработки** → [[startup-validation-trap|startup-validation-trap]]: Поможет отличить нужную разработку от подготовки вместо проверки.

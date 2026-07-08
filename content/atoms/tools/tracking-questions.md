@@ -4,7 +4,8 @@ id: "tracking-questions"
 title: "Вопросы для self-tracking"
 slug: "tracking-questions"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Вопросы для self-tracking задают минимальный набор наблюдений, который помогает отслеживать состояние без перегруза."
 description: "Вопросы для self-tracking задают минимальный набор наблюдений, который помогает отслеживать состояние без перегруза."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Хороший набор вопросов не требует длинного отчета. Он помогает регулярно сохранять данные, которые потом можно связать с графом, реконструкцией и обзором недели.
 
-Связанные элементы графа: [[self-tracking]], [[state-log]], [[decision-log]], [[weekly-review]], [[self-tracking-signals]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[weekly-review|Еженедельный обзор]], [[self-tracking-signals|Сигналы self-tracking]].
 
 ## Связи
 
-- [[self-tracking]] — uses
-- [[state-log]] — related_to
-- [[decision-log]] — related_to
-- [[weekly-review]] — uses
-- [[self-tracking-signals]] — produces
+- [[self-tracking|Self-tracking]] — uses
+- [[state-log|Журнал состояний]] — related_to
+- [[decision-log|Журнал решений]] — related_to
+- [[weekly-review|Еженедельный обзор]] — uses
+- [[self-tracking-signals|Сигналы self-tracking]] — produces
 
 ## Следующие действия
 
-- **Выбрать сигналы** → [[self-tracking-signals]]: Поможет собрать короткий набор показателей для наблюдения.
-- **Связать с дневником** → [[diary]]: Поможет встроить вопросы в уже существующие записи.
-- **Собрать шаблон отслеживания** → [[lead-self-tracking-setup]]: Поможет превратить вопросы в рабочий шаблон для Obsidian или другой системы.
+- **Выбрать сигналы** → [[self-tracking-signals|Сигналы self-tracking]]: Поможет собрать короткий набор показателей для наблюдения.
+- **Связать с дневником** → [[diary|Дневник]]: Поможет встроить вопросы в уже существующие записи.
+- **Собрать шаблон отслеживания** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет превратить вопросы в рабочий шаблон для Obsidian или другой системы.

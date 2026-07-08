@@ -4,7 +4,8 @@ id: "graph-mapping"
 title: "Построение графа"
 slug: "graph-mapping"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Процесс выделения сущностей и связей из текста, заметок, диалога или описания ситуации."
 description: "Процесс выделения сущностей и связей из текста, заметок, диалога или описания ситуации."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Граф полезен, когда линейный текст скрывает структуру. Он показывает, какие элементы ситуации действительно связаны, а какие просто находятся рядом в одном описании.
 
-Связанные элементы графа: [[situation-graph]], [[atomic-notes]], [[knowledge-graph]], [[cognitive-reconstruction]], [[obsidian]], [[lead-notes-analysis]].
+Связанные элементы графа: [[situation-graph|Граф ситуации]], [[atomic-notes|Атомарные заметки]], [[knowledge-graph|Граф знаний]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[obsidian|Obsidian]], [[lead-notes-analysis|Разбор заметок]].
 
 ## Связи
 
-- [[situation-graph]] — produces
-- [[atomic-notes]] — uses
-- [[knowledge-graph]] — related_to
-- [[cognitive-reconstruction]] — part_of
-- [[obsidian]] — compatible_with
-- [[lead-notes-analysis]] — leads_to
+- [[situation-graph|Граф ситуации]] — produces
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[knowledge-graph|Граф знаний]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — part_of
+- [[obsidian|Obsidian]] — compatible_with
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
 
 ## Следующие действия
 
-- **Разобрать мои заметки** → [[lead-notes-analysis]]: Поможет превратить хаотичные записи в карту связанных смыслов.
-- **Посмотреть граф ситуации** → [[situation-graph]]: Поможет понять результат построения графа.
-- **Связать с атомизацией** → [[atomic-notes]]: Поможет увидеть, как заметки становятся узлами графа.
+- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить хаотичные записи в карту связанных смыслов.
+- **Посмотреть граф ситуации** → [[situation-graph|Граф ситуации]]: Поможет понять результат построения графа.
+- **Связать с атомизацией** → [[atomic-notes|Атомарные заметки]]: Поможет увидеть, как заметки становятся узлами графа.

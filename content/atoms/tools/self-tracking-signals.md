@@ -4,7 +4,8 @@ id: "self-tracking-signals"
 title: "Сигналы self-tracking"
 slug: "self-tracking-signals"
 kind: "concept"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Повторяющиеся наблюдения о состоянии, поведении, энергии, фокусе, решениях и контексте, которые можно анализировать во времени."
 description: "Повторяющиеся наблюдения о состоянии, поведении, энергии, фокусе, решениях и контексте, которые можно анализировать во времени."
 status: "public"
@@ -32,16 +33,16 @@ seo:
 
 Повторяющиеся наблюдения о состоянии, поведении, энергии, фокусе, решениях и контексте, которые можно анализировать во времени.
 
-Связанные элементы графа: [[self-tracking]], [[daily-notes]], [[repeating-scenarios]], [[situation-map]], [[cognitive-reconstruction]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[daily-notes|Ежедневные заметки]], [[repeating-scenarios|Повторяющиеся сценарии]], [[situation-map|Карта ситуации]], [[cognitive-reconstruction|Когнитивная реконструкция]].
 
 ## Связи
 
-- [[self-tracking]] — contains
-- [[daily-notes]] — captured_in
-- [[repeating-scenarios]] — helps_detect
-- [[situation-map]] — feeds
-- [[cognitive-reconstruction]] — source_for
+- [[self-tracking|Self-tracking]] — contains
+- [[daily-notes|Ежедневные заметки]] — captured_in
+- [[repeating-scenarios|Повторяющиеся сценарии]] — helps_detect
+- [[situation-map|Карта ситуации]] — feeds
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — source_for
 
 ## Следующие действия
 
-- **Найти повторяющиеся сигналы** → [[lead-notes-analysis]]: Поможет увидеть, какие состояния и сценарии повторяются в заметках, а какие причины только кажутся разными.
+- **Найти повторяющиеся сигналы** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие состояния и сценарии повторяются в заметках, а какие причины только кажутся разными.

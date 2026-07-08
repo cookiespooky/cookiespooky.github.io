@@ -4,7 +4,8 @@ id: "situation-graph"
 title: "Граф ситуации"
 slug: "situation-graph"
 kind: "artifact"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Визуальная или структурная модель ситуации, где элементы представлены узлами, а отношения между ними — связями."
 description: "Визуальная или структурная модель ситуации, где элементы представлены узлами, а отношения между ними — связями."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Граф помогает видеть не только отдельные проблемы, но и структуру: какие элементы усиливают друг друга, какие конкурируют, какие ведут к действию.
 
-Связанные элементы графа: [[situation-map]], [[knowledge-graph]], [[cognitive-reconstruction]], [[graph-mapping]], [[obsidian]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[situation-map|Карта ситуации]], [[knowledge-graph|Граф знаний]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[graph-mapping|Построение графа]], [[obsidian|Obsidian]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[situation-map]] — visualizes
-- [[knowledge-graph]] — instance_of
-- [[cognitive-reconstruction]] — produced_by
-- [[graph-mapping]] — produced_by
-- [[obsidian]] — compatible_with
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[situation-map|Карта ситуации]] — visualizes
+- [[knowledge-graph|Граф знаний]] — instance_of
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — produced_by
+- [[graph-mapping|Построение графа]] — produced_by
+- [[obsidian|Obsidian]] — compatible_with
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Построить граф моей ситуации** → [[lead-cognitive-reconstruction]]: Поможет вынести сложность из головы в структуру, где видны узлы и связи.
-- **Понять карту ситуации** → [[situation-map]]: Поможет отличить карту от графа и выбрать удобный формат.
-- **Открыть связь с Obsidian** → [[obsidian]]: Поможет использовать граф как рабочую базу заметок.
+- **Построить граф моей ситуации** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет вынести сложность из головы в структуру, где видны узлы и связи.
+- **Понять карту ситуации** → [[situation-map|Карта ситуации]]: Поможет отличить карту от графа и выбрать удобный формат.
+- **Открыть связь с Obsidian** → [[obsidian|Obsidian]]: Поможет использовать граф как рабочую базу заметок.

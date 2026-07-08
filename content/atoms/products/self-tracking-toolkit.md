@@ -4,7 +4,8 @@ id: "self-tracking-toolkit"
 title: "Self-tracking toolkit"
 slug: "self-tracking-toolkit"
 kind: "product"
-hub: "products"
+hub:
+  - "products"
 summary: "Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами."
 description: "Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами."
 status: "public"
@@ -51,24 +52,24 @@ seo:
 
 Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами.
 
-Связанные элементы графа: [[self-tracking]], [[diary]], [[repeating-scenarios]], [[situation-map]], [[obsidian]], [[state-log]], [[decision-log]], [[weekly-review]], [[self-tracking-dashboard]], [[lead-self-tracking-setup]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[diary|Дневник]], [[repeating-scenarios|Повторяющиеся сценарии]], [[situation-map|Карта ситуации]], [[obsidian|Obsidian]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[weekly-review|Еженедельный обзор]], [[self-tracking-dashboard|Дашборд self-tracking]], [[lead-self-tracking-setup|Настроить self-tracking систему]].
 
 ## Связи
 
-- [[self-tracking]] — uses
-- [[diary]] — related_to
-- [[repeating-scenarios]] — related_to
-- [[situation-map]] — produces
-- [[obsidian]] — compatible_with
-- [[state-log]] — contains
-- [[decision-log]] — contains
-- [[weekly-review]] — contains
-- [[self-tracking-dashboard]] — produces
-- [[lead-self-tracking-setup]] — leads_to
+- [[self-tracking|Self-tracking]] — uses
+- [[diary|Дневник]] — related_to
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[situation-map|Карта ситуации]] — produces
+- [[obsidian|Obsidian]] — compatible_with
+- [[state-log|Журнал состояний]] — contains
+- [[decision-log|Журнал решений]] — contains
+- [[weekly-review|Еженедельный обзор]] — contains
+- [[self-tracking-dashboard|Дашборд self-tracking]] — produces
+- [[lead-self-tracking-setup|Настроить self-tracking систему]] — leads_to
 
 ## Следующие действия
 
-- **Понять, что отслеживать** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с дневником** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть сценарии анализа** → [[self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Собрать мою систему self-tracking** → [[lead-self-tracking-setup]]: Поможет определить, что отслеживать и как использовать наблюдения для решений.
+- **Понять, что отслеживать** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с дневником** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Посмотреть сценарии анализа** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Собрать мою систему self-tracking** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет определить, что отслеживать и как использовать наблюдения для решений.

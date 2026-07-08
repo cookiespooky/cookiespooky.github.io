@@ -4,7 +4,8 @@ id: "action-point"
 title: "Точка действия"
 slug: "action-point"
 kind: "concept"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Конкретное место в карте ситуации, где можно сделать следующий шаг без полной перестройки всей системы."
 description: "Конкретное место в карте ситуации, где можно сделать следующий шаг без полной перестройки всей системы."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Хорошая точка действия снижает перегрузку. Она переводит карту из режима описания в режим проверки.
 
-Связанные элементы графа: [[situation-map]], [[cognitive-reconstruction]], [[agency]], [[product-choice]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[situation-map|Карта ситуации]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[agency|Агентность]], [[product-choice|Выбор продукта]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[situation-map]] — visible_on
-- [[cognitive-reconstruction]] — produces
-- [[agency]] — related_to
-- [[product-choice]] — related_to
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[situation-map|Карта ситуации]] — visible_on
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — produces
+- [[agency|Агентность]] — related_to
+- [[product-choice|Выбор продукта]] — related_to
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Найти точку действия** → [[lead-cognitive-reconstruction]]: Поможет выбрать один следующий шаг вместо попытки чинить всю систему сразу.
-- **Связать с агентностью** → [[agency]]: Поможет увидеть, где появляется действующий субъект.
-- **Перейти к выбору продукта** → [[product-choice]]: Поможет применить точку действия к продуктовой развилке.
+- **Найти точку действия** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет выбрать один следующий шаг вместо попытки чинить всю систему сразу.
+- **Связать с агентностью** → [[agency|Агентность]]: Поможет увидеть, где появляется действующий субъект.
+- **Перейти к выбору продукта** → [[product-choice|Выбор продукта]]: Поможет применить точку действия к продуктовой развилке.

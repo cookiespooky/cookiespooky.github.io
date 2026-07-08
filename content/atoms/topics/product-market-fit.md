@@ -4,7 +4,8 @@ id: "product-market-fit"
 title: "Product market fit"
 slug: "product-market-fit"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Product market fit — состояние, при котором продукт стабильно решает значимую проблему понятной аудитории и получает повторяемый спрос."
 description: "Product market fit — состояние, при котором продукт стабильно решает значимую проблему понятной аудитории и получает повторяемый спрос."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Product market fit — состояние, при котором продукт стабильно решает значимую проблему понятной аудитории и получает повторяемый спрос.
 
-Связанные элементы графа: [[traction-signal]], [[icp]], [[offer]], [[demand-validation]].
+Связанные элементы графа: [[traction-signal|Сигнал тяги]], [[icp|ICP]], [[offer|Оффер]], [[demand-validation|Проверка спроса]].
 
 ## Связи
 
-- [[traction-signal]] — requires
-- [[icp]] — requires
-- [[offer]] — requires
-- [[demand-validation]] — precedes
+- [[traction-signal|Сигнал тяги]] — requires
+- [[icp|ICP]] — requires
+- [[offer|Оффер]] — requires
+- [[demand-validation|Проверка спроса]] — precedes
 
 ## Следующие действия
 
-- **Оценить путь к PMF** → [[lead-startup-diagnostic]]: Поможет понять, какие проверки нужны до масштабирования.
-- **Уточнить ICP** → [[icp]]: Поможет сузить аудиторию проверки.
-- **Проверить спрос** → [[demand-validation]]: Поможет найти ранние признаки тяги.
+- **Оценить путь к PMF** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет понять, какие проверки нужны до масштабирования.
+- **Уточнить ICP** → [[icp|ICP]]: Поможет сузить аудиторию проверки.
+- **Проверить спрос** → [[demand-validation|Проверка спроса]]: Поможет найти ранние признаки тяги.

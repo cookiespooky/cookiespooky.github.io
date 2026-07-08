@@ -4,7 +4,8 @@ id: "behavior-pattern"
 title: "Поведенческий паттерн"
 slug: "behavior-pattern"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Поведенческий паттерн — повторяющаяся связка ситуации, состояния, интерпретации и действия."
 description: "Поведенческий паттерн — повторяющаяся связка ситуации, состояния, интерпретации и действия."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Паттерн становится видимым через дневник, self-tracking, карту триггеров и когнитивную реконструкцию.
 
-Связанные элементы графа: [[repeating-scenarios]], [[trigger-map]], [[scenario-detection]], [[cognitive-reconstruction]], [[decision-log]].
+Связанные элементы графа: [[repeating-scenarios|Повторяющиеся сценарии]], [[trigger-map|Карта триггеров]], [[scenario-detection|Поиск сценариев]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[decision-log|Журнал решений]].
 
 ## Связи
 
-- [[repeating-scenarios]] — part_of
-- [[trigger-map]] — produces
-- [[scenario-detection]] — uses
-- [[cognitive-reconstruction]] — explains
-- [[decision-log]] — related_to
+- [[repeating-scenarios|Повторяющиеся сценарии]] — part_of
+- [[trigger-map|Карта триггеров]] — produces
+- [[scenario-detection|Поиск сценариев]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — explains
+- [[decision-log|Журнал решений]] — related_to
 
 ## Следующие действия
 
-- **Посмотреть повторяющиеся сценарии** → [[repeating-scenarios]]: Поможет увидеть паттерн как часть более крупного сценария.
-- **Найти триггеры** → [[trigger-map]]: Поможет понять, какие условия запускают повторение.
-- **Разобрать сценарий** → [[lead-cognitive-reconstruction]]: Поможет собрать карту ситуации и найти точку действия.
+- **Посмотреть повторяющиеся сценарии** → [[repeating-scenarios|Повторяющиеся сценарии]]: Поможет увидеть паттерн как часть более крупного сценария.
+- **Найти триггеры** → [[trigger-map|Карта триггеров]]: Поможет понять, какие условия запускают повторение.
+- **Разобрать сценарий** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет собрать карту ситуации и найти точку действия.

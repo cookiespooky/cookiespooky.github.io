@@ -4,7 +4,8 @@ id: "choice-paralysis"
 title: "Паралич выбора"
 slug: "choice-paralysis"
 kind: "problem"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Ситуация, когда количество вариантов мешает перейти к действию."
 description: "Ситуация, когда количество вариантов мешает перейти к действию."
 status: "public"
@@ -40,13 +41,13 @@ seo:
 
 ## Связи
 
-- [[cognitive-superposition]] — explained_by
-- [[loss-of-options]] — explained_by
-- [[no-selection-criterion]] — explained_by
-- [[product-choice]] — uses
+- [[cognitive-superposition|Когнитивная суперпозиция]] — explained_by
+- [[loss-of-options|Страх потери вариантов]] — explained_by
+- [[no-selection-criterion|Нет критерия выбора]] — explained_by
+- [[product-choice|Выбор продукта]] — uses
 
 ## Следующие действия
 
-- **Сформировать критерий** → [[cognitive-superposition]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Понять причину** → [[cognitive-superposition]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Перейти к продуктовой логике** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Сформировать критерий** → [[cognitive-superposition|Когнитивная суперпозиция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Понять причину** → [[cognitive-superposition|Когнитивная суперпозиция]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Перейти к продуктовой логике** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.

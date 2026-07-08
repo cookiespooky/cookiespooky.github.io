@@ -4,7 +4,8 @@ id: "map-first-approach"
 title: "Подход от карты"
 slug: "map-first-approach"
 kind: "principle"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Принцип, при котором решение ищется после построения карты ситуации, а не до понимания связей между элементами."
 description: "Принцип, при котором решение ищется после построения карты ситуации, а не до понимания связей между элементами."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Такой подход полезен, когда прямой совет слишком рано упрощает ситуацию и скрывает важные связи.
 
-Связанные элементы графа: [[situation-map]], [[cognitive-reconstruction]], [[action-point]], [[complexity-preservation]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[situation-map|Карта ситуации]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[action-point|Точка действия]], [[complexity-preservation|complexity-preservation]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[situation-map]] — uses
-- [[cognitive-reconstruction]] — principle_of
-- [[action-point]] — produces
-- [[complexity-preservation]] — related_to
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[situation-map|Карта ситуации]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — principle_of
+- [[action-point|Точка действия]] — produces
+- [[complexity-preservation|complexity-preservation]] — related_to
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Построить карту до решения** → [[lead-cognitive-reconstruction]]: Поможет не выбирать действие из тумана и сначала увидеть структуру ситуации.
-- **Понять карту ситуации** → [[situation-map]]: Поможет увидеть основной артефакт подхода.
-- **Найти точку действия** → [[action-point]]: Поможет перейти от карты к практическому шагу.
+- **Построить карту до решения** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет не выбирать действие из тумана и сначала увидеть структуру ситуации.
+- **Понять карту ситуации** → [[situation-map|Карта ситуации]]: Поможет увидеть основной артефакт подхода.
+- **Найти точку действия** → [[action-point|Точка действия]]: Поможет перейти от карты к практическому шагу.

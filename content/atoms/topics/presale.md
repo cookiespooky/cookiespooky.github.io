@@ -4,7 +4,8 @@ id: "presale"
 title: "Предпродажа"
 slug: "presale"
 kind: "method"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Предпродажа — проверка готовности платить до полной разработки продукта."
 description: "Предпродажа — проверка готовности платить до полной разработки продукта."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Предпродажа — проверка готовности платить до полной разработки продукта.
 
-Связанные элементы графа: [[demand-validation]], [[traction-signal]], [[concierge-mvp]], [[offer]].
+Связанные элементы графа: [[demand-validation|Проверка спроса]], [[traction-signal|Сигнал тяги]], [[concierge-mvp|Concierge MVP]], [[offer|Оффер]].
 
 ## Связи
 
-- [[demand-validation]] — uses
-- [[traction-signal]] — produces
-- [[concierge-mvp]] — compatible_with
-- [[offer]] — uses
+- [[demand-validation|Проверка спроса]] — uses
+- [[traction-signal|Сигнал тяги]] — produces
+- [[concierge-mvp|Concierge MVP]] — compatible_with
+- [[offer|Оффер]] — uses
 
 ## Следующие действия
 
-- **Проверить предпродажу** → [[lead-startup-diagnostic]]: Поможет понять, можно ли тестировать оплату до разработки.
-- **Посмотреть concierge MVP** → [[concierge-mvp]]: Поможет проверить решение вручную.
-- **Уточнить оффер** → [[offer]]: Поможет сформулировать предмет оплаты.
+- **Проверить предпродажу** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет понять, можно ли тестировать оплату до разработки.
+- **Посмотреть concierge MVP** → [[concierge-mvp|Concierge MVP]]: Поможет проверить решение вручную.
+- **Уточнить оффер** → [[offer|Оффер]]: Поможет сформулировать предмет оплаты.

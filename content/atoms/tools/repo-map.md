@@ -4,7 +4,8 @@ id: "repo-map"
 title: "Карта репозитория"
 slug: "repo-map"
 kind: "artifact"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Карта репозитория — краткое описание структуры проекта: папки, ключевые файлы, точки входа, зависимости и места, которые нельзя менять без причины."
 description: "Карта репозитория — краткое описание структуры проекта: папки, ключевые файлы, точки входа, зависимости и места, которые нельзя менять без причины."
 status: "public"
@@ -27,15 +28,15 @@ actions:
 
 Карта репозитория — краткое описание структуры проекта: папки, ключевые файлы, точки входа, зависимости и места, которые нельзя менять без причины.
 
-Связанные элементы графа: [[context-package]], [[codex]], [[full-stack-mvp]], [[ai-assisted-refactoring]].
+Связанные элементы графа: [[context-package|Пакет контекста]], [[codex|Codex]], [[full-stack-mvp|Full-stack MVP]], [[ai-assisted-refactoring|AI-рефакторинг]].
 
 ## Связи
 
-- [[context-package]] — part_of
-- [[codex]] — used_by
-- [[full-stack-mvp]] — supports
-- [[ai-assisted-refactoring]] — uses
+- [[context-package|Пакет контекста]] — part_of
+- [[codex|Codex]] — used_by
+- [[full-stack-mvp|Full-stack MVP]] — supports
+- [[ai-assisted-refactoring|AI-рефакторинг]] — uses
 
 ## Следующие действия
 
-- **Собрать карту проекта** → [[lead-ai-mvp-build]]: Поможет начать разработку с понимания структуры, а не с шаманского поиска файла app2_final_REAL.js.
+- **Собрать карту проекта** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет начать разработку с понимания структуры, а не с шаманского поиска файла app2_final_REAL.js.

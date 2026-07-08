@@ -4,7 +4,8 @@ id: "principle-language-shapes-thinking"
 title: "Язык показывает структуру мышления"
 slug: "principle-language-shapes-thinking"
 kind: "principle"
-hub: "research"
+hub:
+  - "research"
 summary: "Язык показывает, как человек распределяет агентность, причинность, время, источник знания и границы действия."
 description: "Язык показывает, как человек распределяет агентность, причинность, время, источник знания и границы действия."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[lat]] · [[language-markers]] · [[agency]] · [[cognitive-reconstruction]]
+[[lat|LAT]] · [[language-markers|Языковые маркеры]] · [[agency|Агентность]] · [[cognitive-reconstruction|Когнитивная реконструкция]]
 
 ## Связи
 
-- [[lat]] — explains
-- [[language-markers]] — uses
-- [[agency]] — related_to
-- [[cognitive-reconstruction]] — extends
+- [[lat|LAT]] — explains
+- [[language-markers|Языковые маркеры]] — uses
+- [[agency|Агентность]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — extends
 
 ## Следующие действия
 
-- **Посмотреть LAT** → [[lat]]: Поможет увидеть, какие языковые маркеры используются для анализа речи.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction]]: Поможет проверить, как формулировки связаны с картой ситуации и возможными действиями.
+- **Посмотреть LAT** → [[lat|LAT]]: Поможет увидеть, какие языковые маркеры используются для анализа речи.
+- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет проверить, как формулировки связаны с картой ситуации и возможными действиями.

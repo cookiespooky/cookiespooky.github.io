@@ -4,7 +4,8 @@ id: "knowledge-garden"
 title: "Сад знаний"
 slug: "knowledge-garden"
 kind: "concept"
-hub: "research"
+hub:
+  - "research"
 summary: "Публичная база связанных заметок, где материалы развиваются постепенно и остаются частью единого графа знаний."
 description: "Публичная база связанных заметок, где материалы развиваются постепенно и остаются частью единого графа знаний."
 status: "public"
@@ -32,16 +33,16 @@ seo:
 
 Публичная база связанных заметок, где материалы развиваются постепенно и остаются частью единого графа знаний.
 
-Связанные элементы графа: [[public-vault]], [[notepub]], [[knowledge-graph]], [[llm-site]], [[seo]].
+Связанные элементы графа: [[public-vault|Публичный vault]], [[notepub|Notepub]], [[knowledge-graph|Граф знаний]], [[llm-site|LLM-сайт]], [[seo|SEO]].
 
 ## Связи
 
-- [[public-vault]] — contains
-- [[notepub]] — published_by
-- [[knowledge-graph]] — uses
-- [[llm-site]] — related_to
-- [[seo]] — compatible_with
+- [[public-vault|Публичный vault]] — contains
+- [[notepub|Notepub]] — published_by
+- [[knowledge-graph|Граф знаний]] — uses
+- [[llm-site|LLM-сайт]] — related_to
+- [[seo|SEO]] — compatible_with
 
 ## Следующие действия
 
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.

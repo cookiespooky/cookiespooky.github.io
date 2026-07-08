@@ -4,7 +4,8 @@ id: "obsidian"
 title: "Obsidian"
 slug: "obsidian"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Локальная среда для заметок, связей, графа знаний, дневника и личной базы данных."
 description: "Локальная среда для заметок, связей, графа знаний, дневника и личной базы данных."
 status: "public"
@@ -62,29 +63,29 @@ seo:
 
 Локальная среда для заметок, связей, графа знаний, дневника и личной базы данных.
 
-Связанные элементы графа: [[notepub]], [[knowledge-graph]], [[atomic-notes]], [[diary]], [[self-tracking]], [[lead-notes-analysis]], [[daily-notes]], [[vault-migration]], [[personal-knowledge-base]], [[wikilinks]], [[lead-notepub-setup]], [[self-tracking-dashboard]], [[state-log]], [[decision-log]].
+Связанные элементы графа: [[notepub|Notepub]], [[knowledge-graph|Граф знаний]], [[atomic-notes|Атомарные заметки]], [[diary|Дневник]], [[self-tracking|Self-tracking]], [[lead-notes-analysis|Разбор заметок]], [[daily-notes|Ежедневные заметки]], [[vault-migration|Миграция vault]], [[personal-knowledge-base|Личная база знаний]], [[wikilinks|Wikilinks]], [[lead-notepub-setup|Собрать публикацию из заметок]], [[self-tracking-dashboard|Дашборд self-tracking]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]].
 
 ## Связи
 
-- [[notepub]] — related_product
-- [[knowledge-graph]] — compatible_with
-- [[atomic-notes]] — uses
-- [[diary]] — related_to
-- [[self-tracking]] — uses
-- [[lead-notes-analysis]] — leads_to
-- [[daily-notes]] — supports
-- [[vault-migration]] — source_for
-- [[personal-knowledge-base]] — stores
-- [[wikilinks]] — uses
-- [[lead-notepub-setup]] — leads_to
-- [[self-tracking-dashboard]] — compatible_with
-- [[state-log]] — contains
-- [[decision-log]] — contains
+- [[notepub|Notepub]] — related_product
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[diary|Дневник]] — related_to
+- [[self-tracking|Self-tracking]] — uses
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
+- [[daily-notes|Ежедневные заметки]] — supports
+- [[vault-migration|Миграция vault]] — source_for
+- [[personal-knowledge-base|Личная база знаний]] — stores
+- [[wikilinks|Wikilinks]] — uses
+- [[lead-notepub-setup|Собрать публикацию из заметок]] — leads_to
+- [[self-tracking-dashboard|Дашборд self-tracking]] — compatible_with
+- [[state-log|Журнал состояний]] — contains
+- [[decision-log|Журнал решений]] — contains
 
 ## Следующие действия
 
-- **Открыть сценарии Obsidian** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Связать с Notepub** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Понять граф знаний** → [[notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
-- **Встроить self-tracking в Obsidian** → [[lead-self-tracking-setup]]: Поможет собрать структуру заметок, связей и обзоров внутри vault.
+- **Открыть сценарии Obsidian** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Связать с Notepub** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Понять граф знаний** → [[notepub|Notepub]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Встроить self-tracking в Obsidian** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет собрать структуру заметок, связей и обзоров внутри vault.

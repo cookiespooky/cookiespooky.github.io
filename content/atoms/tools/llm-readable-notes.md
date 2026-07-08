@@ -4,7 +4,8 @@ id: "llm-readable-notes"
 title: "LLM-читаемые заметки"
 slug: "llm-readable-notes"
 kind: "concept"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Формат заметок, в котором текст понятен человеку, а структура, связи и действия явно заданы для модели."
 description: "Формат заметок, в котором текст понятен человеку, а структура, связи и действия явно заданы для модели."
 status: "public"
@@ -34,17 +35,17 @@ seo:
 
 Формат заметок, в котором текст понятен человеку, а структура, связи и действия явно заданы для модели.
 
-Связанные элементы графа: [[atomic-notes]], [[note-to-site-pipeline]], [[wikilinks]], [[frontmatter]], [[llm-site]], [[lead-notes-analysis]].
+Связанные элементы графа: [[atomic-notes|Атомарные заметки]], [[note-to-site-pipeline|Пайплайн заметки → сайт]], [[wikilinks|Wikilinks]], [[frontmatter|Frontmatter]], [[llm-site|LLM-сайт]], [[lead-notes-analysis|Разбор заметок]].
 
 ## Связи
 
-- [[atomic-notes]] — extends
-- [[note-to-site-pipeline]] — requires
-- [[wikilinks]] — uses
-- [[frontmatter]] — uses
-- [[llm-site]] — enables
-- [[lead-notes-analysis]] — leads_to
+- [[atomic-notes|Атомарные заметки]] — extends
+- [[note-to-site-pipeline|Пайплайн заметки → сайт]] — requires
+- [[wikilinks|Wikilinks]] — uses
+- [[frontmatter|Frontmatter]] — uses
+- [[llm-site|LLM-сайт]] — enables
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
 
 ## Следующие действия
 
-- **Разобрать мои заметки** → [[lead-notes-analysis]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.
+- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.

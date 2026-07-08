@@ -4,7 +4,8 @@ id: "lead-ai-mvp-build"
 title: "Собрать AI-MVP"
 slug: "lead-ai-mvp-build"
 kind: "action"
-hub: "products"
+hub:
+  - "products"
 summary: "Лидовое действие для проектов, где нужно превратить идею, технический хаос или существующий репозиторий в первый AI-MVP, прототип, ТЗ или план разработки."
 description: "Лидовое действие для проектов, где нужно превратить идею, технический хаос или существующий репозиторий в первый AI-MVP, прототип, ТЗ или план разработки."
 status: "public"
@@ -32,17 +33,17 @@ actions:
 
 Лидовое действие для проектов, где нужно превратить идею, технический хаос или существующий репозиторий в первый AI-MVP, прототип, ТЗ или план разработки.
 
-Связанные элементы графа: [[ai-development]], [[vibe-coding]], [[codex]], [[technical-spec-from-idea]], [[ai-product-prototype]].
+Связанные элементы графа: [[ai-development|AI-разработка]], [[vibe-coding|Vibe coding]], [[codex|Codex]], [[technical-spec-from-idea|Техническое ТЗ из идеи]], [[ai-product-prototype|AI-прототип продукта]].
 
 ## Связи
 
-- [[ai-development]] — uses
-- [[vibe-coding]] — uses
-- [[codex]] — uses
-- [[technical-spec-from-idea]] — starts_with
-- [[ai-product-prototype]] — produces
+- [[ai-development|AI-разработка]] — uses
+- [[vibe-coding|Vibe coding]] — uses
+- [[codex|Codex]] — uses
+- [[technical-spec-from-idea|Техническое ТЗ из идеи]] — starts_with
+- [[ai-product-prototype|AI-прототип продукта]] — produces
 
 ## Следующие действия
 
-- **Начать с идеи** → [[technical-spec-from-idea]]: Поможет быстро описать продукт так, чтобы его можно было собирать.
-- **Подготовить контекст проекта** → [[context-package]]: Поможет собрать файлы и правила для первого прохода модели.
+- **Начать с идеи** → [[technical-spec-from-idea|Техническое ТЗ из идеи]]: Поможет быстро описать продукт так, чтобы его можно было собирать.
+- **Подготовить контекст проекта** → [[context-package|Пакет контекста]]: Поможет собрать файлы и правила для первого прохода модели.

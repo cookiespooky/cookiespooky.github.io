@@ -4,7 +4,8 @@ id: "field-observation"
 title: "Полевое наблюдение"
 slug: "field-observation"
 kind: "research"
-hub: "research"
+hub:
+  - "research"
 summary: "Полевое наблюдение фиксирует повторяющийся факт из практики, диалогов, контента, клиентов или личного дневника."
 description: "Полевое наблюдение фиксирует повторяющийся факт из практики, диалогов, контента, клиентов или личного дневника."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[research-library]] · [[hypothesis]] · [[case-library]] · [[cognitive-reconstruction]]
+[[research-library|Библиотека исследований]] · [[hypothesis|Гипотеза]] · [[case-library|case-library]] · [[cognitive-reconstruction|Когнитивная реконструкция]]
 
 ## Связи
 
-- [[research-library]] — part_of
-- [[hypothesis]] — leads_to
-- [[case-library]] — related_to
-- [[cognitive-reconstruction]] — uses
+- [[research-library|Библиотека исследований]] — part_of
+- [[hypothesis|Гипотеза]] — leads_to
+- [[case-library|case-library]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
 
 ## Следующие действия
 
-- **Превратить наблюдение в гипотезу** → [[hypothesis]]: Поможет проверить, является ли наблюдение случайным фактом или повторяющимся механизмом.
-- **Связать наблюдения с продуктом** → [[lead-research-to-product-map]]: Поможет выбрать, какие наблюдения стоит вынести в публичный граф или оффер.
+- **Превратить наблюдение в гипотезу** → [[hypothesis|Гипотеза]]: Поможет проверить, является ли наблюдение случайным фактом или повторяющимся механизмом.
+- **Связать наблюдения с продуктом** → [[lead-research-to-product-map|Связать исследования с продуктом]]: Поможет выбрать, какие наблюдения стоит вынести в публичный граф или оффер.

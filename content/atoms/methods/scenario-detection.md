@@ -4,7 +4,8 @@ id: "scenario-detection"
 title: "Поиск сценариев"
 slug: "scenario-detection"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Метод выявления повторяющихся последовательностей решений, реакций и объяснений в разных ситуациях."
 description: "Метод выявления повторяющихся последовательностей решений, реакций и объяснений в разных ситуациях."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Повторение обычно заметно не по отдельному событию, а по последовательности: импульс, объяснение, действие, избегание, результат и новая рационализация.
 
-Связанные элементы графа: [[repeating-scenarios]], [[diary]], [[cognitive-reconstruction]], [[agency]], [[understand-but-do-not-act]], [[lead-cognitive-reconstruction]].
+Связанные элементы графа: [[repeating-scenarios|Повторяющиеся сценарии]], [[diary|Дневник]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[agency|Агентность]], [[understand-but-do-not-act|Всё понимаю, но не делаю]], [[lead-cognitive-reconstruction|Разбор ситуации]].
 
 ## Связи
 
-- [[repeating-scenarios]] — produces
-- [[diary]] — uses
-- [[cognitive-reconstruction]] — part_of
-- [[agency]] — related_to
-- [[understand-but-do-not-act]] — example_of
-- [[lead-cognitive-reconstruction]] — leads_to
+- [[repeating-scenarios|Повторяющиеся сценарии]] — produces
+- [[diary|Дневник]] — uses
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — part_of
+- [[agency|Агентность]] — related_to
+- [[understand-but-do-not-act|Всё понимаю, но не делаю]] — example_of
+- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
 
 ## Следующие действия
 
-- **Найти мой повторяющийся сценарий** → [[lead-cognitive-reconstruction]]: Поможет увидеть, где разные ситуации повторяют одну и ту же внутреннюю схему.
-- **Посмотреть примеры сценариев** → [[repeating-scenarios]]: Поможет распознать типовые последовательности.
-- **Связать с дневником** → [[diary]]: Поможет понять, как сценарии находят в заметках.
+- **Найти мой повторяющийся сценарий** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть, где разные ситуации повторяют одну и ту же внутреннюю схему.
+- **Посмотреть примеры сценариев** → [[repeating-scenarios|Повторяющиеся сценарии]]: Поможет распознать типовые последовательности.
+- **Связать с дневником** → [[diary|Дневник]]: Поможет понять, как сценарии находят в заметках.

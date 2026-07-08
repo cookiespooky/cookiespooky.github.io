@@ -4,7 +4,8 @@ id: "frontmatter"
 title: "Frontmatter"
 slug: "frontmatter"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Метаданные в начале Markdown-заметки, где фиксируются тип атома, хаб, статус, явные связи, действия и SEO-описание."
 description: "Метаданные в начале Markdown-заметки, где фиксируются тип атома, хаб, статус, явные связи, действия и SEO-описание."
 status: "public"
@@ -32,16 +33,16 @@ seo:
 
 Метаданные в начале Markdown-заметки, где фиксируются тип атома, хаб, статус, явные связи, действия и SEO-описание.
 
-Связанные элементы графа: [[llm-readable-notes]], [[wikilinks]], [[llm-site]], [[graph-hygiene]], [[note-to-site-pipeline]].
+Связанные элементы графа: [[llm-readable-notes|LLM-читаемые заметки]], [[wikilinks|Wikilinks]], [[llm-site|LLM-сайт]], [[graph-hygiene|Гигиена графа]], [[note-to-site-pipeline|Пайплайн заметки → сайт]].
 
 ## Связи
 
-- [[llm-readable-notes]] — used_by
-- [[wikilinks]] — complements
-- [[llm-site]] — enables
-- [[graph-hygiene]] — requires
-- [[note-to-site-pipeline]] — part_of
+- [[llm-readable-notes|LLM-читаемые заметки]] — used_by
+- [[wikilinks|Wikilinks]] — complements
+- [[llm-site|LLM-сайт]] — enables
+- [[graph-hygiene|Гигиена графа]] — requires
+- [[note-to-site-pipeline|Пайплайн заметки → сайт]] — part_of
 
 ## Следующие действия
 
-- **Собрать схему атома** → [[lead-notes-analysis]]: Поможет привести заметки к формату, который работает и в Obsidian, и на сайте, и в модели.
+- **Собрать схему атома** → [[lead-notes-analysis|Разбор заметок]]: Поможет привести заметки к формату, который работает и в Obsidian, и на сайте, и в модели.

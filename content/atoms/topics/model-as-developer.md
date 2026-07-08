@@ -4,7 +4,8 @@ id: "model-as-developer"
 title: "Модель как разработчик"
 slug: "model-as-developer"
 kind: "concept"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Модель как разработчик — подход, где LLM выполняет часть технической работы, а человек задает цель, ограничения, проверку и направление изменений."
 description: "Модель как разработчик — подход, где LLM выполняет часть технической работы, а человек задает цель, ограничения, проверку и направление изменений."
 status: "public"
@@ -30,16 +31,16 @@ actions:
 
 Модель как разработчик — подход, где LLM выполняет часть технической работы, а человек задает цель, ограничения, проверку и направление изменений.
 
-Связанные элементы графа: [[ai-development]], [[codex]], [[human-in-the-loop]], [[vibe-coding]].
+Связанные элементы графа: [[ai-development|AI-разработка]], [[codex|Codex]], [[human-in-the-loop|Human-in-the-loop]], [[vibe-coding|Vibe coding]].
 
 ## Связи
 
-- [[ai-development]] — explains
-- [[codex]] — implemented_by
-- [[human-in-the-loop]] — requires
-- [[vibe-coding]] — related_to
+- [[ai-development|AI-разработка]] — explains
+- [[codex|Codex]] — implemented_by
+- [[human-in-the-loop|Human-in-the-loop]] — requires
+- [[vibe-coding|Vibe coding]] — related_to
 
 ## Следующие действия
 
-- **Понять роль человека** → [[human-in-the-loop]]: Поможет разделить ответственность между моделью и автором проекта.
-- **Собрать MVP с моделью** → [[lead-ai-mvp-build]]: Поможет определить, какие части проекта можно быстрее собрать через AI.
+- **Понять роль человека** → [[human-in-the-loop|Human-in-the-loop]]: Поможет разделить ответственность между моделью и автором проекта.
+- **Собрать MVP с моделью** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет определить, какие части проекта можно быстрее собрать через AI.

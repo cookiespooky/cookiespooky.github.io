@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-06T12:26:02.942Z",
+  "generatedAt": "2026-07-08T17:14:54.082Z",
   "generator": {
     "source": "site_atoms_v12_research_principles",
     "textModel": "deepseek-v4-flash",
-    "promptFile": "site_atoms_v12_research_principles/prompts/system-prompt.md"
+    "promptFile": "content/prompts/system-prompt.md"
   },
   "hubs": [
     {
@@ -1401,7 +1401,7 @@
       "summary": "Входное действие для разработки MVP, AI-инструмента или автоматизации через модель. Помогает быстро собрать рабочий прототип без лишней продуктовой бюрократии.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-ai-development/",
+      "url": "/lead-ai-development",
       "links": [
         {
           "id": "ai-development",
@@ -1455,7 +1455,7 @@
       "summary": "Лидовое действие для проектов, где нужно превратить идею, технический хаос или существующий репозиторий в первый AI-MVP, прототип, ТЗ или план разработки.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-ai-mvp-build/",
+      "url": "/lead-ai-mvp-build",
       "links": [
         {
           "id": "ai-development",
@@ -1500,7 +1500,7 @@
       "summary": "Входное действие для разбора личного мифа, архетипов, повторяющихся сценариев и их связи с позиционированием или выбором направления.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-archetype-map/",
+      "url": "/lead-archetype-map",
       "links": [
         {
           "id": "archetypes",
@@ -1550,7 +1550,7 @@
       "summary": "Входное действие для когнитивной реконструкции сложной ситуации. Помогает собрать карту сущностей, связей, сценариев и ближайших действий.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-cognitive-reconstruction/",
+      "url": "/lead-cognitive-reconstruction",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -1600,7 +1600,7 @@
       "summary": "Лидовое действие для разбора контента, оффера, маршрута из поста в личку и перехода от интереса к заявке.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-content-map/",
+      "url": "/lead-content-map",
       "links": [
         {
           "id": "content-diagnostics",
@@ -1650,7 +1650,7 @@
       "summary": "Входное действие для разбора позиционирования, аудитории, оффера, контента и пути клиента. Помогает понять, где маркетинг теряет связь с реальным спросом.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-marketing-diagnostic/",
+      "url": "/lead-marketing-diagnostic",
       "links": [
         {
           "id": "marketing-os",
@@ -1704,7 +1704,7 @@
       "summary": "Лидовое действие для пользователя, который хочет превратить Obsidian, Markdown-заметки или базу знаний в публичный граф и сайт.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-notepub-setup/",
+      "url": "/lead-notepub-setup",
       "links": [
         {
           "id": "notepub",
@@ -1748,7 +1748,7 @@
       "summary": "Входное действие для анализа дневника, Obsidian-базы или набора заметок. Помогает превратить хаотичный материал в атомы, связи и карту повторяющихся тем.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-notes-analysis/",
+      "url": "/lead-notes-analysis",
       "links": [
         {
           "id": "obsidian",
@@ -1802,7 +1802,7 @@
       "summary": "Входное действие для ситуации, когда есть несколько идей, продуктов или направлений. Помогает выбрать один фокус и связать его с проверкой спроса.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-product-choice/",
+      "url": "/lead-product-choice",
       "links": [
         {
           "id": "product-choice",
@@ -1856,7 +1856,7 @@
       "summary": "Входное действие для разбора Recca-сценария: витрины, экспертных офферов, партнеров, рекомендаций и реферальной логики.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-recca-network/",
+      "url": "/lead-recca-network",
       "links": [
         {
           "id": "recca",
@@ -1905,7 +1905,7 @@
       "summary": "Лидовое действие для сборки минимальной системы наблюдения за состояниями, решениями, энергией и повторяющимися сценариями.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-self-tracking-setup/",
+      "url": "/lead-self-tracking-setup",
       "links": [
         {
           "id": "self-tracking-toolkit",
@@ -1963,7 +1963,7 @@
       "summary": "Входное действие для проверки стартап-идеи, MVP или SaaS-направления. Помогает сформулировать гипотезу, выбрать минимальный тест, определить сигнал спроса и не уйти в лишнюю разработку.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-startup-diagnostic/",
+      "url": "/lead-startup-diagnostic",
       "links": [
         {
           "id": "startup-hypothesis",
@@ -2017,7 +2017,7 @@
       "summary": "Системы, где модель выполняет последовательность действий с учетом цели, инструментов и обратной связи.",
       "status": "public",
       "lang": "ru",
-      "url": "/ai-agents/",
+      "url": "/ai-agents",
       "links": [
         {
           "id": "ai-development",
@@ -2084,7 +2084,7 @@
       "summary": "AI-рефакторинг — изменение структуры кода с помощью модели, при котором сохраняется поведение системы, а человек проверяет цель, риски и результат.",
       "status": "public",
       "lang": "ru",
-      "url": "/ai-assisted-refactoring/",
+      "url": "/ai-assisted-refactoring",
       "links": [
         {
           "id": "codex",
@@ -2120,7 +2120,7 @@
       "summary": "AI-dev workflow — порядок работы, в котором человек формулирует цель, готовит контекст, модель меняет код, а результат проверяется короткими итерациями.",
       "status": "public",
       "lang": "ru",
-      "url": "/ai-dev-workflow/",
+      "url": "/ai-dev-workflow",
       "links": [
         {
           "id": "vibe-coding",
@@ -2169,7 +2169,7 @@
       "summary": "Создание продуктов и рабочих процессов, где LLM используется как часть системы, а не декоративная кнопка.",
       "status": "public",
       "lang": "ru",
-      "url": "/ai-development/",
+      "url": "/ai-development",
       "links": [
         {
           "id": "llm-apps",
@@ -2248,7 +2248,7 @@
       "summary": "AI-прототип продукта — минимальная рабочая версия идеи, где модель уже выполняет ключевое действие: анализирует, генерирует, связывает, ищет, классифицирует или управляет инструментом.",
       "status": "public",
       "lang": "ru",
-      "url": "/ai-product-prototype/",
+      "url": "/ai-product-prototype",
       "links": [
         {
           "id": "llm-apps",
@@ -2288,7 +2288,7 @@
       "summary": "Передача повторяющихся действий системе, скрипту, интеграции или AI-агенту.",
       "status": "public",
       "lang": "ru",
-      "url": "/automation/",
+      "url": "/automation",
       "links": [
         {
           "id": "ai-agents",
@@ -2351,7 +2351,7 @@
       "summary": "Браузерная автоматизация — управление сайтом через сценарии в браузере: навигация, клики, формы, сбор данных, тестирование и повторяемые действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/browser-automation/",
+      "url": "/browser-automation",
       "links": [
         {
           "id": "playwright",
@@ -2392,7 +2392,7 @@
       "summary": "Codex — рабочий инструмент для разработки через модель: чтение репозитория, изменение кода, генерация файлов, рефакторинг и сборка прототипов под контролем человека.",
       "status": "public",
       "lang": "ru",
-      "url": "/codex/",
+      "url": "/codex",
       "links": [
         {
           "id": "vibe-coding",
@@ -2437,7 +2437,7 @@
       "summary": "Пакет контекста — набор файлов, правил, ограничений и описаний, которые модель получает перед техническим проходом по проекту.",
       "status": "public",
       "lang": "ru",
-      "url": "/context-package/",
+      "url": "/context-package",
       "links": [
         {
           "id": "repo-map",
@@ -2478,7 +2478,7 @@
       "summary": "Рабочая минимальная версия продукта с интерфейсом, логикой, данными и базовой инфраструктурой.",
       "status": "public",
       "lang": "ru",
-      "url": "/full-stack-mvp/",
+      "url": "/full-stack-mvp",
       "links": [
         {
           "id": "mvp",
@@ -2528,7 +2528,7 @@
       "summary": "Human-in-the-loop — принцип, при котором человек сохраняет контроль над целью, проверкой и решениями, даже если модель выполняет большую часть технических операций.",
       "status": "public",
       "lang": "ru",
-      "url": "/human-in-the-loop/",
+      "url": "/human-in-the-loop",
       "links": [
         {
           "id": "model-as-developer",
@@ -2564,7 +2564,7 @@
       "summary": "Приложения, в которых языковая модель работает с контекстом, данными и действиями пользователя.",
       "status": "public",
       "lang": "ru",
-      "url": "/llm-apps/",
+      "url": "/llm-apps",
       "links": [
         {
           "id": "ai-development",
@@ -2640,7 +2640,7 @@
       "summary": "LLM-бэкенд — серверная часть приложения, которая управляет запросами к модели, контекстом, инструментами, памятью, логами и безопасными действиями.",
       "status": "public",
       "lang": "ru",
-      "url": "/llm-backend/",
+      "url": "/llm-backend",
       "links": [
         {
           "id": "llm-apps",
@@ -2681,7 +2681,7 @@
       "summary": "Сайт, где модель использует граф знаний для генерации текста, ссылок и маршрутов пользователя.",
       "status": "public",
       "lang": "ru",
-      "url": "/llm-site/",
+      "url": "/llm-site",
       "links": [
         {
           "id": "notepub",
@@ -2747,7 +2747,7 @@
       "summary": "Модель как разработчик — подход, где LLM выполняет часть технической работы, а человек задает цель, ограничения, проверку и направление изменений.",
       "status": "public",
       "lang": "ru",
-      "url": "/model-as-developer/",
+      "url": "/model-as-developer",
       "links": [
         {
           "id": "ai-development",
@@ -2788,7 +2788,7 @@
       "summary": "Playwright — инструмент для управления браузером из кода: открытия страниц, кликов, заполнения форм, тестов и автоматизации пользовательских сценариев.",
       "status": "public",
       "lang": "ru",
-      "url": "/playwright/",
+      "url": "/playwright",
       "links": [
         {
           "id": "browser-automation",
@@ -2824,7 +2824,7 @@
       "summary": "Промпт-бриф — короткое техническое задание для модели: цель изменения, текущий контекст, ограничения, ожидаемый результат и критерии проверки.",
       "status": "public",
       "lang": "ru",
-      "url": "/prompt-brief/",
+      "url": "/prompt-brief",
       "links": [
         {
           "id": "context-package",
@@ -2865,7 +2865,7 @@
       "summary": "Проектирование инструкций, контекста и формата работы модели для стабильного результата.",
       "status": "public",
       "lang": "ru",
-      "url": "/prompt-engineering/",
+      "url": "/prompt-engineering",
       "links": [
         {
           "id": "ai-development",
@@ -2928,7 +2928,7 @@
       "summary": "Карта репозитория — краткое описание структуры проекта: папки, ключевые файлы, точки входа, зависимости и места, которые нельзя менять без причины.",
       "status": "public",
       "lang": "ru",
-      "url": "/repo-map/",
+      "url": "/repo-map",
       "links": [
         {
           "id": "context-package",
@@ -2964,7 +2964,7 @@
       "summary": "Техническое ТЗ из идеи — перевод свободного описания продукта в структуру: цель, пользовательский сценарий, данные, интерфейс, ограничения и первый проход разработки.",
       "status": "public",
       "lang": "ru",
-      "url": "/technical-spec-from-idea/",
+      "url": "/technical-spec-from-idea",
       "links": [
         {
           "id": "prompt-brief",
@@ -3000,7 +3000,7 @@
       "summary": "Tool calling — способ дать модели доступ к внешним функциям: поиску, базе данных, календарю, браузеру, генерации файлов или действиям внутри продукта.",
       "status": "public",
       "lang": "ru",
-      "url": "/tool-calling/",
+      "url": "/tool-calling",
       "links": [
         {
           "id": "llm-backend",
@@ -3041,7 +3041,7 @@
       "summary": "Разработка через быструю итерацию с AI, где человек управляет направлением, а модель ускоряет реализацию.",
       "status": "public",
       "lang": "ru",
-      "url": "/vibe-coding/",
+      "url": "/vibe-coding",
       "links": [
         {
           "id": "ai-development",
@@ -3116,7 +3116,7 @@
       "summary": "Мягкий призыв к действию, где человек оставляет короткий комментарий для получения материала, разбора или следующего шага. Формат снижает барьер входа и делает интерес видимым.",
       "status": "public",
       "lang": "ru",
-      "url": "/code-word-cta/",
+      "url": "/code-word-cta",
       "links": [
         {
           "id": "threads",
@@ -3166,7 +3166,7 @@
       "summary": "Маршрут, где публичная реакция на пост превращается в личный диалог. Он нужен, чтобы не продавать в лоб и сохранить естественное продолжение интереса.",
       "status": "public",
       "lang": "ru",
-      "url": "/comment-to-dm-flow/",
+      "url": "/comment-to-dm-flow",
       "links": [
         {
           "id": "threads",
@@ -3220,7 +3220,7 @@
       "summary": "Логика вознаграждений — правила, по которым участник партнерской сети получает процент, бонус, доступ или другую пользу за результативное действие.",
       "status": "public",
       "lang": "ru",
-      "url": "/commission-logic/",
+      "url": "/commission-logic",
       "links": [
         {
           "id": "referral-mechanics",
@@ -3265,7 +3265,7 @@
       "summary": "Разбор публикаций по роли, аудитории, боли, офферу, переходам и фактическим реакциям. Диагностика показывает, где контент теряет связь с заявкой.",
       "status": "public",
       "lang": "ru",
-      "url": "/content-diagnostics/",
+      "url": "/content-diagnostics",
       "links": [
         {
           "id": "content-system",
@@ -3319,7 +3319,7 @@
       "summary": "Связанный набор тем, форматов и маршрутов, который ведет аудиторию от интереса к доверию и заявке.",
       "status": "public",
       "lang": "ru",
-      "url": "/content-system/",
+      "url": "/content-system",
       "links": [
         {
           "id": "positioning",
@@ -3403,7 +3403,7 @@
       "summary": "Переход от публикаций к обращениям, где контент не только привлекает внимание, но и помогает человеку понять свою ситуацию и выбрать следующий шаг.",
       "status": "public",
       "lang": "ru",
-      "url": "/content-to-leads/",
+      "url": "/content-to-leads",
       "links": [
         {
           "id": "threads",
@@ -3457,7 +3457,7 @@
       "summary": "Кросс-промо — совместное продвижение, при котором участники усиливают друг друга через контент, рекомендации, витрины, эфиры или партнерские подборки.",
       "status": "public",
       "lang": "ru",
-      "url": "/cross-promotion/",
+      "url": "/cross-promotion",
       "links": [
         {
           "id": "partner-network",
@@ -3506,7 +3506,7 @@
       "summary": "Экспертные офферы — консультации, разборы, шаблоны, мини-продукты и сервисы, которые эксперт может предложить аудитории или партнерам.",
       "status": "public",
       "lang": "ru",
-      "url": "/expert-offers/",
+      "url": "/expert-offers",
       "links": [
         {
           "id": "offer",
@@ -3555,7 +3555,7 @@
       "summary": "Последовательность шагов, через которые человек проходит от первого контакта до покупки или заявки.",
       "status": "public",
       "lang": "ru",
-      "url": "/funnel/",
+      "url": "/funnel",
       "links": [
         {
           "id": "offer",
@@ -3605,7 +3605,7 @@
       "summary": "Описание конкретного типа клиента, для которого продукт особенно релевантен.",
       "status": "public",
       "lang": "ru",
-      "url": "/icp/",
+      "url": "/icp",
       "links": [
         {
           "id": "positioning",
@@ -3672,7 +3672,7 @@
       "summary": "Публикация, описывающая одну узнаваемую проблему конкретной аудитории. Такой пост снижает абстракцию и помогает человеку увидеть связь между своим состоянием и предложением автора.",
       "status": "public",
       "lang": "ru",
-      "url": "/narrow-pain-post/",
+      "url": "/narrow-pain-post",
       "links": [
         {
           "id": "icp",
@@ -3726,7 +3726,7 @@
       "summary": "Список типовых сомнений, рисков и вопросов аудитории, связанных с продуктом, ценой, форматом, результатом и доверием.",
       "status": "public",
       "lang": "ru",
-      "url": "/objections-map/",
+      "url": "/objections-map",
       "links": [
         {
           "id": "sales-conversation",
@@ -3780,7 +3780,7 @@
       "summary": "Карточка оффера — короткое описание предложения в витрине: название, задача, аудитория, результат, цена или формат и следующее действие.",
       "status": "public",
       "lang": "ru",
-      "url": "/offer-card/",
+      "url": "/offer-card",
       "links": [
         {
           "id": "offer",
@@ -3829,7 +3829,7 @@
       "summary": "Смысловая среда, в которой предложение становится понятным. Контекст оффера включает проблему, аудиторию, желаемый результат, ограничение и следующий шаг.",
       "status": "public",
       "lang": "ru",
-      "url": "/offer-context/",
+      "url": "/offer-context",
       "links": [
         {
           "id": "offer",
@@ -3883,7 +3883,7 @@
       "summary": "Конкретное предложение, которое связывает проблему клиента, результат, формат работы и следующий шаг.",
       "status": "public",
       "lang": "ru",
-      "url": "/offer/",
+      "url": "/offer",
       "links": [
         {
           "id": "positioning",
@@ -3959,7 +3959,7 @@
       "summary": "Лиды через партнерства — заявки, которые появляются не только из личного контента, но и из рекомендаций, витрин, совместных запусков и партнерских маршрутов.",
       "status": "public",
       "lang": "ru",
-      "url": "/partner-leads/",
+      "url": "/partner-leads",
       "links": [
         {
           "id": "partner-network",
@@ -4008,7 +4008,7 @@
       "summary": "Партнерская сеть — система связей между экспертами, продуктами и витринами, где участники могут приводить друг другу аудиторию, заявки и продажи.",
       "status": "public",
       "lang": "ru",
-      "url": "/partner-network/",
+      "url": "/partner-network",
       "links": [
         {
           "id": "recca",
@@ -4057,7 +4057,7 @@
       "summary": "Профиль партнера — карточка участника сети с описанием компетенций, аудитории, офферов, ссылок и условий взаимодействия.",
       "status": "public",
       "lang": "ru",
-      "url": "/partner-profile/",
+      "url": "/partner-profile",
       "links": [
         {
           "id": "partner-network",
@@ -4106,7 +4106,7 @@
       "summary": "Короткий контент вокруг основной темы, который расширяет охват, показывает личность автора и приводит людей к более точным смысловым входам.",
       "status": "public",
       "lang": "ru",
-      "url": "/peripheral-content/",
+      "url": "/peripheral-content",
       "links": [
         {
           "id": "threads",
@@ -4156,7 +4156,7 @@
       "summary": "Контент, который формулирует основные идеи, методы, продукты и повторяющиеся проблемы аудитории. Он задает смысловой каркас для остальных публикаций.",
       "status": "public",
       "lang": "ru",
-      "url": "/pillar-content/",
+      "url": "/pillar-content",
       "links": [
         {
           "id": "content-system",
@@ -4210,7 +4210,7 @@
       "summary": "Формулировка места продукта, эксперта или идеи в сознании конкретной аудитории.",
       "status": "public",
       "lang": "ru",
-      "url": "/positioning/",
+      "url": "/positioning",
       "links": [
         {
           "id": "marketing-os",
@@ -4277,7 +4277,7 @@
       "summary": "Реферальная механика — способ передавать вознаграждение или пользу за рекомендацию, приведенного клиента или участие в партнерской цепочке.",
       "status": "public",
       "lang": "ru",
-      "url": "/referral-mechanics/",
+      "url": "/referral-mechanics",
       "links": [
         {
           "id": "recca",
@@ -4326,7 +4326,7 @@
       "summary": "Диалог, в котором автор уточняет ситуацию человека, показывает связь с возможным решением и предлагает следующий шаг. Продажа строится на контексте, а не на давлении.",
       "status": "public",
       "lang": "ru",
-      "url": "/sales-conversation/",
+      "url": "/sales-conversation",
       "links": [
         {
           "id": "warm-lead",
@@ -4380,7 +4380,7 @@
       "summary": "Механизм, где результаты, отзывы, вопросы и кейсы возвращаются в контент и усиливают доверие к продукту или методу.",
       "status": "public",
       "lang": "ru",
-      "url": "/social-proof-loop/",
+      "url": "/social-proof-loop",
       "links": [
         {
           "id": "content-system",
@@ -4434,7 +4434,7 @@
       "summary": "Цикл коротких публикаций, где посты проверяют формулировки, собирают реакции, уточняют боли аудитории и возвращают данные в контентную систему.",
       "status": "public",
       "lang": "ru",
-      "url": "/threads-content-loop/",
+      "url": "/threads-content-loop",
       "links": [
         {
           "id": "threads",
@@ -4492,7 +4492,7 @@
       "summary": "Канал короткого контента, быстрых реакций, тестирования формулировок и привлечения аудитории.",
       "status": "public",
       "lang": "ru",
-      "url": "/threads/",
+      "url": "/threads",
       "links": [
         {
           "id": "content-system",
@@ -4568,7 +4568,7 @@
       "summary": "Человек, который уже проявил интерес к теме, проблеме, материалу или действию. С ним важно продолжать диалог из его контекста, а не начинать продажу с нуля.",
       "status": "public",
       "lang": "ru",
-      "url": "/warm-lead/",
+      "url": "/warm-lead",
       "links": [
         {
           "id": "comment-to-dm-flow",
@@ -4618,7 +4618,7 @@
       "summary": "Конкретное место в карте ситуации, где можно сделать следующий шаг без полной перестройки всей системы.",
       "status": "public",
       "lang": "ru",
-      "url": "/action-point/",
+      "url": "/action-point",
       "links": [
         {
           "id": "situation-map",
@@ -4672,7 +4672,7 @@
       "summary": "Способность видеть себя действующим лицом ситуации и влиять на следующий шаг.",
       "status": "public",
       "lang": "ru",
-      "url": "/agency/",
+      "url": "/agency",
       "links": [
         {
           "id": "lat",
@@ -4722,7 +4722,7 @@
       "summary": "Рамка анализа, которая задает, какие элементы ситуации считать значимыми и какие вопросы к ним применять.",
       "status": "public",
       "lang": "ru",
-      "url": "/analysis-lens/",
+      "url": "/analysis-lens",
       "links": [
         {
           "id": "lens-analysis",
@@ -4776,7 +4776,7 @@
       "summary": "Поведенческий паттерн — повторяющаяся связка ситуации, состояния, интерпретации и действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/behavior-pattern/",
+      "url": "/behavior-pattern",
       "links": [
         {
           "id": "repeating-scenarios",
@@ -4830,7 +4830,7 @@
       "summary": "Способ связывать события, решения и последствия в объяснении ситуации.",
       "status": "public",
       "lang": "ru",
-      "url": "/causality/",
+      "url": "/causality",
       "links": [
         {
           "id": "lat",
@@ -4880,7 +4880,7 @@
       "summary": "Ситуация, когда количество вариантов мешает перейти к действию.",
       "status": "public",
       "lang": "ru",
-      "url": "/choice-paralysis/",
+      "url": "/choice-paralysis",
       "links": [
         {
           "id": "cognitive-superposition",
@@ -4930,7 +4930,7 @@
       "summary": "Участки ситуации, где отсутствует важное звено: субъект, критерий, причина, действие, ресурс или связь.",
       "status": "public",
       "lang": "ru",
-      "url": "/cognitive-gaps/",
+      "url": "/cognitive-gaps",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -4988,7 +4988,7 @@
       "summary": "Состояние, в котором несколько возможных сценариев удерживаются одновременно и мешают выбрать действие.",
       "status": "public",
       "lang": "ru",
-      "url": "/cognitive-superposition/",
+      "url": "/cognitive-superposition",
       "links": [
         {
           "id": "choice-paralysis",
@@ -5038,7 +5038,7 @@
       "summary": "Набор признаков, по которым можно сравнивать варианты и принимать решение без постоянного возврата к общей тревоге.",
       "status": "public",
       "lang": "ru",
-      "url": "/decision-criteria/",
+      "url": "/decision-criteria",
       "links": [
         {
           "id": "no-selection-criterion",
@@ -5092,7 +5092,7 @@
       "summary": "Повторяющиеся элементы речи, которые показывают способ описания действия, знания, времени и причинности.",
       "status": "public",
       "lang": "ru",
-      "url": "/language-markers/",
+      "url": "/language-markers",
       "links": [
         {
           "id": "lat",
@@ -5142,7 +5142,7 @@
       "summary": "Анализ речи по маркерам мышления, агентности, времени, причинности и источника знания.",
       "status": "public",
       "lang": "ru",
-      "url": "/lat/",
+      "url": "/lat",
       "links": [
         {
           "id": "language-markers",
@@ -5209,7 +5209,7 @@
       "summary": "Метод просмотра одной ситуации через разные аналитические рамки: продуктовую, языковую, поведенческую, маркетинговую или сценарную.",
       "status": "public",
       "lang": "ru",
-      "url": "/lens-analysis/",
+      "url": "/lens-analysis",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -5267,7 +5267,7 @@
       "summary": "Ощущение, что выбор одного направления закрывает ценные альтернативы.",
       "status": "public",
       "lang": "ru",
-      "url": "/loss-of-options/",
+      "url": "/loss-of-options",
       "links": [
         {
           "id": "cognitive-superposition",
@@ -5317,7 +5317,7 @@
       "summary": "Принцип, при котором решение ищется после построения карты ситуации, а не до понимания связей между элементами.",
       "status": "public",
       "lang": "ru",
-      "url": "/map-first-approach/",
+      "url": "/map-first-approach",
       "links": [
         {
           "id": "situation-map",
@@ -5371,7 +5371,7 @@
       "summary": "Состояние, где варианты сравниваются без ясного основания для решения.",
       "status": "public",
       "lang": "ru",
-      "url": "/no-selection-criterion/",
+      "url": "/no-selection-criterion",
       "links": [
         {
           "id": "choice-paralysis",
@@ -5421,7 +5421,7 @@
       "summary": "Устойчивые паттерны решений, реакций и действий, которые повторяются в разных ситуациях.",
       "status": "public",
       "lang": "ru",
-      "url": "/repeating-scenarios/",
+      "url": "/repeating-scenarios",
       "links": [
         {
           "id": "self-tracking",
@@ -5510,7 +5510,7 @@
       "summary": "Метод выявления повторяющихся последовательностей решений, реакций и объяснений в разных ситуациях.",
       "status": "public",
       "lang": "ru",
-      "url": "/scenario-detection/",
+      "url": "/scenario-detection",
       "links": [
         {
           "id": "repeating-scenarios",
@@ -5568,7 +5568,7 @@
       "summary": "Различение сигнала и шума помогает отделять устойчивые наблюдения от случайных эмоций, мыслей и единичных событий.",
       "status": "public",
       "lang": "ru",
-      "url": "/signal-vs-noise/",
+      "url": "/signal-vs-noise",
       "links": [
         {
           "id": "self-tracking",
@@ -5622,7 +5622,7 @@
       "summary": "Визуальная или структурная модель ситуации, где элементы представлены узлами, а отношения между ними — связями.",
       "status": "public",
       "lang": "ru",
-      "url": "/situation-graph/",
+      "url": "/situation-graph",
       "links": [
         {
           "id": "situation-map",
@@ -5680,7 +5680,7 @@
       "summary": "Структурированное представление элементов ситуации и связей между ними.",
       "status": "public",
       "lang": "ru",
-      "url": "/situation-map/",
+      "url": "/situation-map",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -5765,7 +5765,7 @@
       "summary": "Ситуация, где знание не превращается в действие, несмотря на ясное рациональное объяснение.",
       "status": "public",
       "lang": "ru",
-      "url": "/understand-but-do-not-act/",
+      "url": "/understand-but-do-not-act",
       "links": [
         {
           "id": "agency",
@@ -5841,7 +5841,7 @@
       "summary": "Устойчивые символические роли и сценарии, через которые человек описывает себя, путь и конфликты.",
       "status": "public",
       "lang": "ru",
-      "url": "/archetypes/",
+      "url": "/archetypes",
       "links": [
         {
           "id": "personal-myth",
@@ -5891,7 +5891,7 @@
       "summary": "Роль человека, который собирает новые формы, продукты, тексты, системы и инструменты из разрозненного материала.",
       "status": "public",
       "lang": "ru",
-      "url": "/creator-archetype/",
+      "url": "/creator-archetype",
       "links": [
         {
           "id": "archetypes",
@@ -5941,7 +5941,7 @@
       "summary": "Использование структуры путешествия Данте как модели уровней состояния, выбора, очищения и перехода.",
       "status": "public",
       "lang": "ru",
-      "url": "/dante-map/",
+      "url": "/dante-map",
       "links": [
         {
           "id": "personal-canon",
@@ -5991,7 +5991,7 @@
       "summary": "Сценарий выхода из привычной роли через вызов, испытание, кризис, помощь и возвращение с новым качеством.",
       "status": "public",
       "lang": "ru",
-      "url": "/hero-path/",
+      "url": "/hero-path",
       "links": [
         {
           "id": "personal-myth",
@@ -6041,7 +6041,7 @@
       "summary": "Момент, в котором человек выбирает не только действие, но и роль, из которой будет действовать дальше.",
       "status": "public",
       "lang": "ru",
-      "url": "/identity-choice/",
+      "url": "/identity-choice",
       "links": [
         {
           "id": "identity",
@@ -6091,7 +6091,7 @@
       "summary": "Представление человека о себе, своих ролях, границах, ценностях и допустимых действиях.",
       "status": "public",
       "lang": "ru",
-      "url": "/identity/",
+      "url": "/identity",
       "links": [
         {
           "id": "personal-myth",
@@ -6141,7 +6141,7 @@
       "summary": "Ситуация, в которой разные желания, роли, страхи или модели будущего одновременно требуют несовместимых действий.",
       "status": "public",
       "lang": "ru",
-      "url": "/inner-conflict/",
+      "url": "/inner-conflict",
       "links": [
         {
           "id": "cognitive-superposition",
@@ -6191,7 +6191,7 @@
       "summary": "Направление, которое связывает решения, проекты и действия в одну устойчивую траекторию.",
       "status": "public",
       "lang": "ru",
-      "url": "/meaning-vector/",
+      "url": "/meaning-vector",
       "links": [
         {
           "id": "meaning",
@@ -6241,7 +6241,7 @@
       "summary": "Связь между действием, ценностью, направлением и ощущением значимости происходящего.",
       "status": "public",
       "lang": "ru",
-      "url": "/meaning/",
+      "url": "/meaning",
       "links": [
         {
           "id": "personal-myth",
@@ -6291,7 +6291,7 @@
       "summary": "Способ описывать опыт через образы, роли, путь, испытания и повторяющиеся сюжеты.",
       "status": "public",
       "lang": "ru",
-      "url": "/mythological-thinking/",
+      "url": "/mythological-thinking",
       "links": [
         {
           "id": "archetypes",
@@ -6341,7 +6341,7 @@
       "summary": "Способ описать позиционирование через историю, роль, конфликт, переход и результат, а не только через категорию рынка.",
       "status": "public",
       "lang": "ru",
-      "url": "/narrative-positioning/",
+      "url": "/narrative-positioning",
       "links": [
         {
           "id": "positioning",
@@ -6391,7 +6391,7 @@
       "summary": "Сюжет долгого возвращения, обходных путей, испытаний, удержания цели и восстановления собственного места.",
       "status": "public",
       "lang": "ru",
-      "url": "/odysseus-pattern/",
+      "url": "/odysseus-pattern",
       "links": [
         {
           "id": "hero-path",
@@ -6441,7 +6441,7 @@
       "summary": "Набор текстов, образов, идей, авторов и сюжетов, которые формируют устойчивую личную систему смыслов.",
       "status": "public",
       "lang": "ru",
-      "url": "/personal-canon/",
+      "url": "/personal-canon",
       "links": [
         {
           "id": "personal-myth",
@@ -6491,7 +6491,7 @@
       "summary": "Связная история о том, кто человек, куда он идет и какие испытания считает значимыми.",
       "status": "public",
       "lang": "ru",
-      "url": "/personal-myth/",
+      "url": "/personal-myth",
       "links": [
         {
           "id": "archetypes",
@@ -6541,7 +6541,7 @@
       "summary": "Размышление о том, как человек переходит от понимания к поступку.",
       "status": "public",
       "lang": "ru",
-      "url": "/philosophy-of-action/",
+      "url": "/philosophy-of-action",
       "links": [
         {
           "id": "agency",
@@ -6591,7 +6591,7 @@
       "summary": "Роль исследователя, который ищет закономерности, объяснения, принципы и устойчивую картину мира.",
       "status": "public",
       "lang": "ru",
-      "url": "/sage-archetype/",
+      "url": "/sage-archetype",
       "links": [
         {
           "id": "archetypes",
@@ -6641,7 +6641,7 @@
       "summary": "Неинтегрированная часть опыта, которую человек избегает признавать, но которая продолжает влиять на выбор и действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/shadow/",
+      "url": "/shadow",
       "links": [
         {
           "id": "inner-conflict",
@@ -6691,7 +6691,7 @@
       "summary": "Архетип нарушения привычного порядка, обходных путей, игры с правилами и нестандартных решений.",
       "status": "public",
       "lang": "ru",
-      "url": "/trickster/",
+      "url": "/trickster",
       "links": [
         {
           "id": "archetypes",
@@ -6741,7 +6741,7 @@
       "summary": "Система представлений, через которую человек объясняет события, причины, возможности и ограничения.",
       "status": "public",
       "lang": "ru",
-      "url": "/world-model/",
+      "url": "/world-model",
       "links": [
         {
           "id": "lat",
@@ -6791,7 +6791,7 @@
       "summary": "Метод восстановления карты ситуации, скрытых связей, повторяющихся сценариев и точек действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/cognitive-reconstruction/",
+      "url": "/cognitive-reconstruction",
       "links": [
         {
           "id": "situation-map",
@@ -6887,7 +6887,7 @@
       "summary": "Система для сборки маркетинговой логики вокруг продукта, эксперта или проекта.",
       "status": "public",
       "lang": "ru",
-      "url": "/marketing-os/",
+      "url": "/marketing-os",
       "links": [
         {
           "id": "positioning",
@@ -6966,7 +6966,7 @@
       "summary": "Мини-продукты — небольшие самостоятельные предложения: шаблоны, гайды, разборы, наборы промптов, диагностики и другие быстрые входы в экосистему.",
       "status": "public",
       "lang": "ru",
-      "url": "/mini-products/",
+      "url": "/mini-products",
       "links": [
         {
           "id": "expert-offers",
@@ -7015,7 +7015,7 @@
       "summary": "Инструмент для публикации заметок и превращения базы знаний в человекочитаемый сайт.",
       "status": "public",
       "lang": "ru",
-      "url": "/notepub/",
+      "url": "/notepub",
       "links": [
         {
           "id": "obsidian",
@@ -7098,7 +7098,7 @@
       "summary": "Шаблоны и рабочие процессы для заметок, графа знаний, self-tracking и анализа данных.",
       "status": "public",
       "lang": "ru",
-      "url": "/obsidian-tools/",
+      "url": "/obsidian-tools",
       "links": [
         {
           "id": "obsidian",
@@ -7152,7 +7152,7 @@
       "summary": "Витрина продукта — публичная страница или блок, где продукт объяснен через назначение, аудиторию, ценность, оффер и следующий шаг.",
       "status": "public",
       "lang": "ru",
-      "url": "/product-showcase/",
+      "url": "/product-showcase",
       "links": [
         {
           "id": "recca",
@@ -7201,7 +7201,7 @@
       "summary": "Recca — продуктовая среда для витрин, экспертных офферов, партнерских сетей и реферальных механик. Она помогает собрать предложения, участников и маршруты заявок в одну связанную систему.",
       "status": "public",
       "lang": "ru",
-      "url": "/recca/",
+      "url": "/recca",
       "links": [
         {
           "id": "product-showcase",
@@ -7271,7 +7271,7 @@
       "summary": "Практический формат работы, в котором ситуация разбирается через диалог, заметки, атомизацию и построение карты.",
       "status": "public",
       "lang": "ru",
-      "url": "/reconstruction-session/",
+      "url": "/reconstruction-session",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -7325,7 +7325,7 @@
       "summary": "Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами.",
       "status": "public",
       "lang": "ru",
-      "url": "/self-tracking-toolkit/",
+      "url": "/self-tracking-toolkit",
       "links": [
         {
           "id": "self-tracking",
@@ -7404,7 +7404,7 @@
       "summary": "Storefront — формат продуктовой витрины, где несколько офферов собраны в одном понятном интерфейсе с описанием, ценностью и действиями.",
       "status": "public",
       "lang": "ru",
-      "url": "/storefront/",
+      "url": "/storefront",
       "links": [
         {
           "id": "product-showcase",
@@ -7453,7 +7453,7 @@
       "summary": "Ловушка разработки — ситуация, когда продукт продолжают строить до проверки спроса, потому что разработка ощущается безопаснее продаж и прямого контакта с рынком.",
       "status": "public",
       "lang": "ru",
-      "url": "/build-trap/",
+      "url": "/build-trap",
       "links": [
         {
           "id": "system-before-sales",
@@ -7503,7 +7503,7 @@
       "summary": "Concierge MVP — проверка продукта, где результат для пользователя создается вручную до автоматизации.",
       "status": "public",
       "lang": "ru",
-      "url": "/concierge-mvp/",
+      "url": "/concierge-mvp",
       "links": [
         {
           "id": "mvp",
@@ -7553,7 +7553,7 @@
       "summary": "Проверка спроса — способ выяснить, есть ли у аудитории реальная потребность, готовность обсуждать решение и признаки будущей оплаты.",
       "status": "public",
       "lang": "ru",
-      "url": "/demand-validation/",
+      "url": "/demand-validation",
       "links": [
         {
           "id": "hypothesis-testing",
@@ -7603,7 +7603,7 @@
       "summary": "Дистрибуция до продукта — подход, при котором канал привлечения и понятный вход для аудитории проверяются до сложной разработки.",
       "status": "public",
       "lang": "ru",
-      "url": "/distribution-before-product/",
+      "url": "/distribution-before-product",
       "links": [
         {
           "id": "threads",
@@ -7653,7 +7653,7 @@
       "summary": "Паттерн, при котором подготовительные задачи заменяют проверку, разговор, продажу или запуск.",
       "status": "public",
       "lang": "ru",
-      "url": "/false-preparation/",
+      "url": "/false-preparation",
       "links": [
         {
           "id": "system-before-sales",
@@ -7703,7 +7703,7 @@
       "summary": "Состояние основателя, когда идеи, задачи, продукты и тревоги конкурируют за внимание.",
       "status": "public",
       "lang": "ru",
-      "url": "/founder-chaos/",
+      "url": "/founder-chaos",
       "links": [
         {
           "id": "cognitive-superposition",
@@ -7779,7 +7779,7 @@
       "summary": "Карта решений фаундера — способ разложить идеи, гипотезы, ресурсы, риски и ближайшие действия в одну схему.",
       "status": "public",
       "lang": "ru",
-      "url": "/founder-decision-map/",
+      "url": "/founder-decision-map",
       "links": [
         {
           "id": "founder-chaos",
@@ -7829,7 +7829,7 @@
       "summary": "Быстрая проверка предположений о клиенте, проблеме, ценности, канале или продукте.",
       "status": "public",
       "lang": "ru",
-      "url": "/hypothesis-testing/",
+      "url": "/hypothesis-testing",
       "links": [
         {
           "id": "mvp",
@@ -7900,7 +7900,7 @@
       "summary": "Тест лендинга — проверка идеи через короткую страницу, понятный оффер и измеримое действие пользователя.",
       "status": "public",
       "lang": "ru",
-      "url": "/landing-page-test/",
+      "url": "/landing-page-test",
       "links": [
         {
           "id": "demand-validation",
@@ -7950,7 +7950,7 @@
       "summary": "Минимальная версия продукта или проверки, которая дает данные для следующего решения.",
       "status": "public",
       "lang": "ru",
-      "url": "/mvp/",
+      "url": "/mvp",
       "links": [
         {
           "id": "hypothesis-testing",
@@ -8034,7 +8034,7 @@
       "summary": "No-code MVP — первая версия продукта, собранная из готовых инструментов без полноценной разработки.",
       "status": "public",
       "lang": "ru",
-      "url": "/no-code-mvp/",
+      "url": "/no-code-mvp",
       "links": [
         {
           "id": "mvp",
@@ -8084,7 +8084,7 @@
       "summary": "Предпродажа — проверка готовности платить до полной разработки продукта.",
       "status": "public",
       "lang": "ru",
-      "url": "/presale/",
+      "url": "/presale",
       "links": [
         {
           "id": "demand-validation",
@@ -8134,7 +8134,7 @@
       "summary": "Процесс выбора главного продукта, направления или оффера для ближайшей проверки.",
       "status": "public",
       "lang": "ru",
-      "url": "/product-choice/",
+      "url": "/product-choice",
       "links": [
         {
           "id": "no-selection-criterion",
@@ -8205,7 +8205,7 @@
       "summary": "Product market fit — состояние, при котором продукт стабильно решает значимую проблему понятной аудитории и получает повторяемый спрос.",
       "status": "public",
       "lang": "ru",
-      "url": "/product-market-fit/",
+      "url": "/product-market-fit",
       "links": [
         {
           "id": "traction-signal",
@@ -8255,7 +8255,7 @@
       "summary": "Скоуп продукта — граница первой версии: что входит в MVP, что остается позже и какой результат должен получить пользователь.",
       "status": "public",
       "lang": "ru",
-      "url": "/product-scope/",
+      "url": "/product-scope",
       "links": [
         {
           "id": "mvp",
@@ -8305,7 +8305,7 @@
       "summary": "Способ смотреть на идею через пользователя, задачу, ценность, ограничения и повторяемый сценарий.",
       "status": "public",
       "lang": "ru",
-      "url": "/product-thinking/",
+      "url": "/product-thinking",
       "links": [
         {
           "id": "marketing-os",
@@ -8355,7 +8355,7 @@
       "summary": "Продуктовая модель, где пользователь получает доступ к сервису по подписке или регулярной оплате.",
       "status": "public",
       "lang": "ru",
-      "url": "/saas/",
+      "url": "/saas",
       "links": [
         {
           "id": "mvp",
@@ -8422,7 +8422,7 @@
       "summary": "Стартап-гипотеза — проверяемое предположение о проблеме, аудитории, решении, канале или готовности платить.",
       "status": "public",
       "lang": "ru",
-      "url": "/startup-hypothesis/",
+      "url": "/startup-hypothesis",
       "links": [
         {
           "id": "hypothesis-testing",
@@ -8472,7 +8472,7 @@
       "summary": "Паттерн, в котором человек строит инфраструктуру до проверки спроса и живого контакта с рынком.",
       "status": "public",
       "lang": "ru",
-      "url": "/system-before-sales/",
+      "url": "/system-before-sales",
       "links": [
         {
           "id": "hypothesis-testing",
@@ -8552,7 +8552,7 @@
       "summary": "Сигнал тяги — наблюдаемое действие пользователя, которое показывает интерес сильнее лайка, мнения или общей похвалы.",
       "status": "public",
       "lang": "ru",
-      "url": "/traction-signal/",
+      "url": "/traction-signal",
       "links": [
         {
           "id": "demand-validation",
@@ -8602,7 +8602,7 @@
       "summary": "Короткие самостоятельные заметки, каждая из которых объясняет одно понятие, продукт, метод или связь.",
       "status": "public",
       "lang": "ru",
-      "url": "/atomic-notes/",
+      "url": "/atomic-notes",
       "links": [
         {
           "id": "knowledge-graph",
@@ -8669,7 +8669,7 @@
       "summary": "Отслеживание внимания помогает увидеть, на что уходит фокус и где возникает распыление между задачами, идеями и тревогами.",
       "status": "public",
       "lang": "ru",
-      "url": "/attention-tracking/",
+      "url": "/attention-tracking",
       "links": [
         {
           "id": "state-log",
@@ -8723,7 +8723,7 @@
       "summary": "Базовое состояние описывает обычный уровень энергии, внимания, настроения и нагрузки, от которого удобно замечать отклонения.",
       "status": "public",
       "lang": "ru",
-      "url": "/baseline-state/",
+      "url": "/baseline-state",
       "links": [
         {
           "id": "state-log",
@@ -8777,7 +8777,7 @@
       "summary": "Связи между заметками, которые позволяют видеть не только исходящую ссылку, но и обратные контексты упоминания.",
       "status": "public",
       "lang": "ru",
-      "url": "/bidirectional-links/",
+      "url": "/bidirectional-links",
       "links": [
         {
           "id": "wikilinks",
@@ -8821,7 +8821,7 @@
       "summary": "Формат регулярных записей, в которых фиксируются события, мысли, решения, сигналы состояния и повторяющиеся сценарии.",
       "status": "public",
       "lang": "ru",
-      "url": "/daily-notes/",
+      "url": "/daily-notes",
       "links": [
         {
           "id": "diary",
@@ -8869,7 +8869,7 @@
       "summary": "Журнал решений фиксирует выбор, причину выбора, альтернативы, ожидание и фактический результат.",
       "status": "public",
       "lang": "ru",
-      "url": "/decision-log/",
+      "url": "/decision-log",
       "links": [
         {
           "id": "self-tracking",
@@ -8927,7 +8927,7 @@
       "summary": "Поток личных наблюдений, событий, мыслей и решений, который со временем становится материалом для анализа.",
       "status": "public",
       "lang": "ru",
-      "url": "/diary/",
+      "url": "/diary",
       "links": [
         {
           "id": "obsidian",
@@ -9019,7 +9019,7 @@
       "summary": "Отслеживание энергии показывает, какие действия, люди, среды и решения повышают или снижают доступный ресурс.",
       "status": "public",
       "lang": "ru",
-      "url": "/energy-tracking/",
+      "url": "/energy-tracking",
       "links": [
         {
           "id": "state-log",
@@ -9073,7 +9073,7 @@
       "summary": "Окно фокуса — период, в котором человеку проще выполнять сложные задачи без постоянного переключения.",
       "status": "public",
       "lang": "ru",
-      "url": "/focus-window/",
+      "url": "/focus-window",
       "links": [
         {
           "id": "attention-tracking",
@@ -9127,7 +9127,7 @@
       "summary": "Метаданные в начале Markdown-заметки, где фиксируются тип атома, хаб, статус, явные связи, действия и SEO-описание.",
       "status": "public",
       "lang": "ru",
-      "url": "/frontmatter/",
+      "url": "/frontmatter",
       "links": [
         {
           "id": "llm-readable-notes",
@@ -9171,7 +9171,7 @@
       "summary": "Правила поддержания графа знаний в рабочем состоянии: убрать дубли, уточнить связи, разделить черновики, публичные атомы и архив.",
       "status": "public",
       "lang": "ru",
-      "url": "/graph-hygiene/",
+      "url": "/graph-hygiene",
       "links": [
         {
           "id": "knowledge-graph",
@@ -9215,7 +9215,7 @@
       "summary": "Процесс выделения сущностей и связей из текста, заметок, диалога или описания ситуации.",
       "status": "public",
       "lang": "ru",
-      "url": "/graph-mapping/",
+      "url": "/graph-mapping",
       "links": [
         {
           "id": "situation-graph",
@@ -9273,7 +9273,7 @@
       "summary": "Журнал вмешательств фиксирует действия, которые человек пробует для изменения состояния, поведения или результата.",
       "status": "public",
       "lang": "ru",
-      "url": "/intervention-log/",
+      "url": "/intervention-log",
       "links": [
         {
           "id": "self-tracking",
@@ -9327,7 +9327,7 @@
       "summary": "Публичная база связанных заметок, где материалы развиваются постепенно и остаются частью единого графа знаний.",
       "status": "public",
       "lang": "ru",
-      "url": "/knowledge-garden/",
+      "url": "/knowledge-garden",
       "links": [
         {
           "id": "public-vault",
@@ -9371,7 +9371,7 @@
       "summary": "Сеть связанных понятий, заметок, продуктов, методов, кейсов и отношений между ними.",
       "status": "public",
       "lang": "ru",
-      "url": "/knowledge-graph/",
+      "url": "/knowledge-graph",
       "links": [
         {
           "id": "atomic-notes",
@@ -9447,7 +9447,7 @@
       "summary": "Формат заметок, в котором текст понятен человеку, а структура, связи и действия явно заданы для модели.",
       "status": "public",
       "lang": "ru",
-      "url": "/llm-readable-notes/",
+      "url": "/llm-readable-notes",
       "links": [
         {
           "id": "atomic-notes",
@@ -9495,7 +9495,7 @@
       "summary": "Подход, при котором Markdown-заметки становятся страницами сайта без потери структуры, ссылок, frontmatter и графа.",
       "status": "public",
       "lang": "ru",
-      "url": "/markdown-publishing/",
+      "url": "/markdown-publishing",
       "links": [
         {
           "id": "notepub",
@@ -9543,7 +9543,7 @@
       "summary": "Сценарий работы, в котором исходные заметки или описания превращаются в атомы, связи, карту ситуации и точки действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/material-to-map/",
+      "url": "/material-to-map",
       "links": [
         {
           "id": "source-material",
@@ -9601,7 +9601,7 @@
       "summary": "Процесс превращения личных заметок в публичные атомы, связанные страницы, маршруты пользователя и материал для модели.",
       "status": "public",
       "lang": "ru",
-      "url": "/note-to-site-pipeline/",
+      "url": "/note-to-site-pipeline",
       "links": [
         {
           "id": "obsidian",
@@ -9654,7 +9654,7 @@
       "summary": "Локальная среда для заметок, связей, графа знаний, дневника и личной базы данных.",
       "status": "public",
       "lang": "ru",
-      "url": "/obsidian/",
+      "url": "/obsidian",
       "links": [
         {
           "id": "notepub",
@@ -9754,7 +9754,7 @@
       "summary": "Система заметок, связей и наблюдений, которая помогает хранить мышление, проекты, решения и личные сценарии.",
       "status": "public",
       "lang": "ru",
-      "url": "/personal-knowledge-base/",
+      "url": "/personal-knowledge-base",
       "links": [
         {
           "id": "obsidian",
@@ -9802,7 +9802,7 @@
       "summary": "Часть базы знаний, которую можно показывать пользователям, индексировать поисковиками и использовать как контекст для модели.",
       "status": "public",
       "lang": "ru",
-      "url": "/public-vault/",
+      "url": "/public-vault",
       "links": [
         {
           "id": "obsidian",
@@ -9850,7 +9850,7 @@
       "summary": "Дашборд self-tracking собирает ключевые сигналы, обзоры и повторения в одном месте для быстрого просмотра.",
       "status": "public",
       "lang": "ru",
-      "url": "/self-tracking-dashboard/",
+      "url": "/self-tracking-dashboard",
       "links": [
         {
           "id": "self-tracking",
@@ -9908,7 +9908,7 @@
       "summary": "Повторяющиеся наблюдения о состоянии, поведении, энергии, фокусе, решениях и контексте, которые можно анализировать во времени.",
       "status": "public",
       "lang": "ru",
-      "url": "/self-tracking-signals/",
+      "url": "/self-tracking-signals",
       "links": [
         {
           "id": "self-tracking",
@@ -9952,7 +9952,7 @@
       "summary": "Регулярное наблюдение за состояниями, действиями, событиями и повторяющимися связями.",
       "status": "public",
       "lang": "ru",
-      "url": "/self-tracking/",
+      "url": "/self-tracking",
       "links": [
         {
           "id": "diary",
@@ -10043,7 +10043,7 @@
       "summary": "Оптимизация контента и структуры сайта для поиска, индексации и понятной навигации.",
       "status": "public",
       "lang": "ru",
-      "url": "/seo/",
+      "url": "/seo",
       "links": [
         {
           "id": "atomic-notes",
@@ -10093,7 +10093,7 @@
       "summary": "Текст, заметки, диалоги, посты, дневниковые записи или описания ситуаций, из которых извлекаются атомы и связи.",
       "status": "public",
       "lang": "ru",
-      "url": "/source-material/",
+      "url": "/source-material",
       "links": [
         {
           "id": "diary",
@@ -10147,7 +10147,7 @@
       "summary": "Журнал состояний фиксирует энергию, внимание, настроение, телесные сигналы и контекст дня в короткой форме.",
       "status": "public",
       "lang": "ru",
-      "url": "/state-log/",
+      "url": "/state-log",
       "links": [
         {
           "id": "self-tracking",
@@ -10205,7 +10205,7 @@
       "summary": "Вопросы для self-tracking задают минимальный набор наблюдений, который помогает отслеживать состояние без перегруза.",
       "status": "public",
       "lang": "ru",
-      "url": "/tracking-questions/",
+      "url": "/tracking-questions",
       "links": [
         {
           "id": "self-tracking",
@@ -10259,7 +10259,7 @@
       "summary": "Карта триггеров связывает повторяющиеся реакции с ситуациями, словами, людьми, задачами и внутренними ожиданиями.",
       "status": "public",
       "lang": "ru",
-      "url": "/trigger-map/",
+      "url": "/trigger-map",
       "links": [
         {
           "id": "self-tracking",
@@ -10313,7 +10313,7 @@
       "summary": "Перенос существующей базы заметок в структуру атомов, хабов, связей, маршрутов и публичных страниц.",
       "status": "public",
       "lang": "ru",
-      "url": "/vault-migration/",
+      "url": "/vault-migration",
       "links": [
         {
           "id": "obsidian",
@@ -10366,7 +10366,7 @@
       "summary": "Еженедельный обзор собирает разрозненные записи недели в короткую карту состояний, решений, действий и повторений.",
       "status": "public",
       "lang": "ru",
-      "url": "/weekly-review/",
+      "url": "/weekly-review",
       "links": [
         {
           "id": "diary",
@@ -10424,7 +10424,7 @@
       "summary": "Ссылки формата Obsidian, которые связывают заметки в человекочитаемом тексте и создают дополнительный слой графа.",
       "status": "public",
       "lang": "ru",
-      "url": "/wikilinks/",
+      "url": "/wikilinks",
       "links": [
         {
           "id": "obsidian",
@@ -10468,7 +10468,7 @@
       "summary": "Кейс эксперта с несколькими компетенциями, который ведет контент, но не получает стабильные заявки из-за размытого позиционирования.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-psychologist-no-positioning/",
+      "url": "/case-psychologist-no-positioning",
       "links": [
         {
           "id": "positioning",
@@ -10513,7 +10513,7 @@
       "summary": "Кейс специалиста, у которого есть повторные оплаты и доверие, но нет устойчивой системы привлечения новых клиентов.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-tarot-client-acquisition/",
+      "url": "/case-tarot-client-acquisition",
       "links": [
         {
           "id": "offer",
@@ -10558,7 +10558,7 @@
       "summary": "Кейс человека, который видит много перспективных направлений и из-за этого не доводит один продукт до проверки спроса.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-founder-too-many-projects/",
+      "url": "/case-founder-too-many-projects",
       "links": [
         {
           "id": "too-many-ideas",
@@ -10603,7 +10603,7 @@
       "summary": "Кейс автора, чьи посты получают внимание, но не создают понятного перехода к покупке или заявке.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-expert-content-not-selling/",
+      "url": "/case-expert-content-not-selling",
       "links": [
         {
           "id": "content-does-not-sell",
@@ -10648,7 +10648,7 @@
       "summary": "Кейс разработчика или продуктового специалиста, который хочет быстро собрать AI-продукт через модель, контекст и минимальную архитектуру.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-developer-ai-mvp/",
+      "url": "/case-developer-ai-mvp",
       "links": [
         {
           "id": "vibe-coding",
@@ -10693,7 +10693,7 @@
       "summary": "Кейс, где хаотичные заметки, дневник и граф используются как материал для поиска повторяющихся сценариев и точек действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-obsidian-diary-reconstruction/",
+      "url": "/case-obsidian-diary-reconstruction",
       "links": [
         {
           "id": "diary",
@@ -10738,7 +10738,7 @@
       "summary": "Типовой вход в когнитивную реконструкцию: человек не просит готовый совет, а приносит запутанную ситуацию, где нужно восстановить структуру.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-client-request-reconstruction/",
+      "url": "/case-client-request-reconstruction",
       "links": [
         {
           "id": "cognitive-reconstruction",
@@ -10783,7 +10783,7 @@
       "summary": "Набор повторяющихся кейсов, из которых можно извлекать типовые проблемы, механизмы, маршруты и лидовые действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-pattern-library/",
+      "url": "/case-pattern-library",
       "links": [
         {
           "id": "case-psychologist-no-positioning",
@@ -10828,7 +10828,7 @@
       "summary": "Факты, цитаты, действия, метрики и повторения, которые подтверждают выводы в разборе кейса.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-evidence/",
+      "url": "/case-evidence",
       "links": [
         {
           "id": "lat",
@@ -10869,7 +10869,7 @@
       "summary": "Последовательность переходов от ситуации клиента к проблеме, механизму, методу, продукту и следующему действию.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-route/",
+      "url": "/case-route",
       "links": [
         {
           "id": "case-pattern-library",
@@ -10905,7 +10905,7 @@
       "summary": "Лидовое действие для пользователя, который узнал свою ситуацию в одном из кейсов и хочет понять структуру собственного запроса.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-case-diagnostic/",
+      "url": "/lead-case-diagnostic",
       "links": [
         {
           "id": "case-pattern-library",
@@ -10941,7 +10941,7 @@
       "summary": "Минимальная форма, которая собирает контекст кейса без превращения пользователя в заложника анкеты.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-intake-form/",
+      "url": "/case-intake-form",
       "links": [
         {
           "id": "case-route",
@@ -10977,7 +10977,7 @@
       "summary": "Метод превращения пользовательского кейса в публичный материал после очистки, обобщения и связывания с атомами графа.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-to-article/",
+      "url": "/case-to-article",
       "links": [
         {
           "id": "case-pattern-library",
@@ -11013,7 +11013,7 @@
       "summary": "Очистка кейса от личных деталей перед публикацией или использованием как примера в публичном графе.",
       "status": "public",
       "lang": "ru",
-      "url": "/case-anonymization/",
+      "url": "/case-anonymization",
       "links": [
         {
           "id": "case-to-article",
@@ -11045,7 +11045,7 @@
       "summary": "Библиотека исследований собирает авторские наблюдения, принципы, гипотезы и кейсы в отдельный слой графа.",
       "status": "public",
       "lang": "ru",
-      "url": "/research-library/",
+      "url": "/research-library",
       "links": [
         {
           "id": "field-observation",
@@ -11094,7 +11094,7 @@
       "summary": "Полевое наблюдение фиксирует повторяющийся факт из практики, диалогов, контента, клиентов или личного дневника.",
       "status": "public",
       "lang": "ru",
-      "url": "/field-observation/",
+      "url": "/field-observation",
       "links": [
         {
           "id": "research-library",
@@ -11139,7 +11139,7 @@
       "summary": "Гипотеза формулирует проверяемое предположение о связи между проблемой, механизмом, действием и результатом.",
       "status": "public",
       "lang": "ru",
-      "url": "/hypothesis/",
+      "url": "/hypothesis",
       "links": [
         {
           "id": "field-observation",
@@ -11184,7 +11184,7 @@
       "summary": "Исследовательская заметка хранит короткое объяснение наблюдения, принципа или гипотезы и связывает его с другими атомами.",
       "status": "public",
       "lang": "ru",
-      "url": "/research-note/",
+      "url": "/research-note",
       "links": [
         {
           "id": "atomic-notes",
@@ -11229,7 +11229,7 @@
       "summary": "Язык показывает, как человек распределяет агентность, причинность, время, источник знания и границы действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-language-shapes-thinking/",
+      "url": "/principle-language-shapes-thinking",
       "links": [
         {
           "id": "lat",
@@ -11274,7 +11274,7 @@
       "summary": "План становится полезным после того, как понятны сущности ситуации, связи, ограничения, повторения и ближайшая точка действия.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-map-before-plan/",
+      "url": "/principle-map-before-plan",
       "links": [
         {
           "id": "situation-map",
@@ -11319,7 +11319,7 @@
       "summary": "Выбор становится действием, когда у человека есть критерий, по которому один вариант важнее остальных в текущем контексте.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-choice-needs-criteria/",
+      "url": "/principle-choice-needs-criteria",
       "links": [
         {
           "id": "no-selection-criterion",
@@ -11364,7 +11364,7 @@
       "summary": "Система становится полезной после проверки спроса. До этого она может маскировать избегание продажи, выбора и контакта с рынком.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-sell-before-system/",
+      "url": "/principle-sell-before-system",
       "links": [
         {
           "id": "system-before-sales",
@@ -11409,7 +11409,7 @@
       "summary": "Совет полезен, когда известны цель, ограничения, текущий этап, ресурсы, повторяющиеся сценарии и критерий результата.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-context-before-advice/",
+      "url": "/principle-context-before-advice",
       "links": [
         {
           "id": "case-route",
@@ -11454,7 +11454,7 @@
       "summary": "Граф позволяет связывать темы, продукты, кейсы, методы и действия без необходимости каждый раз писать новый длинный текст.",
       "status": "public",
       "lang": "ru",
-      "url": "/principle-graph-over-linear-content/",
+      "url": "/principle-graph-over-linear-content",
       "links": [
         {
           "id": "knowledge-graph",
@@ -11499,7 +11499,7 @@
       "summary": "Широкий контент помогает людям заметить автора, а узкий контент помогает человеку узнать свою ситуацию и перейти к действию.",
       "status": "public",
       "lang": "ru",
-      "url": "/observation-wide-posts-reach-narrow-posts-leads/",
+      "url": "/observation-wide-posts-reach-narrow-posts-leads",
       "links": [
         {
           "id": "threads",
@@ -11544,7 +11544,7 @@
       "summary": "Сценарий системы перед продажей появляется, когда человек строит инфраструктуру вместо контакта с рынком, клиентом или конкретным предложением.",
       "status": "public",
       "lang": "ru",
-      "url": "/observation-system-before-sales/",
+      "url": "/observation-system-before-sales",
       "links": [
         {
           "id": "system-before-sales",
@@ -11589,7 +11589,7 @@
       "summary": "Перепроизводство ясности возникает, когда человек продолжает уточнять модель, хотя для следующего действия уже достаточно информации.",
       "status": "public",
       "lang": "ru",
-      "url": "/observation-excess-clarity/",
+      "url": "/observation-excess-clarity",
       "links": [
         {
           "id": "understand-but-do-not-act",
@@ -11634,7 +11634,7 @@
       "summary": "Разбор исследовательского слоя помогает понять, какие наблюдения, принципы и гипотезы можно превратить в статьи, продукты, методы или маршруты сайта.",
       "status": "public",
       "lang": "ru",
-      "url": "/lead-research-to-product-map/",
+      "url": "/lead-research-to-product-map",
       "links": [
         {
           "id": "research-library",

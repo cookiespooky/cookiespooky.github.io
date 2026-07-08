@@ -4,7 +4,8 @@ id: "wikilinks"
 title: "Wikilinks"
 slug: "wikilinks"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Ссылки формата Obsidian, которые связывают заметки в человекочитаемом тексте и создают дополнительный слой графа."
 description: "Ссылки формата Obsidian, которые связывают заметки в человекочитаемом тексте и создают дополнительный слой графа."
 status: "public"
@@ -32,16 +33,16 @@ seo:
 
 Ссылки формата Obsidian, которые связывают заметки в человекочитаемом тексте и создают дополнительный слой графа.
 
-Связанные элементы графа: [[obsidian]], [[bidirectional-links]], [[knowledge-graph]], [[llm-readable-notes]], [[frontmatter]].
+Связанные элементы графа: [[obsidian|Obsidian]], [[bidirectional-links|Двусторонние связи]], [[knowledge-graph|Граф знаний]], [[llm-readable-notes|LLM-читаемые заметки]], [[frontmatter|Frontmatter]].
 
 ## Связи
 
-- [[obsidian]] — used_in
-- [[bidirectional-links]] — related_to
-- [[knowledge-graph]] — produces
-- [[llm-readable-notes]] — used_by
-- [[frontmatter]] — complements
+- [[obsidian|Obsidian]] — used_in
+- [[bidirectional-links|Двусторонние связи]] — related_to
+- [[knowledge-graph|Граф знаний]] — produces
+- [[llm-readable-notes|LLM-читаемые заметки]] — used_by
+- [[frontmatter|Frontmatter]] — complements
 
 ## Следующие действия
 
-- **Понять структуру связей** → [[knowledge-graph]]: Поможет отличить явные системные связи от обычных упоминаний в тексте.
+- **Понять структуру связей** → [[knowledge-graph|Граф знаний]]: Поможет отличить явные системные связи от обычных упоминаний в тексте.

@@ -4,7 +4,8 @@ id: "concierge-mvp"
 title: "Concierge MVP"
 slug: "concierge-mvp"
 kind: "method"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Concierge MVP — проверка продукта, где результат для пользователя создается вручную до автоматизации."
 description: "Concierge MVP — проверка продукта, где результат для пользователя создается вручную до автоматизации."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 Concierge MVP — проверка продукта, где результат для пользователя создается вручную до автоматизации.
 
-Связанные элементы графа: [[mvp]], [[presale]], [[false-preparation]], [[ai-development]].
+Связанные элементы графа: [[mvp|MVP]], [[presale|Предпродажа]], [[false-preparation|Подготовка вместо действия]], [[ai-development|AI-разработка]].
 
 ## Связи
 
-- [[mvp]] — type_of
-- [[presale]] — compatible_with
-- [[false-preparation]] — avoids
-- [[ai-development]] — can_be_automated_by
+- [[mvp|MVP]] — type_of
+- [[presale|Предпродажа]] — compatible_with
+- [[false-preparation|Подготовка вместо действия]] — avoids
+- [[ai-development|AI-разработка]] — can_be_automated_by
 
 ## Следующие действия
 
-- **Проверить вручную** → [[lead-startup-diagnostic]]: Поможет выяснить ценность решения без лишней разработки.
-- **Связать с AI-разработкой** → [[ai-development]]: Поможет понять, что стоит автоматизировать после ручной проверки.
-- **Посмотреть MVP** → [[mvp]]: Поможет выбрать минимальную форму продукта.
+- **Проверить вручную** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выяснить ценность решения без лишней разработки.
+- **Связать с AI-разработкой** → [[ai-development|AI-разработка]]: Поможет понять, что стоит автоматизировать после ручной проверки.
+- **Посмотреть MVP** → [[mvp|MVP]]: Поможет выбрать минимальную форму продукта.

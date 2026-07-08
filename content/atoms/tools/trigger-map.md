@@ -4,7 +4,8 @@ id: "trigger-map"
 title: "Карта триггеров"
 slug: "trigger-map"
 kind: "artifact"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Карта триггеров связывает повторяющиеся реакции с ситуациями, словами, людьми, задачами и внутренними ожиданиями."
 description: "Карта триггеров связывает повторяющиеся реакции с ситуациями, словами, людьми, задачами и внутренними ожиданиями."
 status: "public"
@@ -40,18 +41,18 @@ seo:
 
 Она полезна в реконструкции, потому что связывает событие, интерпретацию, состояние и действие в один наблюдаемый сценарий.
 
-Связанные элементы графа: [[self-tracking]], [[repeating-scenarios]], [[behavior-pattern]], [[cognitive-reconstruction]], [[situation-map]].
+Связанные элементы графа: [[self-tracking|Self-tracking]], [[repeating-scenarios|Повторяющиеся сценарии]], [[behavior-pattern|Поведенческий паттерн]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[situation-map|Карта ситуации]].
 
 ## Связи
 
-- [[self-tracking]] — produces
-- [[repeating-scenarios]] — related_to
-- [[behavior-pattern]] — produces
-- [[cognitive-reconstruction]] — compatible_with
-- [[situation-map]] — part_of
+- [[self-tracking|Self-tracking]] — produces
+- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
+- [[behavior-pattern|Поведенческий паттерн]] — produces
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — compatible_with
+- [[situation-map|Карта ситуации]] — part_of
 
 ## Следующие действия
 
-- **Найти повторяющиеся реакции** → [[behavior-pattern]]: Поможет отличить одиночное событие от устойчивого паттерна.
-- **Связать с картой ситуации** → [[situation-map]]: Поможет увидеть триггеры как часть общей системы, а не отдельные вспышки.
-- **Разобрать мои наблюдения** → [[lead-self-tracking-setup]]: Поможет собрать карту триггеров по дневнику, заметкам или трекеру.
+- **Найти повторяющиеся реакции** → [[behavior-pattern|Поведенческий паттерн]]: Поможет отличить одиночное событие от устойчивого паттерна.
+- **Связать с картой ситуации** → [[situation-map|Карта ситуации]]: Поможет увидеть триггеры как часть общей системы, а не отдельные вспышки.
+- **Разобрать мои наблюдения** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет собрать карту триггеров по дневнику, заметкам или трекеру.

@@ -4,7 +4,8 @@ id: "weekly-review"
 title: "Еженедельный обзор"
 slug: "weekly-review"
 kind: "practice"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Еженедельный обзор собирает разрозненные записи недели в короткую карту состояний, решений, действий и повторений."
 description: "Еженедельный обзор собирает разрозненные записи недели в короткую карту состояний, решений, действий и повторений."
 status: "public"
@@ -42,19 +43,19 @@ seo:
 
 Такой обзор удерживает self-tracking в практическом режиме: записи используются для понимания и действия, а не копятся как личный архив без выхода.
 
-Связанные элементы графа: [[diary]], [[state-log]], [[decision-log]], [[repeating-scenarios]], [[situation-map]], [[lead-self-tracking-setup]].
+Связанные элементы графа: [[diary|Дневник]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[repeating-scenarios|Повторяющиеся сценарии]], [[situation-map|Карта ситуации]], [[lead-self-tracking-setup|Настроить self-tracking систему]].
 
 ## Связи
 
-- [[diary]] — uses
-- [[state-log]] — uses
-- [[decision-log]] — uses
-- [[repeating-scenarios]] — produces
-- [[situation-map]] — related_to
-- [[lead-self-tracking-setup]] — leads_to
+- [[diary|Дневник]] — uses
+- [[state-log|Журнал состояний]] — uses
+- [[decision-log|Журнал решений]] — uses
+- [[repeating-scenarios|Повторяющиеся сценарии]] — produces
+- [[situation-map|Карта ситуации]] — related_to
+- [[lead-self-tracking-setup|Настроить self-tracking систему]] — leads_to
 
 ## Следующие действия
 
-- **Собрать повторения недели** → [[repeating-scenarios]]: Поможет увидеть, что повторялось в действиях, состояниях и решениях.
-- **Связать с картой ситуации** → [[situation-map]]: Поможет перенести наблюдения недели в общую карту.
-- **Настроить обзор под себя** → [[lead-self-tracking-setup]]: Поможет сделать еженедельный обзор коротким и устойчивым.
+- **Собрать повторения недели** → [[repeating-scenarios|Повторяющиеся сценарии]]: Поможет увидеть, что повторялось в действиях, состояниях и решениях.
+- **Связать с картой ситуации** → [[situation-map|Карта ситуации]]: Поможет перенести наблюдения недели в общую карту.
+- **Настроить обзор под себя** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет сделать еженедельный обзор коротким и устойчивым.

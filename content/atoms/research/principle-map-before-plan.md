@@ -4,7 +4,8 @@ id: "principle-map-before-plan"
 title: "Сначала карта, потом план"
 slug: "principle-map-before-plan"
 kind: "principle"
-hub: "research"
+hub:
+  - "research"
 summary: "План становится полезным после того, как понятны сущности ситуации, связи, ограничения, повторения и ближайшая точка действия."
 description: "План становится полезным после того, как понятны сущности ситуации, связи, ограничения, повторения и ближайшая точка действия."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[situation-map]] · [[cognitive-reconstruction]] · [[action-point]] · [[map-first-approach]]
+[[situation-map|Карта ситуации]] · [[cognitive-reconstruction|Когнитивная реконструкция]] · [[action-point|Точка действия]] · [[map-first-approach|Подход от карты]]
 
 ## Связи
 
-- [[situation-map]] — produces
-- [[cognitive-reconstruction]] — uses
-- [[action-point]] — leads_to
-- [[map-first-approach]] — related_to
+- [[situation-map|Карта ситуации]] — produces
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — uses
+- [[action-point|Точка действия]] — leads_to
+- [[map-first-approach|Подход от карты]] — related_to
 
 ## Следующие действия
 
-- **Построить карту ситуации** → [[lead-cognitive-reconstruction]]: Поможет увидеть структуру ситуации до выбора плана и не лечить хаос списком задач.
-- **Посмотреть карту ситуации** → [[situation-map]]: Поможет понять, из каких элементов собирается рабочая карта.
+- **Построить карту ситуации** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет увидеть структуру ситуации до выбора плана и не лечить хаос списком задач.
+- **Посмотреть карту ситуации** → [[situation-map|Карта ситуации]]: Поможет понять, из каких элементов собирается рабочая карта.

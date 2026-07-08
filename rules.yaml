@@ -26,19 +26,19 @@ types:
       search: false
   page:
     template: "page.html"
-    permalink: "/{{ slug }}/"
+    permalink: "/{{ slug }}"
     include_in:
       sitemap: true
       search: true
   article:
     template: "article.html"
-    permalink: "/{{ slug }}/"
+    permalink: "/{{ slug }}"
     include_in:
       sitemap: true
       search: true
   hub:
     template: "hub.html"
-    permalink: "/{{ slug }}/"
+    permalink: "/{{ slug }}"
     include_in:
       sitemap: true
       search: false
@@ -56,13 +56,13 @@ types:
       search: false
   tool:
     template: "agency-analyzer.html"
-    permalink: "/{{ slug }}/"
+    permalink: "/{{ slug }}"
     include_in:
       sitemap: true
       search: false
   redirect:
     template: "redirect.html"
-    permalink: "/{{ slug }}/"
+    permalink: "/{{ slug }}"
     include_in:
       sitemap: false
       search: false

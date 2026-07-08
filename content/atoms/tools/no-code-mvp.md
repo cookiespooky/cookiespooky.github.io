@@ -4,7 +4,8 @@ id: "no-code-mvp"
 title: "No-code MVP"
 slug: "no-code-mvp"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "No-code MVP — первая версия продукта, собранная из готовых инструментов без полноценной разработки."
 description: "No-code MVP — первая версия продукта, собранная из готовых инструментов без полноценной разработки."
 status: "public"
@@ -36,17 +37,17 @@ seo:
 
 No-code MVP — первая версия продукта, собранная из готовых инструментов без полноценной разработки.
 
-Связанные элементы графа: [[mvp]], [[full-stack-mvp]], [[false-preparation]], [[lead-ai-mvp-build]].
+Связанные элементы графа: [[mvp|MVP]], [[full-stack-mvp|Full-stack MVP]], [[false-preparation|Подготовка вместо действия]], [[lead-ai-mvp-build|Собрать AI-MVP]].
 
 ## Связи
 
-- [[mvp]] — type_of
-- [[full-stack-mvp]] — alternative_to
-- [[false-preparation]] — avoids
-- [[lead-ai-mvp-build]] — leads_to
+- [[mvp|MVP]] — type_of
+- [[full-stack-mvp|Full-stack MVP]] — alternative_to
+- [[false-preparation|Подготовка вместо действия]] — avoids
+- [[lead-ai-mvp-build|Собрать AI-MVP]] — leads_to
 
 ## Следующие действия
 
-- **Выбрать формат MVP** → [[lead-startup-diagnostic]]: Поможет понять, нужен no-code, код или ручная проверка.
-- **Сравнить с full-stack MVP** → [[full-stack-mvp]]: Поможет не усложнить первую версию.
-- **Собрать AI-MVP** → [[lead-ai-mvp-build]]: Поможет перейти от проверки к рабочему прототипу.
+- **Выбрать формат MVP** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет понять, нужен no-code, код или ручная проверка.
+- **Сравнить с full-stack MVP** → [[full-stack-mvp|Full-stack MVP]]: Поможет не усложнить первую версию.
+- **Собрать AI-MVP** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет перейти от проверки к рабочему прототипу.

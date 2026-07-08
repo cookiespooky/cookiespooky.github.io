@@ -4,7 +4,8 @@ id: "mvp"
 title: "MVP"
 slug: "mvp"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "Минимальная версия продукта или проверки, которая дает данные для следующего решения."
 description: "Минимальная версия продукта или проверки, которая дает данные для следующего решения."
 status: "public"
@@ -58,18 +59,18 @@ seo:
 
 ## Связи
 
-- [[hypothesis-testing]] — uses
-- [[vibe-coding]] — uses
-- [[saas]] — related_to
-- [[product-thinking]] — uses
+- [[hypothesis-testing|Проверка гипотез]] — uses
+- [[vibe-coding|Vibe coding]] — uses
+- [[saas|SaaS]] — related_to
+- [[product-thinking|Product thinking]] — uses
 
 ## Следующие действия
 
-- **Выбрать MVP** → [[lead-ai-development]]: Поможет быстро перейти от идеи к рабочему прототипу или понятному техническому плану.
-- **Проверить гипотезу** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
-- **Связать с vibe coding** → [[lead-ai-development]]: Поможет быстро перейти от идеи к рабочему прототипу или понятному техническому плану.
+- **Выбрать MVP** → [[lead-ai-development|AI-разработка проекта]]: Поможет быстро перейти от идеи к рабочему прототипу или понятному техническому плану.
+- **Проверить гипотезу** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Связать с vibe coding** → [[lead-ai-development|AI-разработка проекта]]: Поможет быстро перейти от идеи к рабочему прототипу или понятному техническому плану.
 
 
 ## Дополнение: стартап-маршрут
 
-MVP дополняется связями с [[product-scope]], [[concierge-mvp]], [[no-code-mvp]] и [[demand-validation]].
+MVP дополняется связями с [[product-scope|Скоуп продукта]], [[concierge-mvp|Concierge MVP]], [[no-code-mvp|No-code MVP]] и [[demand-validation|Проверка спроса]].

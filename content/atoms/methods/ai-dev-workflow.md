@@ -4,7 +4,8 @@ id: "ai-dev-workflow"
 title: "AI-dev workflow"
 slug: "ai-dev-workflow"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "AI-dev workflow — порядок работы, в котором человек формулирует цель, готовит контекст, модель меняет код, а результат проверяется короткими итерациями."
 description: "AI-dev workflow — порядок работы, в котором человек формулирует цель, готовит контекст, модель меняет код, а результат проверяется короткими итерациями."
 status: "public"
@@ -34,18 +35,18 @@ actions:
 
 AI-dev workflow — порядок работы, в котором человек формулирует цель, готовит контекст, модель меняет код, а результат проверяется короткими итерациями.
 
-Связанные элементы графа: [[vibe-coding]], [[context-package]], [[prompt-brief]], [[technical-spec-from-idea]], [[ai-assisted-refactoring]], [[lead-ai-mvp-build]].
+Связанные элементы графа: [[vibe-coding|Vibe coding]], [[context-package|Пакет контекста]], [[prompt-brief|Промпт-бриф]], [[technical-spec-from-idea|Техническое ТЗ из идеи]], [[ai-assisted-refactoring|AI-рефакторинг]], [[lead-ai-mvp-build|Собрать AI-MVP]].
 
 ## Связи
 
-- [[vibe-coding]] — explains
-- [[context-package]] — uses
-- [[prompt-brief]] — uses
-- [[technical-spec-from-idea]] — starts_with
-- [[ai-assisted-refactoring]] — includes
-- [[lead-ai-mvp-build]] — leads_to
+- [[vibe-coding|Vibe coding]] — explains
+- [[context-package|Пакет контекста]] — uses
+- [[prompt-brief|Промпт-бриф]] — uses
+- [[technical-spec-from-idea|Техническое ТЗ из идеи]] — starts_with
+- [[ai-assisted-refactoring|AI-рефакторинг]] — includes
+- [[lead-ai-mvp-build|Собрать AI-MVP]] — leads_to
 
 ## Следующие действия
 
-- **Посмотреть структуру задачи** → [[prompt-brief]]: Поможет понять, какие данные нужны модели для точной разработки.
-- **Обсудить AI-MVP** → [[lead-ai-mvp-build]]: Поможет собрать первый проход разработки без лишней архитектурной магии.
+- **Посмотреть структуру задачи** → [[prompt-brief|Промпт-бриф]]: Поможет понять, какие данные нужны модели для точной разработки.
+- **Обсудить AI-MVP** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет собрать первый проход разработки без лишней архитектурной магии.

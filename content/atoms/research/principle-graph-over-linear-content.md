@@ -4,7 +4,8 @@ id: "principle-graph-over-linear-content"
 title: "Граф сильнее линейной ленты"
 slug: "principle-graph-over-linear-content"
 kind: "principle"
-hub: "research"
+hub:
+  - "research"
 summary: "Граф позволяет связывать темы, продукты, кейсы, методы и действия без необходимости каждый раз писать новый длинный текст."
 description: "Граф позволяет связывать темы, продукты, кейсы, методы и действия без необходимости каждый раз писать новый длинный текст."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[knowledge-graph]] · [[llm-site]] · [[atomic-notes]] · [[notepub]]
+[[knowledge-graph|Граф знаний]] · [[llm-site|LLM-сайт]] · [[atomic-notes|Атомарные заметки]] · [[notepub|Notepub]]
 
 ## Связи
 
-- [[knowledge-graph]] — explains
-- [[llm-site]] — related_to
-- [[atomic-notes]] — uses
-- [[notepub]] — compatible_with
+- [[knowledge-graph|Граф знаний]] — explains
+- [[llm-site|LLM-сайт]] — related_to
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[notepub|Notepub]] — compatible_with
 
 ## Следующие действия
 
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет превратить разрозненные заметки в публичный граф с маршрутами пользователя.
-- **Посмотреть LLM-сайт** → [[llm-site]]: Поможет понять, как граф работает как интерфейс для человека и модели.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет превратить разрозненные заметки в публичный граф с маршрутами пользователя.
+- **Посмотреть LLM-сайт** → [[llm-site|LLM-сайт]]: Поможет понять, как граф работает как интерфейс для человека и модели.

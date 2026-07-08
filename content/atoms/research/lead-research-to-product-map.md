@@ -4,7 +4,8 @@ id: "lead-research-to-product-map"
 title: "Связать исследования с продуктом"
 slug: "lead-research-to-product-map"
 kind: "action"
-hub: "research"
+hub:
+  - "research"
 summary: "Разбор исследовательского слоя помогает понять, какие наблюдения, принципы и гипотезы можно превратить в статьи, продукты, методы или маршруты сайта."
 description: "Разбор исследовательского слоя помогает понять, какие наблюдения, принципы и гипотезы можно превратить в статьи, продукты, методы или маршруты сайта."
 status: "public"
@@ -39,16 +40,16 @@ seo:
 
 ## Связанные элементы
 
-[[research-library]] · [[marketing-os]] · [[notepub]] · [[cognitive-reconstruction]]
+[[research-library|Библиотека исследований]] · [[marketing-os|Marketing OS]] · [[notepub|Notepub]] · [[cognitive-reconstruction|Когнитивная реконструкция]]
 
 ## Связи
 
-- [[research-library]] — uses
-- [[marketing-os]] — related_to
-- [[notepub]] — related_to
-- [[cognitive-reconstruction]] — related_to
+- [[research-library|Библиотека исследований]] — uses
+- [[marketing-os|Marketing OS]] — related_to
+- [[notepub|Notepub]] — related_to
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — related_to
 
 ## Следующие действия
 
-- **Посмотреть библиотеку исследований** → [[research-library]]: Поможет увидеть, из каких материалов собирается исследовательский слой графа.
-- **Перейти к Marketing OS** → [[marketing-os]]: Поможет связать исследования с позиционированием, контентом и оффером.
+- **Посмотреть библиотеку исследований** → [[research-library|Библиотека исследований]]: Поможет увидеть, из каких материалов собирается исследовательский слой графа.
+- **Перейти к Marketing OS** → [[marketing-os|Marketing OS]]: Поможет связать исследования с позиционированием, контентом и оффером.

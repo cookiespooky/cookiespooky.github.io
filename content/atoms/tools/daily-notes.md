@@ -4,7 +4,8 @@ id: "daily-notes"
 title: "Ежедневные заметки"
 slug: "daily-notes"
 kind: "tool"
-hub: "tools"
+hub:
+  - "tools"
 summary: "Формат регулярных записей, в которых фиксируются события, мысли, решения, сигналы состояния и повторяющиеся сценарии."
 description: "Формат регулярных записей, в которых фиксируются события, мысли, решения, сигналы состояния и повторяющиеся сценарии."
 status: "public"
@@ -34,17 +35,17 @@ seo:
 
 Формат регулярных записей, в которых фиксируются события, мысли, решения, сигналы состояния и повторяющиеся сценарии.
 
-Связанные элементы графа: [[diary]], [[self-tracking]], [[self-tracking-signals]], [[repeating-scenarios]], [[cognitive-reconstruction]], [[lead-notes-analysis]].
+Связанные элементы графа: [[diary|Дневник]], [[self-tracking|Self-tracking]], [[self-tracking-signals|Сигналы self-tracking]], [[repeating-scenarios|Повторяющиеся сценарии]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[lead-notes-analysis|Разбор заметок]].
 
 ## Связи
 
-- [[diary]] — part_of
-- [[self-tracking]] — supports
-- [[self-tracking-signals]] — contains
-- [[repeating-scenarios]] — reveals
-- [[cognitive-reconstruction]] — source_for
-- [[lead-notes-analysis]] — leads_to
+- [[diary|Дневник]] — part_of
+- [[self-tracking|Self-tracking]] — supports
+- [[self-tracking-signals|Сигналы self-tracking]] — contains
+- [[repeating-scenarios|Повторяющиеся сценарии]] — reveals
+- [[cognitive-reconstruction|Когнитивная реконструкция]] — source_for
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
 
 ## Следующие действия
 
-- **Разобрать мои заметки** → [[lead-notes-analysis]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.
+- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.

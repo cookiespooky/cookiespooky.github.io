@@ -4,7 +4,8 @@ id: "product-choice"
 title: "Выбор продукта"
 slug: "product-choice"
 kind: "method"
-hub: "topics"
+hub:
+  - "topics"
 summary: "Процесс выбора главного продукта, направления или оффера для ближайшей проверки."
 description: "Процесс выбора главного продукта, направления или оффера для ближайшей проверки."
 status: "public"
@@ -51,19 +52,19 @@ seo:
 
 ## Связи
 
-- [[no-selection-criterion]] — related_to
-- [[hypothesis-testing]] — uses
-- [[product-thinking]] — uses
-- [[offer]] — related_to
-- [[lead-product-choice]] — leads_to
+- [[no-selection-criterion|Нет критерия выбора]] — related_to
+- [[hypothesis-testing|Проверка гипотез]] — uses
+- [[product-thinking|Product thinking]] — uses
+- [[offer|Оффер]] — related_to
+- [[lead-product-choice|Выбор главного продукта]] — leads_to
 
 ## Следующие действия
 
-- **Выбрать критерий** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
-- **Проверить оффер** → [[no-selection-criterion]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с гипотезой** → [[lead-product-choice]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Выбрать критерий** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
+- **Проверить оффер** → [[no-selection-criterion|Нет критерия выбора]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Связать с гипотезой** → [[lead-product-choice|Выбор главного продукта]]: Поможет выбрать один фокус и проверить его на спросе.
 
 
 ## Дополнение: стартап-маршрут
 
-Выбор продукта связан с [[founder-decision-map]], [[startup-hypothesis]] и [[demand-validation]].
+Выбор продукта связан с [[founder-decision-map|Карта решений фаундера]], [[startup-hypothesis|Стартап-гипотеза]] и [[demand-validation|Проверка спроса]].

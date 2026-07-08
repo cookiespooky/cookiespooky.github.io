@@ -4,7 +4,8 @@ id: "notepub"
 title: "Notepub"
 slug: "notepub"
 kind: "product"
-hub: "products"
+hub:
+  - "products"
 summary: "Инструмент для публикации заметок и превращения базы знаний в человекочитаемый сайт."
 description: "Инструмент для публикации заметок и превращения базы знаний в человекочитаемый сайт."
 status: "public"
@@ -53,25 +54,25 @@ seo:
 
 Инструмент для публикации заметок и превращения базы знаний в человекочитаемый сайт.
 
-Связанные элементы графа: [[obsidian]], [[knowledge-graph]], [[atomic-notes]], [[llm-site]], [[self-tracking]], [[lead-notes-analysis]], [[note-to-site-pipeline]], [[public-vault]], [[markdown-publishing]], [[knowledge-garden]], [[lead-notepub-setup]].
+Связанные элементы графа: [[obsidian|Obsidian]], [[knowledge-graph|Граф знаний]], [[atomic-notes|Атомарные заметки]], [[llm-site|LLM-сайт]], [[self-tracking|Self-tracking]], [[lead-notes-analysis|Разбор заметок]], [[note-to-site-pipeline|Пайплайн заметки → сайт]], [[public-vault|Публичный vault]], [[markdown-publishing|Публикация Markdown]], [[knowledge-garden|Сад знаний]], [[lead-notepub-setup|Собрать публикацию из заметок]].
 
 ## Связи
 
-- [[obsidian]] — compatible_with
-- [[knowledge-graph]] — compatible_with
-- [[atomic-notes]] — uses
-- [[llm-site]] — related_to
-- [[self-tracking]] — uses
-- [[lead-notes-analysis]] — leads_to
-- [[note-to-site-pipeline]] — uses
-- [[public-vault]] — produces
-- [[markdown-publishing]] — uses
-- [[knowledge-garden]] — produces
-- [[lead-notepub-setup]] — leads_to
+- [[obsidian|Obsidian]] — compatible_with
+- [[knowledge-graph|Граф знаний]] — compatible_with
+- [[atomic-notes|Атомарные заметки]] — uses
+- [[llm-site|LLM-сайт]] — related_to
+- [[self-tracking|Self-tracking]] — uses
+- [[lead-notes-analysis|Разбор заметок]] — leads_to
+- [[note-to-site-pipeline|Пайплайн заметки → сайт]] — uses
+- [[public-vault|Публичный vault]] — produces
+- [[markdown-publishing|Публикация Markdown]] — uses
+- [[knowledge-garden|Сад знаний]] — produces
+- [[lead-notepub-setup|Собрать публикацию из заметок]] — leads_to
 
 ## Следующие действия
 
-- **Посмотреть, как заметки становятся сайтом** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Изучить связь с Obsidian** → [[lead-notes-analysis]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
-- **Понять модель LLM-сайта** → [[obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Собрать публикацию из заметок** → [[lead-notepub-setup]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.
+- **Посмотреть, как заметки становятся сайтом** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Изучить связь с Obsidian** → [[lead-notes-analysis|Разбор заметок]]: Поможет превратить заметки в понятный граф тем, сценариев и точек действия.
+- **Понять модель LLM-сайта** → [[obsidian|Obsidian]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
+- **Собрать публикацию из заметок** → [[lead-notepub-setup|Собрать публикацию из заметок]]: Поможет понять, какие заметки можно превратить в публичный граф и сайт без ручного переписывания всего архива.

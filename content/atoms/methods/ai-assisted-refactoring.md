@@ -4,7 +4,8 @@ id: "ai-assisted-refactoring"
 title: "AI-рефакторинг"
 slug: "ai-assisted-refactoring"
 kind: "method"
-hub: "methods"
+hub:
+  - "methods"
 summary: "AI-рефакторинг — изменение структуры кода с помощью модели, при котором сохраняется поведение системы, а человек проверяет цель, риски и результат."
 description: "AI-рефакторинг — изменение структуры кода с помощью модели, при котором сохраняется поведение системы, а человек проверяет цель, риски и результат."
 status: "public"
@@ -27,15 +28,15 @@ actions:
 
 AI-рефакторинг — изменение структуры кода с помощью модели, при котором сохраняется поведение системы, а человек проверяет цель, риски и результат.
 
-Связанные элементы графа: [[codex]], [[repo-map]], [[human-in-the-loop]], [[full-stack-mvp]].
+Связанные элементы графа: [[codex|Codex]], [[repo-map|Карта репозитория]], [[human-in-the-loop|Human-in-the-loop]], [[full-stack-mvp|Full-stack MVP]].
 
 ## Связи
 
-- [[codex]] — implemented_by
-- [[repo-map]] — uses
-- [[human-in-the-loop]] — requires
-- [[full-stack-mvp]] — supports
+- [[codex|Codex]] — implemented_by
+- [[repo-map|Карта репозитория]] — uses
+- [[human-in-the-loop|Human-in-the-loop]] — requires
+- [[full-stack-mvp|Full-stack MVP]] — supports
 
 ## Следующие действия
 
-- **Проверить проект на рефакторинг** → [[lead-ai-mvp-build]]: Поможет понять, где модель может безопасно упростить код, а где лучше не трогать проводку под напряжением.
+- **Проверить проект на рефакторинг** → [[lead-ai-mvp-build|Собрать AI-MVP]]: Поможет понять, где модель может безопасно упростить код, а где лучше не трогать проводку под напряжением.
