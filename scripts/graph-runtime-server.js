@@ -7,11 +7,11 @@ const { spawn, spawnSync } = require("node:child_process");
 
 const rootDir = path.resolve(__dirname, "..");
 loadLocalEnv(path.join(rootDir, ".env.graph-runtime.local"));
-const graphPath = path.join(rootDir, "content", "data", "site-graph.json");
+const graphPath = path.join(rootDir, "theme", "assets", "site-graph.json");
 const outputSchemaPath = path.join(rootDir, "scripts", "graph-runtime-schema.json");
 const systemPromptPath = path.join(rootDir, "site_atoms_v12_research_principles", "prompts", "system-prompt.md");
-const host = process.env.GRAPH_RUNTIME_HOST || "127.0.0.1";
-const port = Number(process.env.GRAPH_RUNTIME_PORT || 8787);
+const host = process.env.GRAPH_RUNTIME_HOST || (process.env.PORT ? "0.0.0.0" : "127.0.0.1");
+const port = Number(process.env.PORT || process.env.GRAPH_RUNTIME_PORT || 8787);
 const provider = process.env.GRAPH_RUNTIME_PROVIDER || (process.env.DEEPSEEK_API_KEY ? "deepseek" : "codex");
 const model = process.env.GRAPH_RUNTIME_MODEL || (provider === "deepseek" ? "deepseek-v4-flash" : "");
 const codexBin = resolveCodexCommand();
@@ -19,6 +19,7 @@ const deepSeekBaseUrl = (process.env.DEEPSEEK_API_BASE_URL || "https://api.deeps
 const deepSeekApiKey = process.env.DEEPSEEK_API_KEY || "";
 const deepSeekResolvedIp = resolveDeepSeekIp();
 const siteSystemPrompt = loadSystemPrompt();
+const remoteGraphRuntimeBaseUrl = (process.env.GRAPH_REMOTE_ENDPOINT_BASE_URL || "").replace(/\/+$/, "");
 
 function loadLocalEnv(filePath) {
   if (!fs.existsSync(filePath)) return;
@@ -63,6 +64,32 @@ function writeJson(res, statusCode, payload) {
     "Access-Control-Allow-Headers": "Content-Type"
   });
   res.end(`${JSON.stringify(payload, null, 2)}\n`);
+}
+
+function humanizeRuntimeError(error) {
+  const raw = String(error && error.message ? error.message : error || "").trim();
+  if (!raw) return "Генератор сейчас недоступен. Попробуйте еще раз чуть позже.";
+
+  if (/api key/i.test(raw) || /unauthorized/i.test(raw) || /forbidden/i.test(raw) || /\b401\b|\b403\b/.test(raw)) {
+    return "Генератор недоступен из-за ошибки доступа к модели.";
+  }
+  if (/timed? out|timeout|aborted/i.test(raw) || /\b504\b/.test(raw)) {
+    return "Генерация заняла слишком много времени. Попробуйте еще раз или выберите более узкую тему.";
+  }
+  if (/too many requests|\b429\b/i.test(raw)) {
+    return "Генератор временно перегружен. Повторите запрос через несколько секунд.";
+  }
+  if (/not found|\b404\b/i.test(raw)) {
+    return "Runtime endpoint не найден. Проверьте, что выбран правильный генератор.";
+  }
+  if (/ECONNREFUSED|ENOTFOUND|EAI_AGAIN|fetch failed|Failed to fetch/i.test(raw)) {
+    return "Не удалось соединиться с генератором. Проверьте endpoint и доступность сервиса.";
+  }
+  if (/invalid json|empty response/i.test(raw)) {
+    return "Генератор ответил в неожиданном формате. Попробуйте еще раз.";
+  }
+
+  return raw;
 }
 
 function writeStreamHeaders(res) {
@@ -498,7 +525,7 @@ function buildFallbackArticle(graphContext, reason) {
       target: atom.id
     })),
     source: "fallback",
-    warning: reason
+    warning: humanizeRuntimeError(reason)
   };
 }
 
@@ -526,6 +553,46 @@ async function streamLocalArticle(article, res) {
     });
     await new Promise((resolve) => setTimeout(resolve, 20));
   }
+}
+
+async function requestRemoteGraphRuntime(pathname, payload) {
+  if (!remoteGraphRuntimeBaseUrl) {
+    throw new Error("GRAPH_REMOTE_ENDPOINT_BASE_URL is not configured");
+  }
+
+  return postJson(`${remoteGraphRuntimeBaseUrl}${pathname}`, payload, {});
+}
+
+async function streamRemoteArticle(graphContext, payload, res) {
+  const article = await requestRemoteGraphRuntime("/v1/graph/article", payload);
+  const nextActions = Array.isArray(article.next_actions) ? article.next_actions : buildSuggestedActions(graphContext);
+
+  writeStreamHeaders(res);
+  writeStreamEvent(res, {
+    type: "start",
+    title: article.title || graphContext.rootAtom.title,
+    summary: article.summary || graphContext.rootAtom.summary || "",
+    next_actions: nextActions,
+    status: "Строю статью из облачного генератора..."
+  });
+  await streamLocalArticle(article, res);
+  writeStreamEvent(res, {
+    type: "meta",
+    title: article.title || graphContext.rootAtom.title,
+    summary: article.summary || graphContext.rootAtom.summary || "",
+    next_actions: nextActions,
+    warning: article.warning ? humanizeRuntimeError(article.warning) : undefined
+  });
+  writeStreamEvent(res, {
+    type: "done",
+    title: article.title || graphContext.rootAtom.title,
+    summary: article.summary || graphContext.rootAtom.summary || "",
+    body: article.body || "",
+    next_actions: nextActions,
+    warning: article.warning ? humanizeRuntimeError(article.warning) : undefined,
+    source: article.source || "remote-json"
+  });
+  res.end();
 }
 
 async function runDeepSeek(prompt) {
@@ -789,7 +856,8 @@ const server = http.createServer(async (req, res) => {
       provider,
       model: model || "codex-cli-default",
       codex_bin: codexBin,
-      deepseek_base_url: provider === "deepseek" ? deepSeekBaseUrl : undefined
+      deepseek_base_url: provider === "deepseek" ? deepSeekBaseUrl : undefined,
+      remote_endpoint_base_url: provider === "remote_json" ? remoteGraphRuntimeBaseUrl : undefined
     });
     return;
   }
@@ -803,9 +871,13 @@ const server = http.createServer(async (req, res) => {
       let article;
       try {
         const prompt = buildPrompt(graphContext);
-        article = provider === "deepseek"
-          ? await runDeepSeek(prompt)
-          : runCodex(prompt);
+        if (provider === "deepseek") {
+          article = await runDeepSeek(prompt);
+        } else if (provider === "remote_json") {
+          article = await requestRemoteGraphRuntime(req.url, body);
+        } else {
+          article = runCodex(prompt);
+        }
       } catch (error) {
         console.warn(`[graph-runtime] ${provider} article fallback:`, error && error.stack ? error.stack : error);
         console.warn(`[graph-runtime] ${provider} fallback:`, error && error.message ? error.message : error);
@@ -831,23 +903,36 @@ const server = http.createServer(async (req, res) => {
       const atomMap = buildAtomMap(graph);
       const graphContext = collectContext(atomMap, body.atomId, body.trail);
 
-      if (provider !== "deepseek") {
-        writeStreamHeaders(res);
-        writeStreamEvent(res, {
-          type: "done",
-          article: buildFallbackArticle(graphContext, "Streaming is available only for DeepSeek runtime")
-        });
-        res.end();
-        return;
-      }
-
       try {
-        await streamDeepSeekArticle(graphContext, res);
+        if (provider === "deepseek") {
+          await streamDeepSeekArticle(graphContext, res);
+        } else if (provider === "remote_json") {
+          await streamRemoteArticle(graphContext, body, res);
+        } else {
+          writeStreamHeaders(res);
+          writeStreamEvent(res, {
+            type: "start",
+            title: graphContext.rootAtom.title,
+            summary: graphContext.rootAtom.summary || "",
+            next_actions: buildSuggestedActions(graphContext),
+            status: "Локальный генератор не поддерживает токен-стрим. Отдаю статью по готовности..."
+          });
+          const article = runCodex(buildPrompt(graphContext));
+          await streamLocalArticle(article, res);
+          writeStreamEvent(res, {
+            type: "done",
+            title: article.title || graphContext.rootAtom.title,
+            summary: article.summary || graphContext.rootAtom.summary || "",
+            body: article.body || "",
+            next_actions: Array.isArray(article.next_actions) ? article.next_actions : buildSuggestedActions(graphContext)
+          });
+          res.end();
+        }
       } catch (error) {
         console.warn("[graph-runtime] deepseek stream fallback:", error && error.message ? error.message : error);
         const fallbackArticle = buildFallbackArticle(
           graphContext,
-          error && error.message ? error.message : "DeepSeek streaming unavailable"
+          error && error.message ? error.message : "Runtime streaming unavailable"
         );
         if (!res.headersSent) {
           writeStreamHeaders(res);

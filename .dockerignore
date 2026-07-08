@@ -1,0 +1,10 @@
+.git
+.github
+.notepub
+dist
+dist-llm-first
+node_modules
+content-backup
+site_atoms_mvp
+site_atoms_mvp.zip
+*.log

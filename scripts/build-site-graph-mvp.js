@@ -156,9 +156,10 @@ function outputHubDir(hubId) {
 }
 
 function toYamlLines(atom) {
+  const pageType = atom.kind === "hub" ? "hub" : "article";
   const lines = [
     "---",
-    "type: article",
+    `type: ${pageType}`,
     `id: ${quote(atom.id)}`,
     `title: ${quote(atom.title)}`,
     `slug: ${quote(atom.slug)}`,
@@ -220,23 +221,19 @@ function collectAtoms() {
       body,
       sourcePath: relativeMarkdownPath,
       outputPath: path.join(atomsDir, outputHubDir(hub), `${entry.slug || entry.id}.md`),
-      url: `/${entry.slug || entry.id}/`,
+      url: `/${entry.slug || entry.id}`,
     };
   });
 }
 
 function writeAtoms(atoms) {
-  const generatedHubs = new Set(hubMeta.map((hub) => outputHubDir(hub.id)));
-  generatedHubs.forEach((hubDir) => {
-    fs.rmSync(path.join(atomsDir, hubDir), { recursive: true, force: true });
-  });
+  fs.rmSync(atomsDir, { recursive: true, force: true });
+  ensureDir(atomsDir);
 
-  atoms
-    .filter((atom) => atom.kind !== "hub")
-    .forEach((atom) => {
-      const content = `${toYamlLines(atom)}${atom.body}`;
-      writeFile(atom.outputPath, content);
-    });
+  atoms.forEach((atom) => {
+    const content = `${toYamlLines(atom)}${atom.body}`;
+    writeFile(atom.outputPath, content);
+  });
 }
 
 function writePlaceholders() {
@@ -256,7 +253,7 @@ function buildGraphIndex(atoms) {
     generator: {
       source: "site_atoms_v12_research_principles",
       textModel: "deepseek-v4-flash",
-      promptFile: "site_atoms_v12_research_principles/prompts/system-prompt.md",
+      promptFile: "content/prompts/system-prompt.md",
     },
     hubs: hubMeta.map((hub) => ({
       ...hub,
@@ -289,7 +286,11 @@ function buildGraphIndex(atoms) {
 }
 
 function writeHomeMarkdown() {
-  const sourceHome = fs.readFileSync(sourceHomePath, "utf8").replace(/\r\n/g, "\n").trim();
+  const sourceHome = stripFrontmatter(
+    fs.readFileSync(sourceHomePath, "utf8").replace(/\r\n/g, "\n").trim()
+  );
+  const graphEndpoint = process.env.GRAPH_ENDPOINT || defaultGraphEndpoint();
+  const graphStreamEndpoint = process.env.GRAPH_STREAM_ENDPOINT || inferStreamEndpoint(graphEndpoint);
   const frontmatter = [
     "---",
     "type: home",
@@ -299,6 +300,8 @@ function writeHomeMarkdown() {
     "draft: false",
     "noindex: false",
     "image: /media/main.webp",
+    `graph_endpoint: ${quote(graphEndpoint)}`,
+    ...(graphStreamEndpoint ? [`graph_stream_endpoint: ${quote(graphStreamEndpoint)}`] : []),
     "---",
     "",
   ].join("\n");
@@ -306,7 +309,37 @@ function writeHomeMarkdown() {
   writeFile(homeOutputPath, `${frontmatter}${sourceHome}\n`);
 }
 
+function defaultGraphEndpoint() {
+  if (process.env.GITHUB_ACTIONS === "true") {
+    return "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6";
+  }
+
+  return "http://127.0.0.1:8787/v1/graph/article";
+}
+
+function inferStreamEndpoint(graphEndpoint) {
+  if (!graphEndpoint) {
+    return "";
+  }
+
+  try {
+    const url = new URL(graphEndpoint);
+    if ((url.hostname === "127.0.0.1" || url.hostname === "localhost") && url.pathname === "/v1/graph/article") {
+      url.pathname = "/v1/graph/article/stream";
+      return url.toString();
+    }
+  } catch (_error) {
+    return "";
+  }
+
+  return "";
+}
+
 function main() {
+  fs.rmSync(atomsDir, { recursive: true, force: true });
+  fs.rmSync(dataDir, { recursive: true, force: true });
+  fs.rmSync(path.join(contentDir, "prompts"), { recursive: true, force: true });
+  fs.rmSync(path.join(contentDir, "routes"), { recursive: true, force: true });
   ensureDir(atomsDir);
   ensureDir(dataDir);
 
