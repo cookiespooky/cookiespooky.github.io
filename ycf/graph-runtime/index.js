@@ -9,6 +9,7 @@ const graphPath = resolveReadablePath(
 );
 const systemPromptPath = resolveReadablePath(
   path.join(__dirname, "prompts", "system-prompt.md"),
+  path.join(__dirname, "..", "..", "atom_site_v5", "prompts", "system-prompt.md"),
   path.join(__dirname, "..", "..", "site_atoms_v12_research_principles", "prompts", "system-prompt.md")
 );
 
@@ -24,9 +25,13 @@ const graph = JSON.parse(fs.readFileSync(graphPath, "utf8"));
 const siteSystemPrompt = fs.readFileSync(systemPromptPath, "utf8").trim();
 const atomMap = buildAtomMap(graph);
 
-function resolveReadablePath(primaryPath, fallbackPath) {
-  if (fs.existsSync(primaryPath)) return primaryPath;
-  return fallbackPath;
+function resolveReadablePath(...candidatePaths) {
+  for (const candidatePath of candidatePaths) {
+    if (candidatePath && fs.existsSync(candidatePath)) {
+      return candidatePath;
+    }
+  }
+  return candidatePaths[candidatePaths.length - 1];
 }
 
 function corsHeaders(origin) {
@@ -134,11 +139,12 @@ function collectContext(atomLookup, atomId, trail) {
 
 function buildBodyPrompt(graphContext) {
   const rootAtom = graphContext.rootAtom;
+  const isLeadAtom = rootAtom.id.startsWith("lead-") || rootAtom.kind === "action" || rootAtom.kind === "lead_action";
   const trailText = graphContext.trail.length
     ? graphContext.trail.map((atom) => `${atom.title} (${atom.id})`).join(" -> ")
     : "стартовый переход без предыдущего маршрута";
 
-  return [
+  const promptLines = [
     "Ты пишешь основную статью для главной страницы сайта-интерфейса к графу знаний.",
     "Пиши на русском языке.",
     "Нужен цельный материал длиной примерно 1000-2000 знаков.",
@@ -147,6 +153,8 @@ function buildBodyPrompt(graphContext) {
     "Внутри текста используй только ссылки вида [[atom_id|Текст ссылки]].",
     "Используй только atom_id, которые реально есть в переданном контексте.",
     "Не добавляй списки в конце и не добавляй JSON.",
+    "В конце статьи обязательно добавь короткое приглашение написать в личку Telegram со ссылкой [Написать в Telegram](https://t.me/cookiespooky).",
+    "Приглашение должно продолжать смысл статьи и объяснять, с чем именно можно прийти в личку по этой теме.",
     "",
     `Текущий атом: ${rootAtom.title} (${rootAtom.id})`,
     `Тип: ${rootAtom.kind}`,
@@ -156,7 +164,55 @@ function buildBodyPrompt(graphContext) {
     "",
     "Подграф для статьи:",
     JSON.stringify(graphContext.context, null, 2)
-  ].join("\n");
+  ];
+
+  if (isLeadAtom) {
+    promptLines.splice(8, 0,
+      "Это лидовый атом.",
+      "Не пиши обзорную статью про тему; пиши материал, который ведет к личной консультации с автором.",
+      "Объясни, кому подходит этот разбор, что именно будет разобрано и какая ясность появится после консультации.",
+      "В финальном абзаце обязательно дай явный CTA с markdown-ссылкой [Написать в Telegram](https://t.me/cookiespooky).",
+      "Тон спокойный, точный, без давления и без рекламного шума."
+    );
+  }
+
+  return promptLines.join("\n");
+}
+
+function buildTelegramInvite(graphContext) {
+  const rootAtom = graphContext.rootAtom || {};
+  const title = rootAtom.title || "эту тему";
+  const lowerTitle = String(title).toLowerCase();
+  const isLeadAtom = String(rootAtom.id || "").startsWith("lead-") || rootAtom.kind === "action" || rootAtom.kind === "lead_action";
+
+  if (isLeadAtom) {
+    return `Если хотите разобрать именно вашу ситуацию по теме «${title}» и превратить ее в понятный следующий шаг, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+  }
+
+  switch (rootAtom.hub) {
+    case "products":
+      return `Если хотите понять, подходит ли вам ${lowerTitle} и как применить это к вашему проекту без лишней сборки, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "methods":
+      return `Если хотите применить ${lowerTitle} к своей ситуации и собрать из этого рабочий разбор, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "tools":
+      return `Если хотите встроить ${lowerTitle} в свою систему заметок, публикации или AI-работы без лишней сложности, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "research":
+      return `Если хотите связать идею «${title}» со своей задачей, продуктом или исследованием и понять, куда двигаться дальше, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "topics":
+    default:
+      return `Если хотите разобрать, как тема «${title}» проявляется именно в вашем проекте, продукте или текущей ситуации, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+  }
+}
+
+function ensureTelegramInvite(graphContext, articleBody) {
+  const body = String(articleBody || "").trim();
+  if (!body) {
+    return buildTelegramInvite(graphContext);
+  }
+  if (/t\.me\/cookiespooky/i.test(body) || /\[Написать в Telegram\]\(https:\/\/t\.me\/cookiespooky\)/i.test(body)) {
+    return body;
+  }
+  return `${body}\n\n${buildTelegramInvite(graphContext)}`;
 }
 
 function buildMetadataPrompt(graphContext, articleBody) {
@@ -197,14 +253,14 @@ function buildFallbackArticle(graphContext, reason) {
   return {
     title: rootAtom.title,
     summary: rootAtom.summary || "Черновой режим по графу атомов.",
-    body: [
+    body: ensureTelegramInvite(graphContext, [
       `## ${rootAtom.title}`,
       rootAtom.summary || `${rootAtom.title} пока описан кратко, поэтому статья собрана из доступного графового контекста.`,
       "",
       "Внешняя модель сейчас недоступна, поэтому этот материал собран напрямую из локального подграфа.",
       "",
       `Чтобы продолжить маршрут осмысленно, имеет смысл перейти к связанным понятиям: ${relatedText}.`
-    ].join("\n"),
+    ].join("\n")),
     next_actions: buildSuggestedActions(graphContext),
     source: "fallback",
     warning: reason
@@ -586,6 +642,16 @@ async function streamDeepSeekArticleWs(graphContext, connectionId, context, requ
   });
 
   await sendQueue;
+  const articleBodyWithInvite = ensureTelegramInvite(graphContext, articleBody);
+  if (articleBodyWithInvite !== articleBody) {
+    await queueWsPayload({
+      type: "delta",
+      request_id: requestId || "",
+      delta: articleBodyWithInvite.slice(articleBody.length),
+      body: articleBodyWithInvite
+    });
+    articleBody = articleBodyWithInvite;
+  }
   await queueWsPayload({
     type: "phase",
     request_id: requestId || "",
@@ -638,7 +704,10 @@ async function buildArticle(graphContext) {
     return buildFallbackArticle(graphContext, `Unsupported provider: ${provider}`);
   }
 
-  const articleBody = await runDeepSeekBody(buildBodyPrompt(graphContext));
+  const articleBody = ensureTelegramInvite(
+    graphContext,
+    await runDeepSeekBody(buildBodyPrompt(graphContext))
+  );
   let metadata = {
     title: graphContext.rootAtom.title,
     summary: graphContext.rootAtom.summary || "",

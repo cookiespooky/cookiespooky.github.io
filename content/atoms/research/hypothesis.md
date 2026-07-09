@@ -40,16 +40,4 @@ seo:
 
 ## Связанные элементы
 
-[[field-observation|Полевое наблюдение]] · [[demand-validation|Проверка спроса]] · [[startup-hypothesis|Стартап-гипотеза]] · [[product-thinking|Product thinking]]
-
-## Связи
-
-- [[field-observation|Полевое наблюдение]] — based_on
-- [[demand-validation|Проверка спроса]] — tested_by
-- [[startup-hypothesis|Стартап-гипотеза]] — related_to
-- [[product-thinking|Product thinking]] — uses
-
-## Следующие действия
-
-- **Проверить гипотезу спросом** → [[demand-validation|Проверка спроса]]: Поможет отделить интересную мысль от идеи, которую можно проверить на людях.
-- **Проверить стартап-идею** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать минимальный тест и критерий, по которому будет понятно, есть ли спрос.
+Полевое наблюдение · Проверка спроса · Стартап-гипотеза · Product thinking

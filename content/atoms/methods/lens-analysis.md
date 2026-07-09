@@ -42,20 +42,3 @@ seo:
 Линзирование — способ анализировать одну и ту же ситуацию через несколько рамок. Линза задает, какие элементы считать важными и какие связи искать.
 
 Одна линза может показать агентность, другая — продуктовую логику, третья — повторяющийся сценарий. Это снижает риск принять одну интерпретацию за всю реальность.
-
-Связанные элементы графа: [[cognitive-reconstruction|Когнитивная реконструкция]], [[situation-map|Карта ситуации]], [[lat|LAT]], [[product-thinking|Product thinking]], [[marketing-os|Marketing OS]], [[lead-cognitive-reconstruction|Разбор ситуации]].
-
-## Связи
-
-- [[cognitive-reconstruction|Когнитивная реконструкция]] — extends
-- [[situation-map|Карта ситуации]] — uses
-- [[lat|LAT]] — compatible_with
-- [[product-thinking|Product thinking]] — compatible_with
-- [[marketing-os|Marketing OS]] — compatible_with
-- [[lead-cognitive-reconstruction|Разбор ситуации]] — leads_to
-
-## Следующие действия
-
-- **Наложить линзы на ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет посмотреть на одну ситуацию с нескольких сторон и не застрять в единственном объяснении.
-- **Посмотреть связь с картой** → [[situation-map|Карта ситуации]]: Поможет понять, на какие элементы карты накладываются линзы.
-- **Перейти к Marketing OS** → [[marketing-os|Marketing OS]]: Поможет применить линзирование к маркетингу и продукту.

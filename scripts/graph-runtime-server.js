@@ -9,7 +9,7 @@ const rootDir = path.resolve(__dirname, "..");
 loadLocalEnv(path.join(rootDir, ".env.graph-runtime.local"));
 const graphPath = path.join(rootDir, "theme", "assets", "site-graph.json");
 const outputSchemaPath = path.join(rootDir, "scripts", "graph-runtime-schema.json");
-const systemPromptPath = path.join(rootDir, "site_atoms_v12_research_principles", "prompts", "system-prompt.md");
+const systemPromptPath = resolveSystemPromptPath();
 const host = process.env.GRAPH_RUNTIME_HOST || (process.env.PORT ? "0.0.0.0" : "127.0.0.1");
 const port = Number(process.env.PORT || process.env.GRAPH_RUNTIME_PORT || 8787);
 const provider = process.env.GRAPH_RUNTIME_PROVIDER || (process.env.DEEPSEEK_API_KEY ? "deepseek" : "codex");
@@ -20,6 +20,25 @@ const deepSeekApiKey = process.env.DEEPSEEK_API_KEY || "";
 const deepSeekResolvedIp = resolveDeepSeekIp();
 const siteSystemPrompt = loadSystemPrompt();
 const remoteGraphRuntimeBaseUrl = (process.env.GRAPH_REMOTE_ENDPOINT_BASE_URL || "").replace(/\/+$/, "");
+
+function resolveSystemPromptPath() {
+  const requested = process.env.SITE_ATOMS_SOURCE_DIR
+    ? path.resolve(rootDir, process.env.SITE_ATOMS_SOURCE_DIR, "prompts", "system-prompt.md")
+    : "";
+  const candidates = [
+    requested,
+    path.join(rootDir, "atom_site_v5", "prompts", "system-prompt.md"),
+    path.join(rootDir, "site_atoms_v12_research_principles", "prompts", "system-prompt.md"),
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  return candidates[0] || "";
+}
 
 function loadLocalEnv(filePath) {
   if (!fs.existsSync(filePath)) return;
@@ -232,6 +251,8 @@ function buildBodyPrompt(graphContext) {
     "Внутри текста используй только ссылки вида [[atom_id|Текст ссылки]].",
     "Используй только atom_id, которые реально есть в переданном контексте.",
     "Не добавляй списки в конце и не добавляй JSON.",
+    "В конце статьи обязательно добавь короткое приглашение написать в личку Telegram со ссылкой [Написать в Telegram](https://t.me/cookiespooky).",
+    "Приглашение должно продолжать смысл статьи и объяснять, с чем именно можно прийти в личку по этой теме.",
     "",
     `Текущий атом: ${rootAtom.title} (${rootAtom.id})`,
     `Тип: ${rootAtom.kind}`,
@@ -242,6 +263,42 @@ function buildBodyPrompt(graphContext) {
     "Подграф для статьи:",
     JSON.stringify(graphContext.context, null, 2)
   ].join("\n");
+}
+
+function buildTelegramInvite(graphContext) {
+  const rootAtom = graphContext.rootAtom || {};
+  const title = rootAtom.title || "эту тему";
+  const lowerTitle = String(title).toLowerCase();
+  const isLeadAtom = String(rootAtom.id || "").startsWith("lead-") || rootAtom.kind === "action" || rootAtom.kind === "lead_action";
+
+  if (isLeadAtom) {
+    return `Если хотите разобрать именно вашу ситуацию по теме «${title}» и превратить ее в понятный следующий шаг, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+  }
+
+  switch (rootAtom.hub) {
+    case "products":
+      return `Если хотите понять, подходит ли вам ${lowerTitle} и как применить это к вашему проекту без лишней сборки, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "methods":
+      return `Если хотите применить ${lowerTitle} к своей ситуации и собрать из этого рабочий разбор, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "tools":
+      return `Если хотите встроить ${lowerTitle} в свою систему заметок, публикации или AI-работы без лишней сложности, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "research":
+      return `Если хотите связать идею «${title}» со своей задачей, продуктом или исследованием и понять, куда двигаться дальше, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+    case "topics":
+    default:
+      return `Если хотите разобрать, как тема «${title}» проявляется именно в вашем проекте, продукте или текущей ситуации, напишите в [личку Telegram](https://t.me/cookiespooky).`;
+  }
+}
+
+function ensureTelegramInvite(graphContext, articleBody) {
+  const body = String(articleBody || "").trim();
+  if (!body) {
+    return buildTelegramInvite(graphContext);
+  }
+  if (/t\.me\/cookiespooky/i.test(body) || /\[Написать в Telegram\]\(https:\/\/t\.me\/cookiespooky\)/i.test(body)) {
+    return body;
+  }
+  return `${body}\n\n${buildTelegramInvite(graphContext)}`;
 }
 
 function buildMetadataPrompt(graphContext, articleBody) {
@@ -558,7 +615,7 @@ function buildFallbackArticle(graphContext, reason) {
     : "соседних атомов в текущем контексте пока нет";
   const actionTargets = relatedAtoms.slice(0, 4);
 
-  const body = [
+  const body = ensureTelegramInvite(graphContext, [
     `## ${rootAtom.title}`,
     rootAtom.summary || `${rootAtom.title} пока описан кратко, поэтому статья собрана из доступного графового контекста.`,
     "",
@@ -567,7 +624,7 @@ function buildFallbackArticle(graphContext, reason) {
     `Чтобы продолжить маршрут осмысленно, имеет смысл перейти к связанным понятиям: ${relatedText}. Обычно они уточняют либо прикладной сценарий, либо метод, через который тема превращается в рабочий процесс и в полноценный материал для чтения.`,
     "",
     `Когда runtime-модель снова сможет выполнить запрос, этот же переход будет возвращать уже не шаблон, а цельную статью на 1000-2000 знаков, собранную по тому же подграфу.`
-  ].join("\n");
+  ].join("\n"));
 
   return {
     title: rootAtom.title,
@@ -619,6 +676,7 @@ async function requestRemoteGraphRuntime(pathname, payload) {
 async function streamRemoteArticle(graphContext, payload, res) {
   const article = await requestRemoteGraphRuntime("/v1/graph/article", payload);
   const nextActions = Array.isArray(article.next_actions) ? article.next_actions : buildSuggestedActions(graphContext);
+  const articleBody = ensureTelegramInvite(graphContext, article.body || "");
 
   writeStreamHeaders(res);
   writeStreamEvent(res, {
@@ -628,7 +686,7 @@ async function streamRemoteArticle(graphContext, payload, res) {
     next_actions: nextActions,
     status: "Строю статью из облачного генератора..."
   });
-  await streamLocalArticle(article, res);
+  await streamLocalArticle(Object.assign({}, article, { body: articleBody }), res);
   writeStreamEvent(res, {
     type: "meta",
     title: article.title || graphContext.rootAtom.title,
@@ -640,7 +698,7 @@ async function streamRemoteArticle(graphContext, payload, res) {
     type: "done",
     title: article.title || graphContext.rootAtom.title,
     summary: article.summary || graphContext.rootAtom.summary || "",
-    body: article.body || "",
+    body: articleBody,
     next_actions: nextActions,
     warning: article.warning ? humanizeRuntimeError(article.warning) : undefined,
     source: article.source || "remote-json"
@@ -821,6 +879,16 @@ async function streamDeepSeekArticle(graphContext, res) {
     }
   );
 
+  const articleBodyWithInvite = ensureTelegramInvite(graphContext, articleBody);
+  if (articleBodyWithInvite !== articleBody) {
+    writeStreamEvent(res, {
+      type: "delta",
+      delta: articleBodyWithInvite.slice(articleBody.length),
+      body: articleBodyWithInvite
+    });
+    articleBody = articleBodyWithInvite;
+  }
+
   writeStreamEvent(res, {
     type: "phase",
     status: "Дошлифовываю заголовок и следующие шаги..."
@@ -934,6 +1002,7 @@ const server = http.createServer(async (req, res) => {
         } else {
           article = runCodex(prompt);
         }
+        article.body = ensureTelegramInvite(graphContext, article.body || "");
       } catch (error) {
         console.warn(`[graph-runtime] ${provider} article fallback:`, error && error.stack ? error.stack : error);
         console.warn(`[graph-runtime] ${provider} fallback:`, error && error.message ? error.message : error);
@@ -974,6 +1043,7 @@ const server = http.createServer(async (req, res) => {
             status: "Локальный генератор не поддерживает токен-стрим. Отдаю статью по готовности..."
           });
           const article = runCodex(buildPrompt(graphContext));
+          article.body = ensureTelegramInvite(graphContext, article.body || "");
           await streamLocalArticle(article, res);
           writeStreamEvent(res, {
             type: "done",

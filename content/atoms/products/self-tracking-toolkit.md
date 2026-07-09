@@ -52,24 +52,4 @@ seo:
 
 Набор подходов для наблюдения за состояниями, действиями, решениями и повторяющимися паттернами.
 
-Связанные элементы графа: [[self-tracking|Self-tracking]], [[diary|Дневник]], [[repeating-scenarios|Повторяющиеся сценарии]], [[situation-map|Карта ситуации]], [[obsidian|Obsidian]], [[state-log|Журнал состояний]], [[decision-log|Журнал решений]], [[weekly-review|Еженедельный обзор]], [[self-tracking-dashboard|Дашборд self-tracking]], [[lead-self-tracking-setup|Настроить self-tracking систему]].
-
-## Связи
-
-- [[self-tracking|Self-tracking]] — uses
-- [[diary|Дневник]] — related_to
-- [[repeating-scenarios|Повторяющиеся сценарии]] — related_to
-- [[situation-map|Карта ситуации]] — produces
-- [[obsidian|Obsidian]] — compatible_with
-- [[state-log|Журнал состояний]] — contains
-- [[decision-log|Журнал решений]] — contains
-- [[weekly-review|Еженедельный обзор]] — contains
-- [[self-tracking-dashboard|Дашборд self-tracking]] — produces
-- [[lead-self-tracking-setup|Настроить self-tracking систему]] — leads_to
-
-## Следующие действия
-
-- **Понять, что отслеживать** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Связать с дневником** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Посмотреть сценарии анализа** → [[self-tracking|Self-tracking]]: Поможет уточнить контекст и перейти к следующему связанному понятию.
-- **Собрать мою систему self-tracking** → [[lead-self-tracking-setup|Настроить self-tracking систему]]: Поможет определить, что отслеживать и как использовать наблюдения для решений.
+В карте ситуации это помогает назвать повторяющийся элемент, увидеть его связи с другими частями системы и найти место, где возможно действие.

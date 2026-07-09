@@ -4,10 +4,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const rootDir = path.resolve(__dirname, "..");
-const sourceDir = path.join(rootDir, "site_atoms_v12_research_principles");
-const sourceDataPath = path.join(sourceDir, "data", "atoms.json");
+const sourceDir = resolveSourceDir();
+const sourceName = path.basename(sourceDir);
+const sourceDataPath = resolveSourceDataPath();
 const sourceAtomsDir = path.join(sourceDir, "atoms");
-const sourceHomePath = path.join(sourceDir, "Главная.md");
+const sourceHomePath = resolveSourceHomePath();
+const sourcePromptPath = path.join(sourceDir, "prompts", "system-prompt.md");
 const contentDir = path.join(rootDir, "content");
 const atomsDir = path.join(contentDir, "atoms");
 const articlesDir = path.join(contentDir, "articles");
@@ -16,6 +18,62 @@ const graphDataPath = path.join(dataDir, "site-graph.json");
 const themeAssetsDir = path.join(rootDir, "theme", "assets");
 const publicGraphDataPath = path.join(themeAssetsDir, "site-graph.json");
 const homeOutputPath = path.join(contentDir, "home.md");
+
+function resolveSourceDir() {
+  const requested = process.env.SITE_ATOMS_SOURCE_DIR;
+  const candidates = [
+    requested && path.resolve(rootDir, requested),
+    path.join(rootDir, "atom_site_v5"),
+    path.join(rootDir, "site_atoms_v12_research_principles"),
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  throw new Error("Unable to resolve source atoms directory");
+}
+
+function resolveSourceDataPath() {
+  const candidates = [
+    path.join(sourceDir, "data", "atoms_v5.json"),
+    path.join(sourceDir, "data", "atoms.json"),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  throw new Error(`Unable to resolve atoms index in ${sourceDir}`);
+}
+
+function resolveSourceHomePath() {
+  const markdownFiles = fs.readdirSync(sourceDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".md"))
+    .map((entry) => path.join(sourceDir, entry.name));
+
+  const explicitCandidates = [
+    path.join(sourceDir, "Главная.md"),
+    ...markdownFiles,
+  ];
+
+  for (const candidate of explicitCandidates) {
+    if (!fs.existsSync(candidate)) continue;
+    const source = fs.readFileSync(candidate, "utf8").replace(/\r\n/g, "\n");
+    if (source.startsWith("---\n") && /(?:\n|^)type:\s*home\s*(?:\n|$)/.test(source)) {
+      return candidate;
+    }
+    if (source.startsWith("---\n") && /(?:\n|^)slug:\s*home\s*(?:\n|$)/.test(source)) {
+      return candidate;
+    }
+  }
+
+  throw new Error(`Unable to resolve home markdown in ${sourceDir}`);
+}
 
 const hubMeta = [
   {
@@ -128,6 +186,10 @@ function bodyFromSource(entry, relativeMarkdownPath) {
   const sourceBody = readSourceAtomBody(relativeMarkdownPath);
   if (sourceBody) {
     return `${sourceBody}\n`;
+  }
+
+  if (entry.body && String(entry.body).trim()) {
+    return `${String(entry.body).trim()}\n`;
   }
 
   const lines = [
@@ -251,9 +313,9 @@ function buildGraphIndex(atoms) {
   return {
     generatedAt: new Date().toISOString(),
     generator: {
-      source: "site_atoms_v12_research_principles",
+      source: sourceName,
       textModel: "deepseek-v4-flash",
-      promptFile: "content/prompts/system-prompt.md",
+      promptFile: path.relative(rootDir, sourcePromptPath).replace(/\\/g, "/"),
     },
     hubs: hubMeta.map((hub) => ({
       ...hub,
@@ -372,6 +434,7 @@ function main() {
   console.log(`Generated ${atoms.filter((atom) => atom.kind !== "hub").length} atoms into ${path.relative(rootDir, atomsDir)}`);
   console.log(`Wrote graph index to ${path.relative(rootDir, graphDataPath)}`);
   console.log(`Published graph index to ${path.relative(rootDir, publicGraphDataPath)}`);
+  console.log(`Using atoms index ${path.relative(rootDir, sourceDataPath)}`);
   console.log(`Updated home page from ${path.relative(rootDir, sourceHomePath)}`);
 }
 

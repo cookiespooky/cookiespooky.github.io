@@ -35,17 +35,4 @@ seo:
 
 Система заметок, связей и наблюдений, которая помогает хранить мышление, проекты, решения и личные сценарии.
 
-Связанные элементы графа: [[obsidian|Obsidian]], [[diary|Дневник]], [[self-tracking|Self-tracking]], [[knowledge-graph|Граф знаний]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[notepub|Notepub]].
-
-## Связи
-
-- [[obsidian|Obsidian]] — stored_in
-- [[diary|Дневник]] — contains
-- [[self-tracking|Self-tracking]] — supports
-- [[knowledge-graph|Граф знаний]] — represented_as
-- [[cognitive-reconstruction|Когнитивная реконструкция]] — source_for
-- [[notepub|Notepub]] — can_be_published_by
-
-## Следующие действия
-
-- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.
+В работе с заметками это помогает превратить накопленные материалы из архива в рабочую систему: карту тем, страницы, контекст для модели или основу продукта.

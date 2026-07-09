@@ -40,16 +40,4 @@ seo:
 
 ## Связанные элементы
 
-[[research-library|Библиотека исследований]] · [[marketing-os|Marketing OS]] · [[notepub|Notepub]] · [[cognitive-reconstruction|Когнитивная реконструкция]]
-
-## Связи
-
-- [[research-library|Библиотека исследований]] — uses
-- [[marketing-os|Marketing OS]] — related_to
-- [[notepub|Notepub]] — related_to
-- [[cognitive-reconstruction|Когнитивная реконструкция]] — related_to
-
-## Следующие действия
-
-- **Посмотреть библиотеку исследований** → [[research-library|Библиотека исследований]]: Поможет увидеть, из каких материалов собирается исследовательский слой графа.
-- **Перейти к Marketing OS** → [[marketing-os|Marketing OS]]: Поможет связать исследования с позиционированием, контентом и оффером.
+Библиотека исследований · Marketing OS · Notepub · Когнитивная реконструкция

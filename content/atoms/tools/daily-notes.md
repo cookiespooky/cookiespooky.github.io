@@ -35,17 +35,4 @@ seo:
 
 Формат регулярных записей, в которых фиксируются события, мысли, решения, сигналы состояния и повторяющиеся сценарии.
 
-Связанные элементы графа: [[diary|Дневник]], [[self-tracking|Self-tracking]], [[self-tracking-signals|Сигналы self-tracking]], [[repeating-scenarios|Повторяющиеся сценарии]], [[cognitive-reconstruction|Когнитивная реконструкция]], [[lead-notes-analysis|Разбор заметок]].
-
-## Связи
-
-- [[diary|Дневник]] — part_of
-- [[self-tracking|Self-tracking]] — supports
-- [[self-tracking-signals|Сигналы self-tracking]] — contains
-- [[repeating-scenarios|Повторяющиеся сценарии]] — reveals
-- [[cognitive-reconstruction|Когнитивная реконструкция]] — source_for
-- [[lead-notes-analysis|Разбор заметок]] — leads_to
-
-## Следующие действия
-
-- **Разобрать мои заметки** → [[lead-notes-analysis|Разбор заметок]]: Поможет увидеть, какие темы, сценарии и продукты уже есть в материалах, а что нужно достроить.
+В работе с заметками это помогает превратить накопленные материалы из архива в рабочую систему: карту тем, страницы, контекст для модели или основу продукта.

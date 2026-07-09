@@ -11,7 +11,7 @@ mkdir -p "$BUILD_DIR/data" "$BUILD_DIR/prompts"
 
 cp "$FUNC_DIR/index.js" "$FUNC_DIR/package.json" "$BUILD_DIR/"
 cp "$ROOT_DIR/theme/assets/site-graph.json" "$BUILD_DIR/data/site-graph.json"
-cp "$ROOT_DIR/site_atoms_v12_research_principles/prompts/system-prompt.md" "$BUILD_DIR/prompts/system-prompt.md"
+cp "$ROOT_DIR/atom_site_v5/prompts/system-prompt.md" "$BUILD_DIR/prompts/system-prompt.md"
 
 (
   cd "$BUILD_DIR"

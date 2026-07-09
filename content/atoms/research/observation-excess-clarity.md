@@ -40,16 +40,4 @@ seo:
 
 ## Связанные элементы
 
-[[understand-but-do-not-act|Всё понимаю, но не делаю]] · [[complexity-preservation|complexity-preservation]] · [[action-point|Точка действия]] · [[cognitive-superposition|Когнитивная суперпозиция]]
-
-## Связи
-
-- [[understand-but-do-not-act|Всё понимаю, но не делаю]] — explains
-- [[complexity-preservation|complexity-preservation]] — related_to
-- [[action-point|Точка действия]] — leads_to
-- [[cognitive-superposition|Когнитивная суперпозиция]] — related_to
-
-## Следующие действия
-
-- **Найти точку действия** → [[action-point|Точка действия]]: Поможет перейти от понимания к минимальному проверяемому шагу.
-- **Разобрать мою ситуацию** → [[lead-cognitive-reconstruction|Разбор ситуации]]: Поможет отделить полезную ясность от накопления новых объяснений.
+Всё понимаю, но не делаю · complexity preservation · Точка действия · Когнитивная суперпозиция

@@ -40,16 +40,4 @@ seo:
 
 ## Связанные элементы
 
-[[system-before-sales|Система вместо продаж]] · [[demand-validation|Проверка спроса]] · [[mvp|MVP]] · [[startup-validation-trap|startup-validation-trap]]
-
-## Связи
-
-- [[system-before-sales|Система вместо продаж]] — explains
-- [[demand-validation|Проверка спроса]] — uses
-- [[mvp|MVP]] — related_to
-- [[startup-validation-trap|startup-validation-trap]] — related_to
-
-## Следующие действия
-
-- **Проверить спрос** → [[lead-startup-diagnostic|Диагностика стартап-идеи]]: Поможет выбрать минимальный тест до разработки полноценной системы.
-- **Посмотреть ловушку разработки** → [[startup-validation-trap|startup-validation-trap]]: Поможет отличить нужную разработку от подготовки вместо проверки.
+Система вместо продаж · Проверка спроса · MVP · startup validation trap
