@@ -224,7 +224,20 @@ lived inside the old theme's `styles.css` and `main.js`. Three things to know if
 The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
 filter were dropped: they pointed at an atom page that no longer exists.
 
-## Deployment state (nothing pushed yet)
+## Deployment state
+
+**Pushed to `main` on 2026-09-04** — `restructure/cases-to-root` was fast-forwarded into `main` and deployed.
+What that changed, verified live right after: `http://antonlozhkin.ru/CNAME` now returns `antonlozhkin.ru`
+(it 404'd before, which is what stalled the Pages DNS check), the Webmaster tag and Metrika 108674124 are in
+the served HTML, and `/blog/`, `/services/telegram-bot/`, `/tools/analiz-rechi/` and `/sitemap.xml` all
+answer 200. HTTPS still fails — the certificate had not been issued yet.
+
+**The one live defect: the `cases` repo shadows the whole `/cases/` prefix.** Confirmed by content, not by
+guessing — `https://antonlozhkin.ru/cases/` answers 200 with `<link rel="canonical"
+href="https://cookiespooky.github.io/cases/">` and carries neither the Webmaster tag nor the Metrika counter,
+so it is the project site, not this one. Worse than shadowing the index: `/cases/utilitservis/` returns that
+repo's 404, so **all 34 case pages are dead on the live domain** while they sit in this site's sitemap.
+Disabling Pages on the `cases` repo (step 4 below) is now urgent rather than tidy-up.
 
 The site is being moved to **antonlozhkin.ru**, a domain the owner already held. `config.yaml` and
 `config.dev.yaml` point at it, `CNAME` at the repo root holds it, and `scripts/build.sh` copies that file into

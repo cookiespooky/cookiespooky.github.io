@@ -28,6 +28,55 @@ region: 225          # Россия. Подтвердить кодом из GetR
 updated_at: "2026-09-04"
 
 clusters:
+  # ============ уже опубликованные страницы ============
+  # Заведены не ради спроса, а чтобы адрес был занят: иначе первая же статья
+  # напишется под интент, который уже держит существующая страница.
+
+  - id: bot-order-commercial
+    direction: bots
+    intent: commercial
+    stage: published
+    page_type: service
+    money_distance: 1
+    cta_service: null          # это и есть страница услуги
+    cases: [ai-qualification-bot, gpt-tutor, website-ai-assistant]
+    target_url: "/services/telegram-bot/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "заказать телеграм бота", count: null }
+      - { phrase: "разработка телеграм ботов", count: null }
+      - { phrase: "телеграм бот под ключ", count: null }
+    note: "Коммерческий хаб направления. Статьи по ботам ведут сюда и НЕ забирают эти формулировки: bot-price берёт вопрос о цене, bot-lead-intake — задачу приёма заявок."
+
+  - id: speech-agency-tool
+    direction: tools
+    intent: informational
+    stage: published
+    page_type: tool
+    money_distance: 4
+    cta_service: null
+    cases: [cognitive-reconstruction, thinking-graph]
+    target_url: "/tools/analiz-rechi/"
+    competition: null
+    total_count: null
+    keys: []
+    note: "Бесплатный инструмент, а не кластер спроса: money_distance 4 держим сознательно, страница нужна как актив и вход, а не как источник заявок. Слаг провизорный."
+
+  - id: speech-agency-explainer
+    direction: tools
+    intent: informational
+    stage: published
+    page_type: article
+    money_distance: 4
+    cta_service: null
+    cases: [cognitive-reconstruction, thinking-graph]
+    target_url: "/blog/kak-rabotaet-analiz-rechi/"
+    competition: null
+    total_count: null
+    keys: []
+    note: "Объяснение к инструменту, написано до ресёрча. В приоритизацию не входит, адрес занят. Слаг провизорный."
+
   # ============ направление: сайты и каталоги на статике ============
 
   - id: static-vs-cms
@@ -51,12 +100,12 @@ clusters:
   - id: service-city-pages
     direction: sites
     intent: informational
-    stage: seed
+    stage: planned
     page_type: article
     money_distance: 1
     cta_service: null
-    cases: [gorod-katalog]
-    target_url: null
+    cases: [gorod-katalog, utilitservis]
+    target_url: "/blog/stranicy-pod-goroda/"
     competition: null
     total_count: null
     keys:
@@ -64,7 +113,7 @@ clusters:
       - { phrase: "как сделать страницы услуга город", count: null }
       - { phrase: "посадочные страницы под регионы", count: null }
       - { phrase: "сколько страниц нужно для seo", count: null }
-    note: "Кейс буквально про это: 10 услуг x 15 городов = 150 страниц. Дистанция 1."
+    note: "Первая волна. Механику показывает gorod-katalog (10 услуг x 15 городов), доказывает utilitservis — живой клиент, 3 города. Слаг на уровне темы: переживёт перенацеливание."
 
   - id: site-without-hosting
     direction: sites
@@ -87,19 +136,19 @@ clusters:
   - id: form-without-backend
     direction: sites
     intent: informational
-    stage: seed
+    stage: planned
     page_type: article
     money_distance: 1
     cta_service: null
     cases: [utilitservis, barskaya-usadba, tractor-center]
-    target_url: null
+    target_url: "/blog/zayavki-s-sayta/"
     competition: null
     total_count: null
     keys:
       - { phrase: "форма заявки на сайте без бэкенда", count: null }
       - { phrase: "куда приходят заявки с сайта", count: null }
       - { phrase: "заявка с сайта в телеграм", count: null }
-    note: "Три кейса подряд решают именно это. Ведёт прямо в услугу."
+    note: "Первая волна. Тезис против шаблона: форма не обязательна — кнопка в Telegram и телефон, никакого сбора ПД. Контрпример в том же портфолио: у utilitservis заявку принимает один PHP-файл, потому что клиенту нужна почта."
 
   - id: site-payments-crm
     direction: sites
@@ -141,12 +190,12 @@ clusters:
   - id: bot-lead-intake
     direction: bots
     intent: informational
-    stage: seed
+    stage: planned
     page_type: article
     money_distance: 1
     cta_service: telegram-bot
     cases: [ai-qualification-bot]
-    target_url: null
+    target_url: "/blog/bot-dlya-priyoma-zayavok/"
     competition: null
     total_count: null
     keys:
@@ -154,7 +203,7 @@ clusters:
       - { phrase: "бот для квалификации лидов", count: null }
       - { phrase: "как автоматизировать приём заявок", count: null }
       - { phrase: "бот вместо менеджера", count: null }
-    note: "Кейс один в один. Лендинг уже есть."
+    note: "Первая волна и единственный кластер с замкнутым контуром: статья -> лендинг telegram-bot -> заявка. Коммерческие формулировки не берём, они за bot-order-commercial."
 
   - id: bot-price
     direction: bots
