@@ -136,6 +136,66 @@ lived inside the old theme's `styles.css` and `main.js`. Three things to know if
 The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
 filter were dropped: they pointed at an atom page that no longer exists.
 
+## Deployment state (nothing pushed yet)
+
+The site is being moved to **antonlozhkin.ru**, a domain the owner already held. `config.yaml` and
+`config.dev.yaml` point at it, `CNAME` at the repo root holds it, and `scripts/build.sh` copies that file into
+`dist/` — it did not before, and the deploy goes through `upload-pages-artifact`, so without the file in the
+artifact GitHub Pages drops the custom domain on every run.
+
+Verified against live DNS (from inside the sandbox `dig` is blocked; use DNS-over-HTTPS instead, e.g.
+`curl -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=antonlozhkin.ru&type=A'`):
+
+- apex `A` records resolve to all four GitHub Pages addresses; the previous dead-server records are gone
+- `AAAA` — none yet
+- `www` — was `NXDOMAIN`; the owner has since added records, unverified here
+- `http://antonlozhkin.ru/` already answers `200`, so the custom domain is set in repo settings
+- `https://antonlozhkin.ru/` fails on certificate subject mismatch — Let's Encrypt has not issued yet
+- `cookiespooky.github.io/` → **301** → `antonlozhkin.ru/` — GitHub issues a real 301, so a Yandex mirror move
+  will work without hand-written redirects
+
+**Why the Pages "DNS Check in Progress" is stuck:** `http://antonlozhkin.ru/CNAME` returns 404, so the
+published artifact carries no CNAME file. The fix is to push, not to remove and re-add the domain — re-adding
+restarts the timer and can delay the certificate.
+
+The live deployment is **older than any branch**: it serves the LLM-graph site and carries Metrika counter
+108674124, which exists in no file on `main` or `archive/llm-graph`. Pages is serving a build from a commit
+whose theme still had the counter.
+
+### Order of operations
+
+1. `www` CNAME → `cookiespooky.github.io.`, plus the four `AAAA` records (optional)
+2. **push** — puts `CNAME` in the artifact, which should close the DNS check and trigger the certificate
+3. wait for the certificate, then enable **Enforce HTTPS**
+4. **disable Pages on the `cases` repo.** A custom domain on a user site also covers that account's project
+   sites, so while `cases` publishes, `antonlozhkin.ru/cases/` is served from that repo and shadows this
+   site's whole cases section. Confirmed live: `cookiespooky.github.io/cases/` already 301s to
+   `antonlozhkin.ru/cases/`. Do this *after* step 2, not before.
+5. verify the domain in Yandex Webmaster — the tag is already in the build
+6. add the new domain to the Metrika counter's settings
+
+Publishing before the domain is live would mean the pages get indexed on `github.io` and then change address,
+which is the one migration cost worth avoiding. Writing can start now; publishing waits for step 3.
+
+## Open decision: is there a `/cases/` page?
+
+There is not. `case` pages live at `/cases/{slug}/` but nothing is served at `/cases/` — the catalogue is a
+section of the home page, reached as `/#cases`, and that is where `case.html` breadcrumbs point. So the trail
+reads Главная → Кейсы → case with a middle step that is an anchor rather than a page.
+
+After step 4 above, `antonlozhkin.ru/cases/` will 404, and so will the old standalone site's
+`/cases/cases/{slug}` URLs. The deep links are not worth redirects, but `/cases/` is the most guessable path
+on the site and is where the previous cases site lived.
+
+The duplication worry resolves once you notice `/cases/` has close to zero ranking value — nobody searches for
+a portfolio index. So the recommendation is a flat `noindex` list of all 34 cases, no filter tabs: it cannot
+compete with the home page because it never enters the index, it gives a shareable portfolio link that does
+not depend on an anchor, and it makes the breadcrumb trail real — which matters when `BreadcrumbList` is
+finally added to `case.html`. Breadcrumbs would then point at `/cases/` instead of `/#cases`.
+
+The alternative, moving the catalogue off the home page and making `/cases/` canonical, is cleaner
+structurally but is a redesign: the home page is built around the catalogue with its sticky filter tabs.
+
 ## Known gaps
 
 - **`.github/workflows/backend-runtime-deploy.yml` is broken**: it deploys from the old `ycf/` path and
@@ -158,4 +218,5 @@ filter were dropped: they pointed at an atom page that no longer exists.
 - `main` — the pre-restructure LLM-graph site, untouched.
 - `archive/llm-graph` — full snapshot of that experiment plus 102 hand-written articles from the site that
   preceded it (`blog-source/`), kept because they existed nowhere else.
-- `restructure/cases-to-root` — this work. Nothing has been pushed.
+- `restructure/cases-to-root` — this work. **Nothing has been pushed.** The owner has asked for the work to
+  stay local; do not push without being told to.
