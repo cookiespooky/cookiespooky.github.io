@@ -10,8 +10,8 @@ site:
 runtime:
   mode: "dev"
   prod:
-    base_url: "https://cookiespooky.github.io"
-    media_base_url: "https://cookiespooky.github.io/media"
+    base_url: "https://antonlozhkin.ru"
+    media_base_url: "https://antonlozhkin.ru/media"
   dev:
     base_url: "http://127.0.0.1:8080"
     media_base_url: "http://127.0.0.1:8080/media"

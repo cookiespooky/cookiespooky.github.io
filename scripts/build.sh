@@ -52,6 +52,12 @@ if [[ -d media ]]; then
   cp -R media/. dist/media/
 fi
 
+# CNAME обязан попасть в артефакт: деплой идёт через upload-pages-artifact,
+# и без файла GitHub Pages сбрасывает привязку своего домена.
+if [[ -f CNAME ]]; then
+  cp CNAME dist/CNAME
+fi
+
 touch dist/.nojekyll
 if [[ -f dist/404/index.html ]]; then
   cp dist/404/index.html dist/404.html

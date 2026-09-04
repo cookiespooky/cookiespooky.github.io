@@ -1,7 +1,7 @@
 site:
   id: anton-lozhkin
-  base_url: "https://cookiespooky.github.io"
-  media_base_url: "https://cookiespooky.github.io/media"
+  base_url: "https://antonlozhkin.ru"
+  media_base_url: "https://antonlozhkin.ru/media"
   title: "Антон Ложкин"
   description: "Лингвист и разработчик: сайты, телеграм-боты, парсеры, автоматизация и MVP. Кейсы с задачами и результатами, блог о разработке."
   default_og_image: "/media/og.png"
@@ -9,8 +9,8 @@ site:
 runtime:
   mode: "prod"
   prod:
-    base_url: "https://cookiespooky.github.io"
-    media_base_url: "https://cookiespooky.github.io/media"
+    base_url: "https://antonlozhkin.ru"
+    media_base_url: "https://antonlozhkin.ru/media"
   dev:
     base_url: "http://127.0.0.1:8080"
     media_base_url: "http://127.0.0.1:8080/media"
