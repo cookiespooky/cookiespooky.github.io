@@ -22,7 +22,8 @@
 
   --shell: 1180px;
   --shell-pad: 40px;
-  --header-h: 74px;
+  --header-h: 74px;   /* стартовое значение; app.js пишет измеренное */
+  --filters-h: 72px;  /* то же для панели фильтров */
 
   --font: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

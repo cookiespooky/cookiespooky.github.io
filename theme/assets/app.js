@@ -1,5 +1,36 @@
 // Боковое меню и фильтр кейсов. Без JS страница остаётся полностью рабочей.
 (function () {
+  // ---------- высоты липких элементов ----------
+  // В токенах --header-h задан константой 74px, но реальная шапка выше: на узких
+  // экранах бургер 40px плюс padding-block 22px сверху и снизу дают ~85px. Из-за
+  // этого панель фильтров прилипала на 74px и уезжала под шапку, а вертикально
+  // выглядела смещённой вверх. CSS и JS должны считать по одному числу, поэтому
+  // измеряем и пишем в переменные.
+  var headerEl = document.querySelector('.site-header');
+  var filtersBarEl = document.querySelector('.filters-bar');
+
+  function headerHeight() {
+    return headerEl ? headerEl.getBoundingClientRect().height : 74;
+  }
+
+  function syncStickyOffsets() {
+    var root = document.documentElement;
+    if (headerEl) {
+      root.style.setProperty('--header-h', Math.round(headerHeight()) + 'px');
+    }
+    if (filtersBarEl) {
+      root.style.setProperty('--filters-h', Math.round(filtersBarEl.getBoundingClientRect().height) + 'px');
+    }
+  }
+
+  syncStickyOffsets();
+  window.addEventListener('resize', syncStickyOffsets);
+  window.addEventListener('orientationchange', syncStickyOffsets);
+  // веб-шрифт меняет высоту шапки после подстановки
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncStickyOffsets).catch(function () {});
+  }
+
   // ---------- боковое меню ----------
   var drawer = document.querySelector('[data-drawer]');
   var overlay = document.querySelector('[data-drawer-overlay]');
@@ -56,8 +87,28 @@
   var strip = document.querySelector('.filters');
   var bar = document.querySelector('.filters-bar');
   var empty = document.querySelector('[data-catalog-empty]');
-  var mode = 'all';        // выбранный фильтр
   var marked = 'all';      // подсвеченная кнопка
+
+  // Табы — навигация по разделам каталога, а не фильтр: контент не скрывается,
+  // страница просто прокручивается к нужной группе. Пустого состояния при этом
+  // не бывает, оно остаётся только для сборки без JS.
+  if (empty) empty.hidden = true;
+
+  function filtersHeight() {
+    return filtersBarEl ? filtersBarEl.getBoundingClientRect().height : 72;
+  }
+
+  // Пока идёт программная прокрутка, spy() молчит: иначе он перебивает нажатую
+  // табу и та «шагает» по разделам, через которые пролетает страница.
+  var spyMutedUntil = 0;
+
+  function groupByKey(value) {
+    var found = null;
+    groups.forEach(function (group) {
+      if (group.getAttribute('data-group') === value) found = group;
+    });
+    return found;
+  }
 
   // мягкие края ленты фильтров: показываем только там, где табы уезжают за край
   var edgeTick = false;
@@ -129,35 +180,30 @@
     window.setTimeout(updateEdges, 420);
   }
 
-  function apply(value, scrollToBar) {
-    mode = value;
-    var visible = 0;
-    groups.forEach(function (group) {
-      var match = value === 'all' || group.getAttribute('data-group') === value;
-      group.hidden = !match;
-      if (match) visible += 1;
-    });
-    if (empty) empty.hidden = visible !== 0;
-    // содержимое открытой группы показываем сразу: это ответ на действие пользователя
-    groups.forEach(function (group) {
-      if (group.hidden) return;
-      if (group.classList.contains('reveal')) group.classList.add('is-visible');
-      var inner = group.querySelectorAll('.reveal');
-      Array.prototype.forEach.call(inner, function (el) { el.classList.add('is-visible'); });
-    });
-    marked = null;
+  function apply(value, scroll, instant) {
     mark(value, true);
     try {
       history.replaceState(null, '', value === 'all' ? '#cases' : '#' + value);
     } catch (e) {}
-    if (scrollToBar && bar) {
-      var headerEl = document.querySelector('.site-header');
-      var headerH = headerEl ? headerEl.getBoundingClientRect().height : 74;
-      var top = Math.max(0, docTop(bar) - headerH);
-      if (Math.abs(window.scrollY - top) > 4) {
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
+    if (!scroll) return;
+
+    var target = value === 'all' ? bar : groupByKey(value);
+    if (!target) return;
+
+    // группа могла ещё не проявиться наблюдателем — иначе прокрутка приедет в пустоту
+    if (target !== bar) {
+      if (target.classList.contains('reveal')) target.classList.add('is-visible');
+      var inner = target.querySelectorAll('.reveal');
+      Array.prototype.forEach.call(inner, function (el) { el.classList.add('is-visible'); });
     }
+
+    syncStickyOffsets();
+    // панель фильтров липкая: без её высоты она накрыла бы заголовок группы
+    var offset = value === 'all' ? headerHeight() : headerHeight() + filtersHeight() + 8;
+    var top = Math.max(0, docTop(target) - offset);
+    if (Math.abs(window.scrollY - top) <= 2) return;
+    spyMutedUntil = Date.now() + (instant ? 200 : 900);
+    window.scrollTo({ top: top, behavior: instant ? 'auto' : 'smooth' });
   }
 
   filters.forEach(function (btn) {
@@ -170,7 +216,7 @@
   function currentGroup() {
     if (!bar) return null;
     var barBox = bar.getBoundingClientRect();
-    var headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
+    var headerH = headerHeight();
     // пока панель фильтров не прилипла к шапке, раздел не подсвечиваем
     if (barBox.top > headerH + 2) return 'all';
     var line = barBox.bottom + 24;
@@ -190,7 +236,7 @@
 
   var lastRun = 0;
   function spy() {
-    if (mode !== 'all') return;
+    if (Date.now() < spyMutedUntil) return;
     var key = currentGroup();
     if (key) mark(key, true);
   }
@@ -240,6 +286,6 @@
 
   var hash = (location.hash || '').replace('#', '');
   var known = filters.some(function (b) { return b.getAttribute('data-filter') === hash; });
-  if (known && hash !== 'all') apply(hash, false);
+  if (known && hash !== 'all') apply(hash, true, true);
   else spy();
 })();

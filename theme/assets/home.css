@@ -72,7 +72,7 @@
 
 .catalog-group { padding: 56px 0 0; }
 .catalog-group__layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 48px; align-items: start; }
-.catalog-group__head { position: sticky; top: calc(var(--header-h) + 70px + 40px); }
+.catalog-group__head { position: sticky; top: calc(var(--header-h) + var(--filters-h) + 40px); }
 .catalog-group__head p { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
 .catalog-group__count { margin-top: 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted-3); }
 .catalog-list { border-top: 1px solid var(--line); }
