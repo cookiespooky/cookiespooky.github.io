@@ -80,7 +80,7 @@
 
 .case-row {
   position: relative;
-  display: grid; grid-template-columns: 104px minmax(0, 1fr) 150px 20px;
+  display: grid; grid-template-columns: clamp(140px, 13vw, 180px) minmax(0, 1fr) 150px 20px;
   gap: 24px; align-items: center;
   padding: 20px 12px; margin: 0 -12px; border-bottom: 1px solid var(--line);
   transition: background 0.28s var(--ease), color 0.2s var(--ease);
@@ -95,7 +95,9 @@
 .case-row__thumb, .case-row__arrow, .case-row__title { transition: transform 0.28s var(--ease), color 0.2s var(--ease); }
 .case-row:hover .case-row__arrow { transform: translateX(4px); color: var(--accent); }
 .case-row__thumb {
-  width: 104px; height: 68px; overflow: hidden; flex: none;
+  /* Пропорция 36:25 — как у снимков 1440x1000, поэтому object-fit ничего не срезает.
+     Размер приходит из колонки сетки: держать его в двух местах не нужно. */
+  width: 100%; aspect-ratio: 36 / 25; overflow: hidden; flex: none;
   align-self: start;
   border: 1px solid var(--line); background: var(--paper-2);
   display: flex; align-items: center; justify-content: center;
@@ -147,13 +149,17 @@
   .catalog-group__layout { grid-template-columns: minmax(0, 1fr) !important; gap: 32px !important; }
   .catalog-group__head { position: static !important; }
   .stack { grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
-  .case-row { grid-template-columns: 88px minmax(0, 1fr) !important; gap: 18px !important; }
-  .case-row__thumb { width: 88px !important; height: 58px !important; }
+  .case-row { grid-template-columns: clamp(120px, 22vw, 160px) minmax(0, 1fr) !important; gap: 18px !important; }
   .case-row__status { grid-column: 2; margin-top: 10px; }
   .case-row__arrow { display: none !important; }
   .process { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
 @media (max-width: 640px) {
+  /* На телефоне миниатюра встаёт над текстом во всю ширину: боковая колонка в
+     360px физически не даёт разглядеть страницу сайта. Статус переезжает в
+     первую колонку — второй здесь уже нет. */
+  .case-row { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+  .case-row__status { grid-column: 1 !important; margin-top: 8px !important; }
   .filters-bar { min-height: 66px; }
   .process { grid-template-columns: minmax(0, 1fr) !important; }
   .cases { padding-block-start: 64px; }

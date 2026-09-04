@@ -1,7 +1,7 @@
 /* Блог и страницы услуг. Переиспользует .case-row из home.css, меняя только сетку:
    в ленте статей нет миниатюры, в блоках доказательств нет колонки статуса. */
 
-.case-row--nostatus { grid-template-columns: 104px minmax(0, 1fr) 20px; }
+.case-row--nostatus { grid-template-columns: clamp(140px, 13vw, 180px) minmax(0, 1fr) 20px; }
 .case-row--post { grid-template-columns: minmax(0, 1fr) 20px; }
 
 .post-list { border-top: 1px solid var(--line); margin-top: 32px; }
