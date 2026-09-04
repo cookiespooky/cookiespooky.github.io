@@ -1,0 +1,151 @@
+<article class="service">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .BaseURL }}/services/">Что делаю</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      <span class="eyebrow"><span>Услуга</span>{{ if .FM.kicker }}<span class="eyebrow__rule"></span><span>{{ .FM.kicker }}</span>{{ end }}</span>
+      <h1>{{ .Page.Title }}</h1>
+      {{- if .FM.lead }}
+      <p class="page-hero__lead">{{ .FM.lead }}</p>
+      {{- else if .Page.Description }}
+      <p class="page-hero__lead">{{ .Page.Description }}</p>
+      {{- end }}
+    </section>
+
+    {{- if or .FM.price_from .FM.period }}
+    <dl class="meta">
+      {{- if .FM.price_from }}
+      <div><dt>Стоимость</dt><dd>{{ .FM.price_from }}</dd></div>
+      {{- end }}
+      {{- if .FM.period }}
+      <div><dt>Сроки</dt><dd>{{ .FM.period }}</dd></div>
+      {{- end }}
+      {{- if .FM.price_note }}
+      <div><dt>Чем определяется</dt><dd>{{ .FM.price_note }}</dd></div>
+      {{- end }}
+    </dl>
+    {{- end }}
+
+    <div class="case-body">
+      <div class="prose">{{ .Body }}</div>
+
+      <aside class="case-aside">
+        {{- if .FM.includes }}
+        <div class="aside-box">
+          <h3>Что входит</h3>
+          <ul>
+            {{- range .FM.includes }}
+            <li><span>{{ . }}</span></li>
+            {{- end }}
+          </ul>
+        </div>
+        {{- end }}
+
+        {{- if .FM.stack }}
+        <div class="aside-box">
+          <h3>На чём делаю</h3>
+          <div class="aside-tags">
+            {{- range .FM.stack }}
+            <span>{{ . }}</span>
+            {{- end }}
+          </div>
+        </div>
+        {{- end }}
+
+        <div class="aside-cta">
+          <h3 class="site-footer__label">Обсудить задачу</h3>
+          <p>Напишите пару предложений: что за бизнес, что должно получиться и что уже пробовали.</p>
+          <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+        </div>
+      </aside>
+    </div>
+
+    {{- if .FM.faq }}
+    <section class="service-faq">
+      <span class="eyebrow"><span>Вопросы</span><span class="eyebrow__rule"></span><span>Что обычно спрашивают</span></span>
+      <div class="stacks">
+        {{- range .FM.faq }}
+        <div class="stack">
+          <div><div class="stack__title">{{ .q }}</div></div>
+          <div><p style="font-size: 15px; line-height: 1.6; color: var(--ink-1); text-wrap: pretty;">{{ .a }}</p></div>
+        </div>
+        {{- end }}
+      </div>
+    </section>
+    {{- end }}
+  </div>
+
+  {{- if .Collections.related_cases.Items }}
+  <section class="shell related">
+    <span class="eyebrow"><span>Доказательства</span><span class="eyebrow__rule"></span><span>Что уже сделано</span></span>
+    <div class="related__list">
+      {{- range .Collections.related_cases.Items }}
+      <a class="case-row case-row--nostatus" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <div style="height: 88px;"></div>
+  {{ template "cta.html" . }}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    {{- if .FM.kicker }}
+    "serviceType": {{ .FM.kicker }},
+    {{- end }}
+    "provider": {
+      "@type": "Person",
+      "name": {{ .Settings.owner_name }},
+      "url": "{{ .BaseURL }}/"
+    },
+    "url": {{ .Canonical }}
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Что делаю", "item": "{{ .BaseURL }}/services/" },
+      { "@type": "ListItem", "position": 3, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+{{- if .FM.faq }}
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {{- range $i, $item := .FM.faq }}{{ if $i }},{{ end }}
+      {
+        "@type": "Question",
+        "name": {{ $item.q }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ $item.a }} }
+      }
+      {{- end }}
+    ]
+  }</script>
+{{- end }}

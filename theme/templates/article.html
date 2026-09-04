@@ -1,0 +1,118 @@
+<article class="post">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .BaseURL }}/blog/">Блог</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      <span class="eyebrow"><span>Статья</span>{{ if .FM.kicker }}<span class="eyebrow__rule"></span><span>{{ .FM.kicker }}</span>{{ end }}</span>
+      <h1>{{ .Page.Title }}</h1>
+      {{- if .FM.lead }}
+      <p class="page-hero__lead">{{ .FM.lead }}</p>
+      {{- else if .Page.Description }}
+      <p class="page-hero__lead">{{ .Page.Description }}</p>
+      {{- end }}
+      {{- if or .FM.published_at .FM.updated_at }}
+      <p class="post-meta">
+        {{- if .FM.published_at }}
+        <time datetime="{{ .FM.published_at }}">{{ .FM.published_at }}</time>
+        {{- end }}
+        {{- if .FM.updated_at }}
+        <span class="post-meta__sep" aria-hidden="true">·</span>
+        <span>обновлено <time datetime="{{ .FM.updated_at }}">{{ .FM.updated_at }}</time></span>
+        {{- end }}
+      </p>
+      {{- end }}
+    </section>
+
+    <div class="case-body">
+      <div class="prose">{{ .Body }}</div>
+
+      <aside class="case-aside">
+        {{- if .FM.cta_service }}
+        <div class="aside-box">
+          <h3>{{ if .FM.cta_title }}{{ .FM.cta_title }}{{ else }}Нужна такая работа?{{ end }}</h3>
+          <div class="aside-links">
+            <a class="link-accent" href="{{ .BaseURL }}/services/{{ .FM.cta_service }}/">Смотреть услугу →</a>
+          </div>
+        </div>
+        {{- end }}
+
+        {{- if .FM.tags }}
+        <div class="aside-box">
+          <h3>Темы</h3>
+          <div class="aside-tags">
+            {{- range .FM.tags }}
+            <span>{{ . }}</span>
+            {{- end }}
+          </div>
+        </div>
+        {{- end }}
+
+        <div class="aside-cta">
+          <h3 class="site-footer__label">Обсудить задачу</h3>
+          <p>Напишите пару предложений о задаче — отвечу, как её решить и сколько это займёт.</p>
+          <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  {{- if .Collections.related_cases.Items }}
+  <section class="shell related">
+    <span class="eyebrow"><span>Доказательства</span><span class="eyebrow__rule"></span><span>Кейсы по теме</span></span>
+    <div class="related__list">
+      {{- range .Collections.related_cases.Items }}
+      <a class="case-row case-row--nostatus" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <div style="height: 88px;"></div>
+  {{ template "cta.html" . }}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    {{- if .FM.published_at }}
+    "datePublished": {{ .FM.published_at }},
+    {{- end }}
+    {{- if .FM.updated_at }}
+    "dateModified": {{ .FM.updated_at }},
+    {{- end }}
+    "inLanguage": "ru-RU",
+    "author": { "@type": "Person", "name": {{ .Settings.owner_name }} },
+    "publisher": { "@type": "Person", "name": {{ .Settings.owner_name }} },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": {{ .Canonical }} }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "{{ .BaseURL }}/blog/" },
+      { "@type": "ListItem", "position": 3, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>

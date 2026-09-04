@@ -3,7 +3,7 @@ site:
   base_url: "https://cookiespooky.github.io"
   media_base_url: "https://cookiespooky.github.io/media"
   title: "Антон Ложкин"
-  description: "Лингвист и разработчик. Сайты, боты, автоматизация, продукты с ИИ и инструменты разбора смысла. 30 кейсов с задачами и результатами."
+  description: "Лингвист и разработчик: сайты, телеграм-боты, парсеры, автоматизация и MVP. Кейсы с задачами и результатами, блог о разработке."
   default_og_image: "/media/og.png"
 
 runtime:
@@ -39,6 +39,9 @@ og_type_by_type:
   catalog: "website"
   case: "article"
   page: "website"
+  service: "website"
+  blog: "website"
+  article: "article"
 
 paths:
   file_root: "./.notepub"

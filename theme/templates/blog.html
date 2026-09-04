@@ -1,0 +1,49 @@
+<div class="blog">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      {{- if .FM.hero_kicker }}
+      <span class="eyebrow"><span>{{ .FM.hero_kicker }}</span></span>
+      {{- end }}
+      <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}</h1>
+      {{- if .FM.hero_lead }}
+      <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
+      {{- end }}
+    </section>
+
+    {{- if .Collections.posts_all.Items }}
+    {{- $n := len .Collections.posts_all.Items }}
+    <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}статья{{ else if lt $n 5 }}статьи{{ else }}статей{{ end }}</div>
+    <div class="post-list">
+      {{- range .Collections.posts_all.Items }}
+      <a class="case-row case-row--post" href="{{ $.BaseURL }}/blog/{{ .Slug }}/">
+        <span class="case-row__body">
+          {{- if .FM.published_at }}
+          <span class="case-row__kicker"><time datetime="{{ .FM.published_at }}">{{ .FM.published_at }}</time></span>
+          {{- end }}
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .Description }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+    {{- else }}
+    <p class="blog-empty">Пока пусто. Первые статьи появятся здесь.</p>
+    {{- end }}
+
+    {{- if .Body }}
+    <div class="case-body" style="grid-template-columns: minmax(0, 1fr);">
+      <div class="prose" style="max-width: 68ch;">{{ .Body }}</div>
+    </div>
+    {{- end }}
+  </div>
+
+  <div style="height: 72px;"></div>
+  {{ template "cta.html" . }}
+</div>

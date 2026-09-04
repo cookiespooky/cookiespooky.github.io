@@ -40,6 +40,9 @@ og_type_by_type:
   catalog: "website"
   case: "article"
   page: "website"
+  service: "website"
+  blog: "website"
+  article: "article"
 
 paths:
   file_root: "./.notepub"

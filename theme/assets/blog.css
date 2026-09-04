@@ -1,0 +1,27 @@
+/* Блог и страницы услуг. Переиспользует .case-row из home.css, меняя только сетку:
+   в ленте статей нет миниатюры, в блоках доказательств нет колонки статуса. */
+
+.case-row--nostatus { grid-template-columns: 104px minmax(0, 1fr) 20px; }
+.case-row--post { grid-template-columns: minmax(0, 1fr) 20px; }
+
+.post-list { border-top: 1px solid var(--line); margin-top: 32px; }
+
+.post-meta {
+  margin-top: 18px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--muted-2);
+}
+.post-meta__sep { margin-inline: 8px; }
+
+.blog-empty {
+  margin-top: 40px; padding: 30px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.service-faq { padding-block: 88px 0; }
+.service-faq .stacks { margin-top: 32px; }
+
+@media (max-width: 720px) {
+  .case-row--post { grid-template-columns: minmax(0, 1fr) 20px !important; gap: 18px !important; }
+}
