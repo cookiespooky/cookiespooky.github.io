@@ -58,7 +58,11 @@
       for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
       k = e.createElement(t); a = e.getElementsByTagName(t)[0];
       k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
-    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+      // Адрес собирается склейкой, а не подстановкой внутрь строкового литерала:
+      // в контексте <script> html/template отдаёт значение уже как строку в кавычках.
+      // Параметр id обязателен в актуальном сниппете — по нему CDN отдаёт сборку
+      // под конкретный счётчик, и он же участвует в проверке на повторную вставку.
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=" + {{ .Settings.metrika_id }}, "ym");
     // Number() на случай, если шаблонизатор отдаст номер счётчика строкой.
     ym(Number({{ .Settings.metrika_id }}), "init", {
       clickmap: true,
