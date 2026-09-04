@@ -1,0 +1,32 @@
+/* Дизайн-токены. Светлая палитра из макета: тёплая бумага, тонкие линии, синий акцент. */
+:root {
+  --paper: #fbfbfa;
+  --paper-2: #f3f2ef;
+  --surface: #ffffff;
+  --line: #e4e3df;
+  --line-strong: #d6d5d0;
+  --ink: #14161a;
+  --ink-1: #40444a;
+  --ink-2: #55595f;
+  --muted: #6b6f76;
+  --muted-2: #8a8e95;
+  --muted-3: #a0a3a9;
+  --accent: #3b5bdb;
+  --accent-ink: #ffffff;
+  --panel: #14161a;
+  --panel-ink: #f4f3f0;
+  --panel-muted: #b4b8be;
+  --panel-line: #3a3d44;
+  --panel-kicker: #7c8189;
+  --dot-off: #c9c8c3;
+
+  --shell: 1180px;
+  --shell-pad: 40px;
+  --header-h: 74px;
+
+  --font: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme: light;
+}

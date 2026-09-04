@@ -1,134 +1,44 @@
-# Notepub Personal Portal Recipe
+# Кейсы — сайт-портфолио
 
-A minimal personal portal with hubs and a blog, styled in a clean Vercel‑like theme.
+Статический сайт-портфолио Антона Ложкина. Собирается [Notepub](https://github.com/cookiespooky/notepub)
+из Markdown-файлов в `content/`, публикуется на GitHub Pages через GitHub Actions.
 
-## Quick start
-1) In your repo Settings → Pages, set Source = GitHub Actions.
-2) Edit or add Markdown in `content/`.
-3) Push to `main`.
+Публичный адрес: https://cookiespooky.github.io/cases/
 
-## Content source
-The deploy workflow uses only local content from this repository: `content/`.
+## Структура
 
-No repository variables for content source are required.
+- `content/` — тексты страниц (frontmatter + Markdown)
+  - `home.md` — главная (первый экран, направления, кейсы с фильтрами, процесс, стек)
+  - `services.md`, `about.md`, `404.md`
+  - `cases/*.md` — по одному файлу на кейс
+- `theme/templates/` — HTML-шаблоны страниц и партиалы
+- `theme/assets/` — CSS, JS, иконки и скриншоты (`shots/`)
+- `config.yaml` — настройки сайта (адрес, заголовки, контакты)
+- `config.dev.yaml` — то же для локального предпросмотра
+- `rules.yaml` — типы страниц, маршруты, коллекции, поля frontmatter
+- `scripts/build.sh` — сборка в `dist/`
+- `.github/workflows/pages.yml` — сборка и деплой
 
-## Base URL
-`base_url` is auto-set in CI for GitHub Pages. Local `config.yaml` can stay at `http://127.0.0.1:8080/`.
-
-## Build locally
-Recommended pinned engine version: `v0.1.7`
-
-Use the build script:
-
-```bash
-NOTEPUB_BIN=/path/to/notepub ./scripts/build.sh
-```
-
-Or with explicit config:
+## Локально
 
 ```bash
-NOTEPUB_BIN=/path/to/notepub NOTEPUB_CONFIG=./config.yaml ./scripts/build.sh
+./scripts/build.sh                                             # собрать в dist/
+./.bin/notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # предпросмотр на 127.0.0.1:8080
 ```
 
-## Runtime streaming locally
-Локально можно работать либо через локальный runtime server, либо через облачный Yandex Cloud backend.
+Первый запуск `build.sh` сам поставит нужную версию Notepub в `.bin/` (нужен Go).
 
-1. Создайте `.env.graph-runtime.local`:
+## Как добавить кейс
 
-```bash
-cat > .env.graph-runtime.local <<'EOF'
-DEEPSEEK_API_KEY=your_key
-GRAPH_RUNTIME_PROVIDER=deepseek
-GRAPH_RUNTIME_MODEL=deepseek-v4-flash
-EOF
-```
+1. Создать `content/cases/<slug>.md`, взяв за образец любой существующий файл.
+2. Заполнить frontmatter: `group` (sites | products | ai | research), `kicker`, `summary`,
+   `status`, `facts`, `highlights`, `stack`, `links`, `nav_order`.
+3. Скриншот положить в `theme/assets/shots/` и указать имя файла в поле `shot`.
+   Если снимка нет — задать `cover: grid | rings | waves | dots | beam`, будет нарисованная обложка.
+4. `git push` — сайт пересоберётся сам.
 
-2. Запустите runtime:
+## Переезд на другой адрес
 
-```bash
-./scripts/start-graph-runtime.sh
-```
-
-3. Соберите фронт против локального stream endpoint:
-
-```bash
-GRAPH_ENDPOINT=http://127.0.0.1:8787/v1/graph/article \
-NOTEPUB_BIN=/path/to/notepub \
-./scripts/build.sh
-```
-
-Для такого `GRAPH_ENDPOINT` сборщик автоматически добавит `graph_stream_endpoint=http://127.0.0.1:8787/v1/graph/article/stream`.
-
-4. Откройте `dist/` через один origin, например:
-
-```bash
-cd dist && python3 -m http.server 8080 --bind 127.0.0.1
-```
-
-Открывайте именно `http://127.0.0.1:8080/`, а не `localhost`, чтобы не ловить лишние origin-расхождения.
-
-## Runtime modes
-Есть три рабочих режима для главной страницы:
-
-`local generator`
-
-```bash
-./scripts/start-graph-runtime.sh
-./scripts/build-with-local-runtime.sh
-```
-
-`Yandex Cloud runtime`
-
-```bash
-export GRAPH_ENDPOINT="https://functions.yandexcloud.net/<function-id>"
-export GRAPH_STREAM_ENDPOINT="wss://<gateway-domain>.apigw.yandexcloud.net/ws"
-./scripts/build-with-yc-runtime.sh
-```
-
-Если `GRAPH_STREAM_ENDPOINT` задан как `wss://...`, фронт будет использовать WebSocket transport и сохранит тот же UX `start/delta/meta/done`.
-
-`Yandex Cloud function only`
-
-```bash
-export GRAPH_ENDPOINT="https://functions.yandexcloud.net/<function-id>"
-unset GRAPH_STREAM_ENDPOINT
-./scripts/build-with-yc-runtime.sh
-```
-
-В этом режиме фронт работает через обычный HTTP JSON endpoint без realtime stream.
-
-## Content
-Markdown usually lives in `content/` (for `local` mode). Each page needs frontmatter:
-
-```yaml
----
-type: article
-slug: my-post
-title: "My Post"
-description: "Short summary."
-hub: "notepub"
-tags:
-  - notepub
----
-```
-
-## Theme
-Templates and CSS live in `theme/`.
-
-## Search
-Search is SSR-friendly: `/search` renders without JS, while JS enhances autocomplete.
-
-## SEO + LLM indexing
-
-This recipe includes:
-
-- Canonical URLs, robots, OpenGraph, Twitter tags in layout metadata.
-- JSON-LD fallback (`WebSite`, `WebPage`, `BlogPosting`, breadcrumbs).
-- `llms.txt` and `llms-full.txt` in `theme/assets/`.
-- Build script that copies `llms*.txt` to site root and appends `LLM:` pointer to `robots.txt`.
-
-Use the build script:
-
-```bash
-NOTEPUB_BIN=/path/to/notepub ./scripts/build.sh
-```
+Адрес сайта задаётся в `config.yaml` (`site.base_url`, `site.media_base_url`, блок `runtime.prod`).
+При переезде на `https://cookiespooky.github.io/` достаточно поменять эти значения;
+маршруты кейсов (`/cases/<slug>/`) останутся прежними.

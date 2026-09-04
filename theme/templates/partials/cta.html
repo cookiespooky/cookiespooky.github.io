@@ -1,0 +1,13 @@
+<section class="shell" style="padding-bottom: 8px;">
+  <div class="cta">
+    <div>
+      <span class="eyebrow">Следующий шаг<span class="eyebrow__rule"></span></span>
+      <h2>{{ if .FM.cta_title }}{{ .FM.cta_title }}{{ else }}Расскажите, что нужно сделать{{ end }}</h2>
+      <p>{{ if .FM.cta_note }}{{ .FM.cta_note }}{{ else }}Напишите в Telegram пару предложений о задаче: что за бизнес, что должно получиться и что уже пробовали. В ответ — понятный план и цена. Без брифов на десять страниц.{{ end }}</p>
+    </div>
+    <div class="cta__actions">
+      <a class="btn btn--light" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+      <a class="btn btn--onpanel" href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Телеграм-канал</a>
+    </div>
+  </div>
+</section>

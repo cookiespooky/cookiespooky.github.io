@@ -1,15 +1,11 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="{{ .AssetsBase }}/styles.css" />
-  <title>Страница не найдена</title>
-</head>
-<body>
-  <main class="container page">
-    <h1>Страница не найдена</h1>
-    <p class="muted">Вернуться на <a href="{{ .BaseURL }}">главную</a>.</p>
-  </main>
-</body>
-</html>
+<article class="page">
+  <div class="shell notfound">
+    <span class="eyebrow"><span>404</span><span class="eyebrow__rule"></span><span>Страница не найдена</span></span>
+    <h1>Такой страницы нет</h1>
+    <p class="page-hero__lead">Возможно, адрес изменился или страница ещё не опубликована.</p>
+    <div class="hero__actions" style="margin-top: 8px;">
+      <a class="btn btn--ink" href="{{ .BaseURL }}/">На главную</a>
+      <a class="btn btn--ghost" href="{{ .BaseURL }}/#cases">Смотреть кейсы</a>
+    </div>
+  </div>
+</article>

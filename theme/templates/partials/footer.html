@@ -1,81 +1,29 @@
-<footer class="site-footer">
-  <div class="container">
-    <hr class="footer-separator" />
-  </div>
-  <div class="container footer-inner">
-    <div class="prose footer-prose" data-site-footer>
-      <p class="muted">Загрузка футера...</p>
+<div class="shell">
+  <footer class="site-footer">
+    <div class="site-footer__col">
+      <span class="site-footer__name">{{ .Settings.owner_name }}</span>
+      <span class="site-footer__role">{{ .Settings.owner_role }}</span>
+      <a class="link-accent" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank">Написать в Telegram →</a>
     </div>
+    <div class="site-footer__col">
+      <span class="site-footer__label">Разделы</span>
+      <a href="{{ .BaseURL }}/#cases">Кейсы</a>
+      <a href="{{ .BaseURL }}/services/">Что делаю</a>
+      <a href="{{ .BaseURL }}/about/">Обо мне</a>
+    </div>
+    <div class="site-footer__col">
+      <span class="site-footer__label">Соцсети</span>
+      <a href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Telegram-канал</a>
+      <a href="{{ .Settings.threads_url }}" rel="noopener" target="_blank">Threads</a>
+      <a href="{{ .Settings.github_url }}" rel="noopener" target="_blank">GitHub</a>
+    </div>
+    <div class="site-footer__col">
+      <span class="site-footer__label">Про сайт</span>
+      <span class="site-footer__note">Статика без бэкенда. Собран на <a class="link-accent" href="https://cookiespooky.github.io/np/ru/" rel="noopener" target="_blank">Notepub</a> — моём движке.</span>
+    </div>
+  </footer>
+  <div class="site-bottom">
+    <span>© {{ .Settings.owner_name }}</span>
+    <span>Проекты под NDA в подборку не входят.</span>
   </div>
-  <script>
-    (function() {
-      var target = document.querySelector('[data-site-footer]');
-      if (!target) return;
-      function isLoopbackHost(hostname) {
-        return hostname === 'localhost' || hostname === '127.0.0.1';
-      }
-      function alignLoopbackOrigin(rawUrl) {
-        if (!rawUrl || /^\/(?!\/)/.test(rawUrl)) return rawUrl;
-        var parsed;
-        try {
-          parsed = new URL(rawUrl, window.location.href);
-        } catch (e) {
-          return rawUrl;
-        }
-        if (!isLoopbackHost(parsed.hostname) || !isLoopbackHost(window.location.hostname)) {
-          return parsed.toString();
-        }
-        if (parsed.origin === window.location.origin) {
-          return parsed.toString();
-        }
-        parsed.protocol = window.location.protocol;
-        parsed.hostname = window.location.hostname;
-        parsed.port = window.location.port;
-        return parsed.toString();
-      }
-      function markExternalLinks(scope) {
-        var links = scope.querySelectorAll('a[href]');
-        if (!links.length) return;
-        links.forEach(function (link) {
-          var href = link.getAttribute('href') || '';
-          if (!href || href.indexOf('#') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) {
-            return;
-          }
-          var url;
-          try {
-            url = new URL(href, window.location.href);
-          } catch (e) {
-            return;
-          }
-          var isHttp = /^https?:$/i.test(url.protocol);
-          if (isHttp && url.origin !== window.location.origin) {
-            link.classList.add('is-external');
-          } else {
-            link.classList.remove('is-external');
-          }
-        });
-      }
-      var footerURL = alignLoopbackOrigin('{{ .BaseURL }}/footer');
-      fetch(footerURL, { credentials: 'same-origin' })
-        .then(function(resp) { return resp.ok ? resp.text() : ''; })
-        .then(function(html) {
-          if (!html) {
-            target.innerHTML = '<p class="muted">Footer page is missing: content/footer.md</p>';
-            return;
-          }
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(html, 'text/html');
-          var source = doc.querySelector('article.page .prose');
-          if (!source) {
-            target.innerHTML = '<p class="muted">Footer content is empty.</p>';
-            return;
-          }
-          target.innerHTML = source.innerHTML;
-          markExternalLinks(target);
-        })
-        .catch(function() {
-          target.innerHTML = '<p class="muted">Footer page is missing: content/footer.md</p>';
-        });
-    })();
-  </script>
-</footer>
+</div>

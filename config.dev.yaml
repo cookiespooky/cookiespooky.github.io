@@ -1,0 +1,63 @@
+# Локальный предпросмотр: notepub serve --config ./config.dev.yaml --rules ./rules.yaml
+site:
+  id: anton-lozhkin
+  base_url: "http://127.0.0.1:8080"
+  media_base_url: "http://127.0.0.1:8080/media"
+  title: "Антон Ложкин"
+  description: "Лингвист и разработчик. Сайты, боты, автоматизация, продукты с ИИ и инструменты разбора смысла. 30 кейсов с задачами и результатами."
+  default_og_image: "/media/og.png"
+
+runtime:
+  mode: "dev"
+  prod:
+    base_url: "https://cookiespooky.github.io"
+    media_base_url: "https://cookiespooky.github.io/media"
+  dev:
+    base_url: "http://127.0.0.1:8080"
+    media_base_url: "http://127.0.0.1:8080/media"
+
+content:
+  source: "local"
+  local_dir: "./content"
+
+markdown:
+  html_policy: "safe"
+
+settings:
+  site_title: "Антон Ложкин"
+  site_description: "Лингвист и разработчик. От хаоса — к системе: сайты, боты, автоматизация и разбор смысла."
+  owner_name: "Антон Ложкин"
+  owner_role: "Лингвист и разработчик"
+  telegram_url: "https://t.me/cookiespooky"
+  telegram_handle: "@cookiespooky"
+  github_url: "https://github.com/cookiespooky"
+  telegram_channel_url: "https://t.me/thefoundersway"
+  threads_url: "https://www.threads.com/@antoniospoony"
+  email: ""
+
+og_type_by_type:
+  home: "website"
+  catalog: "website"
+  case: "article"
+  page: "website"
+
+paths:
+  file_root: "./.notepub"
+  artifacts_dir: "./.notepub/artifacts"
+  snapshot_file: "./.notepub/snapshot/objects.json"
+  cache_root: "./.notepub/cache"
+
+theme:
+  dir: "."
+  name: "theme"
+  templates_subdir: "templates"
+  assets_subdir: "assets"
+
+server:
+  listen: "127.0.0.1:8080"
+
+rules_path: "./rules.yaml"
+
+cache:
+  html_ttl_seconds: 600
+  stale_if_error_seconds: 604800

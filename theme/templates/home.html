@@ -1,39 +1,269 @@
-{{- $graphEndpoint := "https://functions.yandexcloud.net/d4eqlv2pdrq0ckas1eq6" -}}
-{{- with .FM.graph_endpoint -}}
-  {{- $graphEndpoint = . -}}
-{{- end -}}
-{{- $graphStreamEndpoint := "wss://d5dldktr6e9jr03hm045.nkhmighe.apigw.yandexcloud.net/ws" -}}
-{{- with .FM.graph_stream_endpoint -}}
-  {{- $graphStreamEndpoint = . -}}
-{{- end -}}
-<section
-  class="graph-home"
-  data-graph-home
-  data-graph-url="{{ .AssetsBase }}/site-graph.json"
-  data-graph-endpoint="{{ $graphEndpoint }}"
-  {{- if ne $graphStreamEndpoint "" }}
-  data-graph-stream-endpoint="{{ $graphStreamEndpoint }}"
-  {{- end }}
->
-  <div class="graph-home-stage">
-    <div class="graph-home-start prose" data-graph-start>
-      {{ .Body }}
-    </div>
-    <article class="graph-home-article" data-graph-article-view hidden>
-      <div class="graph-story-meta">
-        <span class="graph-kind" data-graph-kind></span>
-        <span class="graph-hub-label" data-graph-hub-label></span>
-      </div>
+<div class="home">
 
-      <h1 class="graph-article-title" data-graph-title>Подготовка статьи</h1>
-      <p class="graph-summary" data-graph-summary></p>
-      <div class="graph-article-body prose" data-graph-generated>
-        <div class="graph-article-copy" data-graph-copy>
-          <p>Подготавливаю статью.</p>
+  <!-- 01 · Первый экран -->
+  <section class="shell" id="top">
+    <div class="hero">
+      <div>
+        <span class="eyebrow"><span>01</span><span class="eyebrow__rule"></span><span>{{ .FM.hero_kicker }}</span></span>
+        <h1>{{ .FM.hero_title }}</h1>
+        <p class="hero__lead">{{ .FM.hero_lead }}</p>
+        <div class="hero__actions">
+          <a class="btn btn--ink" href="#cases">Смотреть кейсы</a>
+          <a class="btn btn--ghost" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Обсудить задачу</a>
         </div>
-        <div class="graph-stream-visual" data-graph-visual aria-hidden="true"></div>
+        {{- if .FM.hero_note }}
+        <p class="hero__note">{{ .FM.hero_note }}</p>
+        {{- end }}
       </div>
-      <div class="graph-actions-inline" data-graph-actions></div>
-    </article>
-  </div>
-</section>
+      <aside class="hero__aside">
+        <img class="hero__photo" src="{{ .AssetsBase }}/anton.webp" alt="Антон Ложкин" width="300" height="300" />
+        <div>
+          <div class="hero__name">{{ .Settings.owner_name }}</div>
+          <div class="hero__role">{{ .Settings.owner_role }}</div>
+        </div>
+        <div class="hero__links">
+          <a class="link-accent" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram →</a>
+          <a href="{{ .BaseURL }}/about/">Подробнее обо мне →</a>
+        </div>
+        {{- if .FM.hero_stats }}
+        <div class="hero__stats">
+          {{- range .FM.hero_stats }}
+          <div>
+            <div class="hero__stat-value">{{ .value }}</div>
+            <div class="hero__stat-label">{{ .label }}</div>
+          </div>
+          {{- end }}
+        </div>
+        {{- end }}
+      </aside>
+    </div>
+  </section>
+
+  <!-- 02 · Кейсы -->
+  <section class="cases" id="cases">
+    <div class="shell">
+      <span class="eyebrow"><span>02</span><span class="eyebrow__rule"></span><span>Работы</span></span>
+      <div class="section-head">
+        <h2>Кейсы</h2>
+        <p>Проекты сгруппированы по типу задачи. У каждого — отдельная страница: что было нужно, что я сделал и что получилось.</p>
+      </div>
+    </div>
+
+    <div class="filters-bar">
+      <div class="filters-shell">
+      <div class="filters" role="group" aria-label="Фильтр по направлениям">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">Все<span class="filter__count">{{ len .Collections.cases_all.Items }}</span></button>
+        <button class="filter" type="button" data-filter="products" aria-pressed="false">Продукты<span class="filter__count">{{ len .Collections.cases_products.Items }}</span></button>
+        <button class="filter" type="button" data-filter="ai" aria-pressed="false">ИИ и боты<span class="filter__count">{{ len .Collections.cases_ai.Items }}</span></button>
+        <button class="filter" type="button" data-filter="research" aria-pressed="false">Смыслы и графы<span class="filter__count">{{ len .Collections.cases_research.Items }}</span></button>
+        <button class="filter" type="button" data-filter="lab" aria-pressed="false">Лаборатория<span class="filter__count">{{ len .Collections.cases_lab.Items }}</span></button>
+        <button class="filter" type="button" data-filter="sites" aria-pressed="false">Сайты<span class="filter__count">{{ len .Collections.cases_sites.Items }}</span></button>
+      </div>
+      </div>
+    </div>
+
+    <div class="shell">
+
+      <section class="catalog-group" data-group="products">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>Продукты и платформы</h3>
+            <p>Системы, которые работают каждый день: платформы для клиентов, движок сайтов, внутренние инструменты и приложения для конкретных ниш.</p>
+            {{- $n := len .Collections.cases_products.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_products.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-group" data-group="ai">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>ИИ, боты и автоматизация</h3>
+            <p>Задачи, где часть работы делает не человек: продажи в чате, приём и разбор заявок, распознавание речи и изображений.</p>
+            {{- $n := len .Collections.cases_ai.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_ai.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-group" data-group="research">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>Смыслы, язык и графы знаний</h3>
+            <p>Лингвистическое направление: разбор текста и ситуации на смысловые единицы, связи между ними и карты, по которым видно, что делать дальше.</p>
+            {{- $n := len .Collections.cases_research.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_research.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-group" data-group="lab">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>Лаборатория: эксперименты и служебное</h3>
+            <p>Внутренние инструменты, инфраструктурные сервисы и мелкие пробы. Здесь видно, из чего собираются большие проекты и что делается «на вечер» из интереса.</p>
+            {{- $n := len .Collections.cases_lab.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_lab.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-group" data-group="sites">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>Сайты для бизнеса и экспертов</h3>
+            <p>Корпоративные сайты, каталоги и порталы. Статика: быстро открывается, дёшево живёт, ничего не ломается само.</p>
+            {{- $n := len .Collections.cases_sites.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_sites.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
+      <p class="catalog-empty" data-catalog-empty hidden>В этом направлении пока нет опубликованных кейсов.</p>
+    </div>
+  </section>
+
+  <!-- 03 · Процесс -->
+  {{- if .FM.process }}
+  <section class="shell process-section" id="process">
+    <span class="eyebrow"><span>03</span><span class="eyebrow__rule"></span><span>Процесс</span></span>
+    <div class="section-head">
+      <h2>Как идёт работа</h2>
+      <p>Короткий цикл: сначала рабочая версия, потом уточнения. Вы видите результат на каждом шаге, а не после месяца молчания.</p>
+    </div>
+    <ol class="process">
+      {{- range .FM.process }}
+      <li>
+        <div class="process__num">{{ .num }}</div>
+        <strong>{{ .title }}</strong>
+        <p>{{ .text }}</p>
+      </li>
+      {{- end }}
+    </ol>
+  </section>
+  {{- end }}
+
+  <!-- 04 · Инструменты -->
+  {{- if .FM.skills }}
+  <section class="shell tools-section" id="tools">
+    <span class="eyebrow"><span>04</span><span class="eyebrow__rule"></span><span>Инструменты</span></span>
+    <div class="section-head">
+      <h2>Чем работаю</h2>
+      <p>Технологии — это средство. Выбираю то, что даёт результат быстрее и дешевле в поддержке.</p>
+    </div>
+    <div class="stacks">
+      {{- range .FM.skills }}
+      <div class="stack">
+        <div class="stack__title">{{ .title }}</div>
+        <div class="stack__items">
+          {{- range .items }}
+          <span>{{ . }}</span>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{ template "cta.html" . }}
+</div>

@@ -1,0 +1,39 @@
+{{- /* Рисованная миниатюра для проектов без снимка экрана.
+       Вариант задаётся полем cover: grid | rings | waves | dots | beam. */ -}}
+{{- $v := printf "%v" .FM.cover -}}
+<svg class="cover" viewBox="0 0 104 68" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <rect width="104" height="68" fill="var(--paper-2)" />
+  {{- if eq $v "rings" }}
+  <g fill="none" stroke="var(--line-strong)" stroke-width="1">
+    <circle cx="78" cy="16" r="12" /><circle cx="78" cy="16" r="24" />
+    <circle cx="78" cy="16" r="36" /><circle cx="78" cy="16" r="48" />
+  </g>
+  <circle cx="78" cy="16" r="4" fill="var(--accent)" />
+  {{- else if eq $v "waves" }}
+  <g fill="none" stroke="var(--line-strong)" stroke-width="1">
+    <path d="M-4 20 C 12 8, 26 32, 42 20 S 78 8, 108 20" />
+    <path d="M-4 34 C 12 22, 26 46, 42 34 S 78 22, 108 34" />
+    <path d="M-4 48 C 12 36, 26 60, 42 48 S 78 36, 108 48" />
+  </g>
+  <path d="M-4 34 C 12 22, 26 46, 42 34 S 78 22, 108 34" fill="none" stroke="var(--accent)" stroke-width="1.4" />
+  {{- else if eq $v "dots" }}
+  <g fill="var(--line-strong)">
+    <circle cx="12" cy="12" r="1.8" /><circle cx="32" cy="12" r="1.8" /><circle cx="52" cy="12" r="1.8" /><circle cx="72" cy="12" r="1.8" /><circle cx="92" cy="12" r="1.8" />
+    <circle cx="12" cy="27" r="1.8" /><circle cx="32" cy="27" r="1.8" /><circle cx="52" cy="27" r="1.8" /><circle cx="72" cy="27" r="1.8" /><circle cx="92" cy="27" r="1.8" />
+    <circle cx="12" cy="42" r="1.8" /><circle cx="32" cy="42" r="1.8" /><circle cx="72" cy="42" r="1.8" /><circle cx="92" cy="42" r="1.8" />
+    <circle cx="12" cy="57" r="1.8" /><circle cx="32" cy="57" r="1.8" /><circle cx="52" cy="57" r="1.8" /><circle cx="72" cy="57" r="1.8" /><circle cx="92" cy="57" r="1.8" />
+  </g>
+  <circle cx="52" cy="42" r="4" fill="var(--accent)" />
+  {{- else if eq $v "beam" }}
+  <g stroke="var(--line-strong)" stroke-width="7">
+    <path d="M-10 78 L 34 -10" /><path d="M12 78 L 56 -10" /><path d="M56 78 L 100 -10" />
+  </g>
+  <path d="M34 78 L 78 -10" stroke="var(--accent)" stroke-width="7" opacity="0.75" />
+  {{- else }}
+  <g stroke="var(--line-strong)" stroke-width="1">
+    <path d="M0 17 H104 M0 34 H104 M0 51 H104" />
+    <path d="M20 0 V68 M40 0 V68 M60 0 V68 M80 0 V68" />
+  </g>
+  <rect x="40" y="17" width="20" height="17" fill="var(--accent)" />
+  {{- end }}
+</svg>

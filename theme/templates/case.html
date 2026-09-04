@@ -1,0 +1,139 @@
+<article class="case">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .BaseURL }}/#cases">Кейсы</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <!-- 01 · Заголовок -->
+    <section class="page-hero">
+      <span class="eyebrow"><span>Кейс</span><span class="eyebrow__rule"></span><span>{{ .FM.kicker }}</span></span>
+      <h1>{{ .Page.Title }}</h1>
+      <p class="page-hero__lead">{{ .FM.summary }}</p>
+    </section>
+
+    <!-- 02 · Паспорт проекта -->
+    <dl class="meta">
+      {{- if .FM.client }}
+      <div><dt>Заказчик</dt><dd>{{ .FM.client }}</dd></div>
+      {{- end }}
+      {{- if .FM.role }}
+      <div><dt>Моя роль</dt><dd>{{ .FM.role }}</dd></div>
+      {{- end }}
+      {{- if .FM.period }}
+      <div><dt>Период</dt><dd>{{ .FM.period }}</dd></div>
+      {{- end }}
+      {{- if .FM.status }}
+      <div><dt>Статус</dt><dd>{{ .FM.status }}</dd></div>
+      {{- end }}
+    </dl>
+
+    <!-- 03 · Снимок экрана, если он есть -->
+    {{- if .FM.shot }}
+    <figure class="shot">
+      <img src="{{ .AssetsBase }}/shots/{{ .FM.shot }}" alt="Экран проекта «{{ .Page.Title }}»" width="1440" height="1000" />
+      <figcaption>
+        <span>{{ .FM.shot_caption }}</span>
+        {{- if .FM.shot_url }}
+        <span class="shot__url">{{ .FM.shot_url }}</span>
+        {{- end }}
+      </figcaption>
+    </figure>
+    {{- end }}
+
+    <!-- 04 · Факты -->
+    {{- if .FM.facts }}
+    <div class="facts">
+      {{- range .FM.facts }}
+      <div class="fact">
+        <strong>{{ .value }}</strong>
+        <span>{{ .label }}</span>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    <!-- 05 · Текст и боковая колонка -->
+    <div class="case-body">
+      <div class="prose">{{ .Body }}</div>
+
+      <aside class="case-aside">
+        {{- if .FM.highlights }}
+        <div class="aside-box">
+          <h3>Что внутри</h3>
+          <ul>
+            {{- range .FM.highlights }}
+            <li><span>{{ . }}</span></li>
+            {{- end }}
+          </ul>
+        </div>
+        {{- end }}
+
+        {{- if .FM.stack }}
+        <div class="aside-box">
+          <h3>Технологии</h3>
+          <div class="aside-tags">
+            {{- range .FM.stack }}
+            <span>{{ . }}</span>
+            {{- end }}
+          </div>
+        </div>
+        {{- end }}
+
+        {{- if .FM.links }}
+        <div class="aside-box">
+          <h3>Ссылки</h3>
+          <div class="aside-links">
+            {{- range .FM.links }}
+            <a class="link-accent" href="{{ .url }}" rel="noopener" target="_blank">{{ .title }} →</a>
+            {{- end }}
+          </div>
+        </div>
+        {{- end }}
+
+        {{- if .FM.placeholder_note }}
+        <p class="aside-note">{{ .FM.placeholder_note }}</p>
+        {{- end }}
+
+        <div class="aside-cta">
+          <h3 class="site-footer__label">Нужна похожая задача?</h3>
+          <p>Напишите пару предложений о задаче — отвечу, как её решить и сколько это займёт.</p>
+          <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- 06 · Похожие кейсы -->
+  {{- if .Collections.related_cases.Items }}
+  <section class="shell related">
+    <span class="eyebrow"><span>Рядом</span><span class="eyebrow__rule"></span><span>Похожие кейсы</span></span>
+    <div class="related__list">
+      {{- range .Collections.related_cases.Items }}
+      <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <div style="height: 88px;"></div>
+  {{ template "cta.html" . }}
+</article>

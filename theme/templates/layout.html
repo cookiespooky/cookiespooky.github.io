@@ -1,217 +1,44 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-base-url="{{ .BaseURL }}">
 <head>
-  {{- $isHome := eq .Page.Type "home" -}}
-  {{- $redirectTo := "" -}}
-  {{- if eq .Page.Type "redirect" -}}
-    {{- with .FM.redirect_to -}}
-      {{- $redirectTo = . -}}
-    {{- end -}}
-  {{- end -}}
-  {{- $pageURL := .Canonical -}}
-  {{- if not $pageURL }}{{- $pageURL = printf "%s/" .BaseURL -}}{{- end -}}
-  {{- $hubSlug := "" -}}
-  {{- if eq .Page.Type "hub" -}}
-    {{- $hubSlug = .Page.Slug -}}
-  {{- else -}}
-    {{- with .FM.hub -}}
-      {{- with index . 0 -}}
-        {{- $hubSlug = printf "%v" . -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-  {{- if eq $hubSlug "[products]" -}}{{- $hubSlug = "products" -}}{{- end -}}
-  {{- if eq $hubSlug "[topics]" -}}{{- $hubSlug = "topics" -}}{{- end -}}
-  {{- if eq $hubSlug "[methods]" -}}{{- $hubSlug = "methods" -}}{{- end -}}
-  {{- if eq $hubSlug "[tools]" -}}{{- $hubSlug = "tools" -}}{{- end -}}
-  {{- if eq $hubSlug "[research]" -}}{{- $hubSlug = "research" -}}{{- end -}}
-  {{- $hubTitle := "" -}}
-  {{- $hubURL := "" -}}
-  {{- if ne $hubSlug "" -}}
-    {{- if eq .Page.Type "hub" -}}
-      {{- $hubTitle = .Title -}}
-      {{- $hubURL = $pageURL -}}
-    {{- else -}}
-      {{- $hubTitle = $hubSlug -}}
-      {{- $hubURL = printf "%s/%s" .BaseURL $hubSlug -}}
-      {{- with .Collections.home_hubs.Items -}}
-        {{- range . -}}
-          {{- if eq .Slug $hubSlug -}}
-            {{- $hubTitle = .Title -}}
-            {{- if .Canonical -}}
-              {{- $hubURL = .Canonical -}}
-            {{- else -}}
-              {{- $hubURL = printf "%s%s" $.BaseURL .Path -}}
-            {{- end -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-  {{- $siteName := "Наблюдения, автоматизация, смысл" -}}
-  {{- $ogImage := printf "%s/assets/notepub.svg" .BaseURL -}}
-  {{- $hasOGImage := false -}}
-  {{- range .Meta.OpenGraph -}}
-    {{- if eq .Key "og:image" -}}
-      {{- $ogImage = .Value -}}
-      {{- $hasOGImage = true -}}
-    {{- end -}}
-  {{- end -}}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:wght@300;400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:wght@300;400;600;700&display=swap" /></noscript>
-  <link rel="preload" as="image" href="{{ $ogImage }}" />
-  <link rel="icon" type="image/svg+xml" href="{{ .AssetsBase }}/notepub.svg" />
-  <link rel="stylesheet" href="{{ .AssetsBase }}/styles.css" />
+  <meta name="theme-color" content="#fbfbfa" />
   {{- if .Page.Description }}
   <meta name="description" content="{{ .Page.Description }}" />
   {{- end }}
   {{- if .Meta.Robots }}
   <meta name="robots" content="{{ .Meta.Robots }}" />
   {{- end }}
-  {{- if ne $redirectTo "" }}
-  <meta http-equiv="refresh" content="0; url={{ $redirectTo }}" />
-  <link rel="canonical" href="{{ $redirectTo }}" />
-  {{- else if .Canonical }}
+  {{- if .Canonical }}
   <link rel="canonical" href="{{ .Canonical }}" />
   {{- end }}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{ .Title }}" />
-  {{- if .Page.Description }}
-  <meta name="twitter:description" content="{{ .Page.Description }}" />
-  {{- end }}
-  <meta name="twitter:image" content="{{ $ogImage }}" />
   {{- range .Meta.OpenGraph }}
   <meta property="{{ .Key }}" content="{{ .Value }}" />
   {{- end }}
-  <meta property="og:site_name" content="{{ $siteName }}" />
-  {{- if not $hasOGImage }}
-  <meta property="og:image" content="{{ $ogImage }}" />
-  {{- end }}
   {{- if .Meta.JSONLD }}
   <script type="application/ld+json">{{ .Meta.JSONLD }}</script>
-  {{- else }}
-  {{- $isArticle := eq .Page.Type "article" -}}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "{{ .BaseURL }}/#website",
-        "url": "{{ .BaseURL }}/",
-        "name": "{{ $siteName }}",
-        "inLanguage": "ru"
-      },
-      {
-        "@type": "WebPage",
-        "@id": "{{ $pageURL }}#webpage",
-        "url": "{{ $pageURL }}",
-        "name": "{{ .Title }}",
-        "description": "{{ .Page.Description }}",
-        "isPartOf": { "@id": "{{ .BaseURL }}/#website" },
-        "inLanguage": "ru"
-      }
-      {{- if $isArticle -}},
-      {
-        "@type": "BlogPosting",
-        "headline": "{{ .Title }}",
-        "description": "{{ .Page.Description }}",
-        "mainEntityOfPage": { "@id": "{{ $pageURL }}#webpage" },
-        "inLanguage": "ru"
-      }
-      {{- end -}}
-    ]
-  }
-  </script>
   {{- end }}
-  {{- if not $isHome }}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Главная",
-        "item": "{{ .BaseURL }}/"
-      }{{- if and (ne $hubSlug "") (ne .Page.Type "hub") -}},
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "{{ $hubTitle }}",
-        "item": "{{ $hubURL }}"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "{{ .Title }}",
-        "item": "{{ $pageURL }}"
-      }{{- else -}},
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "{{ .Title }}",
-        "item": "{{ $pageURL }}"
-      }{{- end }}
-    ]
-  }
-  </script>
-  {{- end }}
-  <script>
-    window.__notepubSearchMode = "{{ .SearchMode }}";
-    window.__notepubBaseURL = "{{ .BaseURL }}";
-  </script>
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();
-      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108674124', 'ym');
-
-    ym(108674124, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-  </script>
-  <!-- /Yandex.Metrika counter -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ .AssetsBase }}/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ .AssetsBase }}/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ .AssetsBase }}/favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ .AssetsBase }}/apple-touch-icon.png" />
+  <link rel="preload" as="font" type="font/woff2" href="{{ .AssetsBase }}/fonts/golos-text-cyrillic.woff2" crossorigin />
+  <link rel="stylesheet" href="{{ .AssetsBase }}/fonts.css" />
+  <link rel="stylesheet" href="{{ .AssetsBase }}/tokens.css" />
+  <link rel="stylesheet" href="{{ .AssetsBase }}/base.css" />
+  <link rel="stylesheet" href="{{ .AssetsBase }}/home.css" />
+  <link rel="stylesheet" href="{{ .AssetsBase }}/case.css" />
   <title>{{ .Title }}</title>
 </head>
 <body>
-  <noscript><div><img src="https://mc.yandex.ru/watch/108674124" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <a class="skip-link" href="#content">К содержанию</a>
   {{ template "header.html" . }}
-
-  <main class="container">
-    {{- if not $isHome }}
-    <nav class="breadcrumbs" aria-label="Хлебные крошки">
-      <a href="{{ .BaseURL }}/">Главная</a>
-      {{- if and (ne $hubSlug "") (ne .Page.Type "hub") }}
-      <span class="breadcrumbs-sep" aria-hidden="true">/</span>
-      <a href="{{ $hubURL }}">{{ $hubTitle }}</a>
-      {{- end }}
-      <span class="breadcrumbs-sep" aria-hidden="true">/</span>
-      <span class="breadcrumbs-current" aria-current="page">{{ .Title }}</span>
-    </nav>
-    {{- end }}
+  <main id="content">
     {{ .Body }}
   </main>
   {{ template "footer.html" . }}
-
-  <div class="search-modal" data-search-modal aria-hidden="true">
-    <div class="search-backdrop" data-search-close></div>
-    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Поиск">
-      <form class="search-form" action="{{ .BaseURL }}/search" method="get">
-        <input type="search" name="q" placeholder="Поиск..." minlength="2" data-search-input />
-        <button type="submit">Найти</button>
-      </form>
-      <div class="search-results" data-search-results></div>
-    </div>
-  </div>
-  <script src="{{ .AssetsBase }}/main.js"></script>
+  <script src="{{ .AssetsBase }}/app.js" defer></script>
 </body>
 </html>

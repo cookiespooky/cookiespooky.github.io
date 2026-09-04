@@ -1,5 +1,51 @@
 <article class="page">
-  <div class="prose">
-    {{ .Body }}
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      {{- if .FM.hero_kicker }}
+      <span class="eyebrow"><span>{{ .FM.hero_kicker }}</span></span>
+      {{- end }}
+      <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}</h1>
+      {{- if .FM.hero_lead }}
+      <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
+      {{- end }}
+    </section>
+
+    {{- if .FM.services }}
+    <div class="stacks" style="margin-top: 56px;">
+      {{- range .FM.services }}
+      <div class="stack">
+        <div>
+          <div class="stack__title">{{ .title }}</div>
+          {{- if .case }}
+          <a class="link-accent" style="display: inline-block; margin-top: 10px; font-size: 14px;" href="{{ $.BaseURL }}/cases/{{ .case }}/">{{ if .case_title }}{{ .case_title }}{{ else }}Смотреть кейс{{ end }} →</a>
+          {{- end }}
+        </div>
+        <div>
+          <p style="font-size: 15px; line-height: 1.6; color: var(--ink-1); text-wrap: pretty;">{{ .text }}</p>
+          {{- if .items }}
+          <ul style="margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 14px; color: var(--muted);">
+            {{- range .items }}
+            <li>{{ . }}</li>
+            {{- end }}
+          </ul>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    <div class="case-body" style="grid-template-columns: minmax(0, 1fr);">
+      <div class="prose" style="max-width: 68ch;">{{ .Body }}</div>
+    </div>
   </div>
+
+  <div style="height: 72px;"></div>
+  {{ template "cta.html" . }}
 </article>

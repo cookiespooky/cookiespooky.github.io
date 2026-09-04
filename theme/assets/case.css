@@ -1,0 +1,67 @@
+/* Внутренние страницы: кейс, «Что делаю», «Обо мне», 404. */
+.crumbs {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  padding-top: 28px; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted-3);
+}
+.crumbs a:hover { color: var(--ink); }
+.crumbs__current { max-width: 46ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.page-hero { padding: 26px 0 0; }
+.page-hero h1 { max-width: 22ch; font-size: 56px; }
+.page-hero__lead { margin-top: 24px; max-width: 62ch; font-size: 19px; line-height: 1.55; color: var(--ink-1); text-wrap: pretty; }
+.page-hero .eyebrow { margin-bottom: 22px; }
+
+.meta {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
+  margin-top: 48px; background: var(--line);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.meta div { background: var(--paper); padding: 22px 24px 26px; }
+.meta dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted-3); }
+.meta dd { margin: 10px 0 0; font-size: 15px; font-weight: 500; line-height: 1.45; }
+
+.shot { margin: 56px 0 0; }
+.shot img { width: 100%; max-height: 640px; object-fit: cover; object-position: top center; border: 1px solid var(--line); background: var(--paper-2); }
+.shot figcaption {
+  margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between;
+  font-size: 13px; color: var(--muted);
+}
+.shot__url { font-family: var(--font-mono); font-size: 12px; color: var(--muted-3); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; margin-top: 56px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fact { background: var(--paper); padding: 24px; }
+.fact strong { display: block; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+.fact span { display: block; margin-top: 8px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+.case-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; padding: 72px 0 0; }
+.case-aside { display: grid; gap: 32px; position: sticky; top: calc(var(--header-h) + 24px); }
+.aside-box { display: grid; gap: 12px; }
+.aside-box h3 { font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted-3); }
+.aside-box ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--ink-1); }
+.aside-box li { display: flex; gap: 10px; }
+.aside-box li::before { content: ""; flex: none; width: 5px; height: 5px; margin-top: 8px; border-radius: 50%; background: var(--accent); }
+.aside-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.aside-tags span { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-1); background: var(--surface); }
+.aside-links { display: grid; gap: 10px; font-size: 14px; }
+.aside-note { font-size: 13px; line-height: 1.6; color: var(--muted); border-left: 1px solid var(--line-strong); padding-left: 14px; }
+.aside-cta { display: grid; gap: 12px; padding-top: 24px; border-top: 1px solid var(--line); }
+.aside-cta p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+
+.related { padding-block: 88px 0; }
+.related__list { border-top: 1px solid var(--line); margin-top: 32px; }
+
+.notfound { padding-block: 120px 140px; display: grid; gap: 22px; justify-items: start; }
+
+@media (max-width: 1140px) {
+  .page-hero h1 { font-size: 42px; }
+  .meta { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .case-body { grid-template-columns: minmax(0, 1fr) !important; gap: 48px !important; }
+  .case-aside { position: static !important; }
+}
+@media (max-width: 640px) {
+  .page-hero h1 { font-size: 32px; }
+  .page-hero__lead { font-size: 17px; }
+  .meta { grid-template-columns: minmax(0, 1fr) !important; }
+  .case-body { padding-top: 48px; }
+}
