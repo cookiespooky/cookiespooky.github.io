@@ -1,0 +1,245 @@
+# Реестр кластеров запросов. Главный артефакт SEO-завода: он, а не генератор
+# текста, не даёт написать вторую статью под тот же интент.
+#
+# Правило, которое нельзя нарушать: один кластер = один URL.
+#
+# stage:  seed -> measured -> planned -> written -> published -> tracked
+#   seed       фразы выписаны из портфолио, частот ещё нет
+#   measured   собраны freq_exact и конкуренция, кластер прошёл или отсеян
+#   planned    решено писать, назначен target_url
+#   written    файл лежит в content/, ещё не в main
+#   published  в выдаче, ждём данных
+#   tracked    есть показы/позиции из Вебмастера, решаем расширять или нет
+#
+# money_distance: 1..5 — сколько шагов от запроса до оплаченной работы.
+#   1 человек уже описывает вашу задачу словами
+#   2 у него есть проблема, которую вы решаете
+#   3 он рядом с темой
+#   4-5 общее любопытство — НЕ ПИШЕМ, жёсткий фильтр
+#
+# freq_broad  число Wordstat без операторов — только чтобы находить идеи
+# freq_exact  "!фраза" — единственная частота, по которой приоритизируем
+
+version: 1
+region: 225          # Россия целиком, без привязки к городу
+updated_at: "2026-09-04"
+
+clusters:
+  # ============ направление: сайты и каталоги на статике ============
+
+  - id: static-vs-cms
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: null
+    cases: [gorod-katalog, utilitservis, notepub]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "статический сайт или wordpress", freq_broad: null, freq_exact: null }
+      - { phrase: "чем статический сайт лучше wordpress", freq_broad: null, freq_exact: null }
+      - { phrase: "статический сайт недостатки", freq_broad: null, freq_exact: null }
+      - { phrase: "нужна ли cms для сайта компании", freq_broad: null, freq_exact: null }
+    note: "Вход в тему. Честно про минусы статики, иначе не поверят."
+
+  - id: service-city-pages
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: null
+    cases: [gorod-katalog]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "страницы под города для seo", freq_broad: null, freq_exact: null }
+      - { phrase: "как сделать страницы услуга город", freq_broad: null, freq_exact: null }
+      - { phrase: "посадочные страницы под регионы", freq_broad: null, freq_exact: null }
+      - { phrase: "сколько страниц нужно для seo", freq_broad: null, freq_exact: null }
+    note: "Кейс буквально про это: 10 услуг x 15 городов = 150 страниц. Дистанция 1."
+
+  - id: site-without-hosting
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: null
+    cases: [notepub, gorod-katalog]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "сайт на github pages", freq_broad: null, freq_exact: null }
+      - { phrase: "бесплатный хостинг для сайта компании", freq_broad: null, freq_exact: null }
+      - { phrase: "сайт без хостинга", freq_broad: null, freq_exact: null }
+      - { phrase: "куда выложить статический сайт", freq_broad: null, freq_exact: null }
+    note: "Проверить конкуренцию: тема популярна у разработчиков, выдача может быть занята."
+
+  - id: form-without-backend
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: null
+    cases: [utilitservis, barskaya-usadba, tractor-center]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "форма заявки на сайте без бэкенда", freq_broad: null, freq_exact: null }
+      - { phrase: "куда приходят заявки с сайта", freq_broad: null, freq_exact: null }
+      - { phrase: "заявка с сайта в телеграм", freq_broad: null, freq_exact: null }
+    note: "Три кейса подряд решают именно это. Ведёт прямо в услугу."
+
+  - id: site-payments-crm
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: null
+    cases: [groupconsult, ai-seller]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "как подключить amocrm к сайту", freq_broad: null, freq_exact: null }
+      - { phrase: "оплата на сайте без интернет магазина", freq_broad: null, freq_exact: null }
+      - { phrase: "приём платежей на сайте юkassa", freq_broad: null, freq_exact: null }
+    note: "Кейс ГруппКонсалт: оплата + автосделка в amoCRM. Дорогая аудитория."
+
+  - id: markdown-notes-to-site
+    direction: sites
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: null
+    cases: [notepub, obsidian-guide-site, obsidian-analysis]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "сайт из заметок obsidian", freq_broad: null, freq_exact: null }
+      - { phrase: "obsidian publish альтернатива", freq_broad: null, freq_exact: null }
+      - { phrase: "сайт из markdown файлов", freq_broad: null, freq_exact: null }
+      - { phrase: "как опубликовать заметки obsidian", freq_broad: null, freq_exact: null }
+    note: "Гипотеза самого дешёвого входа: живой спрос, конкуренция почти не коммерческая, под темой 4 кейса + свой движок. Проверять первой."
+
+  # ============ направление: боты и мини-приложения ============
+
+  - id: bot-lead-intake
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: telegram-bot
+    cases: [ai-qualification-bot]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "телеграм бот для приёма заявок", freq_broad: null, freq_exact: null }
+      - { phrase: "бот для квалификации лидов", freq_broad: null, freq_exact: null }
+      - { phrase: "как автоматизировать приём заявок", freq_broad: null, freq_exact: null }
+      - { phrase: "бот вместо менеджера", freq_broad: null, freq_exact: null }
+    note: "Кейс один в один. Лендинг уже есть."
+
+  - id: bot-price
+    direction: bots
+    intent: mixed
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: telegram-bot
+    cases: [ai-qualification-bot, hookapp, graphreach]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "сколько стоит сделать телеграм бота", freq_broad: null, freq_exact: null }
+      - { phrase: "цена разработки телеграм бота", freq_broad: null, freq_exact: null }
+      - { phrase: "стоимость чат бота", freq_broad: null, freq_exact: null }
+    note: "Смешанный интент: выдача частично коммерческая, проверить состав топа. Выигрывается честными цифрами и вилками, а не 'от 15000 руб'."
+
+  - id: bot-vs-miniapp
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: telegram-bot
+    cases: [hookapp, graphreach, td-graph]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "чем отличается телеграм бот от мини приложения", freq_broad: null, freq_exact: null }
+      - { phrase: "telegram mini app что это", freq_broad: null, freq_exact: null }
+      - { phrase: "что выбрать бот или мини приложение", freq_broad: null, freq_exact: null }
+    note: "Три кейса на мини-приложениях. Вопрос, который реально задают перед заказом."
+
+  - id: bot-hosting-serverless
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: telegram-bot
+    cases: [website-ai-assistant, order-flow]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "где хостить телеграм бота", freq_broad: null, freq_exact: null }
+      - { phrase: "телеграм бот на yandex cloud functions", freq_broad: null, freq_exact: null }
+      - { phrase: "бот на бесплатном хостинге", freq_broad: null, freq_exact: null }
+      - { phrase: "serverless телеграм бот", freq_broad: null, freq_exact: null }
+    note: "Yandex Cloud Functions в стеке трёх кейсов, есть что показать по расчёту free tier."
+
+  - id: bot-payments
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: telegram-bot
+    cases: [recca, groupconsult, ai-seller]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "приём платежей в телеграм боте", freq_broad: null, freq_exact: null }
+      - { phrase: "юkassa в телеграм боте", freq_broad: null, freq_exact: null }
+      - { phrase: "как подключить оплату к боту", freq_broad: null, freq_exact: null }
+    note: "ЮKassa и Robokassa в стеке пяти кейсов."
+
+  - id: ai-assistant-on-site
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 1
+    cta_service: telegram-bot
+    cases: [website-ai-assistant, ai-seller, llm-site]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "чат бот с gpt на сайт", freq_broad: null, freq_exact: null }
+      - { phrase: "как подключить нейросеть к сайту", freq_broad: null, freq_exact: null }
+      - { phrase: "ии ассистент для сайта", freq_broad: null, freq_exact: null }
+      - { phrase: "стриминг ответа модели на сайте", freq_broad: null, freq_exact: null }
+    note: "Самый шумный спрос из всех и самая высокая конкуренция. Заходить длинным хвостом, а не головой."
+
+  - id: bot-remembers-user
+    direction: bots
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: telegram-bot
+    cases: [gpt-tutor, ai-seller]
+    target_url: null
+    competition: null
+    keys:
+      - { phrase: "чтобы бот помнил пользователя", freq_broad: null, freq_exact: null }
+      - { phrase: "память в чат боте", freq_broad: null, freq_exact: null }
+      - { phrase: "контекст диалога в боте", freq_broad: null, freq_exact: null }
+    note: "Кейс gpt-tutor построен ровно на этом отличии от обычного чата."

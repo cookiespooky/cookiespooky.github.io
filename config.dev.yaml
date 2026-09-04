@@ -34,6 +34,8 @@ settings:
   telegram_channel_url: "https://t.me/thefoundersway"
   threads_url: "https://www.threads.com/@antoniospoony"
   email: ""
+  metrika_id: ""
+  yandex_verification: ""
 
 og_type_by_type:
   home: "website"
