@@ -1,7 +1,0 @@
-{
-  "name": "graph-runtime",
-  "version": "1.0.0",
-  "description": "Yandex Cloud Function for graph-based article generation.",
-  "main": "index.js",
-  "license": "ISC"
-}
