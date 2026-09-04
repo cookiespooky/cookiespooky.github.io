@@ -63,7 +63,7 @@ img { max-width: 100%; height: auto; display: block; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
-.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 22px; }
+.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 10px; }
 .brand { display: flex; align-items: center; gap: 10px; }
 .brand__photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; filter: grayscale(1); background: #e9e8e4; flex: none; }
 .brand span { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }

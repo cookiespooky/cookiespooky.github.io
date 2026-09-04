@@ -49,7 +49,8 @@
       openBtn.setAttribute('aria-expanded', 'true');
       document.body.classList.add('is-locked');
       var first = drawer.querySelector('a, button');
-      if (first) first.focus();
+      // без preventScroll браузер подтягивает элемент в вид и страница уезжает
+      if (first) first.focus({ preventScroll: true });
     };
     var close = function () {
       drawer.classList.remove('is-open');
@@ -63,7 +64,7 @@
           overlay.hidden = true;
         }
       }, 280);
-      openBtn.focus();
+      openBtn.focus({ preventScroll: true });
     };
 
     openBtn.addEventListener('click', open);
@@ -198,8 +199,11 @@
     }
 
     syncStickyOffsets();
-    // панель фильтров липкая: без её высоты она накрыла бы заголовок группы
-    var offset = value === 'all' ? headerHeight() : headerHeight() + filtersHeight() + 8;
+    // Панель фильтров липкая: без её высоты она накрыла бы заголовок группы.
+    // Минус 2px — чтобы под панель ушёл замыкающий дивайдер предыдущей группы:
+    // у .catalog-group верхний padding 56px, поэтому граница последней строки
+    // предыдущего раздела приходится ровно на верх бокса следующего.
+    var offset = value === 'all' ? headerHeight() : headerHeight() + filtersHeight() - 2;
     var top = Math.max(0, docTop(target) - offset);
     if (Math.abs(window.scrollY - top) <= 2) return;
     spyMutedUntil = Date.now() + (instant ? 200 : 900);
