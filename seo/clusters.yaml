@@ -17,11 +17,14 @@
 #   3 он рядом с темой
 #   4-5 общее любопытство — НЕ ПИШЕМ, жёсткий фильтр
 #
-# freq_broad  число Wordstat без операторов — только чтобы находить идеи
-# freq_exact  "!фраза" — единственная частота, по которой приоритизируем
+# Частоты приходят из POST /v2/wordstat/topRequests (Yandex Cloud Search API):
+#   total_count        ответ totalCount — широкий потолок по кластеру, НЕ для приоритизации
+#   keys[].count       ответ results[].count — частота конкретной формулировки, по ней приоритизируем
+# Сиды ниже — это входные phrase для GetTop, а не финальный список ключей:
+# один запрос разворачивает до 2000 реальных формулировок со своими частотами.
 
 version: 1
-region: 225          # Россия целиком, без привязки к городу
+region: 225          # Россия. Подтвердить кодом из GetRegionsTree — метод бесплатный
 updated_at: "2026-09-04"
 
 clusters:
@@ -37,11 +40,12 @@ clusters:
     cases: [gorod-katalog, utilitservis, notepub]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "статический сайт или wordpress", freq_broad: null, freq_exact: null }
-      - { phrase: "чем статический сайт лучше wordpress", freq_broad: null, freq_exact: null }
-      - { phrase: "статический сайт недостатки", freq_broad: null, freq_exact: null }
-      - { phrase: "нужна ли cms для сайта компании", freq_broad: null, freq_exact: null }
+      - { phrase: "статический сайт или wordpress", count: null }
+      - { phrase: "чем статический сайт лучше wordpress", count: null }
+      - { phrase: "статический сайт недостатки", count: null }
+      - { phrase: "нужна ли cms для сайта компании", count: null }
     note: "Вход в тему. Честно про минусы статики, иначе не поверят."
 
   - id: service-city-pages
@@ -54,11 +58,12 @@ clusters:
     cases: [gorod-katalog]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "страницы под города для seo", freq_broad: null, freq_exact: null }
-      - { phrase: "как сделать страницы услуга город", freq_broad: null, freq_exact: null }
-      - { phrase: "посадочные страницы под регионы", freq_broad: null, freq_exact: null }
-      - { phrase: "сколько страниц нужно для seo", freq_broad: null, freq_exact: null }
+      - { phrase: "страницы под города для seo", count: null }
+      - { phrase: "как сделать страницы услуга город", count: null }
+      - { phrase: "посадочные страницы под регионы", count: null }
+      - { phrase: "сколько страниц нужно для seo", count: null }
     note: "Кейс буквально про это: 10 услуг x 15 городов = 150 страниц. Дистанция 1."
 
   - id: site-without-hosting
@@ -71,11 +76,12 @@ clusters:
     cases: [notepub, gorod-katalog]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "сайт на github pages", freq_broad: null, freq_exact: null }
-      - { phrase: "бесплатный хостинг для сайта компании", freq_broad: null, freq_exact: null }
-      - { phrase: "сайт без хостинга", freq_broad: null, freq_exact: null }
-      - { phrase: "куда выложить статический сайт", freq_broad: null, freq_exact: null }
+      - { phrase: "сайт на github pages", count: null }
+      - { phrase: "бесплатный хостинг для сайта компании", count: null }
+      - { phrase: "сайт без хостинга", count: null }
+      - { phrase: "куда выложить статический сайт", count: null }
     note: "Проверить конкуренцию: тема популярна у разработчиков, выдача может быть занята."
 
   - id: form-without-backend
@@ -88,10 +94,11 @@ clusters:
     cases: [utilitservis, barskaya-usadba, tractor-center]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "форма заявки на сайте без бэкенда", freq_broad: null, freq_exact: null }
-      - { phrase: "куда приходят заявки с сайта", freq_broad: null, freq_exact: null }
-      - { phrase: "заявка с сайта в телеграм", freq_broad: null, freq_exact: null }
+      - { phrase: "форма заявки на сайте без бэкенда", count: null }
+      - { phrase: "куда приходят заявки с сайта", count: null }
+      - { phrase: "заявка с сайта в телеграм", count: null }
     note: "Три кейса подряд решают именно это. Ведёт прямо в услугу."
 
   - id: site-payments-crm
@@ -104,10 +111,11 @@ clusters:
     cases: [groupconsult, ai-seller]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "как подключить amocrm к сайту", freq_broad: null, freq_exact: null }
-      - { phrase: "оплата на сайте без интернет магазина", freq_broad: null, freq_exact: null }
-      - { phrase: "приём платежей на сайте юkassa", freq_broad: null, freq_exact: null }
+      - { phrase: "как подключить amocrm к сайту", count: null }
+      - { phrase: "оплата на сайте без интернет магазина", count: null }
+      - { phrase: "приём платежей на сайте юkassa", count: null }
     note: "Кейс ГруппКонсалт: оплата + автосделка в amoCRM. Дорогая аудитория."
 
   - id: markdown-notes-to-site
@@ -120,11 +128,12 @@ clusters:
     cases: [notepub, obsidian-guide-site, obsidian-analysis]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "сайт из заметок obsidian", freq_broad: null, freq_exact: null }
-      - { phrase: "obsidian publish альтернатива", freq_broad: null, freq_exact: null }
-      - { phrase: "сайт из markdown файлов", freq_broad: null, freq_exact: null }
-      - { phrase: "как опубликовать заметки obsidian", freq_broad: null, freq_exact: null }
+      - { phrase: "сайт из заметок obsidian", count: null }
+      - { phrase: "obsidian publish альтернатива", count: null }
+      - { phrase: "сайт из markdown файлов", count: null }
+      - { phrase: "как опубликовать заметки obsidian", count: null }
     note: "Гипотеза самого дешёвого входа: живой спрос, конкуренция почти не коммерческая, под темой 4 кейса + свой движок. Проверять первой."
 
   # ============ направление: боты и мини-приложения ============
@@ -139,11 +148,12 @@ clusters:
     cases: [ai-qualification-bot]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "телеграм бот для приёма заявок", freq_broad: null, freq_exact: null }
-      - { phrase: "бот для квалификации лидов", freq_broad: null, freq_exact: null }
-      - { phrase: "как автоматизировать приём заявок", freq_broad: null, freq_exact: null }
-      - { phrase: "бот вместо менеджера", freq_broad: null, freq_exact: null }
+      - { phrase: "телеграм бот для приёма заявок", count: null }
+      - { phrase: "бот для квалификации лидов", count: null }
+      - { phrase: "как автоматизировать приём заявок", count: null }
+      - { phrase: "бот вместо менеджера", count: null }
     note: "Кейс один в один. Лендинг уже есть."
 
   - id: bot-price
@@ -156,10 +166,11 @@ clusters:
     cases: [ai-qualification-bot, hookapp, graphreach]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "сколько стоит сделать телеграм бота", freq_broad: null, freq_exact: null }
-      - { phrase: "цена разработки телеграм бота", freq_broad: null, freq_exact: null }
-      - { phrase: "стоимость чат бота", freq_broad: null, freq_exact: null }
+      - { phrase: "сколько стоит сделать телеграм бота", count: null }
+      - { phrase: "цена разработки телеграм бота", count: null }
+      - { phrase: "стоимость чат бота", count: null }
     note: "Смешанный интент: выдача частично коммерческая, проверить состав топа. Выигрывается честными цифрами и вилками, а не 'от 15000 руб'."
 
   - id: bot-vs-miniapp
@@ -172,10 +183,11 @@ clusters:
     cases: [hookapp, graphreach, td-graph]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "чем отличается телеграм бот от мини приложения", freq_broad: null, freq_exact: null }
-      - { phrase: "telegram mini app что это", freq_broad: null, freq_exact: null }
-      - { phrase: "что выбрать бот или мини приложение", freq_broad: null, freq_exact: null }
+      - { phrase: "чем отличается телеграм бот от мини приложения", count: null }
+      - { phrase: "telegram mini app что это", count: null }
+      - { phrase: "что выбрать бот или мини приложение", count: null }
     note: "Три кейса на мини-приложениях. Вопрос, который реально задают перед заказом."
 
   - id: bot-hosting-serverless
@@ -188,11 +200,12 @@ clusters:
     cases: [website-ai-assistant, order-flow]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "где хостить телеграм бота", freq_broad: null, freq_exact: null }
-      - { phrase: "телеграм бот на yandex cloud functions", freq_broad: null, freq_exact: null }
-      - { phrase: "бот на бесплатном хостинге", freq_broad: null, freq_exact: null }
-      - { phrase: "serverless телеграм бот", freq_broad: null, freq_exact: null }
+      - { phrase: "где хостить телеграм бота", count: null }
+      - { phrase: "телеграм бот на yandex cloud functions", count: null }
+      - { phrase: "бот на бесплатном хостинге", count: null }
+      - { phrase: "serverless телеграм бот", count: null }
     note: "Yandex Cloud Functions в стеке трёх кейсов, есть что показать по расчёту free tier."
 
   - id: bot-payments
@@ -205,10 +218,11 @@ clusters:
     cases: [recca, groupconsult, ai-seller]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "приём платежей в телеграм боте", freq_broad: null, freq_exact: null }
-      - { phrase: "юkassa в телеграм боте", freq_broad: null, freq_exact: null }
-      - { phrase: "как подключить оплату к боту", freq_broad: null, freq_exact: null }
+      - { phrase: "приём платежей в телеграм боте", count: null }
+      - { phrase: "юkassa в телеграм боте", count: null }
+      - { phrase: "как подключить оплату к боту", count: null }
     note: "ЮKassa и Robokassa в стеке пяти кейсов."
 
   - id: ai-assistant-on-site
@@ -221,11 +235,12 @@ clusters:
     cases: [website-ai-assistant, ai-seller, llm-site]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "чат бот с gpt на сайт", freq_broad: null, freq_exact: null }
-      - { phrase: "как подключить нейросеть к сайту", freq_broad: null, freq_exact: null }
-      - { phrase: "ии ассистент для сайта", freq_broad: null, freq_exact: null }
-      - { phrase: "стриминг ответа модели на сайте", freq_broad: null, freq_exact: null }
+      - { phrase: "чат бот с gpt на сайт", count: null }
+      - { phrase: "как подключить нейросеть к сайту", count: null }
+      - { phrase: "ии ассистент для сайта", count: null }
+      - { phrase: "стриминг ответа модели на сайте", count: null }
     note: "Самый шумный спрос из всех и самая высокая конкуренция. Заходить длинным хвостом, а не головой."
 
   - id: bot-remembers-user
@@ -238,8 +253,9 @@ clusters:
     cases: [gpt-tutor, ai-seller]
     target_url: null
     competition: null
+    total_count: null
     keys:
-      - { phrase: "чтобы бот помнил пользователя", freq_broad: null, freq_exact: null }
-      - { phrase: "память в чат боте", freq_broad: null, freq_exact: null }
-      - { phrase: "контекст диалога в боте", freq_broad: null, freq_exact: null }
+      - { phrase: "чтобы бот помнил пользователя", count: null }
+      - { phrase: "память в чат боте", count: null }
+      - { phrase: "контекст диалога в боте", count: null }
     note: "Кейс gpt-tutor построен ровно на этом отличии от обычного чата."
