@@ -251,12 +251,24 @@ resolvers agree):
 | `www` | `CNAME` → `cookiespooky.github.io.`, 301s to apex over http |
 | apex `A` TTL | 86400 at reg.ru — a full day of cache to age out |
 
-The certificate still has not issued: TLS presents `CN=*.github.io`. Two of the causes were only removed
-within the hour — the `CNAME` file reached the artifact with the first push, and the `cases` repo was
-deleted after it — so the check has not necessarily re-run since. **Do not remove and re-add the domain**;
-that restarts the timer. There is also no `_github-pages-challenge-cookiespooky` TXT record: account-level
-domain verification was never done. It does not drive this check, but it is worth adding on its own merits,
-along with a shorter TTL for the next migration.
+**HTTPS is live.** Let's Encrypt issued `CN=antonlozhkin.ru` on 2026-09-04, valid to 2026-12-03; every
+section answers 200 over TLS and `www` 301s to the apex, so the certificate covers both names.
+
+**What actually cleared it: removing the custom domain in Settings → Pages and adding it back.** This
+contradicts the advice that used to stand here — that re-adding restarts the timer and should be avoided —
+so the correction is worth stating plainly. Waiting did not work: the DNS check sat in progress across four
+deployments after the `CNAME` file reached the artifact, and the certificate appeared within minutes of the
+re-add. The reasonable reading is that the check had latched a failure from when
+`http://antonlozhkin.ru/CNAME` still 404'd, and nothing short of re-entering the domain dislodged it.
+
+The sequencing still matters, though: re-add only once the `CNAME` file is genuinely in the published
+artifact and nothing else claims the domain, or the fresh check latches the same failure again. Note also
+that the `CNAME` file drives the setting — GitHub re-reads it on every deployment — so removing the domain
+in the UI alone is reverted by the next build unless the file goes too.
+
+Still not done: there is no `_github-pages-challenge-cookiespooky` TXT record, so account-level domain
+verification was never performed. It does not affect the certificate, but it stops another account from
+claiming the domain. The apex `A` TTL at reg.ru is 86400, which is worth lowering before any future move.
 
 The site is being moved to **antonlozhkin.ru**, a domain the owner already held. `config.yaml` and
 `config.dev.yaml` point at it, `CNAME` at the repo root holds it, and `scripts/build.sh` copies that file into
@@ -286,7 +298,8 @@ whose theme still had the counter.
 
 1. `www` CNAME → `cookiespooky.github.io.`, plus the four `AAAA` records (optional)
 2. **push** — puts `CNAME` in the artifact, which should close the DNS check and trigger the certificate
-3. wait for the certificate, then enable **Enforce HTTPS**
+3. ~~wait for the certificate~~ — **done**, though it took removing and re-adding the domain (see above).
+   **Enforce HTTPS is still off**: `http://antonlozhkin.ru/` answers 200 rather than redirecting.
 4. ~~disable Pages on the `cases` repo~~ — **done, and disabling was not enough: the repo had to be
    deleted.** A custom domain on a user site also covers that account's project sites, and the binding
    follows the repo *name*, so switching its Pages source to None left `/cases/*` answering GitHub's
