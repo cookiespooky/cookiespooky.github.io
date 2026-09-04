@@ -232,12 +232,31 @@ What that changed, verified live right after: `http://antonlozhkin.ru/CNAME` now
 the served HTML, and `/blog/`, `/services/telegram-bot/`, `/tools/analiz-rechi/` and `/sitemap.xml` all
 answer 200. HTTPS still fails — the certificate had not been issued yet.
 
-**The one live defect: the `cases` repo shadows the whole `/cases/` prefix.** Confirmed by content, not by
-guessing — `https://antonlozhkin.ru/cases/` answers 200 with `<link rel="canonical"
-href="https://cookiespooky.github.io/cases/">` and carries neither the Webmaster tag nor the Metrika counter,
-so it is the project site, not this one. Worse than shadowing the index: `/cases/utilitservis/` returns that
-repo's 404, so **all 34 case pages are dead on the live domain** while they sit in this site's sitemap.
-Disabling Pages on the `cases` repo (step 4 below) is now urgent rather than tidy-up.
+**The `cases` repo shadowing is resolved.** It briefly owned the whole `/cases/` prefix on the live domain —
+`/cases/` answered 200 with a canonical pointing at `cookiespooky.github.io/cases/`, and every
+`/cases/{slug}/` returned that repo's 404, so all 34 case pages were dead. Turning Pages off there was **not
+enough**: the path kept answering GitHub's own "Site not found", because the route stays bound to the repo
+name. Deleting the repo released it. `/cases/{slug}/` now answers 200; `/cases/` itself is a 404, which is
+the open question further down, not a regression.
+
+**DNS is correct and is not what is stalling the check** (verified 2026-09-04, Cloudflare and Google
+resolvers agree):
+
+| Record | State |
+|---|---|
+| apex `A` | all four GitHub addresses, and only those |
+| apex `AAAA` | all four, added since the last check |
+| apex `CNAME` | none, so nothing conflicts |
+| `CAA` | none, so Let's Encrypt is not blocked |
+| `www` | `CNAME` → `cookiespooky.github.io.`, 301s to apex over http |
+| apex `A` TTL | 86400 at reg.ru — a full day of cache to age out |
+
+The certificate still has not issued: TLS presents `CN=*.github.io`. Two of the causes were only removed
+within the hour — the `CNAME` file reached the artifact with the first push, and the `cases` repo was
+deleted after it — so the check has not necessarily re-run since. **Do not remove and re-add the domain**;
+that restarts the timer. There is also no `_github-pages-challenge-cookiespooky` TXT record: account-level
+domain verification was never done. It does not drive this check, but it is worth adding on its own merits,
+along with a shorter TTL for the next migration.
 
 The site is being moved to **antonlozhkin.ru**, a domain the owner already held. `config.yaml` and
 `config.dev.yaml` point at it, `CNAME` at the repo root holds it, and `scripts/build.sh` copies that file into
@@ -268,10 +287,10 @@ whose theme still had the counter.
 1. `www` CNAME → `cookiespooky.github.io.`, plus the four `AAAA` records (optional)
 2. **push** — puts `CNAME` in the artifact, which should close the DNS check and trigger the certificate
 3. wait for the certificate, then enable **Enforce HTTPS**
-4. **disable Pages on the `cases` repo.** A custom domain on a user site also covers that account's project
-   sites, so while `cases` publishes, `antonlozhkin.ru/cases/` is served from that repo and shadows this
-   site's whole cases section. Confirmed live: `cookiespooky.github.io/cases/` already 301s to
-   `antonlozhkin.ru/cases/`. Do this *after* step 2, not before.
+4. ~~disable Pages on the `cases` repo~~ — **done, and disabling was not enough: the repo had to be
+   deleted.** A custom domain on a user site also covers that account's project sites, and the binding
+   follows the repo *name*, so switching its Pages source to None left `/cases/*` answering GitHub's
+   "Site not found" rather than falling through to this site.
 5. verify the domain in Yandex Webmaster — the tag is already in the build
 6. add the new domain to the Metrika counter's settings
 
