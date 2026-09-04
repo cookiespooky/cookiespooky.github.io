@@ -9,6 +9,47 @@
   --surface-raised-muted: var(--panel-muted);
 }
 
+/* Перенесённые правила используют --ink и --muted внутри тёмной панели, где в прежней
+   теме они были светлыми. В новой теме это почти чёрный, поэтому на самих тёмных
+   контейнерах подменяем их панельными — снаружи (ссылка «как это работает», ошибка)
+   значения страницы остаются правильными. */
+.agency-input-shell,
+.agency-output,
+.agency-loader,
+.agency-filter-menu {
+  --ink: var(--panel-ink);
+  --muted: var(--panel-muted);
+  color: var(--panel-ink);
+}
+
+.agency-textarea::placeholder { color: var(--panel-muted); }
+
+/* Спиннер был на светлом фоне, его тёмная риска на панели не видна.
+   Селектор с .agency-tool — исходное правило идёт ниже в файле и при равной
+   специфичности перебило бы это. */
+.agency-tool .agency-loader-spinner {
+  border-color: var(--panel-line);
+  border-top-color: var(--panel-ink);
+}
+
+/* Заголовок виджета: h1 страницы занят её названием, поэтому здесь h2, и размер
+   ему нужно задать явно — иначе достаётся крупный h2 темы. */
+.agency-tool-header {
+  margin-top: 48px;
+}
+.agency-tool-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+.agency-tool-subtitle {
+  margin: 6px 0 18px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
 .agency-tool {
   border: 0;
   padding: 0;

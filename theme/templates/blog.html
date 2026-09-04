@@ -24,7 +24,7 @@
       <a class="case-row case-row--post" href="{{ $.BaseURL }}/blog/{{ .Slug }}/">
         <span class="case-row__body">
           {{- if .FM.published_at }}
-          <span class="case-row__kicker"><time datetime="{{ .FM.published_at }}">{{ .FM.published_at }}</time></span>
+          <span class="case-row__kicker"><time datetime="{{ .FM.published_at }}">{{ if .FM.date_label }}{{ .FM.date_label }}{{ else }}{{ .FM.published_at }}{{ end }}</time></span>
           {{- end }}
           <span class="case-row__title">{{ .Title }}</span>
           <span class="case-row__desc">{{ .Description }}</span>

@@ -49,7 +49,8 @@ fields:
     - quick          # строки в карточке первого экрана
     - more_items     # небольшие работы без отдельных страниц
     # --- блог ---
-    - published_at   # ISO-дата публикации, по ней сортируется лента
+    - published_at   # ISO-дата публикации: сортировка ленты, <time> и datePublished
+    - date_label     # та же дата по-русски для показа; движок форматировать не умеет
     - keywords       # целевые запросы кластера
     - cluster        # id кластера в реестре — защита от каннибализации
     - cta_service    # slug услуги, куда ведёт статья
@@ -77,6 +78,7 @@ fm_schema:
   includes: string[]
   service_cases: string[]
   published_at: string
+  date_label: string
   cluster: string
   cta_service: string
 

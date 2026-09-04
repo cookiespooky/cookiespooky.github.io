@@ -18,7 +18,7 @@
       {{- end }}
     </section>
 
-    {{- if or .FM.price_from .FM.period }}
+    {{- if or .FM.price_from .FM.period .FM.price_note }}
     <dl class="meta">
       {{- if .FM.price_from }}
       <div><dt>Стоимость</dt><dd>{{ .FM.price_from }}</dd></div>

@@ -19,7 +19,7 @@
       {{- if or .FM.published_at .FM.updated_at }}
       <p class="post-meta">
         {{- if .FM.published_at }}
-        <time datetime="{{ .FM.published_at }}">{{ .FM.published_at }}</time>
+        <time datetime="{{ .FM.published_at }}">{{ if .FM.date_label }}{{ .FM.date_label }}{{ else }}{{ .FM.published_at }}{{ end }}</time>
         {{- end }}
         {{- if .FM.updated_at }}
         <span class="post-meta__sep" aria-hidden="true">·</span>
