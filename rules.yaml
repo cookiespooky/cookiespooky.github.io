@@ -54,6 +54,10 @@ fields:
     - cluster        # id кластера в реестре — защита от каннибализации
     - cta_service    # slug услуги, куда ведёт статья
     - lead           # лид-абзац над текстом
+    # --- страница инструмента ---
+    - endpoint       # адрес бэкенда инструмента
+    - tool_prompt    # заголовок над полем ввода
+    - how_it_works   # slug статьи-объяснения
     # --- страница услуги ---
     - includes       # что входит в работу
     - price_from     # ориентир цены
@@ -93,6 +97,10 @@ types:
     template: "service.html"
     permalink: "/services/{{ slug }}/"
     include_in: { sitemap: true, search: true }
+  tool:
+    template: "tool.html"
+    permalink: "/tools/{{ slug }}/"
+    include_in: { sitemap: true, search: true }
   blog:
     template: "blog.html"
     permalink: "/blog/"
@@ -110,7 +118,7 @@ links:
   - name: "related"
     kind: "field"
     field: "related"
-    from_types: ["home", "case", "page", "article", "service", "blog"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool"]
     to_types: ["home", "case", "page", "article", "service"]
     to: "slug"
     value_syntax: "auto"
@@ -121,7 +129,7 @@ links:
       case: "insensitive"
   - name: "wiki"
     kind: "wikilinks"
-    from_types: ["home", "case", "page", "article", "service", "blog", "notfound"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notfound"]
     resolve_by: "wikimap"
     to_types: ["home", "case", "page", "article", "service"]
     resolve:
@@ -239,11 +247,11 @@ collections:
     limit: 3
 
 sitemap:
-  include_types: ["home", "case", "page", "service", "blog", "article"]
+  include_types: ["home", "case", "page", "service", "blog", "article", "tool"]
   exclude_drafts: true
 
 search:
-  include_types: ["case", "page", "service", "article"]
+  include_types: ["case", "page", "service", "article", "tool"]
   exclude_drafts: true
   fields_boost:
     title: 3

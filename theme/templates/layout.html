@@ -31,6 +31,9 @@
   <link rel="stylesheet" href="{{ .AssetsBase }}/home.css" />
   <link rel="stylesheet" href="{{ .AssetsBase }}/case.css" />
   <link rel="stylesheet" href="{{ .AssetsBase }}/blog.css" />
+  {{- if eq .Page.Type "tool" }}
+  <link rel="stylesheet" href="{{ .AssetsBase }}/tool.css" />
+  {{- end }}
   <title>{{ .Title }}</title>
 </head>
 <body>
@@ -41,5 +44,8 @@
   </main>
   {{ template "footer.html" . }}
   <script src="{{ .AssetsBase }}/app.js" defer></script>
+  {{- if eq .Page.Type "tool" }}
+  <script src="{{ .AssetsBase }}/tool.js" defer></script>
+  {{- end }}
 </body>
 </html>

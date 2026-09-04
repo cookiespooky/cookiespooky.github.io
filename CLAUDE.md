@@ -45,6 +45,7 @@ Page types, each a template plus a permalink:
 | `case` | `/cases/{slug}/` | `case.html` |
 | `service` | `/services/{slug}/` | `service.html` |
 | `blog` | `/blog/` | `blog.html` |
+| `tool` | `/tools/{slug}/` | `tool.html` |
 | `article` | `/blog/{slug}/` | `article.html` |
 | `page` | `/{slug}/` | `page.html` |
 | `notfound` | `/404/` | `notfound.html` |
@@ -104,25 +105,50 @@ structured data (`Article`/`Service` + `BreadcrumbList`, plus `FAQPage` when `fa
 as quoted JSON strings — write `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled
 quotes. Validate by parsing the built HTML, not by eye.
 
-## `lab/`
+## Backends in `lab/`
 
-Two Yandex Cloud Functions, each deployed by its own `deploy.sh`, both non-core:
+Two Yandex Cloud Functions, each deployed by its own `deploy.sh`. The code moved here from `ycf/`; nothing was
+deleted except the `ysc/` Serverless Container, which was a third copy of the graph runtime's streaming logic.
 
+- `lab/speech-analyzer/` — linguistic agency analysis over DeepSeek, deployed as `np-speech-agency-analyzer`.
+  **This one has a page**: the `tool` type at `/tools/analiz-rechi/`. It takes `{"text": "..."}` and answers
+  `{"results": {neutral|direct|radical|aggressive|toxic: {objective_text, agency_analysis, label,
+  irritabilityLevel, key}}}`. The page is indexable on purpose — a free tool is a traffic and lead asset, not a
+  lab curiosity.
 - `lab/graph-runtime/` — the streaming LLM generator from the old homepage experiment, behind an API Gateway
   WebSocket (`ws-gateway.openapi.yaml`), sized for the free tier; `build.sh` bakes a graph JSON and a system
-  prompt into the zip. Its event contract is `start` → `delta`* → `phase`? → `meta` → `done`.
-- `lab/speech-analyzer/` — linguistic agency analysis over DeepSeek.
+  prompt into the zip. Event contract: `start` → `delta`* → `phase`? → `meta` → `done`. **It has no page yet**
+  and the graph it used to read was deleted with the atoms; the plan is to re-point it at the cases graph and
+  give it a `/lab/` page with a pre-generated static fallback so it renders with the backend switched off.
 
-`.github/workflows/backend-runtime-deploy.yml` still deploys the graph runtime from its old `ycf/` path and
-references the deleted atoms graph; it needs rewriting before it can run again.
+### The tool page port
+
+`tool.html`, `theme/assets/tool.css` and `theme/assets/tool.js` were lifted off `archive/llm-graph`, where they
+lived inside the old theme's `styles.css` and `main.js`. Three things to know if you touch them:
+
+- `tool.js` queries 21 `data-aa-*` hooks; the markup in `tool.html` must keep every one of them. Verify by
+  diffing the hook lists, not by reading.
+- the CSS came from a dark-panel palette whose `--surface-raised*` variables do not exist in the new theme, so
+  `tool.css` re-declares them scoped to `.agency-tool` in terms of the new `--panel*` tokens.
+- `tool.css`/`tool.js` load only when `.Page.Type` is `tool`, unlike the rest of the theme's assets which
+  `layout.html` loads everywhere.
+
+The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
+filter were dropped: they pointed at an atom page that no longer exists.
 
 ## Known gaps
 
+- **`.github/workflows/backend-runtime-deploy.yml` is broken**: it deploys from the old `ycf/` path and
+  regenerates the deleted atoms graph. Do not run it; rewrite it when the graph demo gets its page.
 - **No pagination, no taxonomy routes, no RSS in the engine.** Collections only come in `filter` and `forward`
   kinds; `group_by` groups items inside a collection but generates no route. So `/blog/` is a single unpaginated
   list and `tags` produce no pages. This is fine under roughly 12–15 articles; past that the engine needs the
   feature, which is why articles carry tags from the start.
-- **No JSON-LD on `case.html`, `home.html`, `page.html`** — only the two templates added for the blog have it.
+- **No JSON-LD on `case.html`, `home.html`, `page.html`** — only `article.html`, `service.html` and
+  `tool.html` have it.
+- **Slugs on the two pages that exist are provisional.** `/tools/analiz-rechi/` and
+  `/blog/kak-rabotaet-analiz-rechi/` were named by hand before any keyword research; renaming them costs
+  nothing while the site has no traffic, and should happen once the clusters exist.
 - **GitHub Pages cannot do 301 or 410**, only 404 and a JS/meta redirect. Deliberately unused: the site had ~60
   views a month at the cutover, so no redirects were written for the removed atom URLs or the old
   `/cases/cases/{slug}` paths.

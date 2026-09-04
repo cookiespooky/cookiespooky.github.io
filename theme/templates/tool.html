@@ -1,0 +1,176 @@
+<article class="tool">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      <span class="eyebrow"><span>Инструмент</span>{{ if .FM.kicker }}<span class="eyebrow__rule"></span><span>{{ .FM.kicker }}</span>{{ end }}</span>
+      <h1>{{ .Page.Title }}</h1>
+      {{- if .FM.lead }}
+      <p class="page-hero__lead">{{ .FM.lead }}</p>
+      {{- else if .Page.Description }}
+      <p class="page-hero__lead">{{ .Page.Description }}</p>
+      {{- end }}
+    </section>
+
+    <div class="agency-tool" data-agency-analyzer data-endpoint="{{ .FM.endpoint }}">
+      <header class="agency-tool-header">
+        <h2>{{ if .FM.tool_prompt }}{{ .FM.tool_prompt }}{{ else }}Опишите ситуацию, которую хотите решить{{ end }}</h2>
+        <p class="agency-tool-subtitle">Получите перевод на объективный язык.</p>
+      </header>
+
+      <form class="agency-form" data-aa-form>
+        <div class="agency-input-shell" data-aa-input-shell>
+          <textarea
+            class="agency-textarea"
+            data-aa-text
+            maxlength="500"
+            placeholder="Например: Я хочу изменить свою жизнь, но не знаю, с чего начать"
+            required
+          ></textarea>
+
+          <div class="agency-submit-inline">
+            <div class="agency-counter"><span data-aa-char-count>0</span>/500</div>
+            <div class="agency-actions" data-aa-submit-row>
+              <button type="submit" class="agency-primary-btn is-icon" aria-label="Получить перевод" title="Получить перевод">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <section class="agency-output" data-aa-output hidden>
+        <div class="agency-loader" data-aa-loader>
+          <span class="agency-loader-spinner" aria-hidden="true"></span>
+          <p>Анализирую формулировку и готовлю перевод...</p>
+        </div>
+
+        <article class="agency-result" data-aa-result hidden>
+          <p data-aa-source-text></p>
+          <h3>
+            Перевод
+            <span class="agency-filter-wrap" data-aa-filter-wrap>
+              <span class="agency-filter-main">
+                <button type="button" class="agency-filter-toggle" data-aa-filter-toggle aria-expanded="false" aria-haspopup="listbox">
+                  <span class="agency-filter-toggle-label" data-aa-current-filter-label>нейтральный</span>
+                  <span class="agency-filter-toggle-caret" aria-hidden="true">▾</span>
+                </button>
+
+                <span class="agency-filter-menu" data-aa-filter-menu hidden role="listbox" aria-label="Фильтр тона">
+                  <span class="agency-filter-item">
+                    <button type="button" data-aa-filter-option data-filter-key="neutral" class="agency-filter-option is-active">
+                      <span class="agency-filter-name">Нейтральный</span>
+                      <span class="agency-filter-meter" style="--aa-meter-color:#1ea971; --aa-meter-width:18%;"></span>
+                    </button>
+                  </span>
+                  <span class="agency-filter-item">
+                    <button type="button" data-aa-filter-option data-filter-key="direct" class="agency-filter-option">
+                      <span class="agency-filter-name">Прямолинейный</span>
+                      <span class="agency-filter-meter" style="--aa-meter-color:#6ccf5a; --aa-meter-width:36%;"></span>
+                    </button>
+                  </span>
+                  <span class="agency-filter-item">
+                    <button type="button" data-aa-filter-option data-filter-key="radical" class="agency-filter-option">
+                      <span class="agency-filter-name">Радикальный</span>
+                      <span class="agency-filter-meter" style="--aa-meter-color:#f2bf4f; --aa-meter-width:58%;"></span>
+                    </button>
+                  </span>
+                  <span class="agency-filter-item">
+                    <button type="button" data-aa-filter-option data-filter-key="aggressive" class="agency-filter-option">
+                      <span class="agency-filter-name">Агрессивный</span>
+                      <span class="agency-filter-meter" style="--aa-meter-color:#ea7f35; --aa-meter-width:78%;"></span>
+                    </button>
+                  </span>
+                  <span class="agency-filter-item">
+                    <button type="button" data-aa-filter-option data-filter-key="toxic" class="agency-filter-option">
+                      <span class="agency-filter-name">Токсичный</span>
+                      <span class="agency-filter-meter" style="--aa-meter-color:#d33a2f; --aa-meter-width:96%;"></span>
+                    </button>
+                  </span>
+                </span>
+              </span>
+            </span>
+          </h3>
+          <p data-aa-result-text></p>
+          <h3>Разбор агентности</h3>
+          <p data-aa-result-analysis></p>
+        </article>
+      </section>
+
+      <p class="agency-error" data-aa-error hidden></p>
+
+      <div class="agency-actions agency-how-wrap">
+        <p class="agency-how-note">
+          Теперь это выбор. Если не знаете, что с ним делать, напишите
+          <a href="{{ .Settings.telegram_url }}" data-aa-creator-link target="_blank" rel="noopener noreferrer">создателю</a>.
+        </p>
+        <div class="agency-actions" data-aa-retry-wrap hidden>
+          <button type="button" class="agency-primary-btn agency-primary-btn-text agency-retry-btn" data-aa-retry hidden>Попробовать еще раз</button>
+        </div>
+        {{- if .FM.how_it_works }}
+        <a class="agency-how-link" href="{{ .BaseURL }}/blog/{{ .FM.how_it_works }}/">Как это работает?</a>
+        {{- end }}
+      </div>
+    </div>
+
+    <div class="case-body" style="grid-template-columns: minmax(0, 1fr);">
+      <div class="prose" style="max-width: 68ch;">{{ .Body }}</div>
+    </div>
+  </div>
+
+  {{- if .Collections.related_cases.Items }}
+  <section class="shell related">
+    <span class="eyebrow"><span>Рядом</span><span class="eyebrow__rule"></span><span>Как это устроено внутри</span></span>
+    <div class="related__list">
+      {{- range .Collections.related_cases.Items }}
+      <a class="case-row case-row--nostatus" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="104" height="68" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <div style="height: 88px;"></div>
+  {{ template "cta.html" . }}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "applicationCategory": "UtilitiesApplication",
+    "inLanguage": "ru-RU",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+    "author": { "@type": "Person", "name": {{ .Settings.owner_name }} }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+</article>
