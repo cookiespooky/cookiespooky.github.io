@@ -34,7 +34,7 @@ settings:
   threads_url: "https://www.threads.com/@antoniospoony"
   email: ""
   # Аналитика и подтверждение владения. Пока пустые — ничего не выводится в разметку.
-  metrika_id: ""            # номер счётчика Яндекс.Метрики
+  metrika_id: "108674124"            # номер счётчика Яндекс.Метрики
   yandex_verification: ""   # content из метатега подтверждения в Яндекс.Вебмастере
 
 og_type_by_type:
