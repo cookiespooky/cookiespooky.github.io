@@ -35,6 +35,13 @@ rather than silently disappearing.
 
 `.bin/`, `dist/` and `.notepub/` are gitignored.
 
+`README.md` predates the restructure and is stale on addresses: it calls the site "Кейсы", gives the public
+URL as `cookiespooky.github.io/cases/` and describes a move *to* `cookiespooky.github.io`. Its "how to add a
+case" recipe is still accurate; ignore everything it says about where the site lives.
+
+Bumping the engine means editing `NOTEPUB_REF` in **two** places — `scripts/build.sh` and the `env:` block of
+`.github/workflows/pages.yml` — or CI builds against a different commit than you do.
+
 ## Content model (`rules.yaml`)
 
 Page types, each a template plus a permalink:
@@ -77,6 +84,7 @@ title: "..."              # H1 and <title>
 description: "..."        # meta description and the feed excerpt
 draft: false
 published_at: "2026-09-04"   # ISO; sorts the feed, feeds datePublished
+date_label: "4 сентября 2026"  # the same date in Russian, for display
 updated_at: "2026-09-20"     # optional; feeds dateModified
 kicker: "..."             # eyebrow above the H1
 lead: "..."               # lead paragraph; falls back to description
@@ -87,10 +95,49 @@ tags: ["телеграм-боты"]   # rendered in the sidebar; no tag pages ye
 related: ["ai-qualification-bot"]  # case slugs -> proof rows at the bottom
 ```
 
+The engine has no date formatter and exposes no custom template functions, so `article.html` and `blog.html`
+print `date_label` and fall back to the raw ISO string when it is missing — always write both fields.
+
 `keywords` and `cluster` are deliberately not rendered anywhere: they exist so the registry can tell which URL
 owns which cluster. One cluster must map to exactly one URL.
 
 Service pages add `includes`, `price_from`, `price_note`, `stack`, `faq` (list of `{q, a}`) and `service_cases`.
+
+### Case frontmatter contract
+
+34 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+— the Markdown body is the long read below the card.
+
+```yaml
+type: case
+slug: notepub
+title: "..."
+description: "..."        # meta description
+draft: false
+nav_order: 21             # sorts every cases_* collection, asc, nulls last
+featured: true            # puts it in cases_featured
+group: products           # products | ai | research | lab | sites — picks the catalogue section
+kicker: "..."             # eyebrow above the title
+summary: "..."            # one sentence, the catalogue row
+status: "Работает, развивается"
+status_kind: live         # live | wip | idea — colours the status dot
+client: "..."; role: "..."; period: "..."
+mark: "NP"                # 2-3 letters, drawn when there is no screenshot
+shot: "notepub-home.png"  # file in theme/assets/shots/
+shot_url: "..."           # address printed in the screenshot frame
+shot_caption: "..."
+stack: ["Go", "..."]
+highlights: ["...", "..."]        # bullets
+facts: [{value: "...", label: "..."}]   # the number tiles
+links: [{title: "...", url: "..."}]
+```
+
+`group` decides which section a case lands in; the counts on the home page's tabs come from
+`len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
+build. Current split: products 10, ai 8, sites 7, research 6, lab 3.
+
+A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
+— 13 have screenshots, 21 have drawn covers.
 
 ### Where SEO metadata comes from
 
@@ -104,6 +151,33 @@ structured data (`Article`/`Service` + `BreadcrumbList`, plus `FAQPage` when `fa
 `<script type="application/ld+json">`. Note that inside a `<script>`, Go's `html/template` already emits values
 as quoted JSON strings — write `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled
 quotes. Validate by parsing the built HTML, not by eye.
+
+## The SEO factory (`seo/`)
+
+`seo/clusters.yaml` is the registry the blog is written against, and `seo/README.md` is its long-form
+reasoning. The hard boundary: the factory **only writes Markdown into `content/`** and knows nothing about
+notepub internals, because it is meant to become a separate product later.
+
+The rule that governs everything: **one cluster = one URL.** The registry, not the text generator, is the
+asset — it is what stops a second article being written for an intent that already has a page. An article's
+`cluster` frontmatter is the join key back to this file, and `target_url` is the cluster's side of it.
+
+Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
+an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
+4–5 is a hard reject, not a maybe.
+
+Frequencies come from the Yandex Cloud **Search API** (`POST /v2/wordstat/topRequests` with an IAM token from
+a service account holding `search-api.webSearch.user`), *not* from the Direct API, which is the outdated path
+most guides describe. The binding constraint is the quota, not the money: `GetTop` allows 10 rps but only
+**100 requests per hour**, so any collector must be rate-limited and resumable — dying at request 80 and
+restarting costs an hour. Prices, method signatures and the first-wave budget are worked out in
+`seo/README.md`; the free Cloud Functions tier that `lab/` runs on does not apply to Search API, which needs a
+billing account in good standing.
+
+Strategy in one line: informational tail into the blog builds host trust, which is what eventually makes the
+commercial pages on `/services/` rankable at all. Commercial-intent long tail goes to a service landing, never
+to an article — «сколько стоит сделать телеграм бота» is a post, «заказать телеграм бота для записи клиентов»
+is a landing.
 
 ## Backends in `lab/`
 
@@ -120,6 +194,20 @@ deleted except the `ysc/` Serverless Container, which was a third copy of the gr
   prompt into the zip. Event contract: `start` → `delta`* → `phase`? → `meta` → `done`. **It has no page yet**
   and the graph it used to read was deleted with the atoms; the plan is to re-point it at the cases graph and
   give it a `/lab/` page with a pre-generated static fallback so it renders with the backend switched off.
+
+## Theme JS (`theme/assets/app.js`)
+
+Loaded on every page; the site is fully usable without it. Two things there are load-bearing and easy to
+break:
+
+- **Sticky offsets are measured at runtime.** `--header-h` in `tokens.css` is a 74px constant, but the real
+  header is taller on narrow screens (~85px), so `app.js` measures the header and writes the CSS variables
+  itself, re-running on resize, orientation change and `document.fonts.ready`. CSS and JS must agree on one
+  number — don't reintroduce a hardcoded offset in a stylesheet.
+- **The catalogue tabs are navigation, not a filter.** They scroll to a `data-group` section; nothing is ever
+  hidden, so there is no empty state to design for. A scroll-spy updates the pressed tab and stays silent
+  during programmatic scrolling, otherwise the pressed tab walks through every section the page flies past.
+  The no-JS build simply shows all groups in order.
 
 ### The tool page port
 
@@ -195,6 +283,10 @@ finally added to `case.html`. Breadcrumbs would then point at `/cases/` instead 
 
 The alternative, moving the catalogue off the home page and making `/cases/` canonical, is cleaner
 structurally but is a redesign: the home page is built around the catalogue with its sticky filter tabs.
+
+`config.yaml` already carries an `og_type_by_type: catalog: website` entry for a type that does not exist in
+`rules.yaml` — a leftover, harmless, and the name to reuse if this decision ever produces a real type.
+`noindex` is already an allowed frontmatter field, so the `noindex` list needs no `rules.yaml` change.
 
 ## Known gaps
 
