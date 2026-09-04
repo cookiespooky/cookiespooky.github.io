@@ -346,6 +346,12 @@ structurally but is a redesign: the home page is built around the catalogue with
 - **Slugs on the two pages that exist are provisional.** `/tools/analiz-rechi/` and
   `/blog/kak-rabotaet-analiz-rechi/` were named by hand before any keyword research; renaming them costs
   nothing while the site has no traffic, and should happen once the clusters exist.
+- **Canonical and sitemap trailing slashes are fixed as of engine `6e57516`.** Before it, `buildPath`
+  trimmed the trailing slash from every route key — correct for request matching, wrong for public URLs,
+  because the builder writes each route as `<path>/index.html`. Every canonical, `og:url` and `<loc>`
+  therefore pointed at an address the host only redirects from. `urlutil.PublicPath` now restores the slash
+  at the three emission points. If you see a slash-less canonical again, check whether `NOTEPUB_REF` was
+  rolled back.
 - **GitHub Pages cannot do 301 or 410**, only 404 and a JS/meta redirect. Deliberately unused: the site had ~60
   views a month at the cutover, so no redirects were written for the removed atom URLs or the old
   `/cases/cases/{slug}` paths.
