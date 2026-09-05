@@ -10,7 +10,7 @@ fields:
     - updated_at
     - related
     # --- карточка кейса ---
-    - group          # sites | products | ai | research | lab
+    - group          # sites | products | ai | research | lab | components
     - group_title
     - kicker         # надпись над заголовком
     - summary        # одно предложение для карточки
@@ -32,6 +32,7 @@ fields:
     - links
     - highlights
     - placeholder_note
+    - demo            # живой компонент на странице кейса: plan | calc | book
     # --- страницы верхнего уровня ---
     - hero_kicker
     - hero_title
@@ -197,6 +198,16 @@ collections:
       all:
         - fm_eq: { key: "draft", value: false }
         - fm_eq: { key: "group", value: "research" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  cases_components:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "group", value: "components" }
         - type_in: ["case"]
     sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
     limit: 50

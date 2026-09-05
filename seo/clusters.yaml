@@ -203,6 +203,24 @@ clusters:
       - { phrase: "парсер вордстата", count: null }
     note: "Дистанция 3, на границе фильтра: читатель делает ресёрч сам, но упирается в квоту 100/час и приходит за сборщиком — а это парсеры, одна из услуг. Фактура своя и редкая: переезд метода из Директа в Cloud, реальные цены, отложенные запросы к выдаче дешевле синхронных в 16 раз."
 
+  - id: site-components-conversion
+    direction: sites
+    intent: informational
+    stage: written
+    page_type: article
+    money_distance: 1
+    cta_service: null
+    cases: [kalkulyator-stoimosti, interaktivnyy-plan, kalendar-bronirovaniya, ai-qualification-bot]
+    target_url: "/blog/interaktivnye-bloki-na-sayte/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "калькулятор расчёта стоимости на сайт", count: null }
+      - { phrase: "интерактивная карта на сайте", count: null }
+      - { phrase: "как увеличить конверсию сайта услуг", count: null }
+      - { phrase: "что добавить на сайт компании", count: null }
+    note: "Компонент — отдельная продажа: встраивается в существующий сайт, в том числе чужой, поэтому дистанция 1. Компоненты на страницах кейсов живые, а не снимки — это само по себе доказательство. Оба обезличены: план продаётся застройщикам и складам, калькулятор настраивается под любую нишу."
+
   # ============ направление: боты и мини-приложения ============
 
   - id: bot-lead-intake

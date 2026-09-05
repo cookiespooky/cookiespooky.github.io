@@ -1,0 +1,194 @@
+{{- /* Интерактивный план объекта. Живой компонент, а не снимок: его можно
+       потрогать прямо на странице кейса. Стили и скрипт лежат здесь же,
+       потому что layout.html не видит frontmatter и не может подключить их
+       выборочно — а на остальных 34 кейсах они не нужны. */ -}}
+<style>
+.dplan { border: 1px solid var(--line); background: var(--surface); }
+.dplan__bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 14px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+.dplan__title { font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--muted-2); margin-right: auto; }
+.dplan__search { flex: none; width: 190px; height: 34px; padding: 0 12px;
+  border: 1px solid var(--line-strong); background: var(--surface); border-radius: 8px;
+  font: inherit; font-size: 14px; color: var(--ink); }
+.dplan__search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dplan__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.dplan__chip { height: 34px; padding: 0 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  font: inherit; font-size: 13px; color: var(--ink-1); display: inline-flex; align-items: center; gap: 7px; }
+.dplan__chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.dplan__dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.dplan__body { display: grid; grid-template-columns: minmax(0, 1fr) 262px; }
+.dplan__field { padding: 20px 16px; display: grid; align-content: start;
+  grid-template-columns: repeat(2, max-content); gap: 22px 40px; justify-content: center; }
+.dplan__sector { display: grid; gap: 8px; align-content: start; }
+.dplan__sector h4 { margin: 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted-2); font-weight: 500; }
+.dplan__grid { display: grid; grid-template-columns: repeat(7, 26px); gap: 4px; }
+.dplan__plot { aspect-ratio: 1; border: 1px solid transparent; border-radius: 3px; cursor: pointer;
+  padding: 0; font: inherit; font-family: var(--font-mono); font-size: 9px; line-height: 1;
+  color: rgba(20,22,26,.42);
+  transition: transform .12s var(--ease), box-shadow .12s var(--ease); }
+.dplan__plot:hover { transform: scale(1.18); box-shadow: 0 2px 8px rgba(20,22,26,.18); }
+.dplan__plot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dplan__plot[data-s="free"] { background: #dfe6f7; }
+.dplan__plot[data-s="hold"] { background: #f0dfc2; }
+.dplan__plot[data-s="sold"] { background: #cfd0cd; }
+.dplan__plot[aria-pressed="true"] { border-color: var(--ink); transform: scale(1.18); }
+.dplan__plot.is-dim { opacity: .22; }
+.dplan__road { grid-column: 1 / -1; height: 18px; border-radius: 3px; background: var(--paper-2);
+  border: 1px dashed var(--line-strong); display: flex; align-items: center; padding-left: 10px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; color: var(--muted-3); }
+.dplan__side { border-left: 1px solid var(--line); padding: 20px 16px; background: var(--paper-2); }
+.dplan__empty { font-size: 13px; line-height: 1.55; color: var(--muted); }
+.dplan__card dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted-2); }
+.dplan__card dd { margin: 2px 0 12px; font-size: 14px; color: var(--ink); }
+.dplan__card .dplan__num { font-size: 22px; letter-spacing: -.02em; }
+.dplan__foot { padding: 12px 16px; border-top: 1px solid var(--line);
+  font-size: 12px; line-height: 1.5; color: var(--muted); }
+@media (max-width: 900px) {
+  .dplan__field { grid-template-columns: max-content; }
+}
+@media (max-width: 720px) {
+  .dplan__body { grid-template-columns: minmax(0, 1fr); }
+  .dplan__side { border-left: 0; border-top: 1px solid var(--line); }
+  .dplan__search { width: 100%; }
+}
+</style>
+
+<div class="dplan" data-dplan>
+  <div class="dplan__bar">
+    <span class="dplan__title">План объекта · демонстрация</span>
+    <input class="dplan__search" type="search" inputmode="numeric" placeholder="Номер участка" aria-label="Поиск участка по номеру" data-dplan-q />
+    <div class="dplan__chips" data-dplan-filters>
+      <button class="dplan__chip" type="button" data-f="all" aria-pressed="true">Все</button>
+      <button class="dplan__chip" type="button" data-f="free" aria-pressed="false"><span class="dplan__dot" style="background:#dfe6f7"></span>Свободные</button>
+      <button class="dplan__chip" type="button" data-f="hold" aria-pressed="false"><span class="dplan__dot" style="background:#f0dfc2"></span>Бронь</button>
+      <button class="dplan__chip" type="button" data-f="sold" aria-pressed="false"><span class="dplan__dot" style="background:#cfd0cd"></span>Проданные</button>
+    </div>
+  </div>
+  <div class="dplan__body">
+    <div class="dplan__field" data-dplan-field></div>
+    <aside class="dplan__side" data-dplan-side></aside>
+  </div>
+  <p class="dplan__foot" data-dplan-foot></p>
+</div>
+
+<script>
+(function () {
+  var root = document.querySelector('[data-dplan]');
+  if (!root) return;
+  var field = root.querySelector('[data-dplan-field]');
+  var side = root.querySelector('[data-dplan-side]');
+  var foot = root.querySelector('[data-dplan-foot]');
+  var q = root.querySelector('[data-dplan-q]');
+
+  // Реестр в боевой версии приходит таблицей заказчика. Здесь он собирается
+  // из формулы, чтобы демонстрация выглядела одинаково при каждой загрузке.
+  var SECTORS = [
+    { name: 'Сектор А', n: 28, from: 101 },
+    { name: 'Сектор Б', n: 24, from: 201 },
+    { name: 'Сектор В', n: 32, from: 301 },
+    { name: 'Сектор Г', n: 20, from: 401 }
+  ];
+  var plots = [];
+  SECTORS.forEach(function (s, si) {
+    for (var i = 0; i < s.n; i++) {
+      var seed = (si + 3) * 37 + i * 17;
+      var st = seed % 10 < 5 ? 'sold' : (seed % 10 < 7 ? 'hold' : 'free');
+      plots.push({
+        id: String(s.from + i), sector: s.name, status: st,
+        area: 4 + (seed % 9), price: 340 + (seed % 7) * 35
+      });
+    }
+  });
+
+  var LABEL = { free: 'Свободен', hold: 'Забронирован', sold: 'Продан' };
+  var filter = 'all', selected = null;
+
+  function matches(p) {
+    if (filter !== 'all' && p.status !== filter) return false;
+    var s = (q.value || '').trim();
+    if (s && p.id.indexOf(s) !== 0) return false;
+    return true;
+  }
+
+  function draw() {
+    field.innerHTML = '';
+    SECTORS.forEach(function (s, si) {
+      var box = document.createElement('div');
+      box.className = 'dplan__sector';
+      var h = document.createElement('h4');
+      h.textContent = s.name;
+      var grid = document.createElement('div');
+      grid.className = 'dplan__grid';
+      plots.filter(function (p) { return p.sector === s.name; }).forEach(function (p) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dplan__plot' + (matches(p) ? '' : ' is-dim');
+        b.dataset.s = p.status;
+        b.dataset.id = p.id;
+        b.setAttribute('aria-pressed', selected === p.id ? 'true' : 'false');
+        b.setAttribute('aria-label', 'Участок ' + p.id + ', ' + LABEL[p.status] + ', ' + p.area + ' соток');
+        b.title = '№ ' + p.id + ' · ' + LABEL[p.status] + ' · ' + p.area + ' соток';
+        b.textContent = p.id;
+        grid.appendChild(b);
+      });
+      box.appendChild(h);
+      box.appendChild(grid);
+      field.appendChild(box);
+      if (si === 1) {
+        var road = document.createElement('div');
+        road.className = 'dplan__road';
+        road.textContent = 'ЦЕНТРАЛЬНЫЙ ПРОЕЗД';
+        field.appendChild(road);
+      }
+    });
+    var vis = plots.filter(matches);
+    var free = vis.filter(function (p) { return p.status === 'free'; }).length;
+    foot.textContent = 'Показано ' + vis.length + ' из ' + plots.length +
+      ' участков, из них свободных ' + free + '. Наведите на участок или выберите его, чтобы увидеть карточку.';
+    card();
+  }
+
+  function card() {
+    var p = plots.filter(function (x) { return x.id === selected; })[0];
+    if (!p) {
+      side.innerHTML = '<p class="dplan__empty">Выберите участок на плане или найдите его по номеру — здесь появится карточка из реестра.</p>';
+      return;
+    }
+    side.innerHTML = '<dl class="dplan__card">' +
+      '<dt>Участок</dt><dd class="dplan__num">№ ' + p.id + '</dd>' +
+      '<dt>Расположение</dt><dd>' + p.sector + '</dd>' +
+      '<dt>Площадь</dt><dd>' + p.area + ' соток</dd>' +
+      '<dt>Статус</dt><dd>' + LABEL[p.status] + '</dd>' +
+      '<dt>Ориентир цены</dt><dd>' + p.price + ' 000 ₽</dd>' +
+      '</dl>';
+  }
+
+  root.addEventListener('click', function (e) {
+    var chip = e.target.closest('[data-f]');
+    if (chip) {
+      filter = chip.dataset.f;
+      root.querySelectorAll('[data-f]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === chip));
+      });
+      draw();
+      return;
+    }
+    var plot = e.target.closest('.dplan__plot');
+    if (plot) {
+      selected = selected === plot.dataset.id ? null : plot.dataset.id;
+      draw();
+    }
+  });
+  q.addEventListener('input', function () {
+    var hit = plots.filter(matches);
+    selected = (q.value.trim() && hit.length === 1) ? hit[0].id : selected;
+    draw();
+  });
+
+  draw();
+})();
+</script>

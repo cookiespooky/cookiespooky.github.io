@@ -31,8 +31,18 @@
       {{- end }}
     </dl>
 
-    <!-- 03 · Снимок экрана, если он есть -->
-    {{- if .FM.shot }}
+    <!-- 03 · Живой компонент, если кейс про компонент, иначе снимок экрана -->
+    {{- if .FM.demo }}
+    <figure class="shot shot--live">
+      {{- if eq .FM.demo "plan" }}{{ template "demo-plan.html" . }}{{ end }}
+      {{- if eq .FM.demo "calc" }}{{ template "demo-calc.html" . }}{{ end }}
+      {{- if eq .FM.demo "book" }}{{ template "demo-book.html" . }}{{ end }}
+      <figcaption>
+        <span>{{ .FM.shot_caption }}</span>
+        <span class="shot__url">рабочий компонент, а не снимок</span>
+      </figcaption>
+    </figure>
+    {{- else if .FM.shot }}
     <figure class="shot">
       <img src="{{ .AssetsBase }}/shots/{{ .FM.shot }}" alt="Экран проекта «{{ .Page.Title }}»" width="1440" height="1000" />
       <figcaption>

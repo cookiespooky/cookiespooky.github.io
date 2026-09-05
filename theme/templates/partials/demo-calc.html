@@ -1,0 +1,141 @@
+{{- /* Калькулятор стоимости. Живой компонент на странице кейса.
+       Стили и скрипт внутри партиала: layout.html не видит frontmatter,
+       а тащить их на все 34 кейса ради двух незачем. */ -}}
+<style>
+.dcalc { border: 1px solid var(--line); background: var(--surface); }
+.dcalc__bar { padding: 14px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--muted-2); }
+.dcalc__body { display: grid; grid-template-columns: 300px minmax(0, 1fr); }
+.dcalc__form { padding: 20px 16px; display: grid; gap: 14px; align-content: start;
+  border-right: 1px solid var(--line); }
+.dcalc__f { display: grid; gap: 6px; }
+.dcalc__f label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted-2); }
+.dcalc__f input, .dcalc__f select { height: 38px; padding: 0 10px; font: inherit; font-size: 15px;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; }
+.dcalc__f input:focus-visible, .dcalc__f select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dcalc__hint { font-size: 12px; line-height: 1.45; color: var(--muted-2); }
+.dcalc__opts { display: grid; gap: 8px; padding-top: 4px; border-top: 1px solid var(--line); }
+.dcalc__opt { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--ink-1); cursor: pointer; }
+.dcalc__opt input { width: 16px; height: 16px; accent-color: var(--accent); flex: none; }
+.dcalc__opt span { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--muted-2); }
+.dcalc__out { padding: 20px 16px; display: grid; gap: 16px; align-content: start; }
+.dcalc__rows { display: grid; gap: 0; }
+.dcalc__row { display: flex; align-items: baseline; gap: 12px; padding: 9px 0;
+  border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-1); }
+.dcalc__row b { margin-left: auto; font-family: var(--font-mono); font-weight: 500; color: var(--ink); white-space: nowrap; }
+.dcalc__row--total { border-bottom: 0; padding-top: 14px; font-size: 17px; color: var(--ink); font-weight: 500; }
+.dcalc__row--total b { font-size: 19px; }
+.dcalc__unit { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.dcalc__bar-split { display: flex; height: 10px; border-radius: 3px; overflow: hidden; }
+.dcalc__legend { display: grid; gap: 6px; }
+.dcalc__leg { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-1); }
+.dcalc__sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.dcalc__leg b { margin-left: auto; font-family: var(--font-mono); font-weight: 500; color: var(--ink); }
+.dcalc__leg i { font-style: normal; font-family: var(--font-mono); font-size: 11px; color: var(--muted-2); width: 34px; text-align: right; }
+.dcalc__foot { padding: 12px 16px; border-top: 1px solid var(--line);
+  font-size: 12px; line-height: 1.5; color: var(--muted); }
+@media (max-width: 720px) {
+  .dcalc__body { grid-template-columns: minmax(0, 1fr); }
+  .dcalc__form { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+</style>
+
+<div class="dcalc" data-dcalc>
+  <div class="dcalc__bar">Расчёт стоимости · демонстрация</div>
+  <div class="dcalc__body">
+    <div class="dcalc__form">
+      <div class="dcalc__f">
+        <label for="dc-v">Объём работ, м²</label>
+        <input id="dc-v" type="number" min="1" step="1" value="120" data-dc="volume" />
+      </div>
+      <div class="dcalc__f">
+        <label for="dc-k">Вид работ</label>
+        <select id="dc-k" data-dc="kind">
+          <option value="4500">Черновые работы</option>
+          <option value="7200" selected>Чистовая отделка</option>
+          <option value="11000">Под ключ</option>
+        </select>
+      </div>
+      <div class="dcalc__f">
+        <label for="dc-r">Ставка, ₽ за м²</label>
+        <input id="dc-r" type="number" min="0" step="100" value="7200" data-dc="rate" />
+        <p class="dcalc__hint">Подставляется видом работ и правится вручную — это ваши расценки, а не наши.</p>
+      </div>
+      <div class="dcalc__f">
+        <label for="dc-u">Срок</label>
+        <select id="dc-u" data-dc="urgency">
+          <option value="1" selected>Обычный</option>
+          <option value="1.2">Сжатый, +20%</option>
+          <option value="1.45">Срочный, +45%</option>
+        </select>
+      </div>
+      <div class="dcalc__opts">
+        <label class="dcalc__opt"><input type="checkbox" data-dc-opt="demo" data-price="350" />Демонтаж<span>+350 ₽/м²</span></label>
+        <label class="dcalc__opt"><input type="checkbox" data-dc-opt="mat" data-price="2100" checked />Материалы<span>+2100 ₽/м²</span></label>
+        <label class="dcalc__opt"><input type="checkbox" data-dc-opt="proj" data-price="60000" data-fixed="1" />Проект<span>60 000 ₽</span></label>
+      </div>
+    </div>
+    <div class="dcalc__out">
+      <div class="dcalc__rows" data-dc-rows></div>
+      <div class="dcalc__bar-split" data-dc-split></div>
+      <div class="dcalc__legend" data-dc-legend></div>
+    </div>
+  </div>
+  <p class="dcalc__foot">Результат виден сразу и не требует телефона. Набор строк, ставки и коэффициенты задаются под конкретный бизнес.</p>
+</div>
+
+<script>
+(function () {
+  var root = document.querySelector('[data-dcalc]');
+  if (!root) return;
+  var rowsEl = root.querySelector('[data-dc-rows]');
+  var splitEl = root.querySelector('[data-dc-split]');
+  var legEl = root.querySelector('[data-dc-legend]');
+  var f = {};
+  root.querySelectorAll('[data-dc]').forEach(function (el) { f[el.dataset.dc] = el; });
+
+  var COLORS = ['#3b5bdb', '#2f9e8f', '#b4874a', '#8a8e95'];
+  function rub(n) { return Math.round(n).toLocaleString('ru-RU') + ' ₽'; }
+
+  function calc() {
+    var v = Math.max(1, +f.volume.value || 0);
+    var rate = Math.max(0, +f.rate.value || 0);
+    var urg = +f.urgency.value || 1;
+
+    var parts = [{ name: 'Работы', sum: v * rate }];
+    root.querySelectorAll('[data-dc-opt]').forEach(function (o) {
+      if (!o.checked) return;
+      var price = +o.dataset.price;
+      var label = o.parentNode.childNodes[1].textContent.trim();
+      parts.push({ name: label, sum: o.dataset.fixed ? price : price * v });
+    });
+
+    var base = parts.reduce(function (a, p) { return a + p.sum; }, 0);
+    var extra = base * (urg - 1);
+    if (extra > 0) parts.push({ name: 'Надбавка за срок', sum: extra });
+    var total = base + extra;
+
+    rowsEl.innerHTML = parts.map(function (p) {
+      return '<div class="dcalc__row">' + p.name + '<b>' + rub(p.sum) + '</b></div>';
+    }).join('') +
+      '<div class="dcalc__row dcalc__row--total">Итого<b>' + rub(total) + '</b></div>' +
+      '<div class="dcalc__row" style="border:0;padding-top:2px">' +
+      '<span class="dcalc__unit">' + rub(total / v) + ' за м² · ' + v + ' м²</span></div>';
+
+    splitEl.innerHTML = parts.map(function (p, i) {
+      return '<span style="width:' + (p.sum / total * 100) + '%;background:' + COLORS[i % COLORS.length] + '"></span>';
+    }).join('');
+    legEl.innerHTML = parts.map(function (p, i) {
+      return '<div class="dcalc__leg"><span class="dcalc__sw" style="background:' + COLORS[i % COLORS.length] + '"></span>' +
+        p.name + '<b>' + rub(p.sum) + '</b><i>' + Math.round(p.sum / total * 100) + '%</i></div>';
+    }).join('');
+  }
+
+  f.kind.addEventListener('change', function () { f.rate.value = f.kind.value; calc(); });
+  root.addEventListener('input', calc);
+  root.addEventListener('change', calc);
+  calc();
+})();
+</script>

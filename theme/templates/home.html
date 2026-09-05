@@ -55,6 +55,7 @@
         <button class="filter" type="button" data-filter="all" aria-pressed="true">Все<span class="filter__count">{{ len .Collections.cases_all.Items }}</span></button>
         <button class="filter" type="button" data-filter="products" aria-pressed="false">Продукты<span class="filter__count">{{ len .Collections.cases_products.Items }}</span></button>
         <button class="filter" type="button" data-filter="ai" aria-pressed="false">ИИ и боты<span class="filter__count">{{ len .Collections.cases_ai.Items }}</span></button>
+        <button class="filter" type="button" data-filter="components" aria-pressed="false">Компоненты<span class="filter__count">{{ len .Collections.cases_components.Items }}</span></button>
         <button class="filter" type="button" data-filter="research" aria-pressed="false">Смыслы и графы<span class="filter__count">{{ len .Collections.cases_research.Items }}</span></button>
         <button class="filter" type="button" data-filter="lab" aria-pressed="false">Лаборатория<span class="filter__count">{{ len .Collections.cases_lab.Items }}</span></button>
         <button class="filter" type="button" data-filter="sites" aria-pressed="false">Сайты<span class="filter__count">{{ len .Collections.cases_sites.Items }}</span></button>
@@ -126,6 +127,36 @@
         </div>
       </section>
 
+      <section class="catalog-group" data-group="components">
+        <div class="catalog-group__layout">
+          <div class="catalog-group__head">
+            <h3>Компоненты для сайта</h3>
+            <p>Отдельные блоки, которые встраиваются в существующий сайт: расчёт стоимости, интерактивный план, календарь брони, поиск по реестру. Их заказывают, когда сайт уже есть, а работает он не полностью.</p>
+            {{- $n := len .Collections.cases_components.Items }}
+            <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}проект{{ else if lt $n 5 }}проекта{{ else }}проектов{{ end }}</div>
+          </div>
+          <div class="catalog-list">
+            {{- range .Collections.cases_components.Items }}
+            <a class="case-row" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+              <span class="case-row__thumb">
+                {{- if .FM.shot }}
+                <img src="{{ $.AssetsBase }}/shots/{{ .FM.shot }}" alt="" loading="lazy" width="180" height="125" />
+                {{- else }}
+                {{ template "cover.html" . }}
+                {{- end }}
+              </span>
+              <span class="case-row__body">
+                <span class="case-row__kicker">{{ .FM.kicker }}</span>
+                <span class="case-row__title">{{ .Title }}</span>
+                <span class="case-row__desc">{{ .FM.summary }}</span>
+              </span>
+              <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+              <span class="case-row__arrow" aria-hidden="true">→</span>
+            </a>
+            {{- end }}
+          </div>
+        </div>
+      </section>
       <section class="catalog-group" data-group="research">
         <div class="catalog-group__layout">
           <div class="catalog-group__head">

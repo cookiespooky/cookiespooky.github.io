@@ -1,0 +1,433 @@
+{{- /* Календарь брони. Живой компонент на странице кейса: занятость,
+       выбор диапазона дат и пересчёт сметы. Стили и скрипт лежат здесь же —
+       layout.html не видит frontmatter и не может подключить их выборочно,
+       а на остальных кейсах они не нужны. Префиксы dbook__* и data-db-*
+       не пересекаются с dcalc и dplan. */ -}}
+<style>
+.dbook { border: 1px solid var(--line); background: var(--surface); }
+.dbook__bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 14px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+.dbook__title { font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--muted-2); margin-right: auto; }
+.dbook__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.dbook__chip { height: 34px; padding: 0 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  font: inherit; font-size: 13px; color: var(--ink-1); }
+.dbook__chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.dbook__body { display: grid; grid-template-columns: minmax(0, 1fr) 288px; }
+.dbook__cal { padding: 18px 16px; display: flex; flex-direction: column; }
+.dbook__head { display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px; }
+.dbook__month { font-size: 16px; color: var(--ink); }
+.dbook__nav { width: 34px; height: 34px; padding: 0; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  font: inherit; font-size: 15px; color: var(--ink-1); }
+.dbook__nav:hover:not(:disabled) { border-color: var(--ink); }
+.dbook__nav:disabled { opacity: .35; cursor: default; }
+.dbook__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.dbook__wd { text-align: center; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--muted-3); padding-bottom: 6px; }
+.dbook__day { height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 3px;
+  background: var(--surface); font: inherit; font-size: 14px; color: var(--ink-1); cursor: pointer;
+  transition: background .14s var(--ease), transform .12s var(--ease); }
+.dbook__day:hover:not(:disabled) { background: #eef2fd; }
+.dbook__day:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dbook__day:not(:disabled):active { transform: scale(.94); }
+.dbook__day--empty { border-color: transparent; background: transparent; cursor: default; }
+.dbook__day--past { border-color: transparent; background: transparent; color: var(--muted-3); cursor: default; }
+.dbook__day--busy { background: #cfd0cd; border-color: #cfd0cd; color: var(--muted);
+  text-decoration: line-through; cursor: not-allowed; }
+.dbook__day--range { background: #dfe6f7; border-color: #dfe6f7; color: var(--ink); }
+.dbook__day--edge { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dbook__legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 16px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--muted-2); }
+.dbook__legend span { display: inline-flex; align-items: center; gap: 7px; }
+.dbook__sw { width: 11px; height: 11px; border-radius: 2px; display: block; flex: none; }
+.dbook__side { border-left: 1px solid var(--line); background: var(--paper-2);
+  padding: 18px 16px; display: grid; gap: 14px; align-content: start; }
+.dbook__dates { display: flex; gap: 8px; margin: 0; }
+.dbook__dates > div { flex: 1; padding: 9px 11px; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--surface); }
+.dbook__dates dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted-2); }
+.dbook__dates dd { margin: 3px 0 0; font-size: 15px; color: var(--ink); }
+.dbook__guests { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-1); }
+.dbook__stepper { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.dbook__stepper button { width: 28px; height: 28px; padding: 0; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  font: inherit; font-size: 15px; line-height: 1; color: var(--ink-1); }
+.dbook__stepper button:hover:not(:disabled) { border-color: var(--ink); }
+.dbook__stepper button:disabled { opacity: .35; cursor: default; }
+.dbook__stepper output { min-width: 18px; text-align: center;
+  font-family: var(--font-mono); font-size: 14px; color: var(--ink); }
+.dbook__addons { display: grid; gap: 7px; padding-top: 12px; border-top: 1px solid var(--line); }
+.dbook__addon { display: flex; align-items: center; gap: 9px; padding: 0; border: 0; background: none;
+  font: inherit; font-size: 14px; color: var(--muted); text-align: left; cursor: pointer; }
+.dbook__addon.is-on { color: var(--ink-1); }
+.dbook__box { width: 15px; height: 15px; flex: none; border-radius: 3px;
+  border: 1px solid var(--line-strong); background: var(--surface); }
+.dbook__addon.is-on .dbook__box { background: var(--accent); border-color: var(--accent); }
+.dbook__rate { margin-left: auto; font-family: var(--font-mono); font-size: 11px;
+  color: var(--muted-2); white-space: nowrap; }
+.dbook__lines { display: grid; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.dbook__line { display: flex; gap: 12px; font-size: 13px; color: var(--ink-1); }
+.dbook__line b { margin-left: auto; font-family: var(--font-mono); font-weight: 500;
+  color: var(--ink); white-space: nowrap; }
+.dbook__total { display: flex; align-items: baseline; gap: 12px;
+  padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink); }
+.dbook__total b { margin-left: auto; font-family: var(--font-mono); font-size: 19px; font-weight: 500; }
+.dbook__submit { height: 40px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--ink); background: var(--ink); color: #fff; font: inherit; font-size: 14px; }
+.dbook__note { margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.dbook__foot { margin: auto 0 0; padding-top: 18px;
+  font-size: 12px; line-height: 1.5; color: var(--muted); }
+.dbook__cal.is-shake { animation: dbook-shake .3s var(--ease); }
+@keyframes dbook-shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) {
+  .dbook__day, .dbook__cal.is-shake { transition: none; animation: none; }
+}
+@media (max-width: 860px) {
+  .dbook__body { grid-template-columns: minmax(0, 1fr); }
+  .dbook__side { border-left: 0; border-top: 1px solid var(--line); }
+}
+</style>
+
+<div class="dbook" data-dbook>
+  <div class="dbook__bar">
+    <span class="dbook__title">Календарь брони · демонстрация</span>
+    <div class="dbook__chips" data-db-objects></div>
+  </div>
+
+  <div class="dbook__body">
+    <div class="dbook__cal" data-db-cal>
+      <div class="dbook__head">
+        <button class="dbook__nav" type="button" data-db-prev aria-label="Предыдущий месяц">←</button>
+        <span class="dbook__month" data-db-month></span>
+        <button class="dbook__nav" type="button" data-db-next aria-label="Следующий месяц">→</button>
+      </div>
+      <div class="dbook__grid" data-db-wd></div>
+      <div class="dbook__grid" data-db-days></div>
+      <p class="dbook__legend">
+        <span><i class="dbook__sw" style="background:var(--surface);border:1px solid var(--line-strong)"></i>свободно</span>
+        <span><i class="dbook__sw" style="background:#cfd0cd"></i>занято</span>
+        <span><i class="dbook__sw" style="background:var(--accent)"></i>ваши даты</span>
+      </p>
+      <p class="dbook__foot" data-db-foot></p>
+    </div>
+
+    <aside class="dbook__side">
+      <dl class="dbook__dates">
+        <div><dt>Заезд</dt><dd data-db-in>—</dd></div>
+        <div><dt>Отъезд</dt><dd data-db-out>—</dd></div>
+      </dl>
+      <div class="dbook__guests">
+        <span>Гостей</span>
+        <div class="dbook__stepper">
+          <button type="button" data-db-less aria-label="Меньше гостей">−</button>
+          <output data-db-guests>2</output>
+          <button type="button" data-db-more aria-label="Больше гостей">+</button>
+        </div>
+      </div>
+      <div class="dbook__addons" data-db-addons>
+        <button class="dbook__addon is-on" type="button" data-db-addon data-unit="once" data-price="3900">
+          <span class="dbook__box"></span><span>Баня</span><span class="dbook__rate">3 900 ₽</span>
+        </button>
+        <button class="dbook__addon" type="button" data-db-addon data-unit="person-night" data-price="1200">
+          <span class="dbook__box"></span><span>Завтраки</span><span class="dbook__rate">1 200 ₽ чел·сут</span>
+        </button>
+        <button class="dbook__addon" type="button" data-db-addon data-unit="night" data-price="700">
+          <span class="dbook__box"></span><span>Прокат снаряжения</span><span class="dbook__rate">700 ₽ / сут</span>
+        </button>
+      </div>
+      <div class="dbook__lines" data-db-lines></div>
+      <div class="dbook__total"><span>Итого</span><b data-db-total>—</b></div>
+      <button class="dbook__submit" type="button" data-db-submit>Забронировать</button>
+      <p class="dbook__note" data-db-note></p>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.querySelector('[data-dbook]');
+  if (!root) return;
+
+  var MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  var MON_SHORT = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  var WEEKDAYS = ['пн','вт','ср','чт','пт','сб','вс'];
+  var DAY = 86400000;
+  var HORIZON = 12; // на сколько месяцев вперёд открыт календарь
+
+  function iso(y, m, d) {
+    return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  }
+  function isoOf(date) {
+    return iso(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  }
+  function pretty(s) {
+    if (!s) return '—';
+    var p = s.split('-');
+    return Number(p[2]) + ' ' + MON_SHORT[Number(p[1]) - 1];
+  }
+  function money(n) {
+    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
+  }
+  function plural(n, one, few, many) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return one;
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+    return many;
+  }
+
+  // Занятость в боевой версии приходит из календаря заказчика. Здесь она
+  // считается от текущего месяца, чтобы демонстрация не устаревала со временем
+  // и при этом выглядела одинаково при каждой загрузке страницы.
+  function makeBusy(seed, monthStart) {
+    var set = {}, s = seed;
+    function rnd() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    var cursor = 0, horizon = (HORIZON + 1) * 31;
+    while (cursor < horizon) {
+      cursor += 3 + Math.floor(rnd() * 9);          // промежуток между бронями
+      var len = 2 + Math.floor(rnd() * 4);          // длина брони
+      for (var i = 0; i < len && cursor + i < horizon; i++) {
+        set[isoOf(new Date(monthStart.getTime() + (cursor + i) * DAY))] = true;
+      }
+      cursor += len;
+    }
+    return set;
+  }
+
+  var now = new Date();
+  var today = iso(now.getFullYear(), now.getMonth(), now.getDate());
+  var monthStart = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1));
+
+  var OBJECTS = [
+    { name: 'Домик у воды', price: 6900, cap: 4, busy: makeBusy(7, monthStart) },
+    { name: 'Большой дом',  price: 14500, cap: 8, busy: makeBusy(23, monthStart) },
+    { name: 'Студия',       price: 4200, cap: 2, busy: makeBusy(41, monthStart) }
+  ];
+
+  var st = { obj: 0, year: now.getFullYear(), month: now.getMonth(),
+             checkIn: null, checkOut: null, guests: 2 };
+
+  var els = {
+    objects: root.querySelector('[data-db-objects]'),
+    cal: root.querySelector('[data-db-cal]'),
+    prev: root.querySelector('[data-db-prev]'),
+    next: root.querySelector('[data-db-next]'),
+    month: root.querySelector('[data-db-month]'),
+    wd: root.querySelector('[data-db-wd]'),
+    days: root.querySelector('[data-db-days]'),
+    in: root.querySelector('[data-db-in]'),
+    out: root.querySelector('[data-db-out]'),
+    guests: root.querySelector('[data-db-guests]'),
+    less: root.querySelector('[data-db-less]'),
+    more: root.querySelector('[data-db-more]'),
+    lines: root.querySelector('[data-db-lines]'),
+    total: root.querySelector('[data-db-total]'),
+    submit: root.querySelector('[data-db-submit]'),
+    note: root.querySelector('[data-db-note]'),
+    foot: root.querySelector('[data-db-foot]')
+  };
+
+  WEEKDAYS.forEach(function (w) {
+    var n = document.createElement('div');
+    n.className = 'dbook__wd';
+    n.textContent = w;
+    els.wd.appendChild(n);
+  });
+
+  OBJECTS.forEach(function (o, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dbook__chip';
+    b.dataset.dbObj = String(i);
+    b.setAttribute('aria-pressed', String(i === 0));
+    b.textContent = o.name;
+    els.objects.appendChild(b);
+  });
+
+  function obj() { return OBJECTS[st.obj]; }
+
+  // Заезд и отъезд ограничивают ночи: ночуют в дни [заезд, отъезд), поэтому
+  // занятым не должен быть ни один день диапазона, кроме самого дня отъезда.
+  function spanFree(from, to) {
+    var busy = obj().busy;
+    for (var t = Date.parse(from); t < Date.parse(to); t += DAY) {
+      if (busy[isoOf(new Date(t))]) return false;
+    }
+    return true;
+  }
+
+  function pick(day) {
+    if (!st.checkIn || st.checkOut || day <= st.checkIn || !spanFree(st.checkIn, day)) {
+      st.checkIn = day;
+      st.checkOut = null;
+    } else {
+      st.checkOut = day;
+    }
+    render();
+  }
+
+  function nights() {
+    return st.checkIn && st.checkOut
+      ? Math.round((Date.parse(st.checkOut) - Date.parse(st.checkIn)) / DAY) : 0;
+  }
+
+  function renderDays() {
+    var busy = obj().busy;
+    var first = new Date(Date.UTC(st.year, st.month, 1));
+    var offset = (first.getUTCDay() + 6) % 7;
+    var dim = new Date(Date.UTC(st.year, st.month + 1, 0)).getUTCDate();
+
+    els.days.textContent = '';
+    for (var i = 0; i < offset; i++) {
+      var pad = document.createElement('div');
+      pad.className = 'dbook__day dbook__day--empty';
+      els.days.appendChild(pad);
+    }
+    for (var d = 1; d <= dim; d++) {
+      (function (day, num) {
+        var past = day < today, taken = !!busy[day];
+        var cls = 'dbook__day';
+        if (past) cls += ' dbook__day--past';
+        else if (taken) cls += ' dbook__day--busy';
+        if (day === st.checkIn || day === st.checkOut) cls += ' dbook__day--edge';
+        else if (st.checkIn && st.checkOut && day > st.checkIn && day < st.checkOut) cls += ' dbook__day--range';
+
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = cls;
+        b.textContent = String(num);
+        b.setAttribute('aria-label', num + ' ' + MON_SHORT[st.month] + ', ' +
+          (past ? 'дата прошла' : taken ? 'занято' : 'свободно'));
+        if (past || taken) b.disabled = true;
+        else b.addEventListener('click', function () { pick(day); });
+        els.days.appendChild(b);
+      })(iso(st.year, st.month, d), d);
+    }
+  }
+
+  function renderQuote() {
+    var h = obj(), n = nights(), lines = [], total = 0;
+
+    if (n > 0) {
+      total = h.price * n;
+      lines.push([h.name + ' · ' + n + ' ' + plural(n, 'ночь', 'ночи', 'ночей'), total]);
+    }
+    root.querySelectorAll('[data-db-addon]').forEach(function (btn) {
+      if (!btn.classList.contains('is-on') || n <= 0) return;
+      var price = Number(btn.dataset.price), unit = btn.dataset.unit;
+      var sum = unit === 'night' ? price * n
+        : unit === 'person-night' ? price * n * st.guests
+        : price;
+      total += sum;
+      lines.push([btn.children[1].textContent, sum]);
+    });
+
+    els.lines.textContent = '';
+    lines.forEach(function (l) {
+      var row = document.createElement('div');
+      row.className = 'dbook__line';
+      var name = document.createElement('span');
+      name.textContent = l[0];
+      var val = document.createElement('b');
+      val.textContent = money(l[1]);
+      row.appendChild(name);
+      row.appendChild(val);
+      els.lines.appendChild(row);
+    });
+
+    els.total.textContent = n > 0 ? money(total) : '—';
+    els.note.textContent = n > 0
+      ? money(h.price) + ' за сутки · отмена бесплатна за 7 дней до заезда'
+      : 'Выберите дату заезда, потом дату отъезда.';
+  }
+
+  function render() {
+    els.month.textContent = MONTHS[st.month] + ' ' + st.year;
+
+    var limit = new Date(Date.UTC(now.getFullYear(), now.getMonth() + HORIZON, 1));
+    var shown = new Date(Date.UTC(st.year, st.month, 1));
+    els.prev.disabled = shown <= monthStart;
+    els.next.disabled = shown >= limit;
+
+    els.in.textContent = pretty(st.checkIn);
+    els.out.textContent = pretty(st.checkOut);
+    els.guests.textContent = st.guests;
+    els.less.disabled = st.guests <= 1;
+    els.more.disabled = st.guests >= obj().cap;
+
+    var free = 0, total = 0;
+    var dim = new Date(Date.UTC(st.year, st.month + 1, 0)).getUTCDate();
+    for (var d = 1; d <= dim; d++) {
+      var day = iso(st.year, st.month, d);
+      if (day < today) continue;
+      total++;
+      if (!obj().busy[day]) free++;
+    }
+    els.foot.textContent = 'В этом месяце у объекта «' + obj().name + '» свободно ' +
+      free + ' ' + plural(free, 'день', 'дня', 'дней') + ' из ' + total +
+      '. Занятость приходит из календаря заказчика и обновляется без разработчика.';
+
+    renderDays();
+    renderQuote();
+  }
+
+  function shiftMonth(delta) {
+    var m = st.month + delta, y = st.year;
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
+    st.month = m;
+    st.year = y;
+    render();
+  }
+
+  els.prev.addEventListener('click', function () { shiftMonth(-1); });
+  els.next.addEventListener('click', function () { shiftMonth(1); });
+
+  els.objects.addEventListener('click', function (e) {
+    var chip = e.target.closest('[data-db-obj]');
+    if (!chip) return;
+    st.obj = Number(chip.dataset.dbObj);
+    st.checkIn = null;
+    st.checkOut = null;
+    st.guests = Math.min(st.guests, obj().cap);
+    root.querySelectorAll('[data-db-obj]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b === chip));
+    });
+    render();
+  });
+
+  els.less.addEventListener('click', function () {
+    st.guests = Math.max(1, st.guests - 1);
+    render();
+  });
+  els.more.addEventListener('click', function () {
+    st.guests = Math.min(obj().cap, st.guests + 1);
+    render();
+  });
+
+  root.querySelectorAll('[data-db-addon]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.toggle('is-on');
+      renderQuote();
+    });
+  });
+
+  els.submit.addEventListener('click', function () {
+    if (nights() <= 0) {
+      els.note.textContent = 'Сначала выберите даты заезда и отъезда.';
+      els.cal.classList.remove('is-shake');
+      void els.cal.offsetWidth;
+      els.cal.classList.add('is-shake');
+      return;
+    }
+    els.note.textContent = 'Это демонстрация: заявка никуда не уходит. ' +
+      'В рабочей версии здесь письмо менеджеру и занятая дата в календаре.';
+  });
+
+  render();
+})();
+</script>
