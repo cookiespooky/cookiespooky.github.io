@@ -221,6 +221,25 @@ clusters:
       - { phrase: "что добавить на сайт компании", count: null }
     note: "Компонент — отдельная продажа: встраивается в существующий сайт, в том числе чужой, поэтому дистанция 1. Компоненты на страницах кейсов живые, а не снимки — это само по себе доказательство. Оба обезличены: план продаётся застройщикам и складам, калькулятор настраивается под любую нишу."
 
+  - id: site-components-order
+    direction: sites
+    intent: commercial
+    stage: published
+    page_type: service
+    money_distance: 1
+    cta_service: komponenty-dlya-sayta
+    cases: [kalkulyator-stoimosti, interaktivnyy-plan, kalendar-bronirovaniya]
+    target_url: "/services/komponenty-dlya-sayta/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "заказать калькулятор на сайт", count: null }
+      - { phrase: "калькулятор стоимости для сайта под заказ", count: null }
+      - { phrase: "интерактивный план объекта для сайта", count: null }
+      - { phrase: "календарь бронирования на сайт заказать", count: null }
+      - { phrase: "виджет расчёта стоимости на сайт", count: null }
+    note: "Коммерческая половина пары к site-components-conversion: та статья отвечает «что добавить на сайт», эта страница — «закажите вот это». Разводить их обязательно, иначе они съедят друг друга: интент разный, а лексика пересекается почти полностью. Доказательство здесь сильнее обычного — все три компонента стоят живьём на страницах кейсов."
+
   # ============ направление: боты и мини-приложения ============
 
   - id: bot-lead-intake

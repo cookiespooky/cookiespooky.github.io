@@ -16,6 +16,7 @@ keywords:
   - "как увеличить конверсию сайта услуг"
   - "что добавить на сайт компании"
 cluster: "site-components-conversion"
+cta_service: "komponenty-dlya-sayta"
 
 tags: ["конверсия", "компоненты", "интерфейс"]
 
