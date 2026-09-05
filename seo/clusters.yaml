@@ -240,6 +240,60 @@ clusters:
       - { phrase: "виджет расчёта стоимости на сайт", count: null }
     note: "Коммерческая половина пары к site-components-conversion: та статья отвечает «что добавить на сайт», эта страница — «закажите вот это». Разводить их обязательно, иначе они съедят друг друга: интент разный, а лексика пересекается почти полностью. Доказательство здесь сильнее обычного — все три компонента стоят живьём на страницах кейсов."
 
+  - id: site-order-commercial
+    direction: sites
+    intent: commercial
+    stage: published
+    page_type: service
+    money_distance: 1
+    cta_service: sayt-kompanii
+    cases: [utilitservis, tractor-center, barskaya-usadba]
+    target_url: "/services/sayt-kompanii/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "заказать сайт компании", count: null }
+      - { phrase: "разработка сайта под ключ", count: null }
+      - { phrase: "сделать сайт для компании", count: null }
+      - { phrase: "сайт визитка на заказ", count: null }
+    note: "Самая конкурентная фраза во всём реестре: здесь стоят агентства с бюджетами и агрегаторы подрядчиков, и войти в топ по «заказать сайт» страницей одного исполнителя нельзя. Страница нужна не за этим — она принимает трафик, который уже пришёл на хост через блог и кейсы, и отвечает на вопрос «а вы такое делаете». Мерить её по позициям в выдаче бессмысленно, мерить по конверсии из внутренних переходов — осмысленно."
+
+  - id: catalog-structure-order
+    direction: sites
+    intent: commercial
+    stage: published
+    page_type: service
+    money_distance: 1
+    cta_service: sayt-katalog
+    cases: [gorod-katalog, utilitservis, notepub]
+    target_url: "/services/sayt-katalog/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "заказать сайт каталог", count: null }
+      - { phrase: "сайт каталог услуг под ключ", count: null }
+      - { phrase: "страницы под города для сайта", count: null }
+      - { phrase: "seo структура сайта услуг", count: null }
+    note: "Коммерческая пара к service-city-pages, у которого информационная статья /blog/stranicy-pod-goroda/. Разводить обязательно: лексика пересекается почти полностью, интент разный. Статья отвечает «как это работает и не забанят ли», страница — «сделайте мне». Ниша уже: спрос на «сайт-каталог» меньше, чем на «сайт», но и конкуренция там не агентская."
+
+  - id: automation-order
+    direction: automation
+    intent: commercial
+    stage: published
+    page_type: service
+    money_distance: 1
+    cta_service: avtomatizaciya
+    cases: [bizos, order-flow, ai-qualification-bot]
+    target_url: "/services/avtomatizaciya/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "автоматизация бизнес процессов заказать", count: null }
+      - { phrase: "внедрение ии в бизнес", count: null }
+      - { phrase: "разработка парсера на заказ", count: null }
+      - { phrase: "автоматизация рутинных задач", count: null }
+    note: "Новое направление в реестре — automation. Осторожно с «внедрение ии»: запрос модный, спрос по нему в значительной части не покупательский, а любопытствующий, и проверить это можно только частотой с операторами. «Разработка парсера на заказ» выглядит слабее по объёму, но ближе к деньгам и к тому, что реально заказывают. Пересечение с wordstat-parser-collector: та статья информационная и ведёт сюда."
+
   # ============ направление: боты и мини-приложения ============
 
   - id: bot-lead-intake

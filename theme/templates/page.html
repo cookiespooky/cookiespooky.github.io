@@ -22,6 +22,9 @@
       <div class="stack">
         <div>
           <div class="stack__title">{{ .title }}</div>
+          {{- if .service }}
+          <a class="link-accent" style="display: inline-block; margin-top: 10px; font-size: 14px;" href="{{ $.BaseURL }}/services/{{ .service }}/">Подробнее об услуге →</a>
+          {{- end }}
           {{- if .case }}
           <a class="link-accent" style="display: inline-block; margin-top: 10px; font-size: 14px;" href="{{ $.BaseURL }}/cases/{{ .case }}/">{{ if .case_title }}{{ .case_title }}{{ else }}Смотреть кейс{{ end }} →</a>
           {{- end }}
