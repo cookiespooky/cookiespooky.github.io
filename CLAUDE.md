@@ -210,7 +210,7 @@ inside `<script type="application/ld+json">`:
 
 | template | emits |
 |---|---|
-| `home.html` | `WebSite` + `Person` + `ItemList` of all cases |
+| `home.html` | `WebSite` + `Person` |
 | `case.html` | `CreativeWork` + `BreadcrumbList` |
 | `article.html` | `Article` + `BreadcrumbList` |
 | `service.html` | `Service` + `BreadcrumbList` + `FAQPage` when `faq` is set |
@@ -223,10 +223,15 @@ else references them instead of repeating the author, so a parser sees one perso
 unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
 restate `Person`.
 
-Two mechanical traps. Inside a `<script>`, Go's `html/template` already emits values as quoted JSON strings —
-write `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled quotes. And the engine
-exposes no arithmetic, so `ItemList` carries `itemListOrder` instead of a `position` on each item; there is no
-way to count in a template. Validate by parsing the built HTML, never by eye:
+**Do not put an `ItemList` of the cases on the home page.** It was there and it had to come out: Google reads a
+top-level `ItemList` as a bid for a carousel, carousels are supported for a short list of types that does not
+include `CreativeWork`, and the Rich Results Test reports the page as carrying an invalid item — which is worse
+than carrying nothing. The enumerable portfolio lives in `llms.txt`, which has no such rules.
+
+Inside a `<script>`, Go's `html/template` already emits values as quoted JSON strings — write
+`{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled quotes. Note also that the
+engine exposes no arithmetic: a template cannot number a list, which is one more reason the `ItemList` was
+never going to satisfy a carousel's required `position`. Validate by parsing the built HTML, never by eye:
 
 ```bash
 python3 - <<'EOF'
