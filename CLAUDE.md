@@ -23,11 +23,20 @@ graph of "atoms". That produced ~200 thin pages and almost no search traffic, an
 notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # local preview on 127.0.0.1:8080
 ```
 
+`serve` reads the templates once at startup, so editing anything under `theme/templates/` needs a restart —
+Markdown is picked up on reload. A preview that looks stale after a template change is almost always this and
+not the browser cache.
+
 `scripts/build.sh` resolves the engine in this order: `$NOTEPUB_BIN`, `./.bin/notepub`, `notepub` on PATH,
 otherwise `go install github.com/cookiespooky/notepub/cmd/notepub@$NOTEPUB_REF` into `./.bin` (the ref is pinned
 to a commit SHA at the top of the script, and CI pins the same one). It runs `validate` → `index` →
-`validate --links --markdown` → `build`, then copies `media/`, touches `.nojekyll` and duplicates
+`validate --links --markdown` → `build`, then copies `media/` and `static/`, touches `.nojekyll` and duplicates
 `404/index.html` to `404.html` for GitHub Pages.
+
+`static/` is the passthrough: its contents are copied to the **root** of `dist/`, unchanged and unindexed, for
+files the engine does not generate and that must answer at an exact address. Today that is Google Search
+Console's `googlef059833b49e2a968.html`. The engine never sees these files, so they get no canonical, no
+sitemap entry and no template — which is what the verifiers want.
 
 There is no test suite. Correctness means `./scripts/build.sh` exits clean — `validate` reports frontmatter,
 route and link errors, and unknown frontmatter keys are build errors, so a typo in a field name fails the build
@@ -62,8 +71,8 @@ Page types, each a template plus a permalink:
 
 Collections are declared, not hardcoded, and reach templates as `.Collections.<name>.Items`:
 
-- `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_research`, `cases_lab`, `cases_sites`) and
-  `cases_featured` — consumed by `home.html`;
+- `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`, `cases_lab`, `cases_sites`) and
+  `cases_components`, `cases_featured` — consumed by `home.html`;
 - `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, for a home teaser);
 - `services_all`;
 - `related_cases` — a `forward` collection over the `related` link, so any page listing case slugs in its
@@ -105,7 +114,7 @@ Service pages add `includes`, `price_from`, `price_note`, `stack`, `faq` (list o
 
 ### Case frontmatter contract
 
-34 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+37 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
 — the Markdown body is the long read below the card.
 
 ```yaml
@@ -116,13 +125,14 @@ description: "..."        # meta description
 draft: false
 nav_order: 21             # sorts every cases_* collection, asc, nulls last
 featured: true            # puts it in cases_featured
-group: products           # products | ai | research | lab | sites — picks the catalogue section
+group: products           # products | ai | components | research | lab | sites — picks the section
 kicker: "..."             # eyebrow above the title
 summary: "..."            # one sentence, the catalogue row
 status: "Работает, развивается"
 status_kind: live         # live | wip | idea — colours the status dot
 client: "..."; role: "..."; period: "..."
 mark: "NP"                # 2-3 letters, drawn when there is no screenshot
+demo: "calc"              # optional; plan | calc | book — a live component instead of the screenshot
 shot: "notepub-home.png"  # file in theme/assets/shots/
 shot_url: "..."           # address printed in the screenshot frame
 shot_caption: "..."
@@ -134,10 +144,34 @@ links: [{title: "...", url: "..."}]
 
 `group` decides which section a case lands in; the counts on the home page's tabs come from
 `len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build. Current split: products 10, ai 8, sites 7, research 6, lab 3.
+build. Current split: products 10, ai 8, sites 7, research 6, components 3, lab 3. Adding a group means four
+edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
+`rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
+and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
-— 13 have screenshots, 21 have drawn covers.
+— 16 have screenshots, 21 have drawn covers.
+
+### Live components on case pages
+
+The `components` group proves itself by running rather than by a screenshot: `demo: plan`, `demo: calc` and
+`demo: book` make `case.html` render `partials/demo-plan.html`, `demo-calc.html` or `demo-book.html` in place of
+the screenshot figure. Points worth knowing before touching them:
+
+- `demo` only replaces the figure *on the case page*. The catalogue row on the home page still uses `shot`, so
+  a demo case needs both fields — drop `shot` and the row falls back to a drawn cover.
+- **Each partial carries its own `<style>` and `<script>` inline.** `layout.html` cannot see a page's
+  frontmatter, so there is no way to conditionally load an asset the way `tool.css`/`tool.js` are loaded for
+  `tool` pages; shipping the CSS site-wide would put it on all 37 cases for the sake of three. Keep new demos
+  self-contained the same way, and keep their class prefixes (`dcalc__*`, `dplan__*`, `dbook__*`) and `data-*`
+  hooks distinct so two demos on one page could not collide.
+- They are plain DOM, no libraries, and the numbers are placeholders meant to be edited by the visitor — the
+  point of the case is that the component is configurable, not that these rates are real.
+- Demo data involving dates must be generated **relative to today**, never hardcoded. `demo-book.html` seeds
+  its occupancy from the current month with a small LCG, so it is stable within a session and never decays
+  into a calendar full of past bookings — nobody is going to refresh these fixtures by hand.
+- `case.html` marks the figure `shot shot--live`; `shot--live` has no CSS of its own, it just documents intent
+  and leaves a hook for later.
 
 ### Where SEO metadata comes from
 
@@ -161,6 +195,11 @@ notepub internals, because it is meant to become a separate product later.
 The rule that governs everything: **one cluster = one URL.** The registry, not the text generator, is the
 asset — it is what stops a second article being written for an intent that already has a page. An article's
 `cluster` frontmatter is the join key back to this file, and `target_url` is the cluster's side of it.
+
+Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
+pointing at a dead route, or two articles claiming one cluster all build clean. Check it by hand when adding an
+article. `stage` is likewise hand-maintained and currently lags — seven clusters sit at `written` while their
+articles are live and in the sitemap, so read `stage` as intent, not as truth about what is published.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
@@ -228,7 +267,7 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 **The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
 `https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
-apex so the certificate covers both names, all 47 sitemap URLs answer 200, and Metrika 108674124 reports
+apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (50 now), and Metrika 108674124 reports
 `counter is initialized` in the browser.
 
 `config.yaml` and `config.dev.yaml` point at the domain, `CNAME` at the repo root holds it, and
@@ -270,6 +309,19 @@ Metrika **108674124** is the counter, installed via `settings.metrika_id`. The l
 one structural difference from the official snippet. Counter `103178789` belonged to a long-dead Next.js
 site at this address and has been deleted.
 
+Ownership is proved to three engines by three unrelated mechanisms, and none of them substitutes for another:
+
+| engine | method | lives in |
+|---|---|---|
+| Google Search Console | HTML file at the root | `static/googlef059833b49e2a968.html` |
+| Bing Webmaster Tools | XML file at the root | `static/BingSiteAuth.xml` |
+| Yandex Webmaster | meta tag on every page | `settings.yandex_verification` in `config.yaml` |
+
+Both files are re-checked periodically after the initial verification, so they stay — deleting one un-verifies
+that property. `BingSiteAuth.xml` must keep the exact name and casing Bing generated and be served from the
+apex root; its contents are the account token, not a per-site secret. Bing can also import verification from
+Search Console instead, which is worth knowing but is not what is set up here.
+
 Yandex Webmaster holds one host, **`https://antonlozhkin.ru`**. Two cautions learned the hard way:
 
 - The host record predates this site — its crawl history stops at 2026-01-05 and consists of
@@ -309,7 +361,7 @@ After step 4 above, `antonlozhkin.ru/cases/` will 404, and so will the old stand
 on the site and is where the previous cases site lived.
 
 The duplication worry resolves once you notice `/cases/` has close to zero ranking value — nobody searches for
-a portfolio index. So the recommendation is a flat `noindex` list of all 34 cases, no filter tabs: it cannot
+a portfolio index. So the recommendation is a flat `noindex` list of all cases, no filter tabs: it cannot
 compete with the home page because it never enters the index, it gives a shareable portfolio link that does
 not depend on an anchor, and it makes the breadcrumb trail real — which matters when `BreadcrumbList` is
 finally added to `case.html`. Breadcrumbs would then point at `/cases/` instead of `/#cases`.
@@ -331,9 +383,10 @@ structurally but is a redesign: the home page is built around the catalogue with
   feature, which is why articles carry tags from the start.
 - **No JSON-LD on `case.html`, `home.html`, `page.html`** — only `article.html`, `service.html` and
   `tool.html` have it.
-- **Slugs on the two pages that exist are provisional.** `/tools/analiz-rechi/` and
-  `/blog/kak-rabotaet-analiz-rechi/` were named by hand before any keyword research; renaming them costs
-  nothing while the site has no traffic, and should happen once the clusters exist.
+- **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by
+  hand before any keyword research, and their clusters (`speech-agency-tool`, `speech-agency-explainer`)
+  were written around the existing names afterwards. Renaming costs nothing while the site has no traffic;
+  every later article was named from its cluster instead.
 - **Canonical and sitemap trailing slashes are fixed as of engine `6e57516`.** Before it, `buildPath`
   trimmed the trailing slash from every route key — correct for request matching, wrong for public URLs,
   because the builder writes each route as `<path>/index.html`. Every canonical, `og:url` and `<loc>`
