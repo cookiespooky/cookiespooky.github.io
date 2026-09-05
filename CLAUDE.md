@@ -27,6 +27,12 @@ notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # local preview 
 Markdown is picked up on reload. A preview that looks stale after a template change is almost always this and
 not the browser cache.
 
+Two Python helpers hang off the build. `scripts/llms.py` runs at the end of `build.sh` and writes
+`dist/llms.txt` from the frontmatter in `content/`, so the machine-readable index cannot drift from the site;
+it parses frontmatter by hand rather than importing PyYAML, because the CI runner should not need a package
+for the site to build. `scripts/shots.py` is run by hand after adding a screenshot — see *Screenshots and
+their derivatives*.
+
 `scripts/build.sh` resolves the engine in this order: `$NOTEPUB_BIN`, `./.bin/notepub`, `notepub` on PATH,
 otherwise `go install github.com/cookiespooky/notepub/cmd/notepub@$NOTEPUB_REF` into `./.bin` (the ref is pinned
 to a commit SHA at the top of the script, and CI pins the same one). It runs `validate` → `index` →
@@ -133,7 +139,8 @@ status_kind: live         # live | wip | idea — colours the status dot
 client: "..."; role: "..."; period: "..."
 mark: "NP"                # 2-3 letters, drawn when there is no screenshot
 demo: "calc"              # optional; plan | calc | book — a live component instead of the screenshot
-shot: "notepub-home.png"  # file in theme/assets/shots/
+shot: "notepub-home.webp" # file in theme/assets/shots/ (webp; thumbs and og cards are derived)
+og_image: "/assets/shots/og/notepub-home.jpg"   # social card; else default_og_image
 shot_url: "..."           # address printed in the screenshot frame
 shot_caption: "..."
 stack: ["Go", "..."]
@@ -151,6 +158,20 @@ and the tab scrolls nowhere; miss the tab and the section is unreachable from th
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
 — 16 have screenshots, 21 have drawn covers.
+
+### Screenshots and their derivatives
+
+`theme/assets/shots/*.webp` is the source: what the case page itself shows. `scripts/shots.py` derives two
+things from it and is idempotent, so run it after adding a screenshot and commit what it produces:
+
+- `shots/thumbs/<name>.webp` — 360×250, the catalogue row (displayed at 180×125);
+- `shots/og/<name>.jpg` — 1200×630, letterboxed onto the paper colour rather than cropped, because a social
+  card must not silently lose the half of the screenshot that mattered. JPEG on purpose: every scraper reads
+  it, which is not true of WebP.
+
+The catalogue used to point at the full-size images, so the home page pulled **5.5 MB** of screenshots to draw
+thumbnails 180 px wide — one file was 1.29 MB. It is 104 KB now. If you add a thumbnail somewhere new, point it
+at `shots/thumbs/`, never at `shots/`.
 
 ### Live components on case pages
 
@@ -179,12 +200,53 @@ The engine builds canonical, robots, OpenGraph and sitemap entries itself; `og:t
 `config.yaml` under `og_type_by_type`. Site-wide copy and contact links live in `config.yaml` under `settings`
 and reach templates as `.Settings.*`.
 
+`og_image` in frontmatter overrides the site-wide `default_og_image`; the engine also picks up the first image
+in the body when neither is set. Every case with a screenshot points it at its generated card under
+`/assets/shots/og/`.
+
 JSON-LD is **not** engine-generated: `internal/indexer` only reads a page's own `jsonld` frontmatter field, and
-the engine exposes no custom template functions. So `article.html` and `service.html` hand-build their
-structured data (`Article`/`Service` + `BreadcrumbList`, plus `FAQPage` when `faq` is set) inside
-`<script type="application/ld+json">`. Note that inside a `<script>`, Go's `html/template` already emits values
-as quoted JSON strings — write `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled
-quotes. Validate by parsing the built HTML, not by eye.
+the engine exposes no custom template functions. Every template therefore hand-builds its structured data
+inside `<script type="application/ld+json">`:
+
+| template | emits |
+|---|---|
+| `home.html` | `WebSite` + `Person` + `ItemList` of all cases |
+| `case.html` | `CreativeWork` + `BreadcrumbList` |
+| `article.html` | `Article` + `BreadcrumbList` |
+| `service.html` | `Service` + `BreadcrumbList` + `FAQPage` when `faq` is set |
+| `page.html` | `WebPage` (or `ProfilePage` when `person_page: true`) + `BreadcrumbList` |
+| `blog.html` | `Blog` with `blogPost` + `BreadcrumbList` |
+| `tool.html` | `WebApplication` |
+
+**The graph hangs off two `@id`s minted on the home page** — `{base}/#person` and `{base}/#website`. Everything
+else references them instead of repeating the author, so a parser sees one person with 37 works rather than 37
+unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
+restate `Person`.
+
+Two mechanical traps. Inside a `<script>`, Go's `html/template` already emits values as quoted JSON strings —
+write `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled quotes. And the engine
+exposes no arithmetic, so `ItemList` carries `itemListOrder` instead of a `position` on each item; there is no
+way to count in a template. Validate by parsing the built HTML, never by eye:
+
+```bash
+python3 - <<'EOF'
+import re, io, json, glob
+for f in glob.glob('dist/**/index.html', recursive=True):
+    for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', io.open(f).read(), re.S):
+        json.loads(b)   # бросит, если сломано
+EOF
+```
+
+### Machine-readable extras
+
+- **`llms.txt`** at the site root, generated by `scripts/llms.py`: the whole site as one Markdown list with a
+  sentence per page. It is regenerated on every build, so it never lies about what exists.
+- **IndexNow.** `static/<key>.txt` holds the key; `scripts/indexnow.py` reads the *live* sitemap after a deploy
+  and submits only the URLs whose `lastmod` is today. Bing and Yandex share the protocol, so one call reaches
+  both, and the workflow step is `continue-on-error` — a rejected ping is a configuration problem, not a
+  reason to fail a deploy. `--all` submits everything, `--dry-run --sitemap=dist/sitemap-0001.xml` tests the
+  selection offline.
+- **Search-engine verification files** live in `static/` and are described under *Analytics and Webmaster*.
 
 ## The SEO factory (`seo/`)
 
@@ -270,6 +332,8 @@ filter were dropped: they pointed at an atom page that no longer exists.
 apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (50 now), and Metrika 108674124 reports
 `counter is initialized` in the browser.
 
+The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
+
 `config.yaml` and `config.dev.yaml` point at the domain, `CNAME` at the repo root holds it, and
 `scripts/build.sh` copies that file into `dist/` — it did not before, and the deploy goes through
 `upload-pages-artifact`, so without the file in the artifact GitHub Pages drops the custom domain on every
@@ -316,6 +380,7 @@ Ownership is proved to three engines by three unrelated mechanisms, and none of 
 | Google Search Console | HTML file at the root | `static/googlef059833b49e2a968.html` |
 | Bing Webmaster Tools | XML file at the root | `static/BingSiteAuth.xml` |
 | Yandex Webmaster | meta tag on every page | `settings.yandex_verification` in `config.yaml` |
+| IndexNow (Bing + Yandex) | key file at the root | `static/<key>.txt`, used by `scripts/indexnow.py` |
 
 Both files are re-checked periodically after the initial verification, so they stay — deleting one un-verifies
 that property. `BingSiteAuth.xml` must keep the exact name and casing Bing generated and be served from the
@@ -350,28 +415,26 @@ domain.
   that should be removed.
 - The sitemap has not been submitted in Webmaster: `https://antonlozhkin.ru/sitemap-index.xml`.
 
-## Open decision: is there a `/cases/` page?
+## `/cases/` redirects to the home page
 
-There is not. `case` pages live at `/cases/{slug}/` but nothing is served at `/cases/` — the catalogue is a
-section of the home page, reached as `/#cases`, and that is where `case.html` breadcrumbs point. So the trail
-reads Главная → Кейсы → case with a middle step that is an anchor rather than a page.
+Settled. `case` pages live at `/cases/{slug}/` and the catalogue is a section of the home page, so `/cases/`
+itself has nothing to serve — but it is the most guessable path on the site and is where the previous cases
+site lived. `content/cases.md` now redirects it to `/`.
 
-After step 4 above, `antonlozhkin.ru/cases/` will 404, and so will the old standalone site's
-`/cases/cases/{slug}` URLs. The deep links are not worth redirects, but `/cases/` is the most guessable path
-on the site and is where the previous cases site lived.
+The engine does redirects natively: `redirect_to` in frontmatter makes the route a 301 in `serve` and, in a
+static build, a stub page carrying `meta http-equiv="refresh"` plus a canonical to the target. That is as close
+to a 301 as GitHub Pages allows. `noindex: true` keeps the stub out of the sitemap.
 
-The duplication worry resolves once you notice `/cases/` has close to zero ranking value — nobody searches for
-a portfolio index. So the recommendation is a flat `noindex` list of all cases, no filter tabs: it cannot
-compete with the home page because it never enters the index, it gives a shareable portfolio link that does
-not depend on an anchor, and it makes the breadcrumb trail real — which matters when `BreadcrumbList` is
-finally added to `case.html`. Breadcrumbs would then point at `/cases/` instead of `/#cases`.
+Anchors do not survive the round trip: the engine percent-encodes the `#`, so `redirect_to: "/#cases"` sends
+visitors to `/%23cases`. Redirect to a path, not to a fragment.
 
-The alternative, moving the catalogue off the home page and making `/cases/` canonical, is cleaner
-structurally but is a redesign: the home page is built around the catalogue with its sticky filter tabs.
+`case.html` breadcrumbs still read Главная → Кейсы → case with the middle step pointing at `/#cases`, and the
+`BreadcrumbList` mirrors that exactly — structured breadcrumbs are supposed to match the visible ones. The
+alternative, moving the catalogue off the home page and making `/cases/` a real canonical page, stays a
+redesign: the home page is built around the catalogue with its sticky filter tabs.
 
-`config.yaml` already carries an `og_type_by_type: catalog: website` entry for a type that does not exist in
-`rules.yaml` — a leftover, harmless, and the name to reuse if this decision ever produces a real type.
-`noindex` is already an allowed frontmatter field, so the `noindex` list needs no `rules.yaml` change.
+`config.yaml` still carries an `og_type_by_type: catalog: website` entry for a type that does not exist in
+`rules.yaml` — a leftover, harmless, and the name to reuse if that redesign ever happens.
 
 ## Known gaps
 
@@ -381,12 +444,17 @@ structurally but is a redesign: the home page is built around the catalogue with
   kinds; `group_by` groups items inside a collection but generates no route. So `/blog/` is a single unpaginated
   list and `tags` produce no pages. This is fine under roughly 12–15 articles; past that the engine needs the
   feature, which is why articles carry tags from the start.
-- **No JSON-LD on `case.html`, `home.html`, `page.html`** — only `article.html`, `service.html` and
-  `tool.html` have it.
+- **Articles have no image of their own.** Their `Article` schema and `og:image` both fall back to the
+  site-wide `media/og.png`, because nothing generates a per-article card. Cases have one; articles do not.
 - **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by
   hand before any keyword research, and their clusters (`speech-agency-tool`, `speech-agency-explainer`)
   were written around the existing names afterwards. Renaming costs nothing while the site has no traffic;
   every later article was named from its cluster instead.
+- **Heading anchors are fixed as of engine `8885413`.** goldmark's own generator drops multi-byte runes, so
+  every Cyrillic heading on the site rendered as `id="-"`, `id="--1"` or the literal `id="heading"` — no
+  section could be linked to, and `[[page#Heading]]` wikilinks pointed at ids that did not exist, because that
+  side was already transliterating. Both sides now go through one `headingAnchor`. If degenerate ids come
+  back, check whether `NOTEPUB_REF` was rolled back.
 - **Canonical and sitemap trailing slashes are fixed as of engine `6e57516`.** Before it, `buildPath`
   trimmed the trailing slash from every route key — correct for request matching, wrong for public URLs,
   because the builder writes each route as `<path>/index.html`. Every canonical, `og:url` and `<loc>`
