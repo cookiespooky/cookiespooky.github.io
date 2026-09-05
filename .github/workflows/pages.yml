@@ -61,3 +61,14 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # Bing и Яндекс переобходят по пингу за часы вместо недель.
+      # Читает карту сайта уже с живого адреса, поэтому шаг стоит после
+      # деплоя; отправляет только изменённое сегодня и не валит сборку,
+      # если сервис ответил ошибкой.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ping IndexNow
+        continue-on-error: true
+        run: python3 scripts/indexnow.py

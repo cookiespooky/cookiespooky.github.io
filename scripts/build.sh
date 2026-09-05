@@ -69,4 +69,12 @@ if [[ -f dist/404/index.html ]]; then
   cp dist/404/index.html dist/404.html
 fi
 
+# карта сайта для языковых моделей: собирается из frontmatter, поэтому
+# не расходится с содержимым сайта
+if command -v python3 >/dev/null 2>&1; then
+  python3 "$ROOT_DIR/scripts/llms.py"
+else
+  echo "python3 не найден — llms.txt не собран" >&2
+fi
+
 echo "Готово: $ROOT_DIR/dist"
