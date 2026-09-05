@@ -52,6 +52,12 @@ if [[ -d media ]]; then
   cp -R media/. dist/media/
 fi
 
+# файлы, которые должны лежать в корне сайта как есть:
+# подтверждения владения для поисковиков и прочее, что движок не генерирует
+if [[ -d static ]]; then
+  cp -R static/. dist/
+fi
+
 # CNAME обязан попасть в артефакт: деплой идёт через upload-pages-artifact,
 # и без файла GitHub Pages сбрасывает привязку своего домена.
 if [[ -f CNAME ]]; then
