@@ -42,11 +42,11 @@ clusters:
     cases: [ai-qualification-bot, gpt-tutor, website-ai-assistant]
     target_url: "/services/telegram-bot/"
     competition: null
-    total_count: null
+    total_count: 200
     keys:
-      - { phrase: "заказать телеграм бота", count: null }
-      - { phrase: "разработка телеграм ботов", count: null }
-      - { phrase: "телеграм бот под ключ", count: null }
+      - { phrase: "заказать телеграм бота", count: null, count_wide: 106, count_est: 81 }
+      - { phrase: "разработка ботов в телеграм", count: null, count_wide: 50 }
+      - { phrase: "телеграм бот под ключ", count: null, count_wide: 44, count_est: 12 }
     note: "Коммерческий хаб направления. Статьи по ботам ведут сюда и НЕ забирают эти формулировки: bot-price берёт вопрос о цене, bot-lead-intake — задачу приёма заявок."
 
   - id: speech-agency-tool
@@ -89,12 +89,12 @@ clusters:
     cases: [gorod-katalog, utilitservis, notepub]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 0
     keys:
-      - { phrase: "статический сайт или wordpress", count: null }
-      - { phrase: "чем статический сайт лучше wordpress", count: null }
-      - { phrase: "статический сайт недостатки", count: null }
-      - { phrase: "нужна ли cms для сайта компании", count: null }
+      - { phrase: "статический сайт или wordpress", count: null, count_wide: 0 }
+      - { phrase: "чем статический сайт лучше wordpress", count: null, count_wide: 0 }
+      - { phrase: "статический сайт недостатки", count: null, count_wide: 0 }
+      - { phrase: "нужна ли cms для сайта компании", count: null, count_wide: 0 }
     note: "Вход в тему. Честно про минусы статики, иначе не поверят."
 
   - id: service-city-pages
@@ -107,12 +107,12 @@ clusters:
     cases: [gorod-katalog, utilitservis]
     target_url: "/blog/stranicy-pod-goroda/"
     competition: null
-    total_count: null
+    total_count: 0
     keys:
-      - { phrase: "страницы под города для seo", count: null }
-      - { phrase: "как сделать страницы услуга город", count: null }
-      - { phrase: "посадочные страницы под регионы", count: null }
-      - { phrase: "сколько страниц нужно для seo", count: null }
+      - { phrase: "страницы под города для seo", count: null, count_wide: 0 }
+      - { phrase: "как сделать страницы услуга город", count: null, count_wide: 0 }
+      - { phrase: "посадочные страницы под регионы", count: null, count_wide: 0 }
+      - { phrase: "сколько страниц нужно для seo", count: null, count_wide: 0 }
     note: "Первая волна. Механику показывает gorod-katalog (10 услуг x 15 городов), доказывает utilitservis — живой клиент, 3 города. Слаг на уровне темы: переживёт перенацеливание."
 
   - id: site-without-hosting
@@ -125,12 +125,12 @@ clusters:
     cases: [notepub, gorod-katalog, utilitservis]
     target_url: "/blog/besplatnyy-hosting-dlya-sayta/"
     competition: null
-    total_count: null
+    total_count: 342
     keys:
-      - { phrase: "сайт на github pages", count: null }
-      - { phrase: "бесплатный хостинг для сайта компании", count: null }
-      - { phrase: "сайт без хостинга", count: null }
-      - { phrase: "куда выложить статический сайт", count: null }
+      - { phrase: "сайт на github pages", count: null, count_wide: 113, count_est: 66 }
+      - { phrase: "бесплатный хостинг для сайта компании", count: null, count_wide: 0 }
+      - { phrase: "сайты без хостинга", count: null, count_wide: 229 }
+      - { phrase: "куда выложить статический сайт", count: null, count_wide: 0 }
     note: "Написана. Отличие от чужих обзоров — прямой запрет GitHub на коммерцию: Pages нельзя под интернет-магазин, и это в выдаче почти никто не пишет. Контрпример utilitservis: понадобился PHP — уехали на обычный хостинг."
 
   - id: form-without-backend
@@ -143,11 +143,11 @@ clusters:
     cases: [utilitservis, barskaya-usadba, tractor-center]
     target_url: "/blog/zayavki-s-sayta/"
     competition: null
-    total_count: null
+    total_count: 41
     keys:
-      - { phrase: "форма заявки на сайте без бэкенда", count: null }
-      - { phrase: "куда приходят заявки с сайта", count: null }
-      - { phrase: "заявка с сайта в телеграм", count: null }
+      - { phrase: "форма заявки на сайте без бэкенда", count: null, count_wide: 0 }
+      - { phrase: "куда приходят заявки с сайта", count: null, count_wide: 21 }
+      - { phrase: "заявки с сайта в телеграм", count: null, count_wide: 20 }
     note: "Первая волна. Тезис против шаблона: форма не обязательна — кнопка в Telegram и телефон, никакого сбора ПД. Контрпример в том же портфолио: у utilitservis заявку принимает один PHP-файл, потому что клиенту нужна почта."
 
   - id: site-payments-crm
@@ -160,11 +160,11 @@ clusters:
     cases: [groupconsult, ai-seller]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 21
     keys:
-      - { phrase: "как подключить amocrm к сайту", count: null }
-      - { phrase: "оплата на сайте без интернет магазина", count: null }
-      - { phrase: "приём платежей на сайте юkassa", count: null }
+      - { phrase: "как подключить amocrm к сайту", count: null, count_wide: 3 }
+      - { phrase: "оплата на сайте без интернет магазина", count: null, count_wide: 14 }
+      - { phrase: "приём платежей на сайте юkassa", count: null, count_wide: 4 }
     note: "Кейс ГруппКонсалт: оплата + автосделка в amoCRM. Дорогая аудитория."
 
   - id: markdown-notes-to-site
@@ -177,12 +177,12 @@ clusters:
     cases: [notepub, obsidian-guide-site, obsidian-analysis]
     target_url: "/blog/sayt-iz-zametok-obsidian/"
     competition: null
-    total_count: null
+    total_count: 7
     keys:
-      - { phrase: "сайт из заметок obsidian", count: null }
-      - { phrase: "obsidian publish альтернатива", count: null }
-      - { phrase: "сайт из markdown файлов", count: null }
-      - { phrase: "как опубликовать заметки obsidian", count: null }
+      - { phrase: "сайт из заметок obsidian", count: null, count_wide: 0 }
+      - { phrase: "obsidian publish альтернатива", count: null, count_wide: 0 }
+      - { phrase: "сайт из markdown файлов", count: null, count_wide: 6 }
+      - { phrase: "как опубликовать заметки obsidian", count: null, count_wide: 1 }
     note: "Гипотеза самого дешёвого входа: живой спрос, конкуренция почти не коммерческая, под темой 4 кейса + свой движок. Проверять первой."
 
   - id: keyword-research-collection
@@ -195,12 +195,12 @@ clusters:
     cases: [order-flow, trade-radar, gorod-katalog]
     target_url: "/blog/sbor-klyuchevyh-zaprosov/"
     competition: null
-    total_count: null
+    total_count: 436
     keys:
-      - { phrase: "wordstat api", count: null }
-      - { phrase: "как собрать частотность запросов", count: null }
-      - { phrase: "yandex search api wordstat", count: null }
-      - { phrase: "парсер вордстата", count: null }
+      - { phrase: "api wordstat", count: null, count_wide: 399 }
+      - { phrase: "как собрать частотность запросов", count: null, count_wide: 2 }
+      - { phrase: "yandex search api wordstat", count: null, count_wide: 12 }
+      - { phrase: "парсер вордстата", count: null, count_wide: 23 }
     note: "Дистанция 3, на границе фильтра: читатель делает ресёрч сам, но упирается в квоту 100/час и приходит за сборщиком — а это парсеры, одна из услуг. Фактура своя и редкая: переезд метода из Директа в Cloud, реальные цены, отложенные запросы к выдаче дешевле синхронных в 16 раз."
 
   - id: site-components-conversion
@@ -213,12 +213,12 @@ clusters:
     cases: [kalkulyator-stoimosti, interaktivnyy-plan, kalendar-bronirovaniya, ai-qualification-bot]
     target_url: "/blog/interaktivnye-bloki-na-sayte/"
     competition: null
-    total_count: null
+    total_count: 621
     keys:
-      - { phrase: "калькулятор расчёта стоимости на сайт", count: null }
-      - { phrase: "интерактивная карта на сайте", count: null }
-      - { phrase: "как увеличить конверсию сайта услуг", count: null }
-      - { phrase: "что добавить на сайт компании", count: null }
+      - { phrase: "калькулятор расчёта стоимости на сайт", count: null, count_wide: 47 }
+      - { phrase: "интерактивная карта на сайт", count: null, count_wide: 552 }
+      - { phrase: "как увеличить конверсию сайта услуг", count: null, count_wide: 1 }
+      - { phrase: "что добавить на сайт компании", count: null, count_wide: 21 }
     note: "Компонент — отдельная продажа: встраивается в существующий сайт, в том числе чужой, поэтому дистанция 1. Компоненты на страницах кейсов живые, а не снимки — это само по себе доказательство. Оба обезличены: план продаётся застройщикам и складам, калькулятор настраивается под любую нишу."
 
   - id: site-components-order
@@ -231,13 +231,13 @@ clusters:
     cases: [kalkulyator-stoimosti, interaktivnyy-plan, kalendar-bronirovaniya]
     target_url: "/services/komponenty-dlya-sayta/"
     competition: null
-    total_count: null
+    total_count: 5
     keys:
-      - { phrase: "заказать калькулятор на сайт", count: null }
-      - { phrase: "калькулятор стоимости для сайта под заказ", count: null }
-      - { phrase: "интерактивный план объекта для сайта", count: null }
-      - { phrase: "календарь бронирования на сайт заказать", count: null }
-      - { phrase: "виджет расчёта стоимости на сайт", count: null }
+      - { phrase: "заказать калькулятор на сайт", count: null, count_wide: 5 }
+      - { phrase: "калькулятор стоимости для сайта под заказ", count: null, count_wide: 0 }
+      - { phrase: "интерактивный план объекта для сайта", count: null, count_wide: 0 }
+      - { phrase: "календарь бронирования на сайт заказать", count: null, count_wide: 0 }
+      - { phrase: "виджет расчёта стоимости на сайт", count: null, count_wide: 0 }
     note: "Коммерческая половина пары к site-components-conversion: та статья отвечает «что добавить на сайт», эта страница — «закажите вот это». Разводить их обязательно, иначе они съедят друг друга: интент разный, а лексика пересекается почти полностью. Доказательство здесь сильнее обычного — все три компонента стоят живьём на страницах кейсов."
 
   - id: site-order-commercial
@@ -250,12 +250,12 @@ clusters:
     cases: [utilitservis, tractor-center, barskaya-usadba]
     target_url: "/services/sayt-kompanii/"
     competition: null
-    total_count: null
+    total_count: 1550
     keys:
-      - { phrase: "заказать сайт компании", count: null }
-      - { phrase: "разработка сайта под ключ", count: null }
-      - { phrase: "сделать сайт для компании", count: null }
-      - { phrase: "сайт визитка на заказ", count: null }
+      - { phrase: "заказать сайт компании", count: null, count_wide: 258, count_est: 188 }
+      - { phrase: "разработка сайтов под ключ", count: null, count_wide: 872 }
+      - { phrase: "сделать сайт для компании", count: null, count_wide: 402, count_est: 385 }
+      - { phrase: "сайт визитка на заказ", count: null, count_wide: 18 }
     note: "Самая конкурентная фраза во всём реестре: здесь стоят агентства с бюджетами и агрегаторы подрядчиков, и войти в топ по «заказать сайт» страницей одного исполнителя нельзя. Страница нужна не за этим — она принимает трафик, который уже пришёл на хост через блог и кейсы, и отвечает на вопрос «а вы такое делаете». Мерить её по позициям в выдаче бессмысленно, мерить по конверсии из внутренних переходов — осмысленно."
 
   - id: catalog-structure-order
@@ -268,12 +268,12 @@ clusters:
     cases: [gorod-katalog, utilitservis, notepub]
     target_url: "/services/sayt-katalog/"
     competition: null
-    total_count: null
+    total_count: 775
     keys:
-      - { phrase: "заказать сайт каталог", count: null }
-      - { phrase: "сайт каталог услуг под ключ", count: null }
-      - { phrase: "страницы под города для сайта", count: null }
-      - { phrase: "seo структура сайта услуг", count: null }
+      - { phrase: "заказать сайт каталог", count: null, count_wide: 767, count_est: 157 }
+      - { phrase: "сайт каталог услуг под ключ", count: null, count_wide: 4 }
+      - { phrase: "страницы под города для сайта", count: null, count_wide: 1 }
+      - { phrase: "seo структура сайта услуг", count: null, count_wide: 3 }
     note: "Коммерческая пара к service-city-pages, у которого информационная статья /blog/stranicy-pod-goroda/. Разводить обязательно: лексика пересекается почти полностью, интент разный. Статья отвечает «как это работает и не забанят ли», страница — «сделайте мне». Ниша уже: спрос на «сайт-каталог» меньше, чем на «сайт», но и конкуренция там не агентская."
 
   - id: automation-order
@@ -286,11 +286,11 @@ clusters:
     cases: [bizos, order-flow, ai-qualification-bot]
     target_url: "/services/avtomatizaciya/"
     competition: null
-    total_count: null
+    total_count: 841
     keys:
-      - { phrase: "автоматизация бизнес процессов заказать", count: null }
-      - { phrase: "внедрение ии в бизнес", count: null }
-      - { phrase: "разработка парсера на заказ", count: null }
+      - { phrase: "автоматизация бизнес процессов заказать", count: null, count_wide: 6 }
+      - { phrase: "внедрение ии в бизнес", count: null, count_wide: 834, count_est: 202 }
+      - { phrase: "разработка парсера на заказ", count: null, count_wide: 1 }
       - { phrase: "автоматизация рутинных задач", count: null }
     note: "Новое направление в реестре — automation. Осторожно с «внедрение ии»: запрос модный, спрос по нему в значительной части не покупательский, а любопытствующий, и проверить это можно только частотой с операторами. «Разработка парсера на заказ» выглядит слабее по объёму, но ближе к деньгам и к тому, что реально заказывают. Пересечение с wordstat-parser-collector: та статья информационная и ведёт сюда."
 
@@ -306,12 +306,12 @@ clusters:
     cases: [ai-qualification-bot]
     target_url: "/blog/bot-dlya-priyoma-zayavok/"
     competition: null
-    total_count: null
+    total_count: 19
     keys:
-      - { phrase: "телеграм бот для приёма заявок", count: null }
-      - { phrase: "бот для квалификации лидов", count: null }
-      - { phrase: "как автоматизировать приём заявок", count: null }
-      - { phrase: "бот вместо менеджера", count: null }
+      - { phrase: "телеграм бот для приёма заявок", count: null, count_wide: 13 }
+      - { phrase: "бот для квалификации лидов", count: null, count_wide: 4 }
+      - { phrase: "как автоматизировать приём заявок", count: null, count_wide: 1 }
+      - { phrase: "бот вместо менеджера", count: null, count_wide: 1 }
     note: "Первая волна и единственный кластер с замкнутым контуром: статья -> лендинг telegram-bot -> заявка. Коммерческие формулировки не берём, они за bot-order-commercial."
 
   - id: bot-price
@@ -324,11 +324,11 @@ clusters:
     cases: [ai-qualification-bot, hookapp, graphreach]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 171
     keys:
-      - { phrase: "сколько стоит сделать телеграм бота", count: null }
-      - { phrase: "цена разработки телеграм бота", count: null }
-      - { phrase: "стоимость чат бота", count: null }
+      - { phrase: "сколько стоит разработка телеграм бота", count: null, count_wide: 15 }
+      - { phrase: "цена разработки телеграм бота", count: null, count_wide: 2 }
+      - { phrase: "чат бот стоимость", count: null, count_wide: 154 }
     note: "Смешанный интент: выдача частично коммерческая, проверить состав топа. Выигрывается честными цифрами и вилками, а не 'от 15000 руб'."
 
   - id: bot-vs-miniapp
@@ -341,11 +341,11 @@ clusters:
     cases: [hookapp, graphreach, td-graph]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 60
     keys:
-      - { phrase: "чем отличается телеграм бот от мини приложения", count: null }
-      - { phrase: "telegram mini app что это", count: null }
-      - { phrase: "что выбрать бот или мини приложение", count: null }
+      - { phrase: "чем отличается телеграм бот от мини приложения", count: null, count_wide: 1 }
+      - { phrase: "telegram mini app что это", count: null, count_wide: 59 }
+      - { phrase: "что выбрать бот или мини приложение", count: null, count_wide: 0 }
     note: "Три кейса на мини-приложениях. Вопрос, который реально задают перед заказом."
 
   - id: bot-hosting-serverless
@@ -358,12 +358,12 @@ clusters:
     cases: [website-ai-assistant, order-flow]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 66
     keys:
-      - { phrase: "где хостить телеграм бота", count: null }
-      - { phrase: "телеграм бот на yandex cloud functions", count: null }
-      - { phrase: "бот на бесплатном хостинге", count: null }
-      - { phrase: "serverless телеграм бот", count: null }
+      - { phrase: "где хостить телеграм бота", count: null, count_wide: 7 }
+      - { phrase: "телеграм бот на yandex cloud functions", count: null, count_wide: 0 }
+      - { phrase: "бот на бесплатном хостинге", count: null, count_wide: 59 }
+      - { phrase: "serverless телеграм бот", count: null, count_wide: 0 }
     note: "Yandex Cloud Functions в стеке трёх кейсов, есть что показать по расчёту free tier."
 
   - id: bot-payments
@@ -376,11 +376,11 @@ clusters:
     cases: [recca, groupconsult, ai-seller]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 35
     keys:
-      - { phrase: "приём платежей в телеграм боте", count: null }
-      - { phrase: "юkassa в телеграм боте", count: null }
-      - { phrase: "как подключить оплату к боту", count: null }
+      - { phrase: "приём платежей в телеграм боте", count: null, count_wide: 7 }
+      - { phrase: "юkassa в телеграм боте", count: null, count_wide: 0 }
+      - { phrase: "как к боту подключить оплату", count: null, count_wide: 28 }
     note: "ЮKassa и Robokassa в стеке пяти кейсов."
 
   - id: ai-assistant-on-site
@@ -393,12 +393,12 @@ clusters:
     cases: [website-ai-assistant, ai-seller, llm-site]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 108
     keys:
-      - { phrase: "чат бот с gpt на сайт", count: null }
-      - { phrase: "как подключить нейросеть к сайту", count: null }
-      - { phrase: "ии ассистент для сайта", count: null }
-      - { phrase: "стриминг ответа модели на сайте", count: null }
+      - { phrase: "чат бот с gpt на сайт", count: null, count_wide: 0 }
+      - { phrase: "как подключить нейросеть к сайту", count: null, count_wide: 8 }
+      - { phrase: "ии ассистент для сайта", count: null, count_wide: 100 }
+      - { phrase: "стриминг ответа модели на сайте", count: null, count_wide: 0 }
     note: "Самый шумный спрос из всех и самая высокая конкуренция. Заходить длинным хвостом, а не головой."
 
   - id: bot-remembers-user
@@ -411,9 +411,9 @@ clusters:
     cases: [gpt-tutor, ai-seller]
     target_url: null
     competition: null
-    total_count: null
+    total_count: 85
     keys:
-      - { phrase: "чтобы бот помнил пользователя", count: null }
-      - { phrase: "память в чат боте", count: null }
-      - { phrase: "контекст диалога в боте", count: null }
+      - { phrase: "чтобы бот помнил пользователя", count: null, count_wide: 0 }
+      - { phrase: "память в чат боте", count: null, count_wide: 73 }
+      - { phrase: "контекст диалога в боте", count: null, count_wide: 12 }
     note: "Кейс gpt-tutor построен ровно на этом отличии от обычного чата."

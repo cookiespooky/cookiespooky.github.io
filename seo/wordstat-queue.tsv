@@ -2,74 +2,74 @@
 bot-order-commercial	published	заказать телеграм бота			
 bot-order-commercial	published	разработка телеграм ботов			
 bot-order-commercial	published	телеграм бот под ключ			
-static-vs-cms	seed	статический сайт или wordpress			
-static-vs-cms	seed	чем статический сайт лучше wordpress			
-static-vs-cms	seed	статический сайт недостатки			
-static-vs-cms	seed	нужна ли cms для сайта компании			
-service-city-pages	written	страницы под города для seo			
-service-city-pages	written	как сделать страницы услуга город			
-service-city-pages	written	посадочные страницы под регионы			
-service-city-pages	written	сколько страниц нужно для seo			
+static-vs-cms	seed	статический сайт или wordpress		0	
+static-vs-cms	seed	чем статический сайт лучше wordpress		0	
+static-vs-cms	seed	статический сайт недостатки			0
+static-vs-cms	seed	нужна ли cms для сайта компании			0
+service-city-pages	written	страницы под города для seo			0
+service-city-pages	written	как сделать страницы услуга город			0
+service-city-pages	written	посадочные страницы под регионы			0
+service-city-pages	written	сколько страниц нужно для seo			0
 site-without-hosting	written	сайт на github pages			
-site-without-hosting	written	бесплатный хостинг для сайта компании			
+site-without-hosting	written	бесплатный хостинг для сайта компании			0
 site-without-hosting	written	сайт без хостинга			
-site-without-hosting	written	куда выложить статический сайт			
-form-without-backend	written	форма заявки на сайте без бэкенда			
-form-without-backend	written	куда приходят заявки с сайта			
+site-without-hosting	written	куда выложить статический сайт			0
+form-without-backend	written	форма заявки на сайте без бэкенда			0
+form-without-backend	written	куда приходят заявки с сайта			21
 form-without-backend	written	заявка с сайта в телеграм			
-site-payments-crm	seed	как подключить amocrm к сайту			
-site-payments-crm	seed	оплата на сайте без интернет магазина			
-site-payments-crm	seed	приём платежей на сайте юkassa			
-markdown-notes-to-site	written	сайт из заметок obsidian			
-markdown-notes-to-site	written	obsidian publish альтернатива			
-markdown-notes-to-site	written	сайт из markdown файлов			
-markdown-notes-to-site	written	как опубликовать заметки obsidian			
+site-payments-crm	seed	как подключить amocrm к сайту			3
+site-payments-crm	seed	оплата на сайте без интернет магазина			14
+site-payments-crm	seed	приём платежей на сайте юkassa			4
+markdown-notes-to-site	written	сайт из заметок obsidian			0
+markdown-notes-to-site	written	obsidian publish альтернатива		0	
+markdown-notes-to-site	written	сайт из markdown файлов			6
+markdown-notes-to-site	written	как опубликовать заметки obsidian			1
 keyword-research-collection	written	wordstat api			
-keyword-research-collection	written	как собрать частотность запросов			
-keyword-research-collection	written	yandex search api wordstat			
+keyword-research-collection	written	как собрать частотность запросов		2	
+keyword-research-collection	written	yandex search api wordstat			12
 keyword-research-collection	written	парсер вордстата			
 site-components-conversion	written	калькулятор расчёта стоимости на сайт			
 site-components-conversion	written	интерактивная карта на сайте			
-site-components-conversion	written	как увеличить конверсию сайта услуг			
-site-components-conversion	written	что добавить на сайт компании			
-site-components-order	published	заказать калькулятор на сайт			
-site-components-order	published	калькулятор стоимости для сайта под заказ			
-site-components-order	published	интерактивный план объекта для сайта			
-site-components-order	published	календарь бронирования на сайт заказать			
-site-components-order	published	виджет расчёта стоимости на сайт			
+site-components-conversion	written	как увеличить конверсию сайта услуг			1
+site-components-conversion	written	что добавить на сайт компании			21
+site-components-order	published	заказать калькулятор на сайт			5
+site-components-order	published	калькулятор стоимости для сайта под заказ			0
+site-components-order	published	интерактивный план объекта для сайта			0
+site-components-order	published	календарь бронирования на сайт заказать			0
+site-components-order	published	виджет расчёта стоимости на сайт		0	
 site-order-commercial	published	заказать сайт компании			
 site-order-commercial	published	разработка сайта под ключ			
 site-order-commercial	published	сделать сайт для компании			
-site-order-commercial	published	сайт визитка на заказ			
+site-order-commercial	published	сайт визитка на заказ			18
 catalog-structure-order	published	заказать сайт каталог			
-catalog-structure-order	published	сайт каталог услуг под ключ			
-catalog-structure-order	published	страницы под города для сайта			
-catalog-structure-order	published	seo структура сайта услуг			
-automation-order	published	автоматизация бизнес процессов заказать			
+catalog-structure-order	published	сайт каталог услуг под ключ			4
+catalog-structure-order	published	страницы под города для сайта			1
+catalog-structure-order	published	seo структура сайта услуг			3
+automation-order	published	автоматизация бизнес процессов заказать			6
 automation-order	published	внедрение ии в бизнес			
-automation-order	published	разработка парсера на заказ			
+automation-order	published	разработка парсера на заказ			1
 automation-order	published	автоматизация рутинных задач			
 bot-lead-intake	written	телеграм бот для приёма заявок			
-bot-lead-intake	written	бот для квалификации лидов			
-bot-lead-intake	written	как автоматизировать приём заявок			
-bot-lead-intake	written	бот вместо менеджера			
+bot-lead-intake	written	бот для квалификации лидов			4
+bot-lead-intake	written	как автоматизировать приём заявок			1
+bot-lead-intake	written	бот вместо менеджера			1
 bot-price	seed	сколько стоит сделать телеграм бота			
-bot-price	seed	цена разработки телеграм бота			
+bot-price	seed	цена разработки телеграм бота			2
 bot-price	seed	стоимость чат бота			
-bot-vs-miniapp	seed	чем отличается телеграм бот от мини приложения			
+bot-vs-miniapp	seed	чем отличается телеграм бот от мини приложения			1
 bot-vs-miniapp	seed	telegram mini app что это			
-bot-vs-miniapp	seed	что выбрать бот или мини приложение			
-bot-hosting-serverless	seed	где хостить телеграм бота			
-bot-hosting-serverless	seed	телеграм бот на yandex cloud functions			
+bot-vs-miniapp	seed	что выбрать бот или мини приложение			0
+bot-hosting-serverless	seed	где хостить телеграм бота			7
+bot-hosting-serverless	seed	телеграм бот на yandex cloud functions			0
 bot-hosting-serverless	seed	бот на бесплатном хостинге			
-bot-hosting-serverless	seed	serverless телеграм бот			
-bot-payments	seed	приём платежей в телеграм боте			
-bot-payments	seed	юkassa в телеграм боте			
+bot-hosting-serverless	seed	serverless телеграм бот			0
+bot-payments	seed	приём платежей в телеграм боте			7
+bot-payments	seed	юkassa в телеграм боте			0
 bot-payments	seed	как подключить оплату к боту			
-ai-assistant-on-site	seed	чат бот с gpt на сайт			
+ai-assistant-on-site	seed	чат бот с gpt на сайт			0
 ai-assistant-on-site	seed	как подключить нейросеть к сайту			
 ai-assistant-on-site	seed	ии ассистент для сайта			
-ai-assistant-on-site	seed	стриминг ответа модели на сайте			
-bot-remembers-user	seed	чтобы бот помнил пользователя			
-bot-remembers-user	seed	память в чат боте			
-bot-remembers-user	seed	контекст диалога в боте			
+ai-assistant-on-site	seed	стриминг ответа модели на сайте			0
+bot-remembers-user	seed	чтобы бот помнил пользователя		0	
+bot-remembers-user	seed	память в чат боте			73
+bot-remembers-user	seed	контекст диалога в боте			12
