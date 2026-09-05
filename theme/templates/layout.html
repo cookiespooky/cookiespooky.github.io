@@ -33,7 +33,9 @@
   <link rel="stylesheet" href="{{ .AssetsBase }}/base.css" />
   <link rel="stylesheet" href="{{ .AssetsBase }}/home.css" />
   <link rel="stylesheet" href="{{ .AssetsBase }}/case.css" />
+  {{- if or (eq .Page.Type "blog") (eq .Page.Type "article") (eq .Page.Type "service") (eq .Page.Type "tool") }}
   <link rel="stylesheet" href="{{ .AssetsBase }}/blog.css" />
+  {{- end }}
   {{- if eq .Page.Type "tool" }}
   <link rel="stylesheet" href="{{ .AssetsBase }}/tool.css" />
   {{- end }}
