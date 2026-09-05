@@ -427,7 +427,14 @@ domain.
 - Whether the Webmaster host is verified by the `yandex_verification` meta tag in `config.yaml`
   (`74ea07470235e3be`) or by another method. If it is the tag, it is load-bearing; if not, it is dead weight
   that should be removed.
-- The sitemap has not been submitted in Webmaster: `https://antonlozhkin.ru/sitemap-index.xml`.
+- **Sitemaps are submitted and being processed.** `https://antonlozhkin.ru/sitemap-index.xml` went to
+  Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05; none had processed it as of that day.
+  Nothing published so far has been in an index long enough to be judged, so treat any conclusion about
+  which pages work as unavailable rather than negative until the first reports arrive.
+- **IndexNow has never been run over the whole site.** The workflow step submits only what changed that
+  day, and the engines have not seen the other 50-odd URLs through that channel. `python3
+  scripts/indexnow.py --all` does it once; it fails from this sandbox because the local Python has no CA
+  bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while `curl` to the same host works).
 
 ## `/cases/` redirects to the home page
 
