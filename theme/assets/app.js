@@ -9,23 +9,44 @@
   var headerEl = document.querySelector('.site-header');
   var filtersBarEl = document.querySelector('.filters-bar');
 
-  function headerHeight() {
-    return headerEl ? headerEl.getBoundingClientRect().height : 74;
-  }
+  // Измеренные высоты держим в переменных, а не спрашиваем у layout каждый раз.
+  // Чтение геометрии после записи в DOM заставляет браузер пересчитать раскладку
+  // немедленно; на главной с её тремя десятками строк каталога это дорого, а
+  // измерения между двумя записями подряд не меняются.
+  var headerH = 74;
+  var filtersH = 72;
+
+  function headerHeight() { return headerH; }
+  function filtersHeight() { return filtersH; }
 
   function syncStickyOffsets() {
+    // сперва все чтения
+    var nextHeader = headerEl ? Math.round(headerEl.getBoundingClientRect().height) : headerH;
+    var nextFilters = filtersBarEl ? Math.round(filtersBarEl.getBoundingClientRect().height) : filtersH;
+    // потом записи, и только изменившихся значений: пользовательское свойство на
+    // :root сбрасывает стили всего документа, поэтому лишняя запись — лишний
+    // пересчёт всей страницы
     var root = document.documentElement;
-    if (headerEl) {
-      root.style.setProperty('--header-h', Math.round(headerHeight()) + 'px');
+    if (headerEl && nextHeader !== headerH) {
+      headerH = nextHeader;
+      root.style.setProperty('--header-h', headerH + 'px');
     }
-    if (filtersBarEl) {
-      root.style.setProperty('--filters-h', Math.round(filtersBarEl.getBoundingClientRect().height) + 'px');
+    if (filtersBarEl && nextFilters !== filtersH) {
+      filtersH = nextFilters;
+      root.style.setProperty('--filters-h', filtersH + 'px');
     }
+  }
+
+  var syncTick = false;
+  function queueSync() {
+    if (syncTick) return;
+    syncTick = true;
+    requestAnimationFrame(function () { syncTick = false; syncStickyOffsets(); });
   }
 
   syncStickyOffsets();
-  window.addEventListener('resize', syncStickyOffsets);
-  window.addEventListener('orientationchange', syncStickyOffsets);
+  window.addEventListener('resize', queueSync);
+  window.addEventListener('orientationchange', queueSync);
   // веб-шрифт меняет высоту шапки после подстановки
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(syncStickyOffsets).catch(function () {});
@@ -95,13 +116,10 @@
   // не бывает, оно остаётся только для сборки без JS.
   if (empty) empty.hidden = true;
 
-  function filtersHeight() {
-    return filtersBarEl ? filtersBarEl.getBoundingClientRect().height : 72;
-  }
-
   // Пока идёт программная прокрутка, spy() молчит: иначе он перебивает нажатую
   // табу и та «шагает» по разделам, через которые пролетает страница.
   var spyMutedUntil = 0;
+  var stripPad = null;
 
   function groupByKey(value) {
     var found = null;
@@ -162,7 +180,10 @@
     if (!scrollStrip || !strip) return;
     var btn = byKey(key);
     if (!btn) return;
-    var pad = parseFloat(getComputedStyle(strip).paddingLeft) || 12;
+    // геометрию ленты читаем после записи aria-pressed, но она от неё не зависит,
+    // а pad постоянен — поэтому считаем его один раз за жизнь страницы
+    if (stripPad === null) stripPad = parseFloat(getComputedStyle(strip).paddingLeft) || 12;
+    var pad = stripPad;
     var left = btn.offsetLeft;
     var right = left + btn.offsetWidth;
     var viewLeft = strip.scrollLeft;
@@ -238,25 +259,27 @@
     return null;
   }
 
-  var lastRun = 0;
   function spy() {
     if (Date.now() < spyMutedUntil) return;
     var key = currentGroup();
     if (key) mark(key, true);
   }
-  function onScroll() {
-    var now = Date.now();
-    if (now - lastRun < 120) return;
-    lastRun = now;
-    spy();
+  // Наблюдатель присылает пачку срабатываний на каждое пересечение каждой группы,
+  // а spy() читает геометрию всех разделов. Без склейки в один кадр это десятки
+  // пересчётов раскладки на одну прокрутку.
+  var spyTick = false;
+  function queueSpy() {
+    if (spyTick) return;
+    spyTick = true;
+    requestAnimationFrame(function () { spyTick = false; spy(); });
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', spy);
+  window.addEventListener('scroll', queueSpy, { passive: true });
+  window.addEventListener('resize', queueSpy);
 
   // основной механизм: наблюдатель пересечений — работает и при программной прокрутке
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function () { spy(); }, {
+    var io = new IntersectionObserver(queueSpy, {
       threshold: [0, 0.02, 0.2, 0.5, 0.98, 1]
     });
     groups.forEach(function (group) { io.observe(group); });
@@ -281,10 +304,12 @@
     nodes.forEach(function (n) { io.observe(n); });
     // всё, что уже в кадре при загрузке, показываем сразу
     window.setTimeout(function () {
-      nodes.forEach(function (n) {
+      var vh = window.innerHeight;
+      var visible = nodes.filter(function (n) {
         var box = n.getBoundingClientRect();
-        if (box.top < window.innerHeight && box.bottom > 0) n.classList.add('is-visible');
+        return box.top < vh && box.bottom > 0;
       });
+      visible.forEach(function (n) { n.classList.add('is-visible'); });
     }, 60);
   })();
 
