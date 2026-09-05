@@ -16,7 +16,8 @@ role: "Модель данных, схема, интерфейс, вёрстка
 period: "2026"
 mark: "ПЛ"
 demo: "plan"
-shot: "demo-plan.png"
+shot: "demo-plan.webp"
+og_image: "/assets/shots/og/demo-plan.jpg"
 shot_caption: "Попробуйте: выберите участок на плане, отфильтруйте по статусу или найдите по номеру."
 stack: ["HTML / CSS", "JavaScript без библиотек", "SVG и сетка", "таблица или облачный бэкенд"]
 highlights:

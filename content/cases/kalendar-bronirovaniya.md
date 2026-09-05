@@ -16,7 +16,8 @@ role: "Модель дат, расчёт, интерфейс, вёрстка"
 period: "2026"
 mark: "КБ"
 demo: "book"
-shot: "demo-book.png"
+shot: "demo-book.webp"
+og_image: "/assets/shots/og/demo-book.jpg"
 shot_caption: "Попробуйте: выберите объект, заезд и отъезд — занятые сутки закрыты, а смета пересчитается сразу."
 stack: ["HTML / CSS", "JavaScript без библиотек", "календарь или таблица заказчика"]
 highlights:

@@ -16,7 +16,8 @@ role: "Расчётная модель, интерфейс, вёрстка"
 period: "2026"
 mark: "КС"
 demo: "calc"
-shot: "demo-calc.png"
+shot: "demo-calc.webp"
+og_image: "/assets/shots/og/demo-calc.jpg"
 shot_caption: "Попробуйте: поменяйте объём, ставку или срок — смета и состав суммы пересчитаются сразу."
 stack: ["HTML / CSS", "JavaScript без библиотек", "без сервера"]
 highlights:
