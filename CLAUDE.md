@@ -226,89 +226,77 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 ## Deployment state
 
-**Pushed to `main` on 2026-09-04** — `restructure/cases-to-root` was fast-forwarded into `main` and deployed.
-What that changed, verified live right after: `http://antonlozhkin.ru/CNAME` now returns `antonlozhkin.ru`
-(it 404'd before, which is what stalled the Pages DNS check), the Webmaster tag and Metrika 108674124 are in
-the served HTML, and `/blog/`, `/services/telegram-bot/`, `/tools/analiz-rechi/` and `/sitemap.xml` all
-answer 200. HTTPS still fails — the certificate had not been issued yet.
+**The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
+`https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
+apex so the certificate covers both names, all 47 sitemap URLs answer 200, and Metrika 108674124 reports
+`counter is initialized` in the browser.
 
-**The `cases` repo shadowing is resolved.** It briefly owned the whole `/cases/` prefix on the live domain —
-`/cases/` answered 200 with a canonical pointing at `cookiespooky.github.io/cases/`, and every
-`/cases/{slug}/` returned that repo's 404, so all 34 case pages were dead. Turning Pages off there was **not
-enough**: the path kept answering GitHub's own "Site not found", because the route stays bound to the repo
-name. Deleting the repo released it. `/cases/{slug}/` now answers 200; `/cases/` itself is a 404, which is
-the open question further down, not a regression.
+`config.yaml` and `config.dev.yaml` point at the domain, `CNAME` at the repo root holds it, and
+`scripts/build.sh` copies that file into `dist/` — it did not before, and the deploy goes through
+`upload-pages-artifact`, so without the file in the artifact GitHub Pages drops the custom domain on every
+run.
 
-**DNS is correct and is not what is stalling the check** (verified 2026-09-04, Cloudflare and Google
-resolvers agree):
+### Four things that cost a day, so they are written down
 
-| Record | State |
-|---|---|
-| apex `A` | all four GitHub addresses, and only those |
-| apex `AAAA` | all four, added since the last check |
-| apex `CNAME` | none, so nothing conflicts |
-| `CAA` | none, so Let's Encrypt is not blocked |
-| `www` | `CNAME` → `cookiespooky.github.io.`, 301s to apex over http |
-| apex `A` TTL | 86400 at reg.ru — a full day of cache to age out |
+**The certificate was released by removing the custom domain in Settings → Pages and adding it back.**
+This contradicts the advice that used to stand here. Waiting did not work: the DNS check sat in progress
+across four deployments after the `CNAME` file finally reached the artifact, and the certificate appeared
+within minutes of the re-add. The reading that fits is that the check had latched the failure from when
+`http://antonlozhkin.ru/CNAME` still 404'd and would not re-run on its own.
 
-**HTTPS is live.** Let's Encrypt issued `CN=antonlozhkin.ru` on 2026-09-04, valid to 2026-12-03; every
-section answers 200 over TLS and `www` 301s to the apex, so the certificate covers both names.
+Sequencing still matters: re-add only once the `CNAME` file is genuinely in the published artifact and
+nothing else claims the domain, or the fresh check latches the same failure again. Note also that the
+`CNAME` file *drives* the setting — GitHub re-reads it on every deployment — so removing the domain in the
+UI alone is reverted by the next build unless the file goes too.
 
-**What actually cleared it: removing the custom domain in Settings → Pages and adding it back.** This
-contradicts the advice that used to stand here — that re-adding restarts the timer and should be avoided —
-so the correction is worth stating plainly. Waiting did not work: the DNS check sat in progress across four
-deployments after the `CNAME` file reached the artifact, and the certificate appeared within minutes of the
-re-add. The reasonable reading is that the check had latched a failure from when
-`http://antonlozhkin.ru/CNAME` still 404'd, and nothing short of re-entering the domain dislodged it.
+**"DNS Check in Progress" stays yellow even when everything works.** It is still yellow now. Enforce HTTPS
+is enabled and enforcing, which GitHub does not allow without a valid certificate, so the label is stale UI
+and not a blocker. Do not press Remove to clear it — that would revoke a working certificate.
 
-The sequencing still matters, though: re-add only once the `CNAME` file is genuinely in the published
-artifact and nothing else claims the domain, or the fresh check latches the same failure again. Note also
-that the `CNAME` file drives the setting — GitHub re-reads it on every deployment — so removing the domain
-in the UI alone is reverted by the next build unless the file goes too.
+**A project repo owns its path on the custom domain, and disabling Pages does not release it.** The `cases`
+repo held the whole `/cases/` prefix: every `/cases/{slug}/` returned that repo's 404 while all 34 case
+pages sat in this site's sitemap. Switching its Pages source to None left the path answering GitHub's own
+"Site not found", because the binding follows the repo *name*. Deleting the repo released it.
 
-Still not done: there is no `_github-pages-challenge-cookiespooky` TXT record, so account-level domain
-verification was never performed. It does not affect the certificate, but it stops another account from
-claiming the domain. The apex `A` TTL at reg.ru is 86400, which is worth lowering before any future move.
+**DNS was never the problem** (verified against Cloudflare and Google, which agree). Apex `A` holds all four
+GitHub addresses and only those, apex `AAAA` all four, no apex `CNAME`, no `CAA` blocking Let's Encrypt,
+`www` a `CNAME` to `cookiespooky.github.io.`. From inside the sandbox `dig` is blocked; use DNS-over-HTTPS,
+e.g. `curl -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=antonlozhkin.ru&type=A'`.
 
-The site is being moved to **antonlozhkin.ru**, a domain the owner already held. `config.yaml` and
-`config.dev.yaml` point at it, `CNAME` at the repo root holds it, and `scripts/build.sh` copies that file into
-`dist/` — it did not before, and the deploy goes through `upload-pages-artifact`, so without the file in the
-artifact GitHub Pages drops the custom domain on every run.
+### Analytics and Webmaster
 
-Verified against live DNS (from inside the sandbox `dig` is blocked; use DNS-over-HTTPS instead, e.g.
-`curl -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=antonlozhkin.ru&type=A'`):
+Metrika **108674124** is the counter, installed via `settings.metrika_id`. The loader asks for
+`tag.js?id=<counter>`, matching the snippet Yandex hands out — the bare `tag.js` form it used before was the
+one structural difference from the official snippet. Counter `103178789` belonged to a long-dead Next.js
+site at this address and has been deleted.
 
-- apex `A` records resolve to all four GitHub Pages addresses; the previous dead-server records are gone
-- `AAAA` — none yet
-- `www` — was `NXDOMAIN`; the owner has since added records, unverified here
-- `http://antonlozhkin.ru/` already answers `200`, so the custom domain is set in repo settings
-- `https://antonlozhkin.ru/` fails on certificate subject mismatch — Let's Encrypt has not issued yet
-- `cookiespooky.github.io/` → **301** → `antonlozhkin.ru/` — GitHub issues a real 301, so a Yandex mirror move
-  will work without hand-written redirects
+Yandex Webmaster holds one host, **`https://antonlozhkin.ru`**. Two cautions learned the hard way:
 
-**Why the Pages "DNS Check in Progress" is stuck:** `http://antonlozhkin.ru/CNAME` returns 404, so the
-published artifact carries no CNAME file. The fix is to push, not to remove and re-add the domain — re-adding
-restarts the timer and can delay the certificate.
+- The host record predates this site — its crawl history stops at 2026-01-05 and consists of
+  `/_next/image?url=…`, so Webmaster had never seen the current site. Its diagnostics warned that
+  `robots.txt` was missing and 404s were misconfigured; both were artefacts of the day HTTPS was broken,
+  because the robot could not complete a TLS handshake at all. Neither file was ever wrong.
+- Tools that take a URL default to `http://` when you type a bare domain, and `http://` now 301s to a
+  different host in Yandex's model. Always type the protocol.
 
-The live deployment is **older than any branch**: it serves the LLM-graph site and carries Metrika counter
-108674124, which exists in no file on `main` or `archive/llm-graph`. Pages is serving a build from a commit
-whose theme still had the counter.
+Metrika's install checker follows the address stored in the counter's own settings, not the one typed into
+the dialog, and that field lagged on `cookiespooky.github.io` — which 301s here anyway, so the check passes
+regardless. Two console errors show up during that check and neither is this site's: an unrecognised
+`prefetch-src` CSP directive from Metrika's own overlay script on `yastatic.net`, and
+`ERR_CERT_AUTHORITY_INVALID` on `hdrc.yandex.net`, whose issuing CA is absent from ordinary trust stores —
+reproducible with `curl` from an unrelated machine. This site sets no CSP at all and references neither
+domain.
 
-### Order of operations
+### Still open
 
-1. `www` CNAME → `cookiespooky.github.io.`, plus the four `AAAA` records (optional)
-2. **push** — puts `CNAME` in the artifact, which should close the DNS check and trigger the certificate
-3. ~~wait for the certificate~~ — **done**, though it took removing and re-adding the domain (see above).
-   **Enforce HTTPS is still off**: `http://antonlozhkin.ru/` answers 200 rather than redirecting.
-4. ~~disable Pages on the `cases` repo~~ — **done, and disabling was not enough: the repo had to be
-   deleted.** A custom domain on a user site also covers that account's project sites, and the binding
-   follows the repo *name*, so switching its Pages source to None left `/cases/*` answering GitHub's
-   "Site not found" rather than falling through to this site.
-5. verify the domain in Yandex Webmaster — the tag is already in the build
-6. add the new domain to the Metrika counter's settings
-
-Publishing before the domain is live would mean the pages get indexed on `github.io` and then change address,
-which is the one migration cost worth avoiding. Writing can start now; publishing waits for step 3.
+- No `_github-pages-challenge-cookiespooky` TXT record, so account-level domain verification was never
+  performed. It does not affect the certificate; it stops another account from claiming the domain.
+- Apex `A` TTL at reg.ru is 86400. Worth lowering before any future move — a stale day-long cache is the
+  most likely reason a DNS check ever looks stuck.
+- Whether the Webmaster host is verified by the `yandex_verification` meta tag in `config.yaml`
+  (`74ea07470235e3be`) or by another method. If it is the tag, it is load-bearing; if not, it is dead weight
+  that should be removed.
+- The sitemap has not been submitted in Webmaster: `https://antonlozhkin.ru/sitemap-index.xml`.
 
 ## Open decision: is there a `/cases/` page?
 
@@ -358,8 +346,8 @@ structurally but is a redesign: the home page is built around the catalogue with
 
 ## Branches
 
-- `main` — the pre-restructure LLM-graph site, untouched.
-- `archive/llm-graph` — full snapshot of that experiment plus 102 hand-written articles from the site that
-  preceded it (`blog-source/`), kept because they existed nowhere else.
-- `restructure/cases-to-root` — this work. **Nothing has been pushed.** The owner has asked for the work to
-  stay local; do not push without being told to.
+- `main` — the live site. `restructure/cases-to-root` was fast-forwarded into it on 2026-09-04 and
+  everything since has landed here directly. A push to `main` deploys, so treat it as publishing.
+- `archive/llm-graph` — full snapshot of the atoms experiment plus 102 hand-written articles from the site
+  that preceded it (`blog-source/`), kept because they existed nowhere else.
+- `restructure/cases-to-root` — merged, kept only as a marker of where the restructure ended.
