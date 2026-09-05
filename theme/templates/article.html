@@ -102,8 +102,14 @@
     "dateModified": {{ .FM.updated_at }},
     {{- end }}
     "inLanguage": "ru-RU",
-    "author": { "@type": "Person", "name": {{ .Settings.owner_name }} },
-    "publisher": { "@type": "Person", "name": {{ .Settings.owner_name }} },
+    {{- if .FM.og_image }}
+    "image": "{{ .BaseURL }}{{ .FM.og_image }}",
+    {{- else if .Settings.site_default_og_image }}
+    "image": {{ .Settings.site_default_og_image }},
+    {{- end }}
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "publisher": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/blog/#blog" },
     "mainEntityOfPage": { "@type": "WebPage", "@id": {{ .Canonical }} }
   },
   {

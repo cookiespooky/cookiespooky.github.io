@@ -46,4 +46,39 @@
 
   <div style="height: 72px;"></div>
   {{ template "cta.html" . }}
+
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "{{ .BaseURL }}/blog/#blog",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" },
+    "blogPost": [
+      {{- range $i, $post := .Collections.posts_all.Items }}
+      {{- if $i }},{{ end }}
+      {
+        "@type": "BlogPosting",
+        "headline": {{ $post.Title }},
+        "url": "{{ $.BaseURL }}/blog/{{ $post.Slug }}/"
+        {{- if $post.FM.published_at }},
+        "datePublished": {{ $post.FM.published_at }}
+        {{- end }}
+      }
+      {{- end }}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
 </div>

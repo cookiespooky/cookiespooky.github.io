@@ -48,4 +48,29 @@
 
   <div style="height: 72px;"></div>
   {{ template "cta.html" . }}
+
+  {{- /* person_page: true превращает страницу в ProfilePage — это то,
+         из чего поисковик и языковая модель собирают сущность автора. */ -}}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": {{ if .FM.person_page }}"ProfilePage"{{ else }}"WebPage"{{ end }},
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" }
+    {{- if .FM.person_page }},
+    "mainEntity": { "@id": "{{ .BaseURL }}/#person" }
+    {{- end }}
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
 </article>

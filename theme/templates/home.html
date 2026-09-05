@@ -297,4 +297,52 @@
   {{- end }}
 
   {{ template "cta.html" . }}
+
+  {{- /* Разметка сайта и его автора. Person вынесен в @id, чтобы на него
+         ссылались страницы кейсов и статей, а перечень кейсов даёт
+         парсеру портфолио списком, а не тридцатью семью обходами. */ -}}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "{{ .BaseURL }}/#website",
+    "url": "{{ .BaseURL }}/",
+    "name": {{ .Settings.site_title }},
+    "description": {{ .Settings.site_description }},
+    "inLanguage": "ru-RU",
+    "publisher": { "@id": "{{ .BaseURL }}/#person" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "{{ .BaseURL }}/#person",
+    "name": {{ .Settings.owner_name }},
+    "jobTitle": {{ .Settings.owner_role }},
+    "url": "{{ .BaseURL }}/",
+    "image": "{{ .AssetsBase }}/anton.webp",
+    "description": {{ .Settings.site_description }},
+    "knowsAbout": ["веб-разработка", "телеграм-боты", "парсинг данных", "автоматизация процессов", "поисковая оптимизация", "прикладная лингвистика"],
+    "sameAs": [
+      {{ .Settings.github_url }},
+      {{ .Settings.telegram_url }},
+      {{ .Settings.telegram_channel_url }},
+      {{ .Settings.threads_url }}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Кейсы",
+    "numberOfItems": {{ len .Collections.cases_all.Items }},
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "itemListElement": [
+      {{- /* Без "position": движок не даёт шаблонам арифметики, а порядок
+             и так объявлен через itemListOrder. */ -}}
+      {{- range $i, $c := .Collections.cases_all.Items }}
+      {{- if $i }},{{ end }}
+      { "@type": "ListItem", "url": "{{ $.BaseURL }}/cases/{{ $c.Slug }}/", "name": {{ $c.Title }} }
+      {{- end }}
+    ]
+  }
+  ]</script>
 </div>

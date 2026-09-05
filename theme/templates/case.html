@@ -146,4 +146,40 @@
 
   <div style="height: 88px;"></div>
   {{ template "cta.html" . }}
+
+  {{- /* Кейс — это CreativeWork, а не Article: у него нет даты публикации
+         и он не новость. Автор и сайт указаны ссылкой на @id с главной,
+         чтобы у графа была одна сущность, а не тридцать семь копий. */ -}}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    {{- if .FM.og_image }}
+    "image": "{{ .BaseURL }}{{ .FM.og_image }}",
+    {{- end }}
+    {{- if .FM.stack }}
+    "keywords": [
+      {{- range $i, $k := .FM.stack }}{{ if $i }},{{ end }} {{ $k }}{{ end }}
+    ],
+    {{- end }}
+    {{- if .FM.period }}
+    "temporalCoverage": {{ .FM.period }},
+    {{- end }}
+    "creator": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Кейсы", "item": "{{ .BaseURL }}/#cases" },
+      { "@type": "ListItem", "position": 3, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
 </article>
