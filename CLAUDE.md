@@ -554,6 +554,25 @@ redesign: the home page is built around the catalogue with its sticky filter tab
   views a month at the cutover, so no redirects were written for the removed atom URLs or the old
   `/cases/cases/{slug}` paths.
 
+## Context that is not in this repository
+
+Four things this repo does not contain but that most conversations here depend on. All are
+gitignored or live elsewhere, so a fresh session sees none of them until it looks.
+
+| где | что |
+|---|---|
+| `context/` | карта архива `Diary/` и уточнённый портрет автора — читать первым |
+| `Diary/` | Obsidian-архив, 906 заметок, февраль 2025 → август 2026 |
+| `positioning/` | позиционирование: диагноз, позиции по Трауту, самопрезентации, протокол проверки |
+| `threads-plan/` | контент-план Threads, правила хуков, упаковка профиля |
+| `~/Documents/consciousness-revelation` | отдельный публичный репозиторий: предрегистрированный эксперимент с отрицательным результатом |
+
+`Diary/` содержит договоры с клиентами, материалы терапии и живые доступы — ничего оттуда не
+публикуется без явного разрешения. Живые ключи в нём подлежат ротации.
+
+Durable facts about the author and the strategy are also in the session memory directory, which
+loads automatically; `context/` holds what is too long for that.
+
 ## Branches
 
 - `main` — the live site. `restructure/cases-to-root` was fast-forwarded into it on 2026-09-04 and
