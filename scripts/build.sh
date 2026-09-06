@@ -65,8 +65,24 @@ if [[ -f CNAME ]]; then
 fi
 
 touch dist/.nojekyll
+# GitHub Pages отдаёт кастомную страницу ошибки только из /404.html в корне.
+# Каталог dist/404/ после копирования удаляется: иначе адрес /404/ отвечает 200
+# с текстом «страница не найдена» — это soft-404, на который ругаются Яндекс и
+# Google. Без каталога тот же адрес попадает в общий обработчик и отдаёт
+# честный 404. Заодно снимается canonical: он указывал на /404/, а страница
+# подставляется под любой несуществующий адрес, так что смысла в нём нет.
 if [[ -f dist/404/index.html ]]; then
   cp dist/404/index.html dist/404.html
+  rm -rf dist/404
+  if command -v python3 >/dev/null 2>&1; then
+    python3 - <<'PY'
+import io, re
+p = "dist/404.html"
+h = io.open(p, encoding="utf-8").read()
+h = re.sub(r'\s*<link rel="canonical"[^>]*>', "", h, count=1)
+io.open(p, "w", encoding="utf-8").write(h)
+PY
+  fi
 fi
 
 # карта сайта для языковых моделей: собирается из frontmatter, поэтому

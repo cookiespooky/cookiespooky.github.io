@@ -33,6 +33,13 @@ it parses frontmatter by hand rather than importing PyYAML, because the CI runne
 for the site to build. `scripts/shots.py` is run by hand after adding a screenshot — see *Screenshots and
 their derivatives*.
 
+The 404 needs one more step than it looks: `build.sh` copies `dist/404/index.html` to `dist/404.html`
+(the only path GitHub Pages serves as a custom error document) and then **deletes `dist/404/`**. Left in
+place, `/404/` answers 200 with "страница не найдена" — a soft 404 that Yandex and Google both flag — while
+a genuinely missing address correctly answers 404. Removing the directory routes `/404/` through the same
+handler as everything else. The canonical is stripped from `dist/404.html` in the same step: it pointed at
+`/404/`, and the file is served under every missing address, so it could only ever be wrong.
+
 `scripts/build.sh` resolves the engine in this order: `$NOTEPUB_BIN`, `./.bin/notepub`, `notepub` on PATH,
 otherwise `go install github.com/cookiespooky/notepub/cmd/notepub@$NOTEPUB_REF` into `./.bin` (the ref is pinned
 to a commit SHA at the top of the script, and CI pins the same one). It runs `validate` → `index` →
