@@ -63,6 +63,8 @@ fields:
     - endpoint       # адрес бэкенда инструмента
     - tool_prompt    # заголовок над полем ввода
     - how_it_works   # slug статьи-объяснения
+    # --- заметки (/notes/) ---
+    - topic          # ярлык темы: лингвистика | системное мышление | наблюдение | метод
     # --- страница услуги ---
     - includes       # что входит в работу
     - price_from     # ориентир цены
@@ -85,6 +87,7 @@ fm_schema:
   date_label: string
   cluster: string
   cta_service: string
+  topic: string
 
 types:
   home:
@@ -115,6 +118,14 @@ types:
     template: "article.html"
     permalink: "/blog/{{ slug }}/"
     include_in: { sitemap: true, search: true }
+  notes:
+    template: "notes.html"
+    permalink: "/notes/"
+    include_in: { sitemap: true, search: false }
+  note:
+    template: "note.html"
+    permalink: "/notes/{{ slug }}/"
+    include_in: { sitemap: true, search: true }
   notfound:
     template: "notfound.html"
     permalink: "/404/"
@@ -124,8 +135,8 @@ links:
   - name: "related"
     kind: "field"
     field: "related"
-    from_types: ["home", "case", "page", "article", "service", "blog", "tool"]
-    to_types: ["home", "case", "page", "article", "service"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note"]
+    to_types: ["home", "case", "page", "article", "service", "note"]
     to: "slug"
     value_syntax: "auto"
     resolve:
@@ -135,9 +146,9 @@ links:
       case: "insensitive"
   - name: "wiki"
     kind: "wikilinks"
-    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notfound"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note", "notfound"]
     resolve_by: "wikimap"
-    to_types: ["home", "case", "page", "article", "service"]
+    to_types: ["home", "case", "page", "article", "service", "note"]
     resolve:
       order: ["path", "filename", "slug"]
       ambiguity: "error"
@@ -242,6 +253,15 @@ collections:
         - type_in: ["article"]
     sort: { by: "fm.published_at", dir: "desc", nulls_last: true }
     limit: 4
+  notes_all:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - type_in: ["note"]
+    sort: { by: "fm.published_at", dir: "desc", nulls_last: true }
+    limit: 200
   services_all:
     kind: "filter"
     materialize: true
@@ -263,11 +283,11 @@ collections:
     limit: 3
 
 sitemap:
-  include_types: ["home", "case", "page", "service", "blog", "article", "tool"]
+  include_types: ["home", "case", "page", "service", "blog", "article", "tool", "notes", "note"]
   exclude_drafts: true
 
 search:
-  include_types: ["case", "page", "service", "article", "tool"]
+  include_types: ["case", "page", "service", "article", "tool", "note"]
   exclude_drafts: true
   fields_boost:
     title: 3
@@ -283,7 +303,7 @@ artifacts:
     dir: "collections"
 
 validation:
-  single_page_of_type: { home: 1, blog: 1 }
+  single_page_of_type: { home: 1, blog: 1, notes: 1 }
   duplicate_route: { action: "error" }
   unknown_type: { action: "error" }
   unique_slug: { action: "error" }

@@ -8,6 +8,7 @@
       <a href="{{ .BaseURL }}/#cases">Кейсы</a>
       <a href="{{ .BaseURL }}/services/"{{ if eq .Page.Slug "services" }} aria-current="page"{{ end }}>Что делаю</a>
       <a href="{{ .BaseURL }}/blog/"{{ if eq .Page.Slug "blog" }} aria-current="page"{{ end }}>Блог</a>
+      <a href="{{ .BaseURL }}/notes/"{{ if eq .Page.Slug "notes" }} aria-current="page"{{ end }}>Заметки</a>
       <a href="{{ .BaseURL }}/about/"{{ if eq .Page.Slug "about" }} aria-current="page"{{ end }}>Обо мне</a>
       <a class="btn--outline-sm" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank">Написать в Telegram</a>
     </nav>
@@ -28,6 +29,7 @@
     <a href="{{ .BaseURL }}/#cases"><span>Кейсы</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/services/"><span>Что делаю</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/blog/"><span>Блог</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/notes/"><span>Заметки</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/about/"><span>Обо мне</span><span aria-hidden="true">→</span></a>
   </nav>
   <div class="drawer__foot">

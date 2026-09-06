@@ -88,6 +88,11 @@ def main():
     for fm in sorted(posts, key=lambda f: f.get("published_at", ""), reverse=True):
         out.append(line(fm, f"{BASE}/blog/{fm['slug']}/"))
 
+    out += ["", "## Заметки", ""]
+    notes = collect("notes/*.md", "note")
+    for fm in sorted(notes, key=lambda f: f.get("published_at", ""), reverse=True):
+        out.append(line(fm, f"{BASE}/notes/{fm['slug']}/"))
+
     out += ["", "## Инструменты", ""]
     for fm in collect("tools/*.md", "tool"):
         out.append(line(fm, f"{BASE}/tools/{fm['slug']}/"))
@@ -99,13 +104,14 @@ def main():
         f"- [Обо мне]({BASE}/about/): образование, подход к работе и способ связи",
         f"- [Что делаю]({BASE}/services/): форматы работы списком",
         f"- [Блог]({BASE}/blog/): все статьи",
+        f"- [Заметки]({BASE}/notes/): лингвистика, системное мышление, наблюдение",
         f"- [Карта сайта]({BASE}/sitemap-index.xml): полный перечень адресов",
         "",
     ]
 
     (dist / "llms.txt").write_text("\n".join(out), encoding="utf-8")
     print(f"llms.txt: услуг {len(collect('services/*.md', 'service'))}, "
-          f"кейсов {len(cases)}, статей {len(posts)}")
+          f"кейсов {len(cases)}, статей {len(posts)}, заметок {len(notes)}")
     return 0
 
 

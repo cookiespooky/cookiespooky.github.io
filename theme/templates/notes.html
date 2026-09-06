@@ -1,0 +1,86 @@
+<div class="blog">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      {{- if .FM.hero_kicker }}
+      <span class="eyebrow"><span>{{ .FM.hero_kicker }}</span></span>
+      {{- end }}
+      <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}</h1>
+      {{- if .FM.hero_lead }}
+      <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
+      {{- end }}
+    </section>
+
+    {{- if .Body }}
+    <div class="case-body" style="grid-template-columns: minmax(0, 1fr);">
+      <div class="prose" style="max-width: 68ch;">{{ .Body }}</div>
+    </div>
+    {{- end }}
+
+    {{- if .Collections.notes_all.Items }}
+    {{- $n := len .Collections.notes_all.Items }}
+    <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}заметка{{ else if lt $n 5 }}заметки{{ else }}заметок{{ end }}</div>
+    <div class="post-list">
+      {{- range .Collections.notes_all.Items }}
+      <a class="case-row case-row--post" href="{{ $.BaseURL }}/notes/{{ .Slug }}/">
+        <span class="case-row__body">
+          <span class="case-row__kicker">
+            {{- if .FM.topic }}{{ .FM.topic }}{{ end }}
+            {{- if and .FM.topic .FM.published_at }} · {{ end }}
+            {{- if .FM.published_at }}<time datetime="{{ .FM.published_at }}">{{ if .FM.date_label }}{{ .FM.date_label }}{{ else }}{{ .FM.published_at }}{{ end }}</time>{{ end }}
+          </span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .Description }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+    {{- else }}
+    <p class="blog-empty">Пока пусто. Первые заметки появятся здесь.</p>
+    {{- end }}
+  </div>
+
+  <div style="height: 72px;"></div>
+  {{ template "cta.html" . }}
+
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "{{ .BaseURL }}/notes/#collection",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" },
+    "hasPart": [
+      {{- range $i, $note := .Collections.notes_all.Items }}
+      {{- if $i }},{{ end }}
+      {
+        "@type": "Article",
+        "headline": {{ $note.Title }},
+        "url": "{{ $.BaseURL }}/notes/{{ $note.Slug }}/"
+        {{- if $note.FM.published_at }},
+        "datePublished": {{ $note.FM.published_at }}
+        {{- end }}
+      }
+      {{- end }}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+</div>

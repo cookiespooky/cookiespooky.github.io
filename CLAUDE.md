@@ -69,10 +69,12 @@ Page types, each a template plus a permalink:
 | `blog` | `/blog/` | `blog.html` |
 | `tool` | `/tools/{slug}/` | `tool.html` |
 | `article` | `/blog/{slug}/` | `article.html` |
+| `notes` | `/notes/` | `notes.html` |
+| `note` | `/notes/{slug}/` | `note.html` |
 | `page` | `/{slug}/` | `page.html` |
 | `notfound` | `/404/` | `notfound.html` |
 
-`blog` and `home` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
+`blog`, `home` and `notes` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
 
 `/services/` lists five formats, and each item carries a `service` slug so the card links to its landing.
@@ -85,6 +87,7 @@ Collections are declared, not hardcoded, and reach templates as `.Collections.<n
 - `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`, `cases_lab`, `cases_sites`) and
   `cases_components`, `cases_featured` — consumed by `home.html`;
 - `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, for a home teaser);
+- `notes_all` (the `/notes/` index, sorted by `fm.published_at` desc);
 - `services_all`;
 - `related_cases` — a `forward` collection over the `related` link, so any page listing case slugs in its
   `related` frontmatter gets those cases rendered as proof rows.
@@ -123,9 +126,29 @@ owns which cluster. One cluster must map to exactly one URL.
 
 Service pages add `includes`, `price_from`, `price_note`, `stack`, `faq` (list of `{q, a}`) and `service_cases`.
 
+### `/notes/` — the non-commercial section
+
+`note` pages are the personal-essay side of the site: linguistics, systems thinking, self-observation.
+They deliberately carry **no `cluster` and no `cta_service`**, and they must stay out of `seo/clusters.yaml`.
+The reason is the registry's own rule: this material is `money_distance` 4–5, which the registry calls a hard
+reject. That verdict is correct *for the blog* — it is the wrong frame for this section, which exists to
+differentiate and build trust rather than to convert. Routing it through the cluster registry would corrupt
+both. A `note` uses `topic` (a display label only — no per-topic collection, no tabs, no filter machinery),
+plus the usual `published_at` / `date_label`, `lead`, `kicker`, `tags` and `related`.
+
+The section is reachable from the header and the drawer, so it is not an orphan the way the service landings
+once were.
+
+**`draft: true` means unlisted, not unpublished.** This bit the notes section and is worth knowing before you
+rely on it anywhere: the engine still *builds* a draft page, still writes it to `dist/`, and still emits
+`<meta name="robots" content="index, follow">` and a canonical for it. Drafts are only dropped from
+collections, the sitemap and `llms.txt`. So a draft that reaches `dist/` is a live, crawlable URL that merely
+isn't linked. To keep an unfinished page genuinely out of the index, pair it with `noindex: true`, which flips
+the meta to `noindex, follow` — the four notes drafts carry both.
+
 ### Case frontmatter contract
 
-37 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+38 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
 — the Markdown body is the long read below the card.
 
 ```yaml
@@ -156,13 +179,13 @@ links: [{title: "...", url: "..."}]
 
 `group` decides which section a case lands in; the counts on the home page's tabs come from
 `len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build. Current split: products 10, ai 8, sites 7, research 6, components 3, lab 3. Adding a group means four
+build. Current split: products 10, ai 8, sites 7, research 7, components 3, lab 3. Adding a group means four
 edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
 `rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
 and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
-— 16 have screenshots, 21 have drawn covers.
+— 16 have screenshots, 22 have drawn covers.
 
 ### Screenshots and their derivatives
 
@@ -186,10 +209,10 @@ the screenshot figure. Points worth knowing before touching them:
 
 - `demo` only replaces the figure *on the case page*. The catalogue row on the home page still uses `shot`, so
   a demo case needs both fields — drop `shot` and the row falls back to a drawn cover.
-- **Each partial carries its own `<style>` and `<script>` inline.** `layout.html` cannot see a page's
-  frontmatter, so there is no way to conditionally load an asset the way `tool.css`/`tool.js` are loaded for
-  `tool` pages; shipping the CSS site-wide would put it on all 37 cases for the sake of three. Keep new demos
-  self-contained the same way, and keep their class prefixes (`dcalc__*`, `dplan__*`, `dbook__*`) and `data-*`
+- **Each partial carries its own `<style>` and `<script>` inline.** `layout.html` can branch on
+  `.Page.Type` but sees no other frontmatter, so there is no way to key an asset off `demo` the way
+  `tool.css`/`tool.js` are keyed off the `tool` type; shipping the CSS site-wide would put it on all 38 cases
+  for the sake of three. Keep new demos self-contained the same way, and keep their class prefixes (`dcalc__*`, `dplan__*`, `dbook__*`) and `data-*`
   hooks distinct so two demos on one page could not collide.
 - They are plain DOM, no libraries, and the numbers are placeholders meant to be edited by the visitor — the
   point of the case is that the component is configurable, not that these rates are real.
@@ -224,7 +247,7 @@ inside `<script type="application/ld+json">`:
 | `tool.html` | `WebApplication` |
 
 **The graph hangs off two `@id`s minted on the home page** — `{base}/#person` and `{base}/#website`. Everything
-else references them instead of repeating the author, so a parser sees one person with 37 works rather than 37
+else references them instead of repeating the author, so a parser sees one person with 38 works rather than 38
 unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
 restate `Person`.
 
@@ -249,12 +272,18 @@ EOF
 
 ### Machine-readable extras
 
-- **Wordstat.** `seo/wordstat.md` is the procedure for taking frequencies by hand, and
-  `seo/wordstat-queue.tsv` is the worksheet — every phrase in the registry with two empty columns, generated
-  by `scripts/wordstat_queue.py`. Rerun it after adding clusters or their phrases go unmeasured; it refuses to
-  overwrite a worksheet that already has numbers in it, so transfer those into `clusters.yaml` first.
+- **Wordstat.** `seo/wordstat.md` is the procedure for taking frequencies by hand; the loop around it is
+  three scripts and two return paths. `scripts/wordstat_queue.py` generates `seo/wordstat-queue.tsv` — every
+  phrase in the registry with two empty columns. Rerun it after adding clusters or their phrases go
+  unmeasured; it refuses to overwrite a worksheet that already has numbers in it, so transfer those into
+  `clusters.yaml` first. Numbers come back either as CSV exports dropped into `seo/keys/` (preferred — the
+  export carries the query tail as well as the number) or typed into the worksheet for phrases with nothing
+  to export. `scripts/wordstat_import.py` reads both and writes them into `clusters.yaml`; `--dry-run`
+  reports without writing, `--harvest N` also lists tail phrases above N that the registry does not have yet.
 - **`llms.txt`** at the site root, generated by `scripts/llms.py`: the whole site as one Markdown list with a
-  sentence per page. It is regenerated on every build, so it never lies about what exists.
+  sentence per page. It is regenerated on every build, so it never lies about what exists — but it enumerates
+  types by hand, one `collect(...)` call per section, so **a new page type is invisible to it until you add
+  one**. `notes` needed exactly that edit.
 - **IndexNow.** `static/<key>.txt` holds the key; `scripts/indexnow.py` reads the *live* sitemap after a deploy
   and submits only the URLs whose `lastmod` is today. Bing and Yandex share the protocol, so one call reaches
   both, and the workflow step is `continue-on-error` — a rejected ping is a configuration problem, not a
@@ -274,20 +303,50 @@ asset — it is what stops a second article being written for an intent that alr
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, or two articles claiming one cluster all build clean. Check it by hand when adding an
-article. `stage` is likewise hand-maintained and currently lags — seven clusters sit at `written` while their
-articles are live and in the sitemap, so read `stage` as intent, not as truth about what is published.
+article — a one-off check is worth running over the whole set, since as of 2026-09-06 the registry side is
+clean (23 clusters, no duplicate claims, every `target_url` resolving) but one article side is not:
+`content/blog/kak-rabotaet-analiz-rechi.md` carries **no `cluster` field at all**, while
+`speech-agency-explainer` names it as its `target_url`. It is the only half-open join on the site.
+
+`stage` is likewise hand-maintained and lags — seven clusters sit at `written` while their articles are live
+and in the sitemap, so read `stage` as intent, not as truth about what is published. Current spread: 7
+`published`, 7 `written`, 8 `seed`, 1 `planned`.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
 4–5 is a hard reject, not a maybe.
 
-Frequencies come from the Yandex Cloud **Search API** (`POST /v2/wordstat/topRequests` with an IAM token from
-a service account holding `search-api.webSearch.user`), *not* from the Direct API, which is the outdated path
-most guides describe. The binding constraint is the quota, not the money: `GetTop` allows 10 rps but only
-**100 requests per hour**, so any collector must be rate-limited and resumable — dying at request 80 and
-restarting costs an hour. Prices, method signatures and the first-wave budget are worked out in
-`seo/README.md`; the free Cloud Functions tier that `lab/` runs on does not apply to Search API, which needs a
-billing account in good standing.
+**The first wave of frequencies was taken by hand from the free web Wordstat, not from the API** — the web
+interface understands the operators (`"!phrase"`) that pin word forms and the API does not, so the numbers
+that decide priority can only be had that way. The API path is designed but unused: Yandex Cloud **Search
+API** (`POST /v2/wordstat/topRequests` with an IAM token from a service account holding
+`search-api.webSearch.user`), *not* the Direct API that most guides describe. Its binding constraint is quota
+rather than money — `GetTop` allows 10 rps but only **100 requests per hour**, so any collector must be
+rate-limited and resumable, since dying at request 80 costs an hour. Prices, method signatures and the
+first-wave budget are in `seo/README.md`; the free Cloud Functions tier that `lab/` runs on does not cover
+Search API, which needs a billing account in good standing.
+
+Each phrase therefore carries three numbers, and they are not interchangeable:
+
+| field | meaning |
+|---|---|
+| `count` | true exact frequency, with operators. The web export cannot produce it, so it is still `null` everywhere |
+| `count_wide` | broad frequency, actually measured |
+| `count_est` | estimated exact: broad minus the tail queries containing all the phrase's words. An upper bound, and meaningless on general phrases, where nested queries are themselves aggregated and the subtraction goes negative |
+
+Four traps that the first wave walked into, all recorded at greater length in `seo/wordstat.md`:
+
+- **Set the region before taking numbers.** The first wave was taken on «все регионы» rather than Russia, so
+  its numbers are inflated and cannot be compared against a later wave taken correctly.
+- **Wordstat names every export the same.** They all arrive as `wordstat_top_queries (N).csv` with the
+  numbering restarting each session, so a second batch silently overwrites the first. Files in `seo/keys/`
+  are renamed after their target phrase; keep doing that.
+- **Cyrillic and Latin are different queries.** «сео для сайта» is 706 and «seo для сайта» is 1161, and
+  Wordstat does not merge them (it does merge ё and е, and the importer folds those). Anything people write
+  both ways — seo, ai, crm, api — needs both forms in the registry or you are measuring half the demand.
+- **Take phrases from Wordstat's own output, not from your head.** Nine of the first seventy-four were
+  written the way a person would say them and returned zero while the demand was real: «разработка сайта под
+  ключ» is 0, «разработка сайт**ов** под ключ» is 872. Word count and order matter; word form matters.
 
 Strategy in one line: informational tail into the blog builds host trust, which is what eventually makes the
 commercial pages on `/services/` rankable at all. Commercial-intent long tail goes to a service landing, never
@@ -333,8 +392,10 @@ lived inside the old theme's `styles.css` and `main.js`. Three things to know if
   diffing the hook lists, not by reading.
 - the CSS came from a dark-panel palette whose `--surface-raised*` variables do not exist in the new theme, so
   `tool.css` re-declares them scoped to `.agency-tool` in terms of the new `--panel*` tokens.
-- `tool.css`/`tool.js` load only when `.Page.Type` is `tool`, unlike the rest of the theme's assets which
-  `layout.html` loads everywhere.
+- `tool.css`/`tool.js` load only when `.Page.Type` is `tool`. Two of the seven stylesheets are conditional
+  this way and the rest load everywhere: `blog.css` on `blog`/`article`/`service`/`tool`, `tool.css` on
+  `tool` alone. `home.css` and `case.css` are still site-wide. Adding a stylesheet means deciding which list
+  it joins in `layout.html`.
 
 The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
 filter were dropped: they pointed at an atom page that no longer exists.

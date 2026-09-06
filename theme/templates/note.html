@@ -1,0 +1,123 @@
+<article class="post">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .BaseURL }}/notes/">Заметки</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    <section class="page-hero">
+      <span class="eyebrow"><span>Заметка</span>{{ if .FM.topic }}<span class="eyebrow__rule"></span><span>{{ .FM.topic }}</span>{{ end }}</span>
+      <h1>{{ .Page.Title }}</h1>
+      {{- if .FM.lead }}
+      <p class="page-hero__lead">{{ .FM.lead }}</p>
+      {{- else if .Page.Description }}
+      <p class="page-hero__lead">{{ .Page.Description }}</p>
+      {{- end }}
+      {{- if or .FM.published_at .FM.updated_at }}
+      <p class="post-meta">
+        {{- if .FM.published_at }}
+        <time datetime="{{ .FM.published_at }}">{{ if .FM.date_label }}{{ .FM.date_label }}{{ else }}{{ .FM.published_at }}{{ end }}</time>
+        {{- end }}
+        {{- if .FM.updated_at }}
+        <span class="post-meta__sep" aria-hidden="true">·</span>
+        <span>обновлено <time datetime="{{ .FM.updated_at }}">{{ .FM.updated_at }}</time></span>
+        {{- end }}
+      </p>
+      {{- end }}
+    </section>
+
+    <div class="case-body">
+      <div class="prose">{{ .Body }}</div>
+
+      <aside class="case-aside">
+        {{- if .FM.tags }}
+        <div class="aside-box">
+          <h3>Темы</h3>
+          <div class="aside-tags">
+            {{- range .FM.tags }}
+            <span>{{ . }}</span>
+            {{- end }}
+          </div>
+        </div>
+        {{- end }}
+
+        <div class="aside-box">
+          <h3>Другие заметки</h3>
+          <div class="aside-links">
+            <a class="link-accent" href="{{ .BaseURL }}/notes/">Все заметки →</a>
+          </div>
+        </div>
+
+        <div class="aside-cta">
+          <h3 class="site-footer__label">Обсудить задачу</h3>
+          <p>Напишите пару предложений о задаче — отвечу, как её решить и сколько это займёт.</p>
+          <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  {{- if .Collections.related_cases.Items }}
+  <section class="shell related">
+    <span class="eyebrow"><span>Рядом</span><span class="eyebrow__rule"></span><span>Кейсы по теме</span></span>
+    <div class="related__list">
+      {{- range .Collections.related_cases.Items }}
+      <a class="case-row case-row--nostatus" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/thumbs/{{ .FM.shot }}" alt="" loading="lazy" width="180" height="125" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <div style="height: 88px;"></div>
+  {{ template "cta.html" . }}
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    {{- if .FM.published_at }}
+    "datePublished": {{ .FM.published_at }},
+    {{- end }}
+    {{- if .FM.updated_at }}
+    "dateModified": {{ .FM.updated_at }},
+    {{- end }}
+    "inLanguage": "ru-RU",
+    {{- if .FM.og_image }}
+    "image": "{{ .BaseURL }}{{ .FM.og_image }}",
+    {{- else if .Settings.site_default_og_image }}
+    "image": {{ .Settings.site_default_og_image }},
+    {{- end }}
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "publisher": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/notes/#collection" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": {{ .Canonical }} }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Заметки", "item": "{{ .BaseURL }}/notes/" },
+      { "@type": "ListItem", "position": 3, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+</article>
