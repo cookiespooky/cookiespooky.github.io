@@ -178,3 +178,6 @@
 @media (prefers-reduced-motion: reduce) {
   .js-ready .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* разбор: ссылка под сеткой шагов */
+.razbor__more { margin-top: 28px; }

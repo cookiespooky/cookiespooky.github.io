@@ -48,19 +48,19 @@
       <h2>{{ .FM.razbor.title }}</h2>
       <p>{{ .FM.razbor.text }}</p>
     </div>
-    {{- if .FM.razbor.items }}
-    <div class="stacks">
-      <div class="stack">
-        <div class="stack__items">
-          {{- range .FM.razbor.items }}
-          <span>{{ . }}</span>
-          {{- end }}
-        </div>
-      </div>
-    </div>
+    {{- if .FM.razbor.steps }}
+    <ol class="process">
+      {{- range .FM.razbor.steps }}
+      <li>
+        <div class="process__num">{{ .num }}</div>
+        <strong>{{ .title }}</strong>
+        <p>{{ .text }}</p>
+      </li>
+      {{- end }}
+    </ol>
     {{- end }}
     {{- if .FM.razbor.link_service }}
-    <p><a class="link-accent" href="{{ .BaseURL }}/services/{{ .FM.razbor.link_service }}/">{{ if .FM.razbor.link_title }}{{ .FM.razbor.link_title }}{{ else }}Подробнее{{ end }} →</a></p>
+    <p class="razbor__more"><a class="link-accent" href="{{ .BaseURL }}/services/{{ .FM.razbor.link_service }}/">{{ if .FM.razbor.link_title }}{{ .FM.razbor.link_title }}{{ else }}Подробнее{{ end }} →</a></p>
     {{- end }}
   </section>
   {{- end }}
