@@ -278,10 +278,38 @@
     </div>
   </section>
 
-  <!-- 04 · Процесс -->
+  <!-- 04 · Проверка -->
+  {{- if .Collections.notes_recent.Items }}
+  <section class="shell notes-section" id="notes">
+    <span class="eyebrow"><span>04</span><span class="eyebrow__rule"></span><span>Проверка</span></span>
+    <div class="section-head">
+      <h2>Строю — и проверяю, что не показалось</h2>
+      <p>Увидеть структуру мало: её легко себе вообразить, особенно когда очень хочется. Поэтому часть работы — эксперименты, которые могут мою же догадку опровергнуть. Один такой опубликован вместе с отрицательным результатом и сырыми данными.</p>
+    </div>
+    <div class="notes-list">
+      {{- range .Collections.notes_recent.Items }}
+      <a class="case-row" href="{{ $.BaseURL }}/notes/{{ .Slug }}/">
+        <span class="case-row__body">
+          <span class="case-row__kicker">
+            {{- if .FM.topic }}{{ .FM.topic }}{{ end }}
+            {{- if and .FM.topic .FM.date_label }} · {{ end }}
+            {{- if .FM.date_label }}{{ .FM.date_label }}{{ end }}
+          </span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .Description }}</span>
+        </span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+    <p class="razbor__more"><a class="link-accent" href="{{ .BaseURL }}/notes/">Все заметки →</a></p>
+  </section>
+  {{- end }}
+
+  <!-- 05 · Процесс -->
   {{- if .FM.process }}
   <section class="shell process-section" id="process">
-    <span class="eyebrow"><span>04</span><span class="eyebrow__rule"></span><span>Процесс</span></span>
+    <span class="eyebrow"><span>05</span><span class="eyebrow__rule"></span><span>Процесс</span></span>
     <div class="section-head">
       <h2>Как идёт работа</h2>
       <p>Короткий цикл: сначала рабочая версия, потом уточнения. Вы видите результат на каждом шаге, а не после месяца молчания.</p>
@@ -298,10 +326,10 @@
   </section>
   {{- end }}
 
-  <!-- 05 · Инструменты -->
+  <!-- 06 · Инструменты -->
   {{- if .FM.skills }}
   <section class="shell tools-section" id="tools">
-    <span class="eyebrow"><span>05</span><span class="eyebrow__rule"></span><span>Инструменты</span></span>
+    <span class="eyebrow"><span>06</span><span class="eyebrow__rule"></span><span>Инструменты</span></span>
     <div class="section-head">
       <h2>Чем работаю</h2>
       <p>Технологии — это средство. Выбираю то, что даёт результат быстрее и дешевле в поддержке.</p>

@@ -181,3 +181,8 @@
 
 /* разбор: ссылка под сеткой шагов */
 .razbor__more { margin-top: 28px; }
+
+/* заметки на главной: строки без миниатюры */
+.notes-section { padding-block: 8px 96px; }
+.notes-list { border-top: 1px solid var(--line); margin-top: 40px; }
+.notes-list .case-row { grid-template-columns: minmax(0, 1fr) 20px; }

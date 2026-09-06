@@ -263,6 +263,15 @@ collections:
         - type_in: ["note"]
     sort: { by: "fm.published_at", dir: "desc", nulls_last: true }
     limit: 200
+  notes_recent:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - type_in: ["note"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 3
   services_all:
     kind: "filter"
     materialize: true
