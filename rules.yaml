@@ -50,6 +50,7 @@ fields:
     - faq
     - cta_title
     - cta_note
+    - razbor         # блок «Разбор» на главной: title/text/items/link
     - quick          # строки в карточке первого экрана
     - more_items     # небольшие работы без отдельных страниц
     # --- блог ---
