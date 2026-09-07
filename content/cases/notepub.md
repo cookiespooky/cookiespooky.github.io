@@ -40,7 +40,7 @@ links:
     url: "https://github.com/cookiespooky/notepub"
   - title: "Документация"
     url: "https://cookiespooky.github.io/np/ru/docs/"
-related: ["gorod-katalog", "llm-site", "obsidian-guide-site"]
+related: ["gorod-katalog", "obsidian-guide-site"]
 ---
 
 ## Задача

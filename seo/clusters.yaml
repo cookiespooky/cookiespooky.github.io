@@ -408,7 +408,7 @@ clusters:
     page_type: article
     money_distance: 1
     cta_service: telegram-bot
-    cases: [website-ai-assistant, ai-seller, llm-site]
+    cases: [website-ai-assistant, ai-seller]
     target_url: null
     competition: null
     total_count: 108

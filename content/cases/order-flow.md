@@ -15,7 +15,10 @@ client: "Собственная разработка"
 role: "Архитектура, парсеры, отчёты"
 period: "2026"
 mark: "OF"
-cover: "beam"
+shot: "order-flow.webp"
+og_image: "/assets/shots/og/order-flow.jpg"
+shot_url: "локальная сборка"
+shot_caption: "Панель лидов: ниша, сегмент проблемы и статус обработки. Названия и контакты компаний скрыты."
 stack: ["Python", "Telegram API", "RSS", "SQLite", "HTML-отчёты"]
 highlights:
   - "сбор заявок с фриланс-бирж"

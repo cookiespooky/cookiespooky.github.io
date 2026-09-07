@@ -18,7 +18,7 @@ mark: "HK"
 shot: "hookapp.webp"
 og_image: "/assets/shots/og/hookapp.jpg"
 shot_url: "локальная сборка"
-shot_caption: "Вход по ссылке на почту: без паролей, которые никто не помнит в разгар смены."
+shot_caption: "Доска смены: на каждом кальяне свой таймер, отметки о продувке и замене углей — мастер видит все столы разом."
 stack: ["TypeScript", "React", "Node.js", "PostgreSQL", "PWA", "push-уведомления"]
 highlights:
   - "смена, столы и кальяны на одном экране"

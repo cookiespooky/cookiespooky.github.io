@@ -35,7 +35,7 @@ facts:
 links:
   - title: "Открыть сайт"
     url: "https://cookiespooky.github.io/obsidian-guide/"
-related: ["notepub", "obsidian-analysis", "llm-site"]
+related: ["notepub", "obsidian-analysis"]
 ---
 
 ## Задача
