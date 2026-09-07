@@ -55,11 +55,14 @@ There is no test suite. Correctness means `./scripts/build.sh` exits clean — `
 route and link errors, and unknown frontmatter keys are build errors, so a typo in a field name fails the build
 rather than silently disappearing.
 
-`.bin/`, `dist/` and `.notepub/` are gitignored.
+`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, as is every directory in
+*Context that is not in this repository* below — so `git status` stays clean while five untracked trees sit
+in the working directory. Do not "clean up" an untracked directory here; check that table first.
 
 `README.md` predates the restructure and is stale on addresses: it calls the site "Кейсы", gives the public
 URL as `cookiespooky.github.io/cases/` and describes a move *to* `cookiespooky.github.io`. Its "how to add a
-case" recipe is still accurate; ignore everything it says about where the site lives.
+case" recipe is still broadly accurate, except that it names only four of the six `group` values (it predates
+`components` and `lab`); ignore everything it says about where the site lives.
 
 Bumping the engine means editing `NOTEPUB_REF` in **two** places — `scripts/build.sh` and the `env:` block of
 `.github/workflows/pages.yml` — or CI builds against a different commit than you do.
@@ -84,17 +87,19 @@ Page types, each a template plus a permalink:
 `blog`, `home` and `notes` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
 
-`/services/` lists five formats, and each item carries a `service` slug so the card links to its landing.
+`/services/` lists six formats — `razbor` came last and sits first on the page — and each item carries a
+`service` slug so the card links to its landing.
 That link is load-bearing: before it existed the landings were near-orphans, reachable only from the one
 article whose `cta_service` pointed at them. A new landing needs the item on `/services/` as much as it needs
 the file.
 
 Collections are declared, not hardcoded, and reach templates as `.Collections.<name>.Items`:
 
-- `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`, `cases_lab`, `cases_sites`) and
-  `cases_components`, `cases_featured` — consumed by `home.html`;
+- `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`,
+  `cases_lab`, `cases_sites`) and `cases_featured` — consumed by `home.html`;
 - `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, for a home teaser);
-- `notes_all` (the `/notes/` index, sorted by `fm.published_at` desc);
+- `notes_all` (the `/notes/` index, sorted by `fm.published_at` desc) and `notes_recent` (3, home teaser —
+  note it sorts by `fm.nav_order` asc, not by date like every other notes/posts collection);
 - `services_all`;
 - `related_cases` — a `forward` collection over the `related` link, so any page listing case slugs in its
   `related` frontmatter gets those cases rendered as proof rows.
@@ -151,11 +156,12 @@ rely on it anywhere: the engine still *builds* a draft page, still writes it to 
 `<meta name="robots" content="index, follow">` and a canonical for it. Drafts are only dropped from
 collections, the sitemap and `llms.txt`. So a draft that reaches `dist/` is a live, crawlable URL that merely
 isn't linked. To keep an unfinished page genuinely out of the index, pair it with `noindex: true`, which flips
-the meta to `noindex, follow` — the four notes drafts carry both.
+the meta to `noindex, follow` — pair them on anything unfinished. (All five notes are published as of
+2026-09-07: `draft: false`, `noindex: false`. The four drafts this rule was written for have shipped.)
 
 ### Case frontmatter contract
 
-38 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+35 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
 — the Markdown body is the long read below the card.
 
 ```yaml
@@ -186,13 +192,13 @@ links: [{title: "...", url: "..."}]
 
 `group` decides which section a case lands in; the counts on the home page's tabs come from
 `len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build. Current split: products 10, ai 8, sites 7, research 7, components 3, lab 3. Adding a group means four
+build. Current split: products 9, ai 7, sites 6, research 7, components 3, lab 3. Adding a group means four
 edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
 `rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
 and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
-— 16 have screenshots, 22 have drawn covers.
+— 16 have screenshots, 19 have drawn covers.
 
 ### Screenshots and their derivatives
 
@@ -208,6 +214,15 @@ The catalogue used to point at the full-size images, so the home page pulled **5
 thumbnails 180 px wide — one file was 1.29 MB. It is 104 KB now. If you add a thumbnail somewhere new, point it
 at `shots/thumbs/`, never at `shots/`.
 
+Thumbnails carry `alt="Экран проекта «{{ .Title }}»"` — the same wording as the full screenshot in
+`case.html`. They were `alt=""` in all eight places that render a `case-row` (six group sections in
+`home.html`, plus `case.html`, `service.html`, `note.html`, `tool.html`, `article.html`), which a Bing site
+scan reported on 2026-09-07 as "Alt attribute for images is missing" across 39 pages: **Bing counts an empty
+`alt` as a missing one**, so the WCAG argument that the adjacent case title makes the image decorative does
+not buy anything here. Two `alt=""` are deliberate and were left alone — the 30×30 brand photo in
+`partials/header.html` (the site name sits next to it) and the off-screen Metrika pixel in `layout.html`;
+Bing flagged neither. Copy the alt when you add a new `case-row`.
+
 ### Live components on case pages
 
 The `components` group proves itself by running rather than by a screenshot: `demo: plan`, `demo: calc` and
@@ -218,7 +233,7 @@ the screenshot figure. Points worth knowing before touching them:
   a demo case needs both fields — drop `shot` and the row falls back to a drawn cover.
 - **Each partial carries its own `<style>` and `<script>` inline.** `layout.html` can branch on
   `.Page.Type` but sees no other frontmatter, so there is no way to key an asset off `demo` the way
-  `tool.css`/`tool.js` are keyed off the `tool` type; shipping the CSS site-wide would put it on all 38 cases
+  `tool.css`/`tool.js` are keyed off the `tool` type; shipping the CSS site-wide would put it on all 35 cases
   for the sake of three. Keep new demos self-contained the same way, and keep their class prefixes (`dcalc__*`, `dplan__*`, `dbook__*`) and `data-*`
   hooks distinct so two demos on one page could not collide.
 - They are plain DOM, no libraries, and the numbers are placeholders meant to be edited by the visitor — the
@@ -251,10 +266,15 @@ inside `<script type="application/ld+json">`:
 | `service.html` | `Service` + `BreadcrumbList` + `FAQPage` when `faq` is set |
 | `page.html` | `WebPage` (or `ProfilePage` when `person_page: true`) + `BreadcrumbList` |
 | `blog.html` | `Blog` with `blogPost` + `BreadcrumbList` |
+| `notes.html` | `CollectionPage` (`@id` `{base}/notes/#collection`) + `BreadcrumbList` |
+| `note.html` | `Article` + `BreadcrumbList`, `isPartOf` the notes `CollectionPage` |
 | `tool.html` | `WebApplication` |
 
+`layout.html` additionally emits `{{ .Meta.JSONLD }}` — the engine's pass-through of a page's own `jsonld`
+frontmatter field. Nothing in `content/` sets it today; every graph above is hand-built in its template.
+
 **The graph hangs off two `@id`s minted on the home page** — `{base}/#person` and `{base}/#website`. Everything
-else references them instead of repeating the author, so a parser sees one person with 38 works rather than 38
+else references them instead of repeating the author, so a parser sees one person with 35 works rather than 35
 unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
 restate `Person`.
 
@@ -400,9 +420,9 @@ lived inside the old theme's `styles.css` and `main.js`. Three things to know if
 - the CSS came from a dark-panel palette whose `--surface-raised*` variables do not exist in the new theme, so
   `tool.css` re-declares them scoped to `.agency-tool` in terms of the new `--panel*` tokens.
 - `tool.css`/`tool.js` load only when `.Page.Type` is `tool`. Two of the seven stylesheets are conditional
-  this way and the rest load everywhere: `blog.css` on `blog`/`article`/`service`/`tool`, `tool.css` on
-  `tool` alone. `home.css` and `case.css` are still site-wide. Adding a stylesheet means deciding which list
-  it joins in `layout.html`.
+  this way and the rest load everywhere: `blog.css` on `blog`/`article`/`service`/`tool`/`notes`/`note`,
+  `tool.css` on `tool` alone. `home.css` and `case.css` are still site-wide. Adding a stylesheet means
+  deciding which list it joins in `layout.html`.
 
 The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
 filter were dropped: they pointed at an atom page that no longer exists.
@@ -411,7 +431,7 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 **The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
 `https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
-apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (50 now), and Metrika 108674124 reports
+apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (60 now), and Metrika 108674124 reports
 `counter is initialized` in the browser.
 
 The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
@@ -550,9 +570,16 @@ redesign: the home page is built around the catalogue with its sticky filter tab
   therefore pointed at an address the host only redirects from. `urlutil.PublicPath` now restores the slash
   at the three emission points. If you see a slash-less canonical again, check whether `NOTEPUB_REF` was
   rolled back.
-- **GitHub Pages cannot do 301 or 410**, only 404 and a JS/meta redirect. Deliberately unused: the site had ~60
-  views a month at the cutover, so no redirects were written for the removed atom URLs or the old
-  `/cases/cases/{slug}` paths.
+- **GitHub Pages cannot do 301 or 410**, only 404 and a JS/meta redirect. Mostly unused: the site had ~60
+  views a month at the cutover, so nothing was written for the old `/cases/cases/{slug}` paths. Four atom URLs
+  are the exception, added 2026-09-07 after a Yandex crawl report showed the robot still hitting them:
+  `/personal-notes-analysis/` and `/self-tracker/` → `/cases/obsidian-analysis/`,
+  `/marketing-os-content-pipeline/` → `/cases/marketing-os/`, `/agency-and-action-mode/` →
+  `/blog/kak-rabotaet-analiz-rechi/`. Each is a `page` with `redirect_to` plus `noindex: true`, so it stays
+  out of the sitemap. **Removed cases get no such treatment** — `astro-engine`, `llm-site` and
+  `ai-marketing-assistant` were deleted, not moved, and redirecting deleted content at a surviving page is a
+  soft 404: the engine keeps the dead URL in the index as a duplicate instead of dropping it. A plain 404 is
+  the signal that removes them.
 
 ## Context that is not in this repository
 
@@ -566,6 +593,7 @@ gitignored or live elsewhere, so a fresh session sees none of them until it look
 | `positioning/` | позиционирование: диагноз, позиции по Трауту, самопрезентации, протокол проверки |
 | `threads-plan/` | контент-план Threads, правила хуков, упаковка профиля |
 | `~/Documents/consciousness-revelation` | отдельный публичный репозиторий: предрегистрированный эксперимент с отрицательным результатом |
+| `Пюре райтинг/` | 105 заметок чужого Threads-канала о копирайтинге — образец стиля для чтения, **не свой текст**: ничего оттуда не переносится в `content/` |
 
 `Diary/` содержит договоры с клиентами, материалы терапии и живые доступы — ничего оттуда не
 публикуется без явного разрешения. Живые ключи в нём подлежат ротации.
