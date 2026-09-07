@@ -18,7 +18,7 @@
   font: inherit; font-size: 13px; color: var(--ink-1); display: inline-flex; align-items: center; gap: 7px; }
 .dplan__chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
 .dplan__dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
-.dplan__body { display: grid; grid-template-columns: minmax(0, 1fr) 262px; }
+.dplan__body { display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
 .dplan__field { padding: 20px 16px; display: grid; align-content: start;
   grid-template-columns: repeat(2, max-content); gap: 22px 40px; justify-content: center; }
 .dplan__sector { display: grid; gap: 8px; align-content: start; }
@@ -39,12 +39,47 @@
 .dplan__road { grid-column: 1 / -1; height: 18px; border-radius: 3px; background: var(--paper-2);
   border: 1px dashed var(--line-strong); display: flex; align-items: center; padding-left: 10px;
   font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; color: var(--muted-3); }
-.dplan__side { border-left: 1px solid var(--line); padding: 20px 16px; background: var(--paper-2); }
-.dplan__empty { font-size: 13px; line-height: 1.55; color: var(--muted); }
+.dplan__side { border-left: 1px solid var(--line); padding: 20px 16px; background: var(--paper-2);
+  display: flex; flex-direction: column; gap: 16px; }
+.dplan__empty { font-size: 13px; line-height: 1.55; color: var(--muted); margin: 0; }
+.dplan__card { margin: 0; }
 .dplan__card dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em;
   text-transform: uppercase; color: var(--muted-2); }
 .dplan__card dd { margin: 2px 0 12px; font-size: 14px; color: var(--ink); }
+.dplan__card dd:last-child { margin-bottom: 0; }
 .dplan__card .dplan__num { font-size: 22px; letter-spacing: -.02em; }
+/* Мокап участка: рисуется в SVG, чтобы у компонента не появилось внешних файлов. */
+.dplan__mock { display: block; width: 100%; height: auto; border: 1px solid var(--line);
+  border-radius: 6px; background: var(--surface); }
+.dplan__mock .dm-nb { fill: none; stroke: var(--line-strong); stroke-dasharray: 3 3; }
+.dplan__mock .dm-plot { stroke: var(--ink); stroke-width: 1.5; }
+.dplan__mock .dm-road { fill: var(--paper-2); stroke: var(--line-strong); }
+.dplan__mock .dm-cap { font-family: var(--font-mono); font-size: 8px; letter-spacing: 1px; fill: var(--muted-3); }
+.dplan__mock .dm-num { font-family: var(--font-mono); font-size: 20px; fill: var(--ink); }
+.dplan__mock .dm-dim { font-size: 11px; fill: var(--muted); }
+.dplan__mock .dm-arrow { fill: var(--muted-2); }
+.dplan__mock.is-idle { opacity: .5; }
+.dplan__more { margin-top: auto; height: 38px; padding: 0 14px; width: 100%;
+  border: 1px solid var(--ink); border-radius: 8px; background: var(--ink); color: #fff;
+  font: inherit; font-size: 14px; cursor: pointer; }
+.dplan__more:hover { opacity: .9; }
+.dplan__more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Всплывающее окно «страница участка» */
+.dplan__modal { position: fixed; inset: 0; z-index: 95; display: flex; align-items: center;
+  justify-content: center; padding: 20px; background: rgba(20, 22, 26, .55); }
+.dplan__modal[hidden] { display: none; }
+.dplan__dialog { position: relative; width: min(560px, 100%); max-height: 88vh; overflow: auto;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px;
+  padding: 22px 22px 24px; box-shadow: 0 18px 60px rgba(20, 22, 26, .28); }
+.dplan__dialog h3 { margin: 0 0 2px; font-size: 20px; letter-spacing: -.01em; }
+.dplan__dialog .dplan__sub { margin: 0 0 16px; font-size: 13px; color: var(--muted); }
+.dplan__dialog .dplan__card { margin: 16px 0 0; }
+.dplan__note { margin: 16px 0 0; padding: 12px 14px; border-radius: 8px; background: var(--paper-2);
+  border: 1px solid var(--line); font-size: 13px; line-height: 1.55; color: var(--muted); }
+.dplan__close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+  border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface);
+  color: var(--ink-1); font: inherit; font-size: 16px; line-height: 1; cursor: pointer; }
+.dplan__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .dplan__foot { padding: 12px 16px; border-top: 1px solid var(--line);
   font-size: 12px; line-height: 1.5; color: var(--muted); }
 @media (max-width: 900px) {
@@ -73,6 +108,13 @@
     <aside class="dplan__side" data-dplan-side></aside>
   </div>
   <p class="dplan__foot" data-dplan-foot></p>
+
+  <div class="dplan__modal" data-dplan-modal hidden>
+    <div class="dplan__dialog" role="dialog" aria-modal="true" aria-labelledby="dplan-modal-title" data-dplan-dialog>
+      <button class="dplan__close" type="button" aria-label="Закрыть" data-dplan-close>×</button>
+      <div data-dplan-modal-body></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -83,6 +125,9 @@
   var side = root.querySelector('[data-dplan-side]');
   var foot = root.querySelector('[data-dplan-foot]');
   var q = root.querySelector('[data-dplan-q]');
+  var modal = root.querySelector('[data-dplan-modal]');
+  var mbody = root.querySelector('[data-dplan-modal-body]');
+  var opener = null;   // куда вернуть фокус после закрытия окна
 
   // Реестр в боевой версии приходит таблицей заказчика. Здесь он собирается
   // из формулы, чтобы демонстрация выглядела одинаково при каждой загрузке.
@@ -152,22 +197,101 @@
     card();
   }
 
-  function card() {
-    var p = plots.filter(function (x) { return x.id === selected; })[0];
-    if (!p) {
-      side.innerHTML = '<p class="dplan__empty">Выберите участок на плане или найдите его по номеру — здесь появится карточка из реестра.</p>';
-      return;
-    }
-    side.innerHTML = '<dl class="dplan__card">' +
+  // Мокап участка. Рисуется на месте в SVG: у компонента не должно появиться
+  // внешних файлов, иначе он перестанет вставляться на чужую страницу одним куском.
+  var FILL = { free: '#dfe6f7', hold: '#f0dfc2', sold: '#cfd0cd' };
+
+  function sides(p) {
+    // Фронт по проезду держим постоянным, глубину считаем из площади:
+    // сотка — сто квадратных метров, поэтому глубина = площадь * 5 при фронте 20 м.
+    return { w: 20, d: p.area * 5 };
+  }
+
+  // p === null — заготовка для пустого состояния: панель широкая, и без схемы
+  // она выглядела бы пустой до первого выбора.
+  function mock(p) {
+    var s = p ? sides(p) : null;
+    var label = p
+      ? 'Схема участка № ' + p.id + ': ' + s.w + ' на ' + s.d + ' метров, выход на центральный проезд'
+      : 'Схема участка: участок не выбран';
+    // Цвета и шрифты берутся из классов в <style> выше: var() в атрибутах
+    // презентации поддержан не везде, а класс работает одинаково.
+    return '<svg class="dplan__mock' + (p ? '' : ' is-idle') + '" viewBox="0 0 288 170" ' +
+      'role="img" aria-label="' + label + '">' +
+      '<rect class="dm-nb" x="6" y="26" width="44" height="104" rx="3"/>' +
+      '<rect class="dm-nb" x="238" y="26" width="44" height="104" rx="3"/>' +
+      '<rect class="dm-plot" x="58" y="26" width="172" height="104" rx="3" ' +
+        'style="fill:' + (p ? FILL[p.status] : 'var(--paper-2)') + '"/>' +
+      '<rect class="dm-road" x="130" y="130" width="28" height="12"/>' +
+      '<rect class="dm-road" x="6" y="142" width="276" height="22" rx="3"/>' +
+      '<text class="dm-cap" x="16" y="157">ЦЕНТРАЛЬНЫЙ ПРОЕЗД</text>' +
+      '<text class="dm-num" x="144" y="74" text-anchor="middle">' +
+        (p ? '№ ' + p.id : '№ —') + '</text>' +
+      '<text class="dm-dim" x="144" y="94" text-anchor="middle">' +
+        (p ? s.w + ' × ' + s.d + ' м · ' + p.area + ' соток' : 'участок не выбран') + '</text>' +
+      '<text class="dm-cap" x="14" y="18">СХЕМА · СЕВЕР ВВЕРХУ</text>' +
+      '<path class="dm-arrow" d="M266 20 l5 -10 l5 10 l-5 -3 z"/>' +
+      '</svg>';
+  }
+
+  function rows(p, full) {
+    var s = sides(p);
+    var out = '<dl class="dplan__card">' +
       '<dt>Участок</dt><dd class="dplan__num">№ ' + p.id + '</dd>' +
       '<dt>Расположение</dt><dd>' + p.sector + '</dd>' +
       '<dt>Площадь</dt><dd>' + p.area + ' соток</dd>' +
       '<dt>Статус</dt><dd>' + LABEL[p.status] + '</dd>' +
-      '<dt>Ориентир цены</dt><dd>' + p.price + ' 000 ₽</dd>' +
-      '</dl>';
+      '<dt>Ориентир цены</dt><dd>' + p.price + ' 000 ₽</dd>';
+    if (full) {
+      out += '<dt>Размеры</dt><dd>' + s.w + ' × ' + s.d + ' м</dd>' +
+        '<dt>Подъезд</dt><dd>с центрального проезда</dd>' +
+        '<dt>Соседние участки</dt><dd>по обеим сторонам</dd>';
+    }
+    return out + '</dl>';
+  }
+
+  function card() {
+    var p = plots.filter(function (x) { return x.id === selected; })[0];
+    if (!p) {
+      side.innerHTML = mock(null) +
+        '<p class="dplan__empty">Выберите участок на плане или найдите его по номеру — ' +
+        'здесь появится карточка из реестра и ссылка на страницу участка.</p>';
+      return;
+    }
+    side.innerHTML = mock(p) + rows(p, false) +
+      '<button class="dplan__more" type="button" data-dplan-more>Страница участка</button>';
+  }
+
+  function openModal() {
+    var p = plots.filter(function (x) { return x.id === selected; })[0];
+    if (!p) return;
+    mbody.innerHTML = '<h3 id="dplan-modal-title">Участок № ' + p.id + '</h3>' +
+      '<p class="dplan__sub">' + p.sector + ' · ' + LABEL[p.status] + '</p>' +
+      mock(p) + rows(p, true) +
+      '<p class="dplan__note">Это отдельная страница участка. В рабочей версии у неё собственный ' +
+      'адрес — её находит поиск, на неё можно дать ссылку в объявлении и отправить клиенту в переписке. ' +
+      'Здесь она открыта окном, чтобы не уводить вас со страницы кейса.</p>';
+    opener = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';   // иначе страница едет под окном
+    root.querySelector('[data-dplan-close]').focus();
+  }
+
+  function closeModal() {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (opener && opener.focus) opener.focus();
+    opener = null;
   }
 
   root.addEventListener('click', function (e) {
+    if (e.target.closest('[data-dplan-more]')) { openModal(); return; }
+    if (e.target.closest('[data-dplan-close]') ||
+        (modal.contains(e.target) && !e.target.closest('[data-dplan-dialog]'))) {
+      closeModal();
+      return;
+    }
     var chip = e.target.closest('[data-f]');
     if (chip) {
       filter = chip.dataset.f;
@@ -182,6 +306,9 @@
       selected = selected === plot.dataset.id ? null : plot.dataset.id;
       draw();
     }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
   });
   q.addEventListener('input', function () {
     var hit = plots.filter(matches);
