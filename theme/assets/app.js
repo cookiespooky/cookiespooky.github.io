@@ -102,6 +102,33 @@
     });
   }
 
+  // ---------- «Связаться» в шапке ----------
+  // Пять марок подряд в навигации читались как каша, поэтому контакты убраны
+  // под кнопку. Панель — обычный список ссылок: без JS она просто не
+  // раскроется, но и в шапке ничего не сломается.
+  var cmenu = document.querySelector('[data-contact-menu]');
+  if (cmenu) {
+    var cToggle = cmenu.querySelector('[data-contact-toggle]');
+    var cPanel = cmenu.querySelector('[data-contact-panel]');
+
+    var setContacts = function (open) {
+      cPanel.hidden = !open;
+      cToggle.setAttribute('aria-expanded', String(open));
+    };
+
+    cToggle.addEventListener('click', function () {
+      setContacts(cPanel.hidden);
+    });
+    document.addEventListener('click', function (e) {
+      if (!cmenu.contains(e.target)) setContacts(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || cPanel.hidden) return;
+      setContacts(false);
+      cToggle.focus();
+    });
+  }
+
   // ---------- фильтр кейсов ----------
   var filters = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
   if (!filters.length) return;

@@ -3,19 +3,22 @@
     <div class="site-footer__col">
       <span class="site-footer__name">{{ .Settings.owner_name }}</span>
       <span class="site-footer__role">{{ .Settings.owner_role }}</span>
-      <a class="link-accent" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank">Написать в Telegram →</a>
+      <div class="contacts contacts--wide">
+        <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank" aria-label="ВКонтакте"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg></a>
+        <a href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank" aria-label="Telegram"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tg"/></svg></a>
+        <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg></a>
+        <a href="mailto:{{ .Settings.email }}" aria-label="Почта {{ .Settings.email }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></a>
+        <a href="tel:{{ .Settings.phone }}" aria-label="Позвонить {{ .Settings.phone_label }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg></a>
+        <a href="{{ .Settings.github_url }}" rel="me noopener" target="_blank" aria-label="GitHub"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-gh"/></svg></a>
+        <a href="{{ .Settings.threads_url }}" rel="me noopener" target="_blank" aria-label="Threads"><svg class="ico ico--threads" aria-hidden="true" focusable="false"><use href="#i-threads"/></svg></a>
+      </div>
+      <a class="site-footer__channel" href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Telegram-канал →</a>
     </div>
     <div class="site-footer__col">
       <span class="site-footer__label">Разделы</span>
       <a href="{{ .BaseURL }}/#cases">Кейсы</a>
       <a href="{{ .BaseURL }}/services/">Что делаю</a>
       <a href="{{ .BaseURL }}/about/">Обо мне</a>
-    </div>
-    <div class="site-footer__col">
-      <span class="site-footer__label">Соцсети</span>
-      <a href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Telegram-канал</a>
-      <a href="{{ .Settings.threads_url }}" rel="noopener" target="_blank">Threads</a>
-      <a href="{{ .Settings.github_url }}" rel="noopener" target="_blank">GitHub</a>
     </div>
     <div class="site-footer__col">
       <span class="site-footer__label">Про сайт</span>

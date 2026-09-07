@@ -10,7 +10,16 @@
       <a href="{{ .BaseURL }}/blog/"{{ if eq .Page.Slug "blog" }} aria-current="page"{{ end }}>Блог</a>
       <a href="{{ .BaseURL }}/notes/"{{ if eq .Page.Slug "notes" }} aria-current="page"{{ end }}>Заметки</a>
       <a href="{{ .BaseURL }}/about/"{{ if eq .Page.Slug "about" }} aria-current="page"{{ end }}>Обо мне</a>
-      <a class="btn--outline-sm" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank">Написать в Telegram</a>
+      <div class="contact-menu" data-contact-menu>
+        <button class="btn--outline-sm" type="button" data-contact-toggle aria-expanded="false" aria-controls="contact-panel">Связаться</button>
+        <div class="contact-menu__panel" id="contact-panel" data-contact-panel hidden>
+          <a href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tg"/></svg><span>Telegram</span></a>
+          <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+          <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg><span>ВКонтакте</span></a>
+          <a href="mailto:{{ .Settings.email }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg><span>{{ .Settings.email }}</span></a>
+          <a href="tel:{{ .Settings.phone }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg><span>{{ .Settings.phone_label }}</span></a>
+        </div>
+      </div>
     </nav>
     <button class="burger" type="button" data-drawer-open aria-controls="site-drawer" aria-expanded="false" aria-label="Открыть меню">
       <span aria-hidden="true"></span>
@@ -34,10 +43,15 @@
   </nav>
   <div class="drawer__foot">
     <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank">Написать в Telegram</a>
-    <div class="drawer__socials">
-      <a href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Telegram-канал</a>
-      <a href="{{ .Settings.threads_url }}" rel="noopener" target="_blank">Threads</a>
-      <a href="{{ .Settings.github_url }}" rel="noopener" target="_blank">GitHub</a>
+    <div class="contacts contacts--wide">
+      <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank" aria-label="ВКонтакте"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg></a>
+      <a href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank" aria-label="Telegram"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tg"/></svg></a>
+      <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg></a>
+      <a href="mailto:{{ .Settings.email }}" aria-label="Почта {{ .Settings.email }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></a>
+      <a href="tel:{{ .Settings.phone }}" aria-label="Позвонить {{ .Settings.phone_label }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg></a>
+      <a href="{{ .Settings.github_url }}" rel="me noopener" target="_blank" aria-label="GitHub"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-gh"/></svg></a>
+      <a href="{{ .Settings.threads_url }}" rel="me noopener" target="_blank" aria-label="Threads"><svg class="ico ico--threads" aria-hidden="true" focusable="false"><use href="#i-threads"/></svg></a>
     </div>
+    <a class="drawer__channel" href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Telegram-канал</a>
   </div>
 </aside>

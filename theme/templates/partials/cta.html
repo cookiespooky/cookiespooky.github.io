@@ -7,7 +7,12 @@
     </div>
     <div class="cta__actions">
       <a class="btn btn--light" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
-      <a class="btn btn--onpanel" href="{{ .Settings.telegram_channel_url }}" rel="noopener" target="_blank">Телеграм-канал</a>
+      <div class="contacts cta__contacts">
+        <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank" aria-label="ВКонтакте"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg></a>
+        <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg></a>
+        <a href="tel:{{ .Settings.phone }}" aria-label="Позвонить {{ .Settings.phone_label }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone-light"/></svg></a>
+        <a href="mailto:{{ .Settings.email }}" aria-label="Почта {{ .Settings.email }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></a>
+      </div>
     </div>
   </div>
 </section>
