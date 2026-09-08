@@ -329,11 +329,17 @@ asset — it is what stops a second article being written for an intent that alr
 `cluster` frontmatter is the join key back to this file, and `target_url` is the cluster's side of it.
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
-pointing at a dead route, or two articles claiming one cluster all build clean. Check it by hand when adding an
-article — a one-off check is worth running over the whole set, since as of 2026-09-06 the registry side is
-clean (23 clusters, no duplicate claims, every `target_url` resolving) but one article side is not:
-`content/blog/kak-rabotaet-analiz-rechi.md` carries **no `cluster` field at all**, while
-`speech-agency-explainer` names it as its `target_url`. It is the only half-open join on the site.
+pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
+values all build clean. Check it by hand when adding an article. As of 2026-09-08 both sides are clean — 23
+clusters, 8 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
+sides. Getting there closed three things worth knowing about:
+
+- `kak-rabotaet-analiz-rechi.md` had **no `cluster` field at all** while `speech-agency-explainer` named it as
+  its `target_url` — the site's one half-open join.
+- **Six of the eight articles had no `cta_service`**, so a reader arriving from search hit a dead end. The
+  registry was no better: it declared `cta_service: null` for all six. Both sides now name a landing.
+- `ai-seo-po-nisham` (stage `planned`) pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/`, which does
+  not exist. A cluster with no page keeps `target_url: null` until the page is written.
 
 `stage` is likewise hand-maintained and lags — seven clusters sit at `written` while their articles are live
 and in the sitemap, so read `stage` as intent, not as truth about what is published. Current spread: 7

@@ -17,6 +17,9 @@ keywords:
   - "сколько страниц нужно для seo"
 cluster: "service-city-pages"
 
+cta_service: "sayt-katalog"
+cta_title: "Нужна такая структура?"
+
 tags: ["seo", "структура сайта", "статические сайты"]
 
 related:

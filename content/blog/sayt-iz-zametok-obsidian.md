@@ -17,6 +17,9 @@ keywords:
   - "как опубликовать заметки obsidian"
 cluster: "markdown-notes-to-site"
 
+cta_service: "sayt-kompanii"
+cta_title: "Собрать сайт из ваших заметок"
+
 tags: ["obsidian", "markdown", "статические сайты"]
 
 related:

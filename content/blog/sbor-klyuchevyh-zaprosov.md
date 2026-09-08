@@ -17,6 +17,9 @@ keywords:
   - "парсер вордстата"
 cluster: "keyword-research-collection"
 
+cta_service: "avtomatizaciya"
+cta_title: "Собрать такой сбор данных"
+
 tags: ["seo", "парсеры", "автоматизация"]
 
 related:

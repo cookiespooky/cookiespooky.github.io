@@ -17,6 +17,9 @@ keywords:
   - "куда выложить статический сайт"
 cluster: "site-without-hosting"
 
+cta_service: "sayt-kompanii"
+cta_title: "Нужен такой сайт?"
+
 tags: ["хостинг", "github pages", "статические сайты"]
 
 related:

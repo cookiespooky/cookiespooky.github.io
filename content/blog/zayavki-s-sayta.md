@@ -16,6 +16,9 @@ keywords:
   - "заявка с сайта в телеграм"
 cluster: "form-without-backend"
 
+cta_service: "sayt-kompanii"
+cta_title: "Поставить приём заявок"
+
 tags: ["формы", "заявки", "статические сайты"]
 
 related:

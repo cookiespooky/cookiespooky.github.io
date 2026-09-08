@@ -69,7 +69,7 @@ clusters:
     stage: published
     page_type: article
     money_distance: 4
-    cta_service: null
+    cta_service: avtomatizaciya
     cases: [cognitive-reconstruction, thinking-graph]
     target_url: "/blog/kak-rabotaet-analiz-rechi/"
     competition: null
@@ -103,7 +103,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 1
-    cta_service: null
+    cta_service: sayt-katalog
     cases: [gorod-katalog, utilitservis]
     target_url: "/blog/stranicy-pod-goroda/"
     competition: null
@@ -121,7 +121,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 2
-    cta_service: null
+    cta_service: sayt-kompanii
     cases: [notepub, gorod-katalog, utilitservis]
     target_url: "/blog/besplatnyy-hosting-dlya-sayta/"
     competition: null
@@ -139,7 +139,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 1
-    cta_service: null
+    cta_service: sayt-kompanii
     cases: [utilitservis, barskaya-usadba, tractor-center]
     target_url: "/blog/zayavki-s-sayta/"
     competition: null
@@ -173,7 +173,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 2
-    cta_service: null
+    cta_service: sayt-kompanii
     cases: [notepub, obsidian-guide-site, obsidian-analysis]
     target_url: "/blog/sayt-iz-zametok-obsidian/"
     competition: null
@@ -191,7 +191,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 3
-    cta_service: null
+    cta_service: avtomatizaciya
     cases: [order-flow, trade-radar, gorod-katalog]
     target_url: "/blog/sbor-klyuchevyh-zaprosov/"
     competition: null
@@ -209,7 +209,7 @@ clusters:
     stage: written
     page_type: article
     money_distance: 1
-    cta_service: null
+    cta_service: komponenty-dlya-sayta
     cases: [kalkulyator-stoimosti, interaktivnyy-plan, kalendar-bronirovaniya, ai-qualification-bot]
     target_url: "/blog/interaktivnye-bloki-na-sayte/"
     competition: null
@@ -302,7 +302,7 @@ clusters:
     money_distance: 2
     cta_service: sayt-katalog
     cases: [gorod-katalog, marketing-os, notepub]
-    target_url: "/blog/ai-seo-dlya-sayta-uslug/"
+    target_url: null
     competition: null
     total_count: 239
     keys:
