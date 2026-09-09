@@ -47,9 +47,10 @@ to a commit SHA at the top of the script, and CI pins the same one). It runs `va
 `404/index.html` to `404.html` for GitHub Pages.
 
 `static/` is the passthrough: its contents are copied to the **root** of `dist/`, unchanged and unindexed, for
-files the engine does not generate and that must answer at an exact address. Today that is Google Search
-Console's `googlef059833b49e2a968.html`. The engine never sees these files, so they get no canonical, no
-sitemap entry and no template — which is what the verifiers want.
+files the engine does not generate and that must answer at an exact address. Today that is three files, all
+described under *Analytics and Webmaster*: Google Search Console's `googlef059833b49e2a968.html`, Bing's
+`BingSiteAuth.xml` and the IndexNow key `ed8e07f3d48a4975c208f518b6d94488.txt`. The engine never sees these
+files, so they get no canonical, no sitemap entry and no template — which is what the verifiers want.
 
 There is no test suite. Correctness means `./scripts/build.sh` exits clean — `validate` reports frontmatter,
 route and link errors, and unknown frontmatter keys are build errors, so a typo in a field name fails the build
@@ -161,7 +162,7 @@ the meta to `noindex, follow` — pair them on anything unfinished. (All five no
 
 ### Case frontmatter contract
 
-35 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+36 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
 — the Markdown body is the long read below the card.
 
 ```yaml
@@ -192,13 +193,13 @@ links: [{title: "...", url: "..."}]
 
 `group` decides which section a case lands in; the counts on the home page's tabs come from
 `len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build. Current split: products 9, ai 7, sites 6, research 7, components 3, lab 3. Adding a group means four
+build. Current split: products 9, ai 7, sites 6, research 7, components 3, lab 4. Adding a group means four
 edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
 `rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
 and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
-— 16 have screenshots, 19 have drawn covers.
+— 17 have screenshots, 19 have drawn covers.
 
 ### Screenshots and their derivatives
 
@@ -274,7 +275,7 @@ inside `<script type="application/ld+json">`:
 frontmatter field. Nothing in `content/` sets it today; every graph above is hand-built in its template.
 
 **The graph hangs off two `@id`s minted on the home page** — `{base}/#person` and `{base}/#website`. Everything
-else references them instead of repeating the author, so a parser sees one person with 35 works rather than 35
+else references them instead of repeating the author, so a parser sees one person with 36 works rather than 36
 unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
 restate `Person`.
 
