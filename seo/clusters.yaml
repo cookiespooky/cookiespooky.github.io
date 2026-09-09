@@ -85,7 +85,7 @@ clusters:
     stage: seed
     page_type: article
     money_distance: 2
-    cta_service: null
+    cta_service: sayt-kompanii
     cases: [gorod-katalog, utilitservis, notepub]
     target_url: null
     competition: null
@@ -156,7 +156,7 @@ clusters:
     stage: seed
     page_type: article
     money_distance: 1
-    cta_service: null
+    cta_service: sayt-kompanii
     cases: [groupconsult, ai-seller]
     target_url: null
     competition: null
@@ -335,12 +335,12 @@ clusters:
   - id: bot-price
     direction: bots
     intent: mixed
-    stage: seed
+    stage: written
     page_type: article
     money_distance: 1
     cta_service: telegram-bot
     cases: [ai-qualification-bot, hookapp, graphreach]
-    target_url: null
+    target_url: "/blog/skolko-stoit-telegram-bot/"
     competition: null
     total_count: 171
     keys:
@@ -387,12 +387,12 @@ clusters:
   - id: bot-payments
     direction: bots
     intent: informational
-    stage: seed
+    stage: written
     page_type: article
     money_distance: 1
     cta_service: telegram-bot
     cases: [recca, groupconsult, ai-seller]
-    target_url: null
+    target_url: "/blog/oplata-v-telegram-bote/"
     competition: null
     total_count: 35
     keys:
@@ -404,12 +404,12 @@ clusters:
   - id: ai-assistant-on-site
     direction: bots
     intent: informational
-    stage: seed
+    stage: written
     page_type: article
     money_distance: 1
     cta_service: telegram-bot
     cases: [website-ai-assistant, ai-seller]
-    target_url: null
+    target_url: "/blog/ii-assistent-dlya-sayta/"
     competition: null
     total_count: 108
     keys:
