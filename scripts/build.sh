@@ -89,8 +89,11 @@ fi
 # не расходится с содержимым сайта
 if command -v python3 >/dev/null 2>&1; then
   python3 "$ROOT_DIR/scripts/llms.py"
+  # Индекс для ассистента: те же страницы, разрезанные по заголовкам.
+  # Собирается из dist/, поэтому якоря совпадают с реальными id заголовков.
+  python3 "$ROOT_DIR/scripts/assistant_index.py"
 else
-  echo "python3 не найден — llms.txt не собран" >&2
+  echo "python3 не найден — llms.txt и assistant-index.json не собраны" >&2
 fi
 
 echo "Готово: $ROOT_DIR/dist"

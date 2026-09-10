@@ -38,6 +38,8 @@ settings:
   whatsapp_url: "https://wa.me/89227744080"
   phone: "+79227744080"
   phone_label: "+7 922 774-40-80"
+  # Ассистент сайта. Пустое значение — скрипт не подключается вовсе.
+  assistant_endpoint: "https://assistant.antonlozhkin.ru"
   metrika_id: ""
   yandex_verification: ""
 

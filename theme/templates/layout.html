@@ -53,6 +53,12 @@
   {{- if eq .Page.Type "tool" }}
   <script src="{{ .AssetsBase }}/tool.js" defer></script>
   {{- end }}
+  {{- if .Settings.assistant_endpoint }}
+  <!-- Ассистент: скрипт ничего не рисует, пока бэкенд не ответит на /health.
+       Стили он несёт в себе и вставляет только вместе с виджетом, поэтому на
+       странице без чата от него остаётся один отложенный запрос за файлом. -->
+  <script src="{{ .AssetsBase }}/chat.js" data-endpoint="{{ .Settings.assistant_endpoint }}" defer></script>
+  {{- end }}
   {{- if .Settings.metrika_id }}
   <script>
     // Очередь заводится сразу, а сам тег грузится после загрузки страницы.
