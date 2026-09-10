@@ -90,7 +90,7 @@ Page types, each a template plus a permalink:
 | `notfound` | `/404/` | `notfound.html` |
 
 `blog` paginates: `paginate: { collection: "posts_all", per_page: 10, path: "/blog/page/{{ n }}/" }` on the
-type, added to the engine at `501eae6`. Page 1 stays at `/blog/` and only pages 2..N are synthesised, so the
+type, added to the engine in `v0.1.8`. Page 1 stays at `/blog/` and only pages 2..N are synthesised, so the
 address of the feed never moved. The rule to know before paginating anything else: **a synthesised route
 carries no identity.** It shares one Markdown file with page 1, so its `Slug` is cleared and `PageNum` marks
 it, and six builders skip it — the slug index, the resolver index, the wiki map, both search indexes and
@@ -356,7 +356,7 @@ asset — it is what stops a second article being written for an intent that alr
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
 values all build clean. Check it by hand when adding an article. As of 2026-09-10 both sides are clean — 30
-clusters, 14 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
+clusters, 15 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
 sides. Getting there closed three things worth knowing about (the counts in these three bullets are the
 eight-article state they were written about, kept as the record of what was fixed):
 

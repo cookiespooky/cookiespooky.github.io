@@ -426,12 +426,12 @@ clusters:
   - id: bot-remembers-user
     direction: bots
     intent: informational
-    stage: seed
+    stage: written
     page_type: article
     money_distance: 2
     cta_service: telegram-bot
     cases: [gpt-tutor, ai-seller]
-    target_url: null
+    target_url: "/blog/pamyat-v-chat-bote/"
     competition: null
     total_count: 85
     keys:

@@ -5,7 +5,7 @@ set -Eeuo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-NOTEPUB_REF="${NOTEPUB_REF:-501eae6bc777185bbae07ff5ae91ec282fd89dc5}"
+NOTEPUB_REF="${NOTEPUB_REF:-864920de7068737d5e95bc15b0e45dc1c3436da3}"
 NOTEPUB_BIN="${NOTEPUB_BIN:-}"
 
 if [[ -z "$NOTEPUB_BIN" ]]; then
