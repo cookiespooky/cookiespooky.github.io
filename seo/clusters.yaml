@@ -10,6 +10,9 @@
 #   written    файл лежит в content/, ещё не в main
 #   published  в выдаче, ждём данных
 #   tracked    есть показы/позиции из Вебмастера, решаем расширять или нет
+#   rejected   территория проверена и закрыта, причина в note. Это тоже результат:
+#              реестр нужен не только чтобы не написать вторую статью под один
+#              интент, но и чтобы не открывать заново то, что уже отсеяли
 #
 # money_distance: 1..5 — сколько шагов от запроса до оплаченной работы.
 #   1 человек уже описывает вашу задачу словами
@@ -435,3 +438,107 @@ clusters:
       - { phrase: "память в чат боте", count: null, count_wide: 73 }
       - { phrase: "контекст диалога в боте", count: null, count_wide: 12 }
     note: "Кейс gpt-tutor построен ровно на этом отличии от обычного чата."
+
+  # ============ таблицы и отраслевой учёт ============
+  # Территория снята пробой niche-research от 2026-09-09: «гугл таблица для» —
+  # 24 521/мес на 216 запросах, «шаблон excel для» — 6 311 на 74. В реестре её
+  # не было вовсе, при том что это самый большой измеренный спрос из всех, что
+  # у нас есть. Главное наблюдение пробы: частотность и платёжеспособность
+  # связаны обратно. Верх кластера — «скачать бесплатно» и how-to, деньги в
+  # хвосте по 10–30 показов в отраслевых формулировках. Поэтому территория
+  # разложена на три кластера с разными ролями, а не на один большой.
+
+  - id: tables-outgrown
+    direction: automation
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: avtomatizaciya
+    cases: [docs-platform, hookapp, order-flow]
+    target_url: null
+    competition: null
+    total_count: 675
+    keys:
+      - { phrase: "гугл таблица для учета", count: null, count_wide: 286 }
+      - { phrase: "шаблоны excel для учета", count: null, count_wide: 147 }
+      - { phrase: "гугл таблицы для бизнеса", count: null, count_wide: 66 }
+      - { phrase: "шаблоны excel для бизнеса", count: null, count_wide: 94 }
+      - { phrase: "шаблоны гугл таблиц для бизнеса", count: null, count_wide: 28 }
+      - { phrase: "гугл таблицы для склада", count: null, count_wide: 28 }
+      - { phrase: "шаблоны excel для склада", count: null, count_wide: 26 }
+    note: "Продуктовый корень территории: человек ведёт бизнес в таблице и упирается в её потолок. Продаётся не «замена таблицы», а ровно то, чего таблице не хватает на росте — права доступа, история изменений, одновременная работа нескольких человек, отчёты, напоминания. Кейс docs-platform — это буквально «папка шаблонов в Word переросла себя», hookapp — «блокнот и память переросли себя». Границы: не пересекается с automation-order (там коммерческий интент «заказать автоматизацию») и с tables-templates-traffic (там ищут бесплатный файл, а не решение)."
+
+  - id: tables-industry-tail
+    direction: automation
+    intent: informational
+    stage: seed
+    page_type: article
+    money_distance: 2
+    cta_service: avtomatizaciya
+    cases: [hookapp, gorod-katalog, docs-platform]
+    target_url: null
+    competition: null
+    total_count: 185
+    keys:
+      - { phrase: "гугл таблица для записи клиентов", count: null, count_wide: 51 }
+      - { phrase: "гугл таблица для сотрудников", count: null, count_wide: 47 }
+      - { phrase: "гугл таблицы для маркетплейсов", count: null, count_wide: 22 }
+      - { phrase: "шаблоны гугл таблиц для учета заказов", count: null, count_wide: 18 }
+      - { phrase: "гугл таблицы для озон", count: null, count_wide: 15 }
+      - { phrase: "ерп в гугл таблицах для мебельщиков", count: null, count_wide: 10 }
+      - { phrase: "гугл таблицы шаблон для crm", count: null, count_wide: 8 }
+      - { phrase: "шаблон гугл таблицы для учета клиентов", count: null, count_wide: 7 }
+      - { phrase: "excel шаблон для учета препаратов в клинике", count: null, count_wide: 7 }
+    note: "Самые тёплые запросы территории и самые редкие: 7–22 показа каждый. Форма спроса одна и та же — «<инструмент> для <вертикали>»: человек ищет не «CRM» и не «учёт», а решение своей отраслевой задачи, и по умолчанию готов принять его в виде таблицы. Это ровно та ось, на которой уже собран gorod-katalog («услуга × город», 150 страниц из одной таблицы), только вертикали вместо городов. Отсюда следует, что кластер — кандидат не на одну статью, а на генерацию посадочных по вертикалям, и тогда ему нужен не article, а свой тип страницы. Решать после первой статьи по tables-outgrown: сначала проверить, что территория вообще отвечает."
+
+  - id: tables-templates-traffic
+    direction: automation
+    intent: informational
+    stage: rejected
+    page_type: article
+    money_distance: 4
+    cta_service: null
+    cases: []
+    target_url: null
+    competition: null
+    total_count: 3663
+    keys:
+      - { phrase: "шаблоны для excel", count: null, count_wide: 2105 }
+      - { phrase: "шаблоны для гугл таблиц", count: null, count_wide: 1049 }
+      - { phrase: "скачать шаблон для excel", count: null, count_wide: 385 }
+      - { phrase: "готовые шаблоны для excel", count: null, count_wide: 124 }
+    note: "Самый большой трафик всей территории — и самый бесполезный: 8 124/мес на 99 запросах, интент «скачать бесплатно». money_distance 4 по правилу реестра — жёсткий отсев. Записан не как кандидат, а как предупреждение: соблазн взять эту частоту будет возникать каждый раз, когда кто-то посмотрит на цифры территории и не посмотрит на интент. Шаблон здесь — лид-магнит внутри статьи по tables-outgrown, а не предмет отдельной страницы."
+
+  # ============ проверено и закрыто ============
+
+  - id: site-generator
+    direction: sites
+    intent: informational
+    stage: rejected
+    page_type: article
+    money_distance: 3
+    cta_service: null
+    cases: []
+    target_url: null
+    competition: null
+    total_count: 38
+    keys:
+      - { phrase: "генератор для создания сайтов", count: null, count_wide: 29 }
+      - { phrase: "генератор политики конфиденциальности для сайта", count: null, count_wide: 9 }
+    note: "Корневая частота «генератор для сайта» — 988/мес, и она мусорная: внутри генераторы паролей (58+50), QR-кодов (35+34+16), фавиконов (30+5), дизельные электростанции (43+5), Roblox и Minecraft. Целевой интент «генератор для создания сайтов» — 29/мес. Классический случай, ради которого расшифровку кластера смотрят до, а не после решения. Единственный живой микросигнал — юридические тексты (28/мес: пользовательское соглашение, политика конфиденциальности), но это бесплатная утилита, а не страница и тем более не продукт."
+
+  - id: docs-autogeneration
+    direction: automation
+    intent: informational
+    stage: rejected
+    page_type: article
+    money_distance: 2
+    cta_service: null
+    cases: [docs-platform]
+    target_url: null
+    competition: null
+    total_count: 57
+    keys:
+      - { phrase: "автоматическая генерация документов", count: null, count_wide: 57 }
+    note: "57/мес на одной-единственной формулировке — кластер не сложился. ВАЖНО: закрыта формулировка, а не территория. Боль реальна и доказана кейсом docs-platform, но люди зовут её другими словами. Прежде чем списывать окончательно, переспросить синонимами: «заполнить договор автоматически», «шаблон договора онлайн», «документы по шаблону из таблицы», «сформировать акт из excel». Если хоть один даст кластер — переоткрыть под новым id, этот оставить как запись о том, что головная формулировка мёртвая."
