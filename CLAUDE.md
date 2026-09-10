@@ -105,8 +105,10 @@ Collections are declared, not hardcoded, and reach templates as `.Collections.<n
 - `related_cases` — a `forward` collection over the `related` link, so any page listing case slugs in its
   `related` frontmatter gets those cases rendered as proof rows.
 
-Links are declared too: `related` (frontmatter field) and `wiki` (`[[wikilinks]]` in body text), both resolving
-across `home`/`case`/`page`/`article`/`service`.
+Links are declared too: `related` (frontmatter field) and `wiki` (`[[wikilinks]]` in body text). Both can be
+written *from* every type (`wiki` also from `notfound`), but resolve *to* a narrower set —
+`home`/`case`/`page`/`article`/`service`/`note`. A `related` entry pointing at a `tool`, `blog` or `notes`
+page resolves to nothing and is skipped with a warning, not an error.
 
 ### Article frontmatter contract
 
@@ -210,6 +212,9 @@ things from it and is idempotent, so run it after adding a screenshot and commit
 - `shots/og/<name>.jpg` — 1200×630, letterboxed onto the paper colour rather than cropped, because a social
   card must not silently lose the half of the screenshot that mattered. JPEG on purpose: every scraper reads
   it, which is not true of WebP.
+
+There are 18 files in `shots/` but only 17 cases carry a `shot`: `obsidian-guide-inner.webp` is a spare with
+derivatives already generated. Count `shot:` in frontmatter, not files on disk.
 
 The catalogue used to point at the full-size images, so the home page pulled **5.5 MB** of screenshots to draw
 thumbnails 180 px wide — one file was 1.29 MB. It is 104 KB now. If you add a thumbnail somewhere new, point it
@@ -331,9 +336,10 @@ asset — it is what stops a second article being written for an intent that alr
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
-values all build clean. Check it by hand when adding an article. As of 2026-09-08 both sides are clean — 23
-clusters, 8 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
-sides. Getting there closed three things worth knowing about:
+values all build clean. Check it by hand when adding an article. As of 2026-09-10 both sides are clean — 28
+clusters, 11 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
+sides. Getting there closed three things worth knowing about (the counts in these three bullets are the
+eight-article state they were written about, kept as the record of what was fixed):
 
 - `kak-rabotaet-analiz-rechi.md` had **no `cluster` field at all** while `speech-agency-explainer` named it as
   its `target_url` — the site's one half-open join.
@@ -342,13 +348,21 @@ sides. Getting there closed three things worth knowing about:
 - `ai-seo-po-nisham` (stage `planned`) pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/`, which does
   not exist. A cluster with no page keeps `target_url: null` until the page is written.
 
-`stage` is likewise hand-maintained and lags — seven clusters sit at `written` while their articles are live
+`stage` is likewise hand-maintained and lags — ten clusters sit at `written` while their articles are live
 and in the sitemap, so read `stage` as intent, not as truth about what is published. Current spread: 7
-`published`, 7 `written`, 8 `seed`, 1 `planned`.
+`published`, 10 `written`, 7 `seed`, 3 `rejected`, 1 `planned`.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
 4–5 is a hard reject, not a maybe.
+
+`rejected` is off that line and was added 2026-09-10: a territory measured and closed, with the reason in its
+`note`. The registry exists as much to stop a territory being reopened as to stop a second article being
+written for one intent, and a verdict that lives only in a research file is a verdict that gets re-litigated.
+Three sit there now — `tables-templates-traffic` (8 124/mo of «скачать бесплатно», `money_distance` 4),
+`site-generator` (a 988/mo root that is mostly password and QR generators; the real intent is 29) and
+`docs-autogeneration` (57/mo on one formulation). Read that last `note` before acting on it: it closes the
+*formulation*, not the territory, and names the synonyms to re-ask first.
 
 **The first wave of frequencies was taken by hand from the free web Wordstat, not from the API** — the web
 interface understands the operators (`"!phrase"`) that pin word forms and the API does not, so the numbers
@@ -371,7 +385,10 @@ Each phrase therefore carries three numbers, and they are not interchangeable:
 Four traps that the first wave walked into, all recorded at greater length in `seo/wordstat.md`:
 
 - **Set the region before taking numbers.** The first wave was taken on «все регионы» rather than Russia, so
-  its numbers are inflated and cannot be compared against a later wave taken correctly.
+  its numbers are inflated and cannot be compared against a later wave taken correctly. The four exports
+  added 2026-09-09 from `niche-research` (`гугл таблица для`, `шаблон excel для`, `генератор для сайта`,
+  `автоматическая генерация документов`) carry the same flaw — comparable with the first wave, not with
+  anything taken properly later.
 - **Wordstat names every export the same.** They all arrive as `wordstat_top_queries (N).csv` with the
   numbering restarting each session, so a second batch silently overwrites the first. Files in `seo/keys/`
   are renamed after their target phrase; keep doing that.
@@ -438,7 +455,7 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 **The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
 `https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
-apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (60 now), and Metrika 108674124 reports
+apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (64 now), and Metrika 108674124 reports
 `counter is initialized` in the browser.
 
 The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
@@ -526,10 +543,13 @@ domain.
   Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05; none had processed it as of that day.
   Nothing published so far has been in an index long enough to be judged, so treat any conclusion about
   which pages work as unavailable rather than negative until the first reports arrive.
-- **IndexNow has never been run over the whole site.** The workflow step submits only what changed that
-  day, and the engines have not seen the other 50-odd URLs through that channel. `python3
-  scripts/indexnow.py --all` does it once; it fails from this sandbox because the local Python has no CA
-  bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while `curl` to the same host works).
+- **IndexNow effectively submits the whole site on every deploy**, which is the opposite of what the script
+  was written for. `lastmod` equals the build date on all 64 sitemap URLs because `updated_at` is set in only
+  three files, so the "changed today" filter matches everything. Left alone on purpose (see `backlog.md`): two
+  articles reached the index within two days of publication and blanket submission probably helped, and at 64
+  pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
+  sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
+  `curl` to the same host works).
 
 ## `/cases/` redirects to the home page
 
@@ -559,7 +579,8 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 - **No pagination, no taxonomy routes, no RSS in the engine.** Collections only come in `filter` and `forward`
   kinds; `group_by` groups items inside a collection but generates no route. So `/blog/` is a single unpaginated
   list and `tags` produce no pages. This is fine under roughly 12–15 articles; past that the engine needs the
-  feature, which is why articles carry tags from the start.
+  feature, which is why articles carry tags from the start. **The blog is at 11 as of 2026-09-10**, so the
+  next two or three articles bring this due — it is no longer a distant note.
 - **Articles have no image of their own.** Their `Article` schema and `og:image` both fall back to the
   site-wide `media/og.png`, because nothing generates a per-article card. Cases have one; articles do not.
 - **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by
@@ -590,8 +611,10 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 
 ## Context that is not in this repository
 
-Four things this repo does not contain but that most conversations here depend on. All are
-gitignored or live elsewhere, so a fresh session sees none of them until it looks.
+Nine things this repo does not contain but that most conversations here depend on. All are
+gitignored or live elsewhere, so a fresh session sees none of them until it looks. Every entry below with a
+bare name is an untracked directory or file sitting in the working tree — that is why `git status` is clean
+while the directory listing is full.
 
 | где | что |
 |---|---|
@@ -601,6 +624,10 @@ gitignored or live elsewhere, so a fresh session sees none of them until it look
 | `threads-plan/` | контент-план Threads, правила хуков, упаковка профиля |
 | `~/Documents/consciousness-revelation` | отдельный публичный репозиторий: предрегистрированный эксперимент с отрицательным результатом |
 | `Пюре райтинг/` | 105 заметок чужого Threads-канала о копирайтинге — образец стиля для чтения, **не свой текст**: ничего оттуда не переносится в `content/` |
+| `situation/` | исходящие: письма студиям, каталоги, TSV с адресатами |
+| `backlog.md` | сознательно отложенные задачи с причиной и порогом возврата — читать прежде, чем «чинить» то, что выглядит недоделанным |
+| `../notepub` | сам движок: Go-репозиторий, из которого `build.sh` ставит бинарник по `NOTEPUB_REF` |
+| `~/Documents/niche-research` | поиск ниши под продукт: метод, реестр сигналов, выгрузки Wordstat. Пишет вверх по течению в `seo/` — оттуда пришли кластеры про таблицы и три отсева |
 
 `Diary/` содержит договоры с клиентами, материалы терапии и живые доступы — ничего оттуда не
 публикуется без явного разрешения. Живые ключи в нём подлежат ротации.
