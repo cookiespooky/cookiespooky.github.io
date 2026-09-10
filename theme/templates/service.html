@@ -66,6 +66,32 @@
       </aside>
     </div>
 
+    {{- if .FM.demos }}
+    <!-- Живые компоненты. Страница, которая продаёт калькулятор и календарь,
+         должна давать их потрогать: демо тут убедительнее любого описания.
+         Партиалы самодостаточны — свои стили и скрипты внутри, префиксы
+         классов у всех разные, поэтому три штуки на одной странице не
+         конфликтуют. -->
+    <section class="service-demos">
+      <span class="eyebrow"><span>Живьём</span><span class="eyebrow__rule"></span><span>Потрогайте прямо здесь</span></span>
+      <div class="service-demos__list">
+        {{- range .FM.demos }}
+        <figure class="shot shot--live">
+          {{- if eq . "calc" }}{{ template "demo-calc.html" $ }}{{ end }}
+          {{- if eq . "plan" }}{{ template "demo-plan.html" $ }}{{ end }}
+          {{- if eq . "book" }}{{ template "demo-book.html" $ }}{{ end }}
+          <figcaption>
+            {{- if eq . "calc" }}<span>Калькулятор стоимости: цифры меняются — сумма пересчитывается сразу.</span>{{ end }}
+            {{- if eq . "plan" }}<span>Интерактивный план: выбор объекта, статус и характеристики без звонка менеджеру.</span>{{ end }}
+            {{- if eq . "book" }}<span>Календарь брони: занятые даты видно до заявки.</span>{{ end }}
+            <span class="shot__url">рабочий компонент, а не снимок</span>
+          </figcaption>
+        </figure>
+        {{- end }}
+      </div>
+    </section>
+    {{- end }}
+
     {{- if .FM.faq }}
     <section class="service-faq">
       <span class="eyebrow"><span>Вопросы</span><span class="eyebrow__rule"></span><span>Что обычно спрашивают</span></span>

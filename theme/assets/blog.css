@@ -45,6 +45,20 @@
   color: var(--ink);
   font-size: 14px;
 }
-.pager__link:hover { border-color: var(--ink-soft); }
+.pager__link:hover { border-color: var(--line-strong); }
 .pager__link--off { opacity: .35; pointer-events: none; }
-.pager__pos { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.pager__pos { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Живые компоненты на лендинге услуги. Сама рамка .shot приходит из case.css,
+   который грузится на всех страницах, — здесь только раскладка секции. */
+.service-demos {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.service-demos__list {
+  display: grid;
+  gap: 28px;
+  margin-top: 20px;
+}
+.service-demos .shot { margin: 0; }

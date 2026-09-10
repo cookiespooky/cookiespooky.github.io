@@ -36,6 +36,7 @@ fields:
     - highlights
     - placeholder_note
     - demo            # живой компонент на странице кейса: plan | calc | book
+    - demos           # живые компоненты на лендинге услуги: список из plan | calc | book
     # --- страницы верхнего уровня ---
     - hero_kicker
     - hero_title
@@ -84,6 +85,7 @@ fm_schema:
   keywords: string[]
   includes: string[]
   service_cases: string[]
+  demos: string[]
   published_at: string
   date_label: string
   cluster: string
