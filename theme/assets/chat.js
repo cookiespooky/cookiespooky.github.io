@@ -372,7 +372,14 @@
         els.log.appendChild(box);
       }
     }).catch(function () {
-      withLinks(bubble, 'Связь с ассистентом прервалась. Напишите в [Telegram](https://t.me/cookiespooky).');
+      // Уже пришедший текст не стираем: обрыв посреди ответа случается, и
+      // терять половину объяснения вместе со связью — обиднее, чем увидеть
+      // приписку о том, что продолжения не будет.
+      if (answer) {
+        withLinks(bubble, answer + '\n\n— связь прервалась на середине. Дописать это можно в [Telegram](https://t.me/cookiespooky).');
+      } else {
+        withLinks(bubble, 'Связь с ассистентом прервалась. Напишите в [Telegram](https://t.me/cookiespooky).');
+      }
     }).finally(function () {
       busy = false;
       els.send.disabled = false;
