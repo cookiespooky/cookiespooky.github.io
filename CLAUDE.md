@@ -40,6 +40,10 @@ a genuinely missing address correctly answers 404. Removing the directory routes
 handler as everything else. The canonical is stripped from `dist/404.html` in the same step: it pointed at
 `/404/`, and the file is served under every missing address, so it could only ever be wrong.
 
+**A stale `./.bin/notepub` silently outranks a bumped `NOTEPUB_REF`.** The resolution order below prefers
+the local binary over the ref, so after changing the ref a local build keeps using the old engine and looks
+fine while CI builds something else. Delete `.bin/notepub` and rebuild to test a ref the way CI will.
+
 `scripts/build.sh` resolves the engine in this order: `$NOTEPUB_BIN`, `./.bin/notepub`, `notepub` on PATH,
 otherwise `go install github.com/cookiespooky/notepub/cmd/notepub@$NOTEPUB_REF` into `./.bin` (the ref is pinned
 to a commit SHA at the top of the script, and CI pins the same one). It runs `validate` → `index` →
@@ -84,6 +88,21 @@ Page types, each a template plus a permalink:
 | `note` | `/notes/{slug}/` | `note.html` |
 | `page` | `/{slug}/` | `page.html` |
 | `notfound` | `/404/` | `notfound.html` |
+
+`blog` paginates: `paginate: { collection: "posts_all", per_page: 10, path: "/blog/page/{{ n }}/" }` on the
+type, added to the engine at `501eae6`. Page 1 stays at `/blog/` and only pages 2..N are synthesised, so the
+address of the feed never moved. The rule to know before paginating anything else: **a synthesised route
+carries no identity.** It shares one Markdown file with page 1, so its `Slug` is cleared and `PageNum` marks
+it, and six builders skip it — the slug index, the resolver index, the wiki map, both search indexes and
+collection membership. Miss one and you get a wikimap collision, or worse, a slug that resolves to page 2 on
+some builds and page 1 on others. Templates read the slice through `.Collections.<name>.Page`
+(`Current`, `Total`, `Count`, `PrevURL`, `NextURL`), which is nil when the collection is not paginated.
+
+The same engine release made the build deterministic. Two runs over identical content used to differ in 59
+files — og tags, sitemap order, and any two articles sharing a `published_at` — because all three were
+ordered by Go map iteration. That had to be fixed before pagination could ship at all: with an unstable sort
+an article moves between pages from one deploy to the next. Two builds now differ only in `search.json`'s
+`generated_at`, which is a deliberate timestamp — so a build diff is worth reading again.
 
 `blog`, `home` and `notes` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
@@ -336,8 +355,8 @@ asset — it is what stops a second article being written for an intent that alr
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
-values all build clean. Check it by hand when adding an article. As of 2026-09-10 both sides are clean — 28
-clusters, 11 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
+values all build clean. Check it by hand when adding an article. As of 2026-09-10 both sides are clean — 30
+clusters, 14 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
 sides. Getting there closed three things worth knowing about (the counts in these three bullets are the
 eight-article state they were written about, kept as the record of what was fixed):
 
@@ -576,11 +595,9 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 
 - **`.github/workflows/backend-runtime-deploy.yml` is broken**: it deploys from the old `ycf/` path and
   regenerates the deleted atoms graph. Do not run it; rewrite it when the graph demo gets its page.
-- **No pagination, no taxonomy routes, no RSS in the engine.** Collections only come in `filter` and `forward`
-  kinds; `group_by` groups items inside a collection but generates no route. So `/blog/` is a single unpaginated
-  list and `tags` produce no pages. This is fine under roughly 12–15 articles; past that the engine needs the
-  feature, which is why articles carry tags from the start. **The blog is at 11 as of 2026-09-10**, so the
-  next two or three articles bring this due — it is no longer a distant note.
+- **No taxonomy routes and no RSS in the engine.** Collections only come in `filter` and `forward` kinds;
+  `group_by` groups items inside a collection but generates no route, so `tags` still produce no pages. That
+  is why articles carry tags from the start.
 - **Articles have no image of their own.** Their `Article` schema and `og:image` both fall back to the
   site-wide `media/og.png`, because nothing generates a per-article card. Cases have one; articles do not.
 - **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by

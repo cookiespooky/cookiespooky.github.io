@@ -25,3 +25,26 @@
 @media (max-width: 720px) {
   .case-row--post { grid-template-columns: minmax(0, 1fr) 20px !important; gap: 18px !important; }
 }
+
+/* Пагинация блога. Страница 1 живёт на /blog/, дальше /blog/page/N/. */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.pager__link {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 14px;
+}
+.pager__link:hover { border-color: var(--ink-soft); }
+.pager__link--off { opacity: .35; pointer-events: none; }
+.pager__pos { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }

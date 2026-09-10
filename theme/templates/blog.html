@@ -10,15 +10,17 @@
       {{- if .FM.hero_kicker }}
       <span class="eyebrow"><span>{{ .FM.hero_kicker }}</span></span>
       {{- end }}
-      <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}</h1>
+      <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}{{ with .Collections.posts_all.Page }}{{ if gt .Current 1 }} — страница {{ .Current }}{{ end }}{{ end }}</h1>
       {{- if .FM.hero_lead }}
       <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
       {{- end }}
     </section>
 
+    {{- $pg := .Collections.posts_all.Page }}
     {{- if .Collections.posts_all.Items }}
     {{- $n := len .Collections.posts_all.Items }}
-    <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}статья{{ else if lt $n 5 }}статьи{{ else }}статей{{ end }}</div>
+    {{- if $pg }}{{ $n = $pg.Count }}{{ end }}
+    <div class="catalog-group__count">{{ $n }} {{ if eq $n 1 }}статья{{ else if lt $n 5 }}статьи{{ else }}статей{{ end }}{{ if $pg }}{{ if gt $pg.Total 1 }} · страница {{ $pg.Current }} из {{ $pg.Total }}{{ end }}{{ end }}</div>
     <div class="post-list">
       {{- range .Collections.posts_all.Items }}
       <a class="case-row case-row--post" href="{{ $.BaseURL }}/blog/{{ .Slug }}/">
@@ -33,6 +35,21 @@
       </a>
       {{- end }}
     </div>
+    {{- if $pg }}{{ if gt $pg.Total 1 }}
+    <nav class="pager" aria-label="Страницы блога">
+      {{- if $pg.PrevURL }}
+      <a class="pager__link" rel="prev" href="{{ $.BaseURL }}{{ $pg.PrevURL }}">← Назад</a>
+      {{- else }}
+      <span class="pager__link pager__link--off">← Назад</span>
+      {{- end }}
+      <span class="pager__pos">{{ $pg.Current }} / {{ $pg.Total }}</span>
+      {{- if $pg.NextURL }}
+      <a class="pager__link" rel="next" href="{{ $.BaseURL }}{{ $pg.NextURL }}">Дальше →</a>
+      {{- else }}
+      <span class="pager__link pager__link--off">Дальше →</span>
+      {{- end }}
+    </nav>
+    {{- end }}{{ end }}
     {{- else }}
     <p class="blog-empty">Пока пусто. Первые статьи появятся здесь.</p>
     {{- end }}

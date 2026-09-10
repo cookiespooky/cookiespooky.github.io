@@ -115,6 +115,8 @@ types:
     template: "blog.html"
     permalink: "/blog/"
     include_in: { sitemap: true, search: false }
+    # Первая страница остаётся на /blog/, синтезируются только 2..N.
+    paginate: { collection: "posts_all", per_page: 10, path: "/blog/page/{{ n }}/" }
   article:
     template: "article.html"
     permalink: "/blog/{{ slug }}/"

@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NOTEPUB_REF: 888541390225d487d760cc32acf003e4ed9b3141
+  NOTEPUB_REF: 501eae6bc777185bbae07ff5ae91ec282fd89dc5
 
 jobs:
   build:
