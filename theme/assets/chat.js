@@ -96,7 +96,7 @@
     '.npchat__how:hover{color:var(--ink)}' +
     '.npchat__close{border:0;background:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px 6px}' +
     '.npchat__close:hover{color:var(--ink)}' +
-    '.npchat__log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}' +
+    '.npchat__log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:14px;display:flex;flex-direction:column;gap:12px}' +
     '.npchat__msg{max-width:92%;white-space:pre-wrap;word-wrap:break-word}' +
     '.npchat__msg--me{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 11px}' +
     '.npchat__msg a{color:var(--accent)}' +
@@ -122,8 +122,16 @@
     // ширину контейнера: так отступы слева и справа симметричны по построению.
     '@media (max-width:520px){.npchat{right:12px;bottom:12px;left:12px}' +
       '.npchat__btn{width:100%;justify-content:center}' +
-      '.npchat__panel{position:fixed;left:12px;right:12px;bottom:12px;width:auto;' +
-        'height:min(560px,calc(100vh - 96px));transform-origin:50% 100%}}' +
+      // На телефоне панель — весь экран за вычетом тех же 12px по краям.
+      '.npchat__panel{position:fixed;left:12px;right:12px;top:12px;bottom:12px;width:auto;' +
+        'height:auto;transform-origin:50% 100%}' +
+      // Размер и место панели считает fit() по visualViewport: fixed-элементы
+      // привязаны к layout viewport, который клавиатура на iOS не уменьшает,
+      // так что без этого нижний край панели вместе с полем ввода уходит под неё.
+      '.npchat--fit .npchat__panel{bottom:auto;top:var(--npchat-top);height:var(--npchat-h)}}' +
+    // iOS увеличивает страницу при фокусе на поле со шрифтом мельче 16px.
+    // pointer:coarse — чтобы накрыть и iPad, у которого экран шире 520px.
+    '@media (max-width:520px),(pointer:coarse){.npchat__input{font-size:16px}}' +
     '@media (prefers-reduced-motion:reduce){.npchat__btn,.npchat__panel{transition:none}' +
       '.npchat__dot::before,.npchat__dot::after,.npchat__typing i{animation:none}' +
       '.npchat__dot::before,.npchat__dot::after{opacity:0}}';
@@ -188,6 +196,65 @@
 
     els = { root: root, log: log, input: input, send: send };
 
+    // Блокировка прокрутки на телефоне. overflow:hidden на body iOS не
+    // соблюдает, поэтому body фиксируется со сдвигом на текущую прокрутку,
+    // а при закрытии прокрутка возвращается на место. Плавную прокрутку
+    // из base.css на это время выключаем, иначе страница проедет от верха.
+    var mobile = window.matchMedia('(max-width:520px)');
+    var lockedY = null;
+    var bodyCss = '';
+
+    function lock() {
+      if (lockedY !== null) return;
+      lockedY = window.scrollY;
+      bodyCss = document.body.style.cssText;
+      document.body.style.cssText = bodyCss +
+        ';position:fixed;top:' + (-lockedY) + 'px;left:0;right:0;width:100%;overflow:hidden';
+    }
+
+    function unlock() {
+      if (lockedY === null) return;
+      var y = lockedY;
+      lockedY = null;
+      document.body.style.cssText = bodyCss;
+      var html = document.documentElement;
+      var behavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      window.scrollTo(0, y);
+      html.style.scrollBehavior = behavior;
+    }
+
+    // Панель занимает видимую часть экрана целиком: шапка сверху, поле ввода
+    // прямо над клавиатурой. Размер зависит только от visualViewport, а не от
+    // фокуса поля: фокус теряется при нажатии на «→», и панель, прыгнув в этот
+    // момент, увела бы кнопку из-под пальца.
+    var vv = window.visualViewport;
+
+    function fit() {
+      if (!vv || !mobile.matches || !root.classList.contains('npchat--open')) {
+        root.classList.remove('npchat--fit');
+        return;
+      }
+      var h = vv.height - 24;
+      var atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 24;
+      root.style.setProperty('--npchat-h', h + 'px');
+      root.style.setProperty('--npchat-top', (vv.offsetTop + 12) + 'px');
+      root.classList.add('npchat--fit');
+      if (atBottom) log.scrollTop = log.scrollHeight;
+    }
+
+    if (vv) {
+      vv.addEventListener('resize', fit);
+      vv.addEventListener('scroll', fit);
+    }
+    function onMobileChange() {
+      if (!root.classList.contains('npchat--open')) return;
+      if (mobile.matches) lock(); else unlock();
+      fit();
+    }
+    if (mobile.addEventListener) mobile.addEventListener('change', onMobileChange);
+    else if (mobile.addListener) mobile.addListener(onMobileChange);
+
     // display нельзя анимировать, поэтому порядок такой: сначала показать
     // панель, следующим кадром — включить класс перехода. При закрытии
     // наоборот: снять класс, дождаться конца перехода и убрать из потока.
@@ -196,10 +263,13 @@
     function open() {
       clearTimeout(closeTimer);
       root.classList.add('npchat--open');
+      if (mobile.matches) lock();
+      fit();
       requestAnimationFrame(function () {
         requestAnimationFrame(function () { panel.classList.add('npchat__panel--in'); });
       });
-      input.focus();
+      // preventScroll: без него iOS подтягивает поле в вид, сдвигая страницу.
+      input.focus({ preventScroll: true });
       if (!log.childNodes.length) {
         say('assistant', 'Спрашивайте про услуги, кейсы и статьи — отвечу по тому, что есть на сайте, и дам ссылку. Чего на сайте нет, так и скажу.');
       }
@@ -208,7 +278,9 @@
     function hide() {
       if (!root.classList.contains('npchat--open')) return;
       panel.classList.remove('npchat__panel--in');
-      closeTimer = setTimeout(function () { root.classList.remove('npchat--open'); }, 180);
+      input.blur();
+      unlock();
+      closeTimer = setTimeout(function () { root.classList.remove('npchat--open', 'npchat--fit'); }, 180);
     }
 
     function explain() {
@@ -254,6 +326,13 @@
       if (!root.classList.contains('npchat--open')) return;
       if (root.contains(e.target)) return;
       hide();
+    });
+
+    // Ссылка из ответа при заблокированной странице: переход по якорю на ней
+    // же ничего бы не прокрутил. Закрываем чат до действия по умолчанию —
+    // прокрутка к этому моменту уже возвращена, и якорь срабатывает.
+    log.addEventListener('click', function (e) {
+      if (lockedY !== null && e.target.closest && e.target.closest('a')) hide();
     });
 
     input.addEventListener('input', function () {
