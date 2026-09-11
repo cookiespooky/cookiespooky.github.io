@@ -376,9 +376,9 @@ eight-article state they were written about, kept as the record of what was fixe
 - `ai-seo-po-nisham` (stage `planned`) pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/`, which does
   not exist. A cluster with no page keeps `target_url: null` until the page is written.
 
-`stage` is likewise hand-maintained and lags — ten clusters sit at `written` while their articles are live
-and in the sitemap, so read `stage` as intent, not as truth about what is published. Current spread: 7
-`published`, 10 `written`, 7 `seed`, 3 `rejected`, 1 `planned`.
+`stage` is likewise hand-maintained and lags — fourteen clusters sit at `written`, most of them with
+articles already live and in the sitemap, so read `stage` as intent, not as truth about what is published.
+Current spread (2026-09-11): 7 `published`, 14 `written`, 6 `seed`, 3 `rejected`, none `planned`.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
@@ -458,8 +458,22 @@ rules it exists to satisfy: nothing reaches the HTML (75 pages built with and wi
 `/health` there is no button, no error and no trace. It carries its own CSS and injects it only when it
 mounts, the same pattern as the demo partials.
 
-`settings.assistant_endpoint` is set in `config.dev.yaml` only. Production has no value, so the template
-emits nothing there — turning the widget on for visitors is a deliberate one-line change to `config.yaml`.
+**The widget is live for visitors as of 2026-09-10**: `settings.assistant_endpoint` is set in both
+`config.yaml` and `config.dev.yaml`. Turning it off is the reverse one-line change — remove the key from
+`config.yaml` and the template emits nothing.
+
+A stream can stall mid-answer (DeepSeek did, minutes after launch). The backend ends a stream after 25
+seconds of silence rather than waiting out a whole-request timeout, and `chat.js` keeps whatever text has
+already arrived and appends a note that it was cut off — it must never replace a partial answer with a
+generic error.
+
+On phones (≤520px) the open widget is full-screen minus 12px on every side, and locks the page by fixing
+`body` at `top:-scrollY` and restoring the scroll on close — `overflow:hidden`, which the drawer's
+`.is-locked` uses, is ignored by iOS. The panel is sized from `visualViewport` rather than CSS, because
+`position:fixed` hangs off the layout viewport and the iOS keyboard does not shrink it: without that the
+input sits under the keyboard. Size follows the viewport only, **never** the input's focus — tapping «→»
+blurs the input, and a panel that resized on blur would pull the button out from under the finger. The
+input is 16px on narrow and touch screens; anything smaller makes iOS zoom the page on focus.
 
 Guardrails on a public endpoint holding a paid key: CORS is an allowlist rather than `*` (unlike the speech
 analyzer), 20 requests per IP per hour and 300 a day overall. Those numbers are placeholders chosen to be
