@@ -17,7 +17,7 @@ keywords:
   - "стриминг ответа модели на сайте"
 cluster: "ai-assistant-on-site"
 
-cta_service: "telegram-bot"
+cta_service: "ii-assistent-na-sayt"
 cta_title: "Обсудить ассистента"
 
 tags: ["ии", "ассистенты", "интеграции"]
