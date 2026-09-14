@@ -17,6 +17,7 @@ keywords:
   - "что добавить на сайт компании"
 cluster: "site-components-conversion"
 cta_service: "komponenty-dlya-sayta"
+cta_title: "Найти вопрос, на который ответит блок"
 
 tags: ["конверсия", "компоненты", "интерфейс"]
 
