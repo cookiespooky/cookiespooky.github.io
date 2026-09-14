@@ -20,8 +20,14 @@ graph of "atoms". That produced ~200 thin pages and almost no search traffic, an
 
 ```bash
 ./scripts/build.sh                        # -> dist/
-notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # local preview on 127.0.0.1:8080
+./.bin/notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # local preview on 127.0.0.1:8080
 ```
+
+Nothing installs `notepub` on PATH — `build.sh` puts it in `./.bin/`, so that is where `serve` is called from.
+
+A clean build prints its own census: `llms.txt: услуг 7, кейсов 36, статей 16, заметок 5`, then
+`assistant-index.json: секций 361`. It is the cheapest check that a new file landed in the type you meant —
+the numbers move or they do not.
 
 `serve` reads the templates once at startup, so editing anything under `theme/templates/` needs a restart —
 Markdown is picked up on reload. A preview that looks stale after a template change is almost always this and
@@ -112,7 +118,7 @@ itself. Only `komponenty-dlya-sayta` uses it, and it should: the page that sells
 for months because all three demos lived on their case pages. Three on one page do not collide — the
 partials were written self-contained with distinct class prefixes for exactly this.
 
-`/services/` lists six formats — `razbor` came last and sits first on the page — and each item carries a
+`/services/` lists seven formats — `razbor` came last and sits first on the page — and each item carries a
 `service` slug so the card links to its landing.
 That link is load-bearing: before it existed the landings were near-orphans, reachable only from the one
 article whose `cta_service` pointed at them. A new landing needs the item on `/services/` as much as it needs
@@ -278,7 +284,10 @@ the screenshot figure. Points worth knowing before touching them:
 
 The engine builds canonical, robots, OpenGraph and sitemap entries itself; `og:type` per page type is mapped in
 `config.yaml` under `og_type_by_type`. Site-wide copy and contact links live in `config.yaml` under `settings`
-and reach templates as `.Settings.*`.
+and reach templates as `.Settings.*`. That map has no `note` or `notes` entry, so a note falls back to
+`og:type: website` while `note.html` calls the same page an `Article` in its JSON-LD — add the entry rather
+than the other way round if it ever matters. `config.dev.yaml` also lacks the `tool` line the production
+config has, which changes nothing today because the fallback is the same `website`.
 
 `og_image` in frontmatter overrides the site-wide `default_og_image`; the engine also picks up the first image
 in the body when neither is set. Every case with a screenshot points it at its generated card under
@@ -364,8 +373,8 @@ asset — it is what stops a second article being written for an intent that alr
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
-values all build clean. Check it by hand when adding an article. As of 2026-09-10 both sides are clean — 30
-clusters, 15 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
+values all build clean. Check it by hand when adding an article. As of 2026-09-14 both sides are clean — 31
+clusters, 16 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
 sides. Getting there closed three things worth knowing about (the counts in these three bullets are the
 eight-article state they were written about, kept as the record of what was fixed):
 
@@ -376,9 +385,27 @@ eight-article state they were written about, kept as the record of what was fixe
 - `ai-seo-po-nisham` (stage `planned`) pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/`, which does
   not exist. A cluster with no page keeps `target_url: null` until the page is written.
 
-`stage` is likewise hand-maintained and lags — fourteen clusters sit at `written`, most of them with
+`stage` is likewise hand-maintained and lags — sixteen clusters sit at `written`, most of them with
 articles already live and in the sitemap, so read `stage` as intent, not as truth about what is published.
-Current spread (2026-09-11): 7 `published`, 14 `written`, 6 `seed`, 3 `rejected`, none `planned`.
+Current spread (2026-09-14): 7 `published`, 16 `written`, 2 `planned`, 3 `seed`, 3 `rejected`. The
+`planned` clusters (`bot-hosting-serverless`, then `bot-vs-miniapp`) carry their chosen slug and head phrase
+in `note`, not in `target_url` — which stays `null` until the page exists. The queue itself is in
+`backlog.md`.
+
+**Pick the narrow formulation where top 3 is reachable over the big one where the ceiling is eighth.**
+Every Webmaster slice so far (2026-09-09, 09-11, 09-12) shows the same split: positions 1–3 bring all the
+clicks the site gets, 4–10 and 11–50 bring impressions and zero clicks. At this volume a larger cluster
+ranked eighth is worth less than a 14/mo phrase ranked third — which is exactly how the Obsidian article
+became the only page that clicks.
+
+**An article's CTA goes to `razbor` only when the reader arrives carrying a solution before a problem**
+(three do: tables, AI implementation, Obsidian). Everywhere else it goes to the service that does the
+thing the article describes. Checked across all fifteen articles on 2026-09-13 and nothing else fit;
+don't stretch it — razbor sells to people who do not yet know what to build, not to everyone.
+
+**Don't edit an article's text, title or description on data below 100 impressions for its cluster.**
+The thresholds above that (rewrite the snippet below position 10, add internal links at 4–10, leave
+top-3 alone) are in `backlog.md`, declared before the numbers could argue.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
@@ -439,7 +466,7 @@ them live here.
 
 **The index.** `scripts/assistant_index.py` runs at the end of `build.sh`, next to `llms.py`, and writes
 `dist/assistant-index.json`: the built site cut into sections at every `##`, each with the exact URL of its
-own anchor. 340 sections, ~500 characters each. It reads `dist/`, **not `content/`**, and that is the whole
+own anchor. 361 sections, ~500 characters each. It reads `dist/`, **not `content/`**, and that is the whole
 point: the engine transliterates heading anchors itself (`Три вида памяти` → `tri-vida-pamiati`), so
 reimplementing that here would drift and start emitting links to anchors that do not exist. Verify after
 changing it by checking every anchor against the built HTML, not by eye.
@@ -531,7 +558,7 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 **The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
 `https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
-apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (64 now), and Metrika 108674124 reports
+apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (70 now, over 75 built pages), and Metrika 108674124 reports
 `counter is initialized` in the browser.
 
 The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
@@ -616,13 +643,14 @@ domain.
   (`74ea07470235e3be`) or by another method. If it is the tag, it is load-bearing; if not, it is dead weight
   that should be removed.
 - **Sitemaps are submitted and being processed.** `https://antonlozhkin.ru/sitemap-index.xml` went to
-  Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05; none had processed it as of that day.
-  Nothing published so far has been in an index long enough to be judged, so treat any conclusion about
-  which pages work as unavailable rather than negative until the first reports arrive.
+  Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05. Yandex has taken it in: as of the
+  2026-09-14 export, 68 of 70 sitemap URLs are searchable, and articles published 09-09 and 09-10 were
+  already in. Coverage is therefore no longer the unknown — but traffic is too thin (27 impressions in
+  twelve days) to call any page weak; see the thresholds in `backlog.md`.
 - **IndexNow effectively submits the whole site on every deploy**, which is the opposite of what the script
-  was written for. `lastmod` equals the build date on all 64 sitemap URLs because `updated_at` is set in only
+  was written for. `lastmod` equals the build date on all 71 sitemap URLs because `updated_at` is set in only
   three files, so the "changed today" filter matches everything. Left alone on purpose (see `backlog.md`): two
-  articles reached the index within two days of publication and blanket submission probably helped, and at 64
+  articles reached the index within two days of publication and blanket submission probably helped, and at 71
   pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
   sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
   `curl` to the same host works).
@@ -708,6 +736,14 @@ while the directory listing is full.
 
 Durable facts about the author and the strategy are also in the session memory directory, which
 loads automatically; `context/` holds what is too long for that.
+
+## Commits
+
+The site is in Russian and the history is in English: an imperative subject saying what the commit does to
+the site rather than to the files («Show the components on the page that sells them», not «update
+service.html»), and a body that explains *why* — the constraint found, the thing that broke, the reason the
+obvious alternative was not taken. Several entries in this file started life as such a body. Keep both
+halves; a subject with no body is fine only when there is genuinely no reasoning to lose.
 
 ## Branches
 
