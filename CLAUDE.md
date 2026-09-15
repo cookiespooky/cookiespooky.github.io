@@ -18,26 +18,33 @@ graph of "atoms". That produced ~200 thin pages and almost no search traffic, an
 
 ## Build & run
 
+**A push to `main` deploys the live site** — there is no staging branch, so a commit to `main` is publishing
+and a push is the moment it goes out. Uncommitted work in `content/` is safe, and so is a local commit; only
+the push publishes.
+
 ```bash
 ./scripts/build.sh                        # -> dist/
 ./.bin/notepub serve --config ./config.dev.yaml --rules ./rules.yaml   # local preview on 127.0.0.1:8080
+python3 scripts/clusters_check.py         # registry ↔ content join; run after adding an article
 ```
 
 Nothing installs `notepub` on PATH — `build.sh` puts it in `./.bin/`, so that is where `serve` is called from.
 
-A clean build prints its own census: `llms.txt: услуг 7, кейсов 36, статей 16, заметок 5`, then
-`assistant-index.json: секций 361`. It is the cheapest check that a new file landed in the type you meant —
-the numbers move or they do not.
+A clean build prints its own census — `llms.txt: услуг N, кейсов N, статей N, заметок N`, then
+`assistant-index.json: секций N`. It is the cheapest check that a new file landed in the type you meant:
+compare against the previous build, and the numbers move or they do not. This file deliberately does not
+repeat those numbers; they go stale with every article.
 
 `serve` reads the templates once at startup, so editing anything under `theme/templates/` needs a restart —
 Markdown is picked up on reload. A preview that looks stale after a template change is almost always this and
 not the browser cache.
 
-Two Python helpers hang off the build. `scripts/llms.py` runs at the end of `build.sh` and writes
+Python helpers hang off the build. `scripts/llms.py` runs at the end of `build.sh` and writes
 `dist/llms.txt` from the frontmatter in `content/`, so the machine-readable index cannot drift from the site;
 it parses frontmatter by hand rather than importing PyYAML, because the CI runner should not need a package
 for the site to build. `scripts/shots.py` is run by hand after adding a screenshot — see *Screenshots and
-their derivatives*.
+their derivatives*. `scripts/clusters_check.py` is run by hand too — see *The SEO factory*; it parses YAML
+the same dependency-free way.
 
 The 404 needs one more step than it looks: `build.sh` copies `dist/404/index.html` to `dist/404.html`
 (the only path GitHub Pages serves as a custom error document) and then **deletes `dist/404/`**. Left in
@@ -64,10 +71,20 @@ files, so they get no canonical, no sitemap entry and no template — which is w
 
 There is no test suite. Correctness means `./scripts/build.sh` exits clean — `validate` reports frontmatter,
 route and link errors, and unknown frontmatter keys are build errors, so a typo in a field name fails the build
-rather than silently disappearing.
+rather than silently disappearing. The engine does not check JSON-LD, so after touching a template parse every
+structured-data block in the build:
 
-`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, as is every directory in
-*Context that is not in this repository* below — so `git status` stays clean while five untracked trees sit
+```bash
+python3 - <<'EOF'
+import re, io, json, glob
+for f in glob.glob('dist/**/index.html', recursive=True):
+    for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', io.open(f).read(), re.S):
+        json.loads(b)   # бросит, если сломано
+EOF
+```
+
+`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, as is every entry in
+*Context that is not in this repository* below — so `git status` stays clean while those directories sit
 in the working directory. Do not "clean up" an untracked directory here; check that table first.
 
 `README.md` predates the restructure and is stale on addresses: it calls the site "Кейсы", gives the public
@@ -104,11 +121,8 @@ collection membership. Miss one and you get a wikimap collision, or worse, a slu
 some builds and page 1 on others. Templates read the slice through `.Collections.<name>.Page`
 (`Current`, `Total`, `Count`, `PrevURL`, `NextURL`), which is nil when the collection is not paginated.
 
-The same engine release made the build deterministic. Two runs over identical content used to differ in 59
-files — og tags, sitemap order, and any two articles sharing a `published_at` — because all three were
-ordered by Go map iteration. That had to be fixed before pagination could ship at all: with an unstable sort
-an article moves between pages from one deploy to the next. Two builds now differ only in `search.json`'s
-`generated_at`, which is a deliberate timestamp — so a build diff is worth reading again.
+The same engine release made the build deterministic (the history is in `docs/site-history.md`): two builds
+over identical content differ only in `search.json`'s `generated_at`, so a build diff is worth reading.
 
 `blog`, `home` and `notes` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
@@ -189,12 +203,11 @@ rely on it anywhere: the engine still *builds* a draft page, still writes it to 
 `<meta name="robots" content="index, follow">` and a canonical for it. Drafts are only dropped from
 collections, the sitemap and `llms.txt`. So a draft that reaches `dist/` is a live, crawlable URL that merely
 isn't linked. To keep an unfinished page genuinely out of the index, pair it with `noindex: true`, which flips
-the meta to `noindex, follow` — pair them on anything unfinished. (All five notes are published as of
-2026-09-07: `draft: false`, `noindex: false`. The four drafts this rule was written for have shipped.)
+the meta to `noindex, follow` — pair them on anything unfinished.
 
 ### Case frontmatter contract
 
-36 case files, one per `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
+One file per case in `content/cases/*.md`, and the home catalogue is built entirely out of their frontmatter
 — the Markdown body is the long read below the card.
 
 ```yaml
@@ -225,13 +238,12 @@ links: [{title: "...", url: "..."}]
 
 `group` decides which section a case lands in; the counts on the home page's tabs come from
 `len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build. Current split: products 9, ai 7, sites 6, research 7, components 3, lab 4. Adding a group means four
+build — `scripts/clusters_check.py` prints the current split, so an empty group shows up there. Adding a group means four
 edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
 `rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
 and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
 
-A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`)
-— 17 have screenshots, 19 have drawn covers.
+A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`).
 
 ### Screenshots and their derivatives
 
@@ -243,12 +255,12 @@ things from it and is idempotent, so run it after adding a screenshot and commit
   card must not silently lose the half of the screenshot that mattered. JPEG on purpose: every scraper reads
   it, which is not true of WebP.
 
-There are 18 files in `shots/` but only 17 cases carry a `shot`: `obsidian-guide-inner.webp` is a spare with
-derivatives already generated. Count `shot:` in frontmatter, not files on disk.
+`shots/` holds one file more than there are cases with a `shot`: `obsidian-guide-inner.webp` is a spare with
+derivatives already generated. Count `shot:` in frontmatter (`grep -l '^shot:' content/cases/*.md`), not
+files on disk.
 
-The catalogue used to point at the full-size images, so the home page pulled **5.5 MB** of screenshots to draw
-thumbnails 180 px wide — one file was 1.29 MB. It is 104 KB now. If you add a thumbnail somewhere new, point it
-at `shots/thumbs/`, never at `shots/`.
+If you add a thumbnail somewhere new, point it at `shots/thumbs/`, never at `shots/` — the full-size files
+once made the home page pull 5.5 MB to draw 180 px rows.
 
 Thumbnails carry `alt="Экран проекта «{{ .Title }}»"` — the same wording as the full screenshot in
 `case.html`. They were `alt=""` in all eight places that render a `case-row` (six group sections in
@@ -269,7 +281,7 @@ the screenshot figure. Points worth knowing before touching them:
   a demo case needs both fields — drop `shot` and the row falls back to a drawn cover.
 - **Each partial carries its own `<style>` and `<script>` inline.** `layout.html` can branch on
   `.Page.Type` but sees no other frontmatter, so there is no way to key an asset off `demo` the way
-  `tool.css`/`tool.js` are keyed off the `tool` type; shipping the CSS site-wide would put it on all 35 cases
+  `tool.css`/`tool.js` are keyed off the `tool` type; shipping the CSS site-wide would put it on every case
   for the sake of three. Keep new demos self-contained the same way, and keep their class prefixes (`dcalc__*`, `dplan__*`, `dbook__*`) and `data-*`
   hooks distinct so two demos on one page could not collide.
 - They are plain DOM, no libraries, and the numbers are placeholders meant to be edited by the visitor — the
@@ -313,8 +325,8 @@ inside `<script type="application/ld+json">`:
 frontmatter field. Nothing in `content/` sets it today; every graph above is hand-built in its template.
 
 **The graph hangs off two `@id`s minted on the home page** — `{base}/#person` and `{base}/#website`. Everything
-else references them instead of repeating the author, so a parser sees one person with 36 works rather than 36
-unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
+else references them instead of repeating the author, so a parser sees one person with many works rather than
+many unrelated pages that happen to share a name. Keep it that way: a new template should reference the `@id`, never
 restate `Person`.
 
 **Do not put an `ItemList` of the cases on the home page.** It was there and it had to come out: Google reads a
@@ -328,16 +340,8 @@ and into its generated id. Link to the transliterated id the engine produces ins
 Inside a `<script>`, Go's `html/template` already emits values as quoted JSON strings — write
 `{{ .Page.Title }}`, never `{{ printf "%q" .Page.Title }}`, or you get doubled quotes. Note also that the
 engine exposes no arithmetic: a template cannot number a list, which is one more reason the `ItemList` was
-never going to satisfy a carousel's required `position`. Validate by parsing the built HTML, never by eye:
-
-```bash
-python3 - <<'EOF'
-import re, io, json, glob
-for f in glob.glob('dist/**/index.html', recursive=True):
-    for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', io.open(f).read(), re.S):
-        json.loads(b)   # бросит, если сломано
-EOF
-```
+never going to satisfy a carousel's required `position`. Validate by parsing the built HTML, never by eye —
+the script is under *Build & run*.
 
 ### Machine-readable extras
 
@@ -373,24 +377,26 @@ asset — it is what stops a second article being written for an intent that alr
 
 Nothing validates that join: the engine never reads `seo/`, so a `cluster` naming a missing id, a `target_url`
 pointing at a dead route, two articles claiming one cluster, or the two sides naming different `cta_service`
-values all build clean. Check it by hand when adding an article. As of 2026-09-14 both sides are clean — 31
-clusters, 16 articles, no duplicate claims, every `target_url` resolving, and `cta_service` agreeing on both
-sides. Getting there closed three things worth knowing about (the counts in these three bullets are the
-eight-article state they were written about, kept as the record of what was fixed):
+values all build clean. `scripts/clusters_check.py` checks exactly those four things and exits 1 on any of
+them: every article has a `cluster` that exists, no cluster is claimed twice, each cluster's `target_url` is
+the address of the article claiming it (or of a real page), and `cta_service` names an existing landing and
+matches on both sides. Run it after adding an article or touching the registry. It is deliberately not part
+of `build.sh` — the factory is meant to live apart from the site, and a registry typo should not block a
+deploy. It also prints the stage spread and the case group split, which is where to look for those numbers.
+What it was written to close is in `docs/site-history.md`; the two rules that came out of it are that every
+article names a `cta_service` (no search visitor lands on a dead end) and that a cluster with no page keeps
+`target_url: null` until the page is written.
 
-- `kak-rabotaet-analiz-rechi.md` had **no `cluster` field at all** while `speech-agency-explainer` named it as
-  its `target_url` — the site's one half-open join.
-- **Six of the eight articles had no `cta_service`**, so a reader arriving from search hit a dead end. The
-  registry was no better: it declared `cta_service: null` for all six. Both sides now name a landing.
-- `ai-seo-po-nisham` (stage `planned`) pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/`, which does
-  not exist. A cluster with no page keeps `target_url: null` until the page is written.
-
-`stage` is likewise hand-maintained and lags — sixteen clusters sit at `written`, most of them with
+`stage` is hand-maintained and lags, and the check does not look at it — most `written` clusters have
 articles already live and in the sitemap, so read `stage` as intent, not as truth about what is published.
-Current spread (2026-09-14): 7 `published`, 16 `written`, 2 `planned`, 3 `seed`, 3 `rejected`. The
-`planned` clusters (`bot-hosting-serverless`, then `bot-vs-miniapp`) carry their chosen slug and head phrase
-in `note`, not in `target_url` — which stays `null` until the page exists. The queue itself is in
-`backlog.md`.
+The queue of what to write and measure next is in `backlog.md`. A `planned` cluster carries its chosen slug
+and head phrase in `note`, not in `target_url`, which stays `null` until the page exists.
+
+**A cluster's `cases` list is a claim, not a fact — check it against the case files before writing.** Both
+clusters written on 2026-09-14 had wrong ones: `bot-vs-miniapp` named three «mini-app» cases of which none is
+a Telegram Mini App (a PWA, a Nuxt app, an Electron client), and `bot-hosting-serverless` named `order-flow`,
+which has nothing to do with cloud functions. The quality gate says a cluster without a case is not written,
+so a wrong list is how an article gets written with nothing behind it.
 
 **Pick the narrow formulation where top 3 is reachable over the big one where the ceiling is eighth.**
 Every Webmaster slice so far (2026-09-09, 09-11, 09-12) shows the same split: positions 1–3 bring all the
@@ -437,22 +443,16 @@ Each phrase therefore carries three numbers, and they are not interchangeable:
 | `count_wide` | broad frequency, actually measured |
 | `count_est` | estimated exact: broad minus the tail queries containing all the phrase's words. An upper bound, and meaningless on general phrases, where nested queries are themselves aggregated and the subtraction goes negative |
 
-Four traps that the first wave walked into, all recorded at greater length in `seo/wordstat.md`:
+Four traps the first wave walked into; examples and numbers are in `seo/wordstat.md`:
 
-- **Set the region before taking numbers.** The first wave was taken on «все регионы» rather than Russia, so
-  its numbers are inflated and cannot be compared against a later wave taken correctly. The four exports
-  added 2026-09-09 from `niche-research` (`гугл таблица для`, `шаблон excel для`, `генератор для сайта`,
-  `автоматическая генерация документов`) carry the same flaw — comparable with the first wave, not with
-  anything taken properly later.
-- **Wordstat names every export the same.** They all arrive as `wordstat_top_queries (N).csv` with the
-  numbering restarting each session, so a second batch silently overwrites the first. Files in `seo/keys/`
-  are renamed after their target phrase; keep doing that.
-- **Cyrillic and Latin are different queries.** «сео для сайта» is 706 and «seo для сайта» is 1161, and
-  Wordstat does not merge them (it does merge ё and е, and the importer folds those). Anything people write
-  both ways — seo, ai, crm, api — needs both forms in the registry or you are measuring half the demand.
-- **Take phrases from Wordstat's own output, not from your head.** Nine of the first seventy-four were
-  written the way a person would say them and returned zero while the demand was real: «разработка сайта под
-  ключ» is 0, «разработка сайт**ов** под ключ» is 872. Word count and order matter; word form matters.
+- **Set the region to Russia before taking numbers.** The first wave, and the four `niche-research` exports
+  added 2026-09-09, were taken on «все регионы» — comparable with each other, not with anything taken later.
+- **Rename every export after its target phrase.** Wordstat names them all `wordstat_top_queries (N).csv`
+  with numbering restarting per session, so a second batch silently overwrites the first.
+- **Cyrillic and Latin are different queries** (ё/е are merged, and the importer folds them). Anything written
+  both ways — seo, ai, crm, api — needs both forms in the registry.
+- **Take phrases from Wordstat's own output, not from your head.** Word count, order and form all matter:
+  «разработка сайта под ключ» is 0, «разработка сайтов под ключ» is 872.
 
 Strategy in one line: informational tail into the blog builds host trust, which is what eventually makes the
 commercial pages on `/services/` rankable at all. Commercial-intent long tail goes to a service landing, never
@@ -466,7 +466,7 @@ them live here.
 
 **The index.** `scripts/assistant_index.py` runs at the end of `build.sh`, next to `llms.py`, and writes
 `dist/assistant-index.json`: the built site cut into sections at every `##`, each with the exact URL of its
-own anchor. 361 sections, ~500 characters each. It reads `dist/`, **not `content/`**, and that is the whole
+own anchor, ~500 characters each. It reads `dist/`, **not `content/`**, and that is the whole
 point: the engine transliterates heading anchors itself (`Три вида памяти` → `tri-vida-pamiati`), so
 reimplementing that here would drift and start emitting links to anchors that do not exist. Verify after
 changing it by checking every anchor against the built HTML, not by eye.
@@ -480,7 +480,7 @@ which is why **a site deploy updates the assistant's knowledge with no second de
 route is a separate generic proxy used by other projects — do not change it.
 
 **The widget** is `theme/assets/chat.js`, wired in `layout.html` behind `settings.assistant_endpoint`. Two
-rules it exists to satisfy: nothing reaches the HTML (75 pages built with and without it differ by one
+rules it exists to satisfy: nothing reaches the HTML (the site built with and without it differs by one
 `<script defer>` line, so a crawler sees an unchanged document), and if the backend does not answer
 `/health` there is no button, no error and no trace. It carries its own CSS and injects it only when it
 mounts, the same pattern as the demo partials.
@@ -556,51 +556,26 @@ filter were dropped: they pointed at an atom page that no longer exists.
 
 ## Deployment state
 
-**The migration to `antonlozhkin.ru` is complete as of 2026-09-05.** Verified live: `http://` 301s to
-`https://`, the certificate is Let's Encrypt `CN=antonlozhkin.ru` valid to 2026-12-03, `www` 301s to the
-apex so the certificate covers both names, all 47 sitemap URLs of the day answer 200 (70 now, over 75 built pages), and Metrika 108674124 reports
-`counter is initialized` in the browser.
+The site is live at `https://antonlozhkin.ru` on GitHub Pages; the migration finished on 2026-09-05. How it
+went, and the four things that cost a day each, are in `docs/deploy-history.md` — read it before touching
+the domain, the certificate or the Pages settings. What still applies:
 
-The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
-
-`config.yaml` and `config.dev.yaml` point at the domain, `CNAME` at the repo root holds it, and
-`scripts/build.sh` copies that file into `dist/` — it did not before, and the deploy goes through
-`upload-pages-artifact`, so without the file in the artifact GitHub Pages drops the custom domain on every
-run.
-
-### Four things that cost a day, so they are written down
-
-**The certificate was released by removing the custom domain in Settings → Pages and adding it back.**
-This contradicts the advice that used to stand here. Waiting did not work: the DNS check sat in progress
-across four deployments after the `CNAME` file finally reached the artifact, and the certificate appeared
-within minutes of the re-add. The reading that fits is that the check had latched the failure from when
-`http://antonlozhkin.ru/CNAME` still 404'd and would not re-run on its own.
-
-Sequencing still matters: re-add only once the `CNAME` file is genuinely in the published artifact and
-nothing else claims the domain, or the fresh check latches the same failure again. Note also that the
-`CNAME` file *drives* the setting — GitHub re-reads it on every deployment — so removing the domain in the
-UI alone is reverted by the next build unless the file goes too.
-
-**"DNS Check in Progress" stays yellow even when everything works.** It is still yellow now. Enforce HTTPS
-is enabled and enforcing, which GitHub does not allow without a valid certificate, so the label is stale UI
-and not a blocker. Do not press Remove to clear it — that would revoke a working certificate.
-
-**A project repo owns its path on the custom domain, and disabling Pages does not release it.** The `cases`
-repo held the whole `/cases/` prefix: every `/cases/{slug}/` returned that repo's 404 while all 34 case
-pages sat in this site's sitemap. Switching its Pages source to None left the path answering GitHub's own
-"Site not found", because the binding follows the repo *name*. Deleting the repo released it.
-
-**DNS was never the problem** (verified against Cloudflare and Google, which agree). Apex `A` holds all four
-GitHub addresses and only those, apex `AAAA` all four, no apex `CNAME`, no `CAA` blocking Let's Encrypt,
-`www` a `CNAME` to `cookiespooky.github.io.`. From inside the sandbox `dig` is blocked; use DNS-over-HTTPS,
-e.g. `curl -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=antonlozhkin.ru&type=A'`.
+- The workflow deploys and then pings IndexNow (`continue-on-error`, so a rejected ping never fails a deploy).
+- `CNAME` at the repo root holds the domain and `build.sh` copies it into `dist/`. The deploy goes through
+  `upload-pages-artifact`, so a build without that file makes GitHub Pages drop the custom domain. The file
+  also *drives* the setting: removing the domain in the UI alone is reverted by the next build.
+- **"DNS Check in Progress" in Settings → Pages stays yellow and is stale.** Enforce HTTPS is on, which GitHub
+  does not allow without a valid certificate. Do not press Remove to clear it — that revokes a working
+  certificate.
+- If a certificate ever sticks: remove the custom domain and add it back, but only once `CNAME` is in the
+  published artifact and nothing else claims the domain. A project repo named after a path (the old `cases`
+  repo held `/cases/`) keeps that path until the repo is deleted — disabling its Pages is not enough.
+- From inside the sandbox `dig` is blocked; use DNS-over-HTTPS, e.g.
+  `curl -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=antonlozhkin.ru&type=A'`.
 
 ### Analytics and Webmaster
 
-Metrika **108674124** is the counter, installed via `settings.metrika_id`. The loader asks for
-`tag.js?id=<counter>`, matching the snippet Yandex hands out — the bare `tag.js` form it used before was the
-one structural difference from the official snippet. Counter `103178789` belonged to a long-dead Next.js
-site at this address and has been deleted.
+Metrika **108674124** is the counter, installed via `settings.metrika_id`, loaded as `tag.js?id=<counter>`.
 
 Ownership is proved to three engines by three unrelated mechanisms, and none of them substitutes for another:
 
@@ -616,22 +591,10 @@ that property. `BingSiteAuth.xml` must keep the exact name and casing Bing gener
 apex root; its contents are the account token, not a per-site secret. Bing can also import verification from
 Search Console instead, which is worth knowing but is not what is set up here.
 
-Yandex Webmaster holds one host, **`https://antonlozhkin.ru`**. Two cautions learned the hard way:
-
-- The host record predates this site — its crawl history stops at 2026-01-05 and consists of
-  `/_next/image?url=…`, so Webmaster had never seen the current site. Its diagnostics warned that
-  `robots.txt` was missing and 404s were misconfigured; both were artefacts of the day HTTPS was broken,
-  because the robot could not complete a TLS handshake at all. Neither file was ever wrong.
-- Tools that take a URL default to `http://` when you type a bare domain, and `http://` now 301s to a
-  different host in Yandex's model. Always type the protocol.
-
-Metrika's install checker follows the address stored in the counter's own settings, not the one typed into
-the dialog, and that field lagged on `cookiespooky.github.io` — which 301s here anyway, so the check passes
-regardless. Two console errors show up during that check and neither is this site's: an unrecognised
-`prefetch-src` CSP directive from Metrika's own overlay script on `yastatic.net`, and
-`ERR_CERT_AUTHORITY_INVALID` on `hdrc.yandex.net`, whose issuing CA is absent from ordinary trust stores —
-reproducible with `curl` from an unrelated machine. This site sets no CSP at all and references neither
-domain.
+Yandex Webmaster holds one host, **`https://antonlozhkin.ru`**. Its tools default to `http://` when you type
+a bare domain, and `http://` 301s to a different host in Yandex's model — always type the protocol. Console
+errors from `yastatic.net` and `hdrc.yandex.net` during Metrika's install check are Yandex's own, not this
+site's; `docs/deploy-history.md` has the details.
 
 ### Still open
 
@@ -648,10 +611,10 @@ domain.
   already in. Coverage is therefore no longer the unknown — but traffic is too thin (27 impressions in
   twelve days) to call any page weak; see the thresholds in `backlog.md`.
 - **IndexNow effectively submits the whole site on every deploy**, which is the opposite of what the script
-  was written for. `lastmod` equals the build date on all 71 sitemap URLs because `updated_at` is set in only
-  three files, so the "changed today" filter matches everything. Left alone on purpose (see `backlog.md`): two
-  articles reached the index within two days of publication and blanket submission probably helped, and at 71
-  pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
+  was written for. `lastmod` equals the build date on every sitemap URL because `updated_at` is set in only a
+  handful of files, so the "changed today" filter matches everything. Left alone on purpose (see
+  `backlog.md`): two articles reached the index within two days of publication and blanket submission
+  probably helped, and at well under a hundred pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
   sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
   `curl` to the same host works).
 
@@ -689,17 +652,9 @@ redesign: the home page is built around the catalogue with its sticky filter tab
   hand before any keyword research, and their clusters (`speech-agency-tool`, `speech-agency-explainer`)
   were written around the existing names afterwards. Renaming costs nothing while the site has no traffic;
   every later article was named from its cluster instead.
-- **Heading anchors are fixed as of engine `8885413`.** goldmark's own generator drops multi-byte runes, so
-  every Cyrillic heading on the site rendered as `id="-"`, `id="--1"` or the literal `id="heading"` — no
-  section could be linked to, and `[[page#Heading]]` wikilinks pointed at ids that did not exist, because that
-  side was already transliterating. Both sides now go through one `headingAnchor`. If degenerate ids come
-  back, check whether `NOTEPUB_REF` was rolled back.
-- **Canonical and sitemap trailing slashes are fixed as of engine `6e57516`.** Before it, `buildPath`
-  trimmed the trailing slash from every route key — correct for request matching, wrong for public URLs,
-  because the builder writes each route as `<path>/index.html`. Every canonical, `og:url` and `<loc>`
-  therefore pointed at an address the host only redirects from. `urlutil.PublicPath` now restores the slash
-  at the three emission points. If you see a slash-less canonical again, check whether `NOTEPUB_REF` was
-  rolled back.
+- **Two engine regressions to recognise.** Cyrillic headings rendering as `id="-"` or `id="heading"` (fixed in
+  `8885413`), or canonicals and sitemap `<loc>` without a trailing slash (fixed in `6e57516`), mean
+  `NOTEPUB_REF` was rolled back. Both bugs are described in `docs/site-history.md`.
 - **GitHub Pages cannot do 301 or 410**, only 404 and a JS/meta redirect. Mostly unused: the site had ~60
   views a month at the cutover, so nothing was written for the old `/cases/cases/{slug}` paths. Four atom URLs
   are the exception, added 2026-09-07 after a Yandex crawl report showed the robot still hitting them:
@@ -713,26 +668,26 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 
 ## Context that is not in this repository
 
-Nine things this repo does not contain but that most conversations here depend on. All are
-gitignored or live elsewhere, so a fresh session sees none of them until it looks. Every entry below with a
-bare name is an untracked directory or file sitting in the working tree — that is why `git status` is clean
-while the directory listing is full.
+Things this repo does not contain but that most conversations here depend on. All are gitignored or live
+elsewhere, so a fresh session sees none of them until it looks. Every entry below with a bare name is an
+untracked directory or file sitting in the working tree — that is why `git status` is clean while the
+directory listing is full.
 
-| где | что |
+| where | what |
 |---|---|
-| `context/` | карта архива `Diary/`, портрет автора и механики Threads — читать первым |
-| `Diary/` | Obsidian-архив, 906 заметок, февраль 2025 → август 2026 |
-| `positioning/` | позиционирование: диагноз, позиции по Трауту, самопрезентации, протокол проверки |
-| `threads-plan/` | контент-план Threads, правила хуков, упаковка профиля |
-| `~/Documents/consciousness-revelation` | отдельный публичный репозиторий: предрегистрированный эксперимент с отрицательным результатом |
-| `Пюре райтинг/` | 105 заметок чужого Threads-канала о копирайтинге — образец стиля для чтения, **не свой текст**: ничего оттуда не переносится в `content/` |
-| `situation/` | исходящие: письма студиям, каталоги, TSV с адресатами |
-| `backlog.md` | сознательно отложенные задачи с причиной и порогом возврата — читать прежде, чем «чинить» то, что выглядит недоделанным |
-| `../notepub` | сам движок: Go-репозиторий, из которого `build.sh` ставит бинарник по `NOTEPUB_REF` |
-| `~/Documents/niche-research` | поиск ниши под продукт: метод, реестр сигналов, выгрузки Wordstat. Пишет вверх по течению в `seo/` — оттуда пришли кластеры про таблицы и три отсева |
+| `context/` | map of the `Diary/` archive, the author's portrait and Threads mechanics — read this first |
+| `Diary/` | Obsidian archive, February 2025 → August 2026 |
+| `positioning/` | positioning: diagnosis, Trout-style positions, self-presentations, verification protocol |
+| `threads-plan/` | Threads content plan, hook rules, profile packaging |
+| `~/Documents/consciousness-revelation` | separate public repo: a preregistered experiment with a negative result |
+| `Пюре райтинг/` | notes from someone else's Threads channel on copywriting — a style sample to read, **not the author's own text**: nothing from it goes into `content/` |
+| `situation/` | outbound: letters to studios, catalogues, TSVs of recipients |
+| `backlog.md` | deliberately deferred tasks, each with a reason and a threshold for return — read it before "fixing" something that looks unfinished |
+| `../notepub` | the engine itself: the Go repo `build.sh` installs the binary from at `NOTEPUB_REF` |
+| `~/Documents/niche-research` | the search for a product niche: method, signal registry, Wordstat exports. Writes upstream into `seo/` — the tables clusters and the three rejections came from there |
 
-`Diary/` содержит договоры с клиентами, материалы терапии и живые доступы — ничего оттуда не
-публикуется без явного разрешения. Живые ключи в нём подлежат ротации.
+`Diary/` holds client contracts, therapy material and live credentials — nothing from it is published without
+explicit permission. Live keys in it are due for rotation.
 
 Durable facts about the author and the strategy are also in the session memory directory, which
 loads automatically; `context/` holds what is too long for that.
@@ -748,7 +703,7 @@ halves; a subject with no body is fine only when there is genuinely no reasoning
 ## Branches
 
 - `main` — the live site. `restructure/cases-to-root` was fast-forwarded into it on 2026-09-04 and
-  everything since has landed here directly. A push to `main` deploys, so treat it as publishing.
+  everything since has landed here directly (see *Build & run*: a push here deploys).
 - `archive/llm-graph` — full snapshot of the atoms experiment plus 102 hand-written articles from the site
   that preceded it (`blog-source/`), kept because they existed nowhere else.
 - `restructure/cases-to-root` — merged, kept only as a marker of where the restructure ended.
