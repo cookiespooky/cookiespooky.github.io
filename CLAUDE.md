@@ -33,7 +33,9 @@ Nothing installs `notepub` on PATH — `build.sh` puts it in `./.bin/`, so that 
 A clean build prints its own census — `llms.txt: услуг N, кейсов N, статей N, заметок N`, then
 `assistant-index.json: секций N`. It is the cheapest check that a new file landed in the type you meant:
 compare against the previous build, and the numbers move or they do not. This file deliberately does not
-repeat those numbers; they go stale with every article.
+repeat those numbers; they go stale with every article. **A build with no census still exits 0**: without
+`python3` on PATH, `build.sh` prints one line to stderr and skips both `llms.txt` and
+`assistant-index.json` (and leaves the canonical in `404.html`), so a missing census means a broken build.
 
 `serve` reads the templates once at startup, so editing anything under `theme/templates/` needs a restart —
 Markdown is picked up on reload. A preview that looks stale after a template change is almost always this and
@@ -83,14 +85,9 @@ for f in glob.glob('dist/**/index.html', recursive=True):
 EOF
 ```
 
-`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, as is every entry in
-*Context that is not in this repository* below — so `git status` stays clean while those directories sit
-in the working directory. Do not "clean up" an untracked directory here; check that table first.
-
-`README.md` predates the restructure and is stale on addresses: it calls the site "Кейсы", gives the public
-URL as `cookiespooky.github.io/cases/` and describes a move *to* `cookiespooky.github.io`. Its "how to add a
-case" recipe is still broadly accurate, except that it names only four of the six `group` values (it predates
-`components` and `lab`); ignore everything it says about where the site lives.
+`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, and so are `research/` and
+`Diary/` — so `git status` stays clean while those directories sit in the working directory. Do not "clean
+up" an untracked directory here; check *Context that is not in this repository* below first.
 
 Bumping the engine means editing `NOTEPUB_REF` in **two** places — `scripts/build.sh` and the `env:` block of
 `.github/workflows/pages.yml` — or CI builds against a different commit than you do.
@@ -389,7 +386,7 @@ article names a `cta_service` (no search visitor lands on a dead end) and that a
 
 `stage` is hand-maintained and lags, and the check does not look at it — most `written` clusters have
 articles already live and in the sitemap, so read `stage` as intent, not as truth about what is published.
-The queue of what to write and measure next is in `backlog.md`. A `planned` cluster carries its chosen slug
+The queue of what to write and measure next is in `research/backlog.md`. A `planned` cluster carries its chosen slug
 and head phrase in `note`, not in `target_url`, which stays `null` until the page exists.
 
 **A cluster's `cases` list is a claim, not a fact — check it against the case files before writing.** Both
@@ -411,7 +408,7 @@ don't stretch it — razbor sells to people who do not yet know what to build, n
 
 **Don't edit an article's text, title or description on data below 100 impressions for its cluster.**
 The thresholds above that (rewrite the snippet below position 10, add internal links at 4–10, leave
-top-3 alone) are in `backlog.md`, declared before the numbers could argue.
+top-3 alone) are in `research/backlog.md`, declared before the numbers could argue.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
@@ -445,7 +442,7 @@ Each phrase therefore carries three numbers, and they are not interchangeable:
 
 Four traps the first wave walked into; examples and numbers are in `seo/wordstat.md`:
 
-- **Set the region to Russia before taking numbers.** The first wave, and the four `niche-research` exports
+- **Set the region to Russia before taking numbers.** The first wave, and the four `research/` exports
   added 2026-09-09, were taken on «все регионы» — comparable with each other, not with anything taken later.
 - **Rename every export after its target phrase.** Wordstat names them all `wordstat_top_queries (N).csv`
   with numbering restarting per session, so a second batch silently overwrites the first.
@@ -458,6 +455,31 @@ Strategy in one line: informational tail into the blog builds host trust, which 
 commercial pages on `/services/` rankable at all. Commercial-intent long tail goes to a service landing, never
 to an article — «сколько стоит сделать телеграм бота» is a post, «заказать телеграм бота для записи клиентов»
 is a landing.
+
+### Adding an article
+
+The order matters: the registry decides whether the article gets written at all, and it is the half that
+nothing in the build enforces.
+
+1. **Take the cluster from `seo/clusters.yaml`.** It has to be there already, with `target_url: null`.
+   A phrase with no cluster is not an article yet — it is a measurement, and it goes through
+   `wordstat_queue.py` → the worksheet → `wordstat_import.py` first.
+2. **Check the cluster's `cases` against `content/cases/*.md`.** The list is a claim someone made when the
+   cluster was seeded, and two of them were wrong. A cluster with no real case behind it does not get written.
+3. **Pick `cta_service` from the slugs in `content/services/`** — the service that does the thing the article
+   describes, `razbor` only when the reader arrives carrying a solution before a problem.
+4. **Write `content/blog/<slug>.md`** against the frontmatter contract above. Both dates, always:
+   `published_at` sorts the feed, `date_label` is the only thing the templates can print.
+5. **Close the join in the registry**: `target_url: "/blog/<slug>/"`, `stage: written`, and the same
+   `cta_service` as the file. One cluster, one URL, and the two sides must name the same service.
+6. **`python3 scripts/clusters_check.py`** — it exits 1 on exactly the four ways this goes wrong, and prints
+   the stage spread so the new article shows up in the counts.
+7. **`./scripts/build.sh`** — the census line must read one more статья than last time. That is the check
+   that the file landed as an `article` and not as something else.
+
+Nothing else has to be registered: `posts_all` picks the file up, the feed paginates itself and `llms.txt`
+is rebuilt from frontmatter. A *service landing* is the opposite case — it needs its item on `/services/`
+or it is an orphan.
 
 ## The site assistant
 
@@ -609,11 +631,11 @@ site's; `docs/deploy-history.md` has the details.
   Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05. Yandex has taken it in: as of the
   2026-09-14 export, 68 of 70 sitemap URLs are searchable, and articles published 09-09 and 09-10 were
   already in. Coverage is therefore no longer the unknown — but traffic is too thin (27 impressions in
-  twelve days) to call any page weak; see the thresholds in `backlog.md`.
+  twelve days) to call any page weak; see the thresholds in `research/backlog.md`.
 - **IndexNow effectively submits the whole site on every deploy**, which is the opposite of what the script
   was written for. `lastmod` equals the build date on every sitemap URL because `updated_at` is set in only a
   handful of files, so the "changed today" filter matches everything. Left alone on purpose (see
-  `backlog.md`): two articles reached the index within two days of publication and blanket submission
+  `research/backlog.md`): two articles reached the index within two days of publication and blanket submission
   probably helped, and at well under a hundred pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
   sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
   `curl` to the same host works).
@@ -668,29 +690,46 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 
 ## Context that is not in this repository
 
-Things this repo does not contain but that most conversations here depend on. All are gitignored or live
-elsewhere, so a fresh session sees none of them until it looks. Every entry below with a bare name is an
-untracked directory or file sitting in the working tree — that is why `git status` is clean while the
-directory listing is full.
+**Two layers, one working directory.** Everything outside `research/` and `Diary/` is the **public layer**:
+the site, its SEO registry and scripts, deployed from this public repo. `research/` is the **research layer**
+— a separate private git repository nested here and ignored by this one. `Diary/` belongs to neither repo:
+it holds live credentials and syncs through Obsidian's `remotely-save`, so it stays out of git and is only
+read in place. The root directory is also the Obsidian vault, which is why the layers share it.
+
+**The vault config is tracked, its workspace file is not.** `.obsidian/` sits in the public repo — the
+appearance, the plugin list and the `obsidian-git` plugin itself. `workspace.json` was there too and was
+removed from the index on 2026-09-16: it records `lastOpenFiles` for the whole vault, and the vault root is
+shared with `Diary/` and `research/`, so committing it publishes the names of private files. Nothing had
+leaked — the tracked copy still listed pre-restructure site paths — but it would have on the next commit
+that picked it up.
+
+The public layer is not the most important part of the system, only the one with the most attention right
+now. What the current vector is, and how it should be corrected against the rest, lives in
+`research/vector.md` — read it before deciding what is urgent.
 
 | where | what |
 |---|---|
-| `context/` | map of the `Diary/` archive, the author's portrait and Threads mechanics — read this first |
-| `Diary/` | Obsidian archive, February 2025 → August 2026 |
-| `positioning/` | positioning: diagnosis, Trout-style positions, self-presentations, verification protocol |
-| `threads-plan/` | Threads content plan, hook rules, profile packaging |
+| `research/observatory/` | the observable system: Diary grouped into Obsidian canvases, hypotheses with kill criteria, an agent run on new data. **To get the system into context, run `python3 research/observatory/observe.py context`** (under a second, ~2k tokens), then descend with `show <id>`, `find <words>`, `near <note>`, `hyp <name>` instead of reading `Diary/` file by file; details in its `README.md` |
+| `research/vector.md` | the current vector of attention: what it is, why, until when, and what would correct it |
+| `research/backlog.md` | deliberately deferred tasks, each with a reason and a threshold for return — read it before "fixing" something that looks unfinished |
+| `research/context/` | map of the `Diary/` archive, the author's portrait, Threads mechanics, the 2031 horizon |
+| `research/niche/` | the search for a product niche: method, signal registry, Wordstat exports, the RFM and outstaff demos. Writes upstream into `seo/` — the tables clusters and the three rejections came from there. Has its own `CLAUDE.md` |
+| `research/positioning/` | positioning: diagnosis, Trout-style positions, self-presentations, verification protocol |
+| `research/threads-plan/` | Threads content plan, hook rules, profile packaging |
+| `research/situation/` | outbound: letters to studios, catalogues, TSVs of recipients |
+| `research/Пюре райтинг/` | notes from someone else's Threads channel on copywriting — a style sample to read, **not the author's own text**: nothing from it goes into `content/` |
+| `Diary/` | Obsidian archive, February 2025 → August 2026; outside both repos |
 | `~/Documents/consciousness-revelation` | separate public repo: a preregistered experiment with a negative result |
-| `Пюре райтинг/` | notes from someone else's Threads channel on copywriting — a style sample to read, **not the author's own text**: nothing from it goes into `content/` |
-| `situation/` | outbound: letters to studios, catalogues, TSVs of recipients |
-| `backlog.md` | deliberately deferred tasks, each with a reason and a threshold for return — read it before "fixing" something that looks unfinished |
 | `../notepub` | the engine itself: the Go repo `build.sh` installs the binary from at `NOTEPUB_REF` |
-| `~/Documents/niche-research` | the search for a product niche: method, signal registry, Wordstat exports. Writes upstream into `seo/` — the tables clusters and the three rejections came from there |
+
+A commit or push in `research/` goes to the private repo, not to the site — check `pwd` before running git,
+since both repos answer from inside the vault.
 
 `Diary/` holds client contracts, therapy material and live credentials — nothing from it is published without
 explicit permission. Live keys in it are due for rotation.
 
 Durable facts about the author and the strategy are also in the session memory directory, which
-loads automatically; `context/` holds what is too long for that.
+loads automatically; `research/context/` holds what is too long for that.
 
 ## Commits
 

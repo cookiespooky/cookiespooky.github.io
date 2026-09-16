@@ -4,10 +4,8 @@ dist-dev/
 artifacts/
 .bin/
 .DS_Store
-Diary/
-positioning/
-threads-plan/
-context/
-Пюре райтинг/
-situation/
-backlog.md
+Diary
+research/
+# Хранит список последних открытых файлов по всему хранилищу — то есть пути
+# из Diary/ и research/ — в публичном репозитории.
+.obsidian/workspace.json
