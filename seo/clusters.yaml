@@ -362,29 +362,29 @@ clusters:
   - id: bot-vs-miniapp
     direction: bots
     intent: informational
-    stage: planned
+    stage: written
     page_type: article
     money_distance: 2
     cta_service: telegram-bot
-    cases: [hookapp, graphreach, td-graph]
-    target_url: null
+    cases: [recca, ai-qualification-bot, kalendar-bronirovaniya]
+    target_url: "/blog/bot-ili-mini-prilozhenie/"
     competition: null
     total_count: 60
     keys:
       - { phrase: "чем отличается телеграм бот от мини приложения", count: null, count_wide: 1 }
       - { phrase: "telegram mini app что это", count: null, count_wide: 59 }
       - { phrase: "что выбрать бот или мини приложение", count: null, count_wide: 0 }
-    note: "Три кейса на мини-приложениях. Вопрос, который реально задают перед заказом. 2026-09-13: взят третьим и с оговоркой. Из 60 почти всё лежит на «telegram mini app что это» (59) — определительный запрос, где в топе документация Telegram и крупные медиа, и топ-3 нам там не светит. Писать под сравнительные формулировки («чем отличается», «что выбрать»), у которых частота почти нулевая: ценность страницы здесь не в трафике, а в том, что она отвечает на вопрос, который задают перед заказом, и ведёт на /services/telegram-bot/. Мерить по внутренним переходам, а не по позициям — как site-order-commercial. Слаг: bot-ili-mini-prilozhenie."
+    note: "Три кейса на мини-приложениях. Вопрос, который реально задают перед заказом. 2026-09-13: взят третьим и с оговоркой. Из 60 почти всё лежит на «telegram mini app что это» (59) — определительный запрос, где в топе документация Telegram и крупные медиа, и топ-3 нам там не светит. Писать под сравнительные формулировки («чем отличается», «что выбрать»), у которых частота почти нулевая: ценность страницы здесь не в трафике, а в том, что она отвечает на вопрос, который задают перед заказом, и ведёт на /services/telegram-bot/. Мерить по внутренним переходам, а не по позициям — как site-order-commercial. Слаг: bot-ili-mini-prilozhenie. 2026-09-14: написана. Кейсы в реестре были ошибкой — hookapp (PWA), graphreach (Nuxt + расширение Chrome) и td-graph (Electron) не мини-приложения телеграма; на сайте мини-приложение есть только у recca. Заменены на recca, ai-qualification-bot (случай «хватает бота») и kalendar-bronirovaniya (случай «нужен экран»). Своя фактура — вне сайта: ~/Documents/tma-demo (статика + облачная функция + YDB, проверка initData с TTL) и ранний pet-projects/ai-thingy, где проверка initData не смотрела на auth_date, а тема угадывалась по чёрному фону; обе ошибки разобраны в статье."
 
   - id: bot-hosting-serverless
     direction: bots
     intent: informational
-    stage: planned
+    stage: written
     page_type: article
     money_distance: 2
     cta_service: telegram-bot
-    cases: [website-ai-assistant, order-flow]
-    target_url: null
+    cases: [ai-qualification-bot, gpt-tutor, website-ai-assistant]
+    target_url: "/blog/gde-hostit-telegram-bota/"
     competition: null
     total_count: 66
     keys:
@@ -392,7 +392,7 @@ clusters:
       - { phrase: "телеграм бот на yandex cloud functions", count: null, count_wide: 0 }
       - { phrase: "бот на бесплатном хостинге", count: null, count_wide: 59 }
       - { phrase: "serverless телеграм бот", count: null, count_wide: 0 }
-    note: "Yandex Cloud Functions в стеке трёх кейсов, есть что показать по расчёту free tier. 2026-09-13: взят вторым. Фактура своя и в выдаче редкая — реальный расчёт бесплатного тарифа на живых функциях (lab/ в репозитории сайта) вместо обзора хостингов; головная фраза «бот на бесплатном хостинге» (59). Слаг: gde-hostit-telegram-bota — на уровне темы, переживёт перенацеливание. Граница с site-without-hosting обязательна: там бесплатный хостинг для сайта (GitHub Pages), здесь для бота — общая лексика «бесплатный хостинг», разные объекты. Направление ботов — единственный замкнутый контур сайта (статья -> /services/telegram-bot/ -> заявка), это пятая статья в него."
+    note: "Yandex Cloud Functions в стеке трёх кейсов, есть что показать по расчёту free tier. 2026-09-13: взят вторым. Фактура своя и в выдаче редкая — реальный расчёт бесплатного тарифа на живых функциях (lab/ в репозитории сайта) вместо обзора хостингов; головная фраза «бот на бесплатном хостинге» (59). Слаг: gde-hostit-telegram-bota — на уровне темы, переживёт перенацеливание. Граница с site-without-hosting обязательна: там бесплатный хостинг для сайта (GitHub Pages), здесь для бота — общая лексика «бесплатный хостинг», разные объекты. Направление ботов — единственный замкнутый контур сайта (статья -> /services/telegram-bot/ -> заявка), это пятая статья в него. 2026-09-14: написана, title под головную фразу — «Бот на бесплатном хостинге: расчёт на облачных функциях». Кейсы поправлены: order-flow к облачным функциям отношения не имеет, а в стеке Yandex Cloud Functions на сайте — ai-qualification-bot (приёмная функция + очередь + рабочая) и gpt-tutor; website-ai-assistant остаётся как контрпример — живёт на сервере из-за потоковой передачи. Тарифы сверены с yandex.cloud/ru/docs 2026-09-14: 1 млн вызовов и 10 ГБ×час бесплатно, 6,48 ₽/ГБ×час, 18,97 ₽/млн; Message Queue 100 000 запросов, API Gateway 100 000. Хвост выгрузки «бесплатный хостинг тг бота на python» (14–15) закрыт разделом про вебхук вместо опроса."
 
   - id: bot-payments
     direction: bots
