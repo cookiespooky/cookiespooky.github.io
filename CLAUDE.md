@@ -242,6 +242,11 @@ and the tab scrolls nowhere; miss the tab and the section is unreachable from th
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`).
 
+Adding a case, in order: copy an existing `content/cases/*.md`; set `group` to an existing value (or make the
+four edits above); drop the webp into `theme/assets/shots/`, run `python3 scripts/shots.py` and point `og_image`
+at the generated `/assets/shots/og/` card; run `./scripts/build.sh` and check that the census shows one more
+кейс; then run `python3 scripts/clusters_check.py` and check that the case landed in the group split you meant.
+
 ### Screenshots and their derivatives
 
 `theme/assets/shots/*.webp` is the source: what the case page itself shows. `scripts/shots.py` derives two
@@ -260,8 +265,9 @@ If you add a thumbnail somewhere new, point it at `shots/thumbs/`, never at `sho
 once made the home page pull 5.5 MB to draw 180 px rows.
 
 Thumbnails carry `alt="Экран проекта «{{ .Title }}»"` — the same wording as the full screenshot in
-`case.html`. They were `alt=""` in all eight places that render a `case-row` (six group sections in
-`home.html`, plus `case.html`, `service.html`, `note.html`, `tool.html`, `article.html`), which a Bing site
+`case.html`. They were `alt=""` in all eleven places that render a case thumbnail (six group sections in
+`home.html`, plus `case.html`, `service.html`, `note.html`, `tool.html`, `article.html`; `blog.html` and
+`notes.html` reuse the `case-row` class for posts but draw no image), which a Bing site
 scan reported on 2026-09-07 as "Alt attribute for images is missing" across 39 pages: **Bing counts an empty
 `alt` as a missing one**, so the WCAG argument that the adjacent case title makes the image decorative does
 not buy anything here. Two `alt=""` are deliberate and were left alone — the 30×30 brand photo in
