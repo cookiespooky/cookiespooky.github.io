@@ -51,11 +51,15 @@
           </div>
         </div>
 
+        {{- /* Заметка со своим призывом (cta_url) уводит в одно место: блок внизу страницы.
+               Иначе в сайдбаре осталась бы вторая кнопка, ведущая мимо. */}}
+        {{- if not .FM.cta_url }}
         <div class="aside-cta">
           <h3 class="site-footer__label">Обсудить задачу</h3>
           <p>Напишите пару предложений о задаче — отвечу, как её решить и сколько это займёт.</p>
           <a class="btn btn--ink" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
         </div>
+        {{- end }}
       </aside>
     </div>
   </div>

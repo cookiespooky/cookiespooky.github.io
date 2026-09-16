@@ -51,6 +51,8 @@ fields:
     - faq
     - cta_title
     - cta_note
+    - cta_url        # куда ведёт кнопка призыва; иначе settings.telegram_url
+    - cta_button     # надпись на кнопке призыва
     - razbor         # блок «Разбор» на главной: title/text/items/link
     - quick          # строки в карточке первого экрана
     - more_items     # небольшие работы без отдельных страниц

@@ -6,7 +6,7 @@
       <p>{{ if .FM.cta_note }}{{ .FM.cta_note }}{{ else }}Напишите в Telegram пару предложений о задаче: что за бизнес, что должно получиться и что уже пробовали. В ответ — понятный план и цена. Без брифов на десять страниц.{{ end }}</p>
     </div>
     <div class="cta__actions">
-      <a class="btn btn--light" href="{{ .Settings.telegram_url }}" rel="noopener" target="_blank">Написать в Telegram</a>
+      <a class="btn btn--light" href="{{ if .FM.cta_url }}{{ .FM.cta_url }}{{ else }}{{ .Settings.telegram_url }}{{ end }}" rel="noopener" target="_blank">{{ if .FM.cta_button }}{{ .FM.cta_button }}{{ else }}Написать в Telegram{{ end }}</a>
       <div class="contacts cta__contacts">
         <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank" aria-label="ВКонтакте"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg></a>
         <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg></a>
