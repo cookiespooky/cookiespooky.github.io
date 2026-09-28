@@ -16,105 +16,74 @@
       {{- end }}
     </section>
 
+    {{- /* Виджет в языке сайта: рамка как у живых демо (demo-calc), моноширинные подписи,
+           результат строками, как прибор лаборатории. Тон — ряд кнопок на виду, а не
+           выпадающее меню: пять вариантов одного перевода и есть то, что стоит сравнить.
+           tool.js держит хуки data-aa-*; сверка — diff из CLAUDE.md. */}}
     <div class="agency-tool" data-agency-analyzer data-endpoint="{{ .FM.endpoint }}">
-      <header class="agency-tool-header">
-        <h2>{{ if .FM.tool_prompt }}{{ .FM.tool_prompt }}{{ else }}Опишите ситуацию, которую хотите решить{{ end }}</h2>
-        <p class="agency-tool-subtitle">Получите перевод на объективный язык.</p>
-      </header>
-
-      <form class="agency-form" data-aa-form>
-        <div class="agency-input-shell" data-aa-input-shell>
-          <textarea
-            class="agency-textarea"
-            data-aa-text
-            maxlength="500"
-            placeholder="Например: Я хочу изменить свою жизнь, но не знаю, с чего начать"
-            required
-          ></textarea>
-
-          <div class="agency-submit-inline">
-            <div class="agency-counter"><span data-aa-char-count>0</span>/500</div>
-            <div class="agency-actions" data-aa-submit-row>
-              <button type="submit" class="agency-primary-btn is-icon" aria-label="Получить перевод" title="Получить перевод">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+      <form class="aa-frame" data-aa-form data-aa-input-shell>
+        <div class="aa-frame__bar">
+          <label class="aa-frame__title" for="aa-text">{{ if .FM.tool_prompt }}{{ .FM.tool_prompt }}{{ else }}Опишите ситуацию, которую хотите решить{{ end }}</label>
+          <span class="aa-frame__count"><span data-aa-char-count>0</span>/500</span>
+        </div>
+        <textarea
+          id="aa-text"
+          class="aa-text"
+          data-aa-text
+          maxlength="500"
+          rows="3"
+          placeholder="Например: Я хочу изменить свою жизнь, но не знаю, с чего начать"
+          required
+        ></textarea>
+        <div class="aa-examples">
+          <span class="aa-examples__label">или возьмите пример</span>
+          <button type="button" class="aa-example" data-aa-example>Надо позвонить клиенту, но всё время что-то мешает</button>
+          <button type="button" class="aa-example" data-aa-example>Меня не ценят на работе</button>
+          <button type="button" class="aa-example" data-aa-example>Не могу начать свой проект</button>
+        </div>
+        <div class="aa-frame__foot" data-aa-submit-row>
+          <span class="aa-frame__hint">Enter — отправить, Shift+Enter — новая строка</span>
+          <button type="submit" class="btn btn--ink aa-submit">Перевести <span aria-hidden="true">→</span></button>
         </div>
       </form>
 
-      <section class="agency-output" data-aa-output hidden>
-        <div class="agency-loader" data-aa-loader>
-          <span class="agency-loader-spinner" aria-hidden="true"></span>
-          <p>Анализирую формулировку и готовлю перевод...</p>
+      <p class="aa-error" data-aa-error role="alert" hidden></p>
+
+      <section class="aa-frame aa-out" data-aa-output aria-live="polite" hidden>
+        <div class="aa-loader" data-aa-loader>
+          <span class="aa-loader__bar" aria-hidden="true"></span>
+          <p>Разбираю формулировку и готовлю пять переводов</p>
         </div>
 
-        <article class="agency-result" data-aa-result hidden>
-          <p data-aa-source-text></p>
-          <h3>
-            Перевод
-            <span class="agency-filter-wrap" data-aa-filter-wrap>
-              <span class="agency-filter-main">
-                <button type="button" class="agency-filter-toggle" data-aa-filter-toggle aria-expanded="false" aria-haspopup="listbox">
-                  <span class="agency-filter-toggle-label" data-aa-current-filter-label>нейтральный</span>
-                  <span class="agency-filter-toggle-caret" aria-hidden="true">▾</span>
-                </button>
-
-                <span class="agency-filter-menu" data-aa-filter-menu hidden role="listbox" aria-label="Фильтр тона">
-                  <span class="agency-filter-item">
-                    <button type="button" data-aa-filter-option data-filter-key="neutral" class="agency-filter-option is-active">
-                      <span class="agency-filter-name">Нейтральный</span>
-                      <span class="agency-filter-meter" style="--aa-meter-color:#1ea971; --aa-meter-width:18%;"></span>
-                    </button>
-                  </span>
-                  <span class="agency-filter-item">
-                    <button type="button" data-aa-filter-option data-filter-key="direct" class="agency-filter-option">
-                      <span class="agency-filter-name">Прямолинейный</span>
-                      <span class="agency-filter-meter" style="--aa-meter-color:#6ccf5a; --aa-meter-width:36%;"></span>
-                    </button>
-                  </span>
-                  <span class="agency-filter-item">
-                    <button type="button" data-aa-filter-option data-filter-key="radical" class="agency-filter-option">
-                      <span class="agency-filter-name">Радикальный</span>
-                      <span class="agency-filter-meter" style="--aa-meter-color:#f2bf4f; --aa-meter-width:58%;"></span>
-                    </button>
-                  </span>
-                  <span class="agency-filter-item">
-                    <button type="button" data-aa-filter-option data-filter-key="aggressive" class="agency-filter-option">
-                      <span class="agency-filter-name">Агрессивный</span>
-                      <span class="agency-filter-meter" style="--aa-meter-color:#ea7f35; --aa-meter-width:78%;"></span>
-                    </button>
-                  </span>
-                  <span class="agency-filter-item">
-                    <button type="button" data-aa-filter-option data-filter-key="toxic" class="agency-filter-option">
-                      <span class="agency-filter-name">Токсичный</span>
-                      <span class="agency-filter-meter" style="--aa-meter-color:#d33a2f; --aa-meter-width:96%;"></span>
-                    </button>
-                  </span>
-                </span>
-              </span>
-            </span>
-          </h3>
-          <p data-aa-result-text></p>
-          <h3>Разбор агентности</h3>
-          <p data-aa-result-analysis></p>
+        <article class="aa-result" data-aa-result hidden>
+          <div class="aa-frame__bar aa-tones" data-aa-filter-wrap>
+            <span class="aa-tones__label">тон перевода</span>
+            <div class="aa-tones__list" role="radiogroup" aria-label="Тон перевода">
+              <button type="button" role="radio" aria-checked="true" data-aa-filter-option data-filter-key="neutral" class="aa-tone is-active" style="--aa-level:1">нейтральный</button>
+              <button type="button" role="radio" aria-checked="false" data-aa-filter-option data-filter-key="direct" class="aa-tone" style="--aa-level:2">прямолинейный</button>
+              <button type="button" role="radio" aria-checked="false" data-aa-filter-option data-filter-key="radical" class="aa-tone" style="--aa-level:3">радикальный</button>
+              <button type="button" role="radio" aria-checked="false" data-aa-filter-option data-filter-key="aggressive" class="aa-tone" style="--aa-level:4">агрессивный</button>
+              <button type="button" role="radio" aria-checked="false" data-aa-filter-option data-filter-key="toxic" class="aa-tone" style="--aa-level:5">токсичный</button>
+            </div>
+          </div>
+          <dl class="aa-law">
+            <div class="aa-law__row"><dt>исходная</dt><dd class="aa-law__source" data-aa-source-text></dd></div>
+            <div class="aa-law__row"><dt>перевод<span class="aa-law__tone" data-aa-current-filter-label>нейтральный</span></dt><dd class="aa-law__main" data-aa-result-text></dd></div>
+            <div class="aa-law__row"><dt>разбор</dt><dd data-aa-result-analysis></dd></div>
+          </dl>
         </article>
       </section>
 
-      <p class="agency-error" data-aa-error hidden></p>
-
-      <div class="agency-actions agency-how-wrap">
-        <p class="agency-how-note">
+      <div class="aa-after">
+        <div data-aa-retry-wrap hidden>
+          <button type="button" class="btn btn--ghost aa-retry" data-aa-retry hidden>Разобрать другую фразу</button>
+        </div>
+        <p class="aa-after__note">
           Теперь это выбор. Если не знаете, что с ним делать, напишите
           <a href="{{ .Settings.telegram_url }}" data-aa-creator-link target="_blank" rel="noopener noreferrer">создателю</a>.
         </p>
-        <div class="agency-actions" data-aa-retry-wrap hidden>
-          <button type="button" class="agency-primary-btn agency-primary-btn-text agency-retry-btn" data-aa-retry hidden>Попробовать еще раз</button>
-        </div>
         {{- if .FM.how_it_works }}
-        <a class="agency-how-link" href="{{ .BaseURL }}/blog/{{ .FM.how_it_works }}/">Как это работает?</a>
+        <a class="aa-after__how" href="{{ .BaseURL }}/blog/{{ .FM.how_it_works }}/">Как это работает →</a>
         {{- end }}
       </div>
     </div>
