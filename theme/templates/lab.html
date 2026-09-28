@@ -1,0 +1,72 @@
+<div class="lab lab-index">
+  {{- /* Первый экран — место, а не экспонат: что здесь лежит, по какому правилу
+         сюда попадают и тот же прибор, что внутри каждой идеи. Ни превью, ни
+         карточек-решётки: список ниже — одна колонка текста, и классов,
+         похожих на case-row, в lab.css нет намеренно (08-laboratoriya.md). */}}
+  <section class="lab-entry shell">
+    <h1>{{ if .FM.hero_title }}{{ .FM.hero_title }}{{ else }}{{ .Page.Title }}{{ end }}</h1>
+    {{- if .FM.hero_lead }}
+    <p class="lab-entry__lead">{{ .FM.hero_lead }}</p>
+    {{- end }}
+    {{- if .FM.hero_note }}
+    <p class="lab-entry__note">{{ .FM.hero_note }}</p>
+    {{- end }}
+    {{ template "lab-law.html" . }}
+    {{- if .Body }}
+    <div class="lab-entry__body prose">{{ .Body }}</div>
+    {{- end }}
+  </section>
+
+  <section class="lab-list shell" aria-labelledby="lab-list-title">
+    <h2 class="lab-list__label" id="lab-list-title">Идеи</h2>
+    {{- if .Collections.ideas_all.Items }}
+    <ol class="lab-list__items">
+      {{- range .Collections.ideas_all.Items }}
+      <li>
+        <a class="lab-item" href="{{ $.BaseURL }}/lab/{{ .Slug }}/">
+          <span class="lab-item__title">{{ .Title }}</span>
+          {{- if .FM.summary }}
+          <span class="lab-item__summary">{{ .FM.summary }}</span>
+          {{- end }}
+          {{- if .FM.status }}
+          <span class="lab-status lab-status--{{ if .FM.status_kind }}{{ .FM.status_kind }}{{ else }}idea{{ end }}">{{ .FM.status }}</span>
+          {{- end }}
+        </a>
+      </li>
+      {{- end }}
+    </ol>
+    {{- end }}
+  </section>
+
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "{{ .BaseURL }}/lab/#collection",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" },
+    "hasPart": [
+      {{- range $i, $idea := .Collections.ideas_all.Items }}
+      {{- if $i }},{{ end }}
+      {
+        "@type": "CreativeWork",
+        "name": {{ $idea.Title }},
+        "url": "{{ $.BaseURL }}/lab/{{ $idea.Slug }}/"
+      }
+      {{- end }}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+</div>

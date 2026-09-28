@@ -1,0 +1,110 @@
+{{- /* Комната «дерево прогона»: один год прототипа игры, выращенный месяц за месяцем.
+       Данные — вывод ~/Documents/np-personal/projects/thechoice/tree-export.js lyudi 5, вставлены сюда как есть:
+       без сети, работает при выключенном бэкенде игры. Прогон — случайный игрок с
+       фиксированным seed; мир прототипа детерминирован и никого не описывает, партии
+       из parties/ сюда не попадают по построению. Seed 5 выбран из первых восьми по
+       каждой цели за то, что среди погасших веток есть все три исхода — хороший, так
+       себе и плохой; выбор назван в подписи. Обновить: перезапустить скрипт и заменить
+       JSON целиком. Префикс rtree__. */ -}}
+<figure class="rtree" data-rtree>
+  <svg class="rtree__svg" role="img" aria-label="Дерево одного прогона игры: двенадцать месяцев, на каждом три варианта, выбран один"></svg>
+  <figcaption class="rtree__cap">
+    <p class="rtree__end" data-rtree-end></p>
+    <p class="rtree__legend"><span class="rtree__key rtree__key--path"></span>прожитый год
+      <span class="rtree__key rtree__key--good"></span>хорошо
+      <span class="rtree__key rtree__key--mid"></span>так себе
+      <span class="rtree__key rtree__key--bad"></span>плохо — чем кончилось бы, если бы здесь свернуть, а дальше поступать так же</p>
+    <p class="rtree__src">Прогон прототипа: случайный игрок, цель «<span data-rtree-goal></span>», seed <span data-rtree-seed></span>. Повторяется командой <code>node tree-export.js lyudi 5</code>.</p>
+  </figcaption>
+  <script type="application/json" data-rtree-data>{"source":"thechoice/tree-export.js","goal":"Жизнь среди людей","seed":5,"ending":{"id":"iznos","title":"Год на износ","tone":"bad"},"steps":[{"name":"январь","offered":[{"text":"Помогать другим бесплатно","chosen":true},{"text":"Купить курс","ending":{"id":"bankrot","title":"Деньги кончились","tone":"bad"}},{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"февраль","offered":[{"text":"Больше времени с близкими","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}},{"text":"Отказаться от заказа ради идеи","chosen":true},{"text":"Взять месяц отдыха","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"март","offered":[{"text":"Рассказать об идее публично","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Назвать цену за разбор","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Устроить встречу для знакомых","chosen":true}]},{"name":"апрель","offered":[{"text":"Разобрать мысли на листе","chosen":true},{"text":"Больше времени с близкими","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}},{"text":"Пойти в штат","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"май","offered":[{"text":"Взять месяц отдыха","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","chosen":true},{"text":"Помогать другим бесплатно","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"июнь","offered":[{"text":"Помогать другим бесплатно","chosen":true},{"text":"Устроить встречу для знакомых","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Взять месяц отдыха","ending":{"id":"pochti","title":"Почти готово","tone":"mid"}}]},{"name":"июль","offered":[{"text":"Разобрать мысли на листе","chosen":true},{"text":"Вечерами делать идею","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"август","offered":[{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","chosen":true},{"text":"Взять заказ на разработку","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"сентябрь","offered":[{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Взять заказ на разработку","chosen":true},{"text":"Помогать другим бесплатно","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}}]},{"name":"октябрь","offered":[{"text":"Позвать партнёра","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Взять кредит на идею","chosen":true}]},{"name":"ноябрь","offered":[{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Разобрать мысли на листе","chosen":true}]},{"name":"декабрь","offered":[{"text":"Взять месяц отдыха","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Помогать другим бесплатно","chosen":true},{"text":"Пойти в штат","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]}]}</script>
+</figure>
+<style>
+  .rtree { margin: 0; }
+  .rtree__svg { display: block; width: 100%; height: auto; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); background: var(--surface); }
+  .rtree__svg text { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-1); }
+  .rtree__svg .rtree__month { fill: var(--muted-3); font-size: 11px; }
+  .rtree__svg .rtree__alt { transition: opacity 0.9s var(--ease), fill 0.9s var(--ease), stroke 0.9s var(--ease); }
+  .rtree__svg .rtree__row { opacity: 0; transition: opacity 0.35s var(--ease); }
+  .rtree__svg .rtree__row.is-on { opacity: 1; }
+  .rtree__cap { margin-top: 14px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .rtree__cap p + p { margin-top: 6px; }
+  .rtree__end { min-height: 1.6em; color: var(--ink); }
+  .rtree__src { color: var(--muted-2); font-size: 12px; }
+  .rtree__src code { font-family: inherit; }
+  .rtree__key { display: inline-block; width: 9px; height: 9px; margin: 0 6px 0 10px; border-radius: 50%; vertical-align: -1px; }
+  .rtree__key--path { margin-left: 0; background: var(--accent); }
+  .rtree__key--good { background: #2e8b57; opacity: .55; }
+  .rtree__key--mid  { background: #b8860b; opacity: .55; }
+  .rtree__key--bad  { background: #c0392b; opacity: .55; }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('[data-rtree]');
+  if (!root) return;
+  var d = JSON.parse(root.querySelector('[data-rtree-data]').textContent);
+  var svg = root.querySelector('svg'), NS = 'http://www.w3.org/2000/svg';
+  var TONE = { good: '#2e8b57', mid: '#b8860b', bad: '#c0392b' };
+  var narrow = root.clientWidth < 560;
+  var ROW = 40, X0 = narrow ? 64 : 96, COL = narrow ? 26 : 34, TX = X0 + COL * 2 + 22, W = narrow ? 360 : 720;
+  var H = 24 + ROW * d.steps.length;
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  root.querySelector('[data-rtree-goal]').textContent = d.goal;
+  root.querySelector('[data-rtree-seed]').textContent = d.seed;
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(n); return n;
+  }
+  function cut(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+  var pos = function (t, i) { return [X0 + COL * i, 20 + ROW * t]; };
+  var rows = [], alts = [], prev = null, tones = { good: 0, mid: 0, bad: 0 };
+  d.steps.forEach(function (st, t) {
+    var g = el('g', { 'class': 'rtree__row' }), ci = 0;
+    st.offered.forEach(function (o, i) { if (o.chosen) ci = i; });
+    el('text', { x: 0, y: pos(t, 0)[1] + 4, 'class': 'rtree__month' }, g).textContent = st.name;
+    st.offered.forEach(function (o, i) {
+      var p = pos(t, i);
+      if (prev) el('line', { x1: prev[0], y1: prev[1], x2: p[0], y2: p[1], stroke: o.chosen ? 'var(--accent)' : 'var(--line-strong)', 'stroke-width': o.chosen ? 2 : 1, 'class': o.chosen ? '' : 'rtree__alt' }, g);
+    });
+    st.offered.forEach(function (o, i) {
+      var p = pos(t, i);
+      var c = el('circle', { cx: p[0], cy: p[1], r: o.chosen ? 6 : 5, fill: o.chosen ? 'var(--accent)' : 'var(--surface)', stroke: o.chosen ? 'var(--accent)' : 'var(--ink-2)', 'stroke-width': 1.5 }, g);
+      var title = el('title', {}, c);
+      if (o.chosen) title.textContent = o.text;
+      else {
+        title.textContent = o.text + ' → ' + o.ending.title;
+        c.setAttribute('class', 'rtree__alt');
+        alts.push({ node: c, tone: o.ending.tone });
+        tones[o.ending.tone] = (tones[o.ending.tone] || 0) + 1;
+      }
+    });
+    el('text', { x: TX, y: pos(t, 0)[1] + 4 }, g).textContent = cut(st.offered[ci].text, narrow ? 24 : 58);
+    prev = pos(t, ci);
+    rows.push({ g: g, alts: alts.slice() });
+  });
+  var endEl = root.querySelector('[data-rtree-end]');
+  var total = tones.good + tones.mid + tones.bad;
+  var endText = 'Итог года: «' + d.ending.title + '». Погасло вариантов: ' + total +
+    '. Если бы свернуть на любом из них — хорошо ' + tones.good + ', так себе ' + tones.mid + ', плохо ' + tones.bad + '.';
+  function fade(a) {
+    a.node.setAttribute('fill', TONE[a.tone]); a.node.setAttribute('stroke', TONE[a.tone]);
+    a.node.style.opacity = 0.45;
+  }
+  function finish() { rows.forEach(function (r) { r.g.classList.add('is-on'); }); alts.forEach(fade); endEl.textContent = endText; }
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still || !('IntersectionObserver' in window)) { finish(); return; }
+  var io = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    var i = 0, seen = 0;
+    (function tick() {
+      if (i >= rows.length) { endEl.textContent = endText; return; }
+      rows[i].g.classList.add('is-on');
+      var mine = rows[i].alts.slice(seen); seen = rows[i].alts.length;
+      setTimeout(function () { mine.forEach(fade); }, 420);
+      i++; setTimeout(tick, 480);
+    })();
+  }, { threshold: 0.25 });
+  io.observe(root);
+})();
+</script>

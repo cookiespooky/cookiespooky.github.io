@@ -1,0 +1,94 @@
+{{- /* Комната «текст из букв»: опыт Шеннона 1948 года. Элементы — 33 буквы, пробел и
+       знаки препинания; правило — статистика корпуса: следующая буква выбирается так
+       же часто, как она шла в романе после тех же k букв. Ручка — k, от 0 до 5.
+       Корпус — первые 120 000 знаков «Преступления и наказания» (общественное
+       достояние, текст с ilibrary.ru, строчными, без кавычек), лежит статикой в
+       static/lab/letters/ и грузится, когда комната показалась. Две меры считаются
+       на месте: доля настоящих слов (есть в корпусе) и самая длинная дословная
+       цитата. Прогон в node, по 20 на k, медианы: слова 4/9/26/46/74/89 %, цитата
+       5/7/9/11/16/21 знаков. Первая растёт с k — это порядок; вторая растёт тоже, и на k = 5 правило
+       уже переписывает книгу кусками — это граница, и она названа. k = 0 — контроль:
+       буквы с правильными частотами и ничего больше. Префикс rlet__. */ -}}
+<figure class="rlet" data-rlet data-src="{{ .BaseURL }}/lab/letters/crime-and-punishment.txt" style="margin:0">
+  <p class="rlet__text" data-rlet-text aria-live="polite">Загружаю роман…</p>
+  <div class="rord-knob">
+    <label for="rlet-k">сколько предыдущих букв помнит правило</label>
+    <input id="rlet-k" type="range" min="0" max="5" step="1" value="0" data-rlet-k disabled>
+    <div class="rlet__stops" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+  </div>
+  <p class="rord-read" data-rlet-read></p>
+  <figcaption class="rord-cap">Материал — первые 120 тысяч знаков «Преступления и наказания». <button type="button" class="rord-btn" data-rlet-again disabled>ещё раз</button></figcaption>
+</figure>
+<style>
+  .rlet__text { max-width: 520px; min-height: 9.5em; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line-strong);
+                font-size: 17px; line-height: 1.6; color: var(--ink); overflow-wrap: anywhere; }
+  .rlet__stops { display: flex; justify-content: space-between; padding: 0 2px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-3); }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('[data-rlet]');
+  if (!root) return;
+  var out = root.querySelector('[data-rlet-text]'), read = root.querySelector('[data-rlet-read]');
+  var input = root.querySelector('[data-rlet-k]'), again = root.querySelector('[data-rlet-again]');
+  var corpus = '', vocab = null, models = {}, LEN = 320;
+
+  function model(k) {
+    if (models[k]) return models[k];
+    var m = new Map();
+    for (var i = k; i < corpus.length; i++) {
+      var ctx = corpus.slice(i - k, i), list = m.get(ctx);
+      if (!list) m.set(ctx, list = []);
+      list.push(corpus[i]);
+    }
+    return (models[k] = m);
+  }
+  function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
+  function generate(k) {
+    // начало — k букв из случайного места романа, с начала слова; в вывод оно не идёт
+    var p = corpus.indexOf(' ', Math.floor(Math.random() * (corpus.length - 200))) + 1;
+    var text = corpus.slice(p, p + k), res = '';
+    while (res.length < LEN) {
+      var c = null;
+      for (var j = k; j >= 0 && c === null; j--) {        // тупиковый контекст — на порядок ниже
+        var list = model(j).get(text.slice(text.length - j));
+        if (list) c = pick(list);
+      }
+      text += c; res += c;
+    }
+    return res;
+  }
+  function measure(s) {
+    var words = s.split(/[^а-яё-]+/).slice(1, -1).filter(function (w) { return w.length > 1; });
+    var real = words.filter(function (w) { return vocab.has(w); }).length;
+    var best = 0, i = 0;                                   // самая длинная дословная цитата
+    while (i + best < s.length) { if (corpus.indexOf(s.substr(i, best + 1)) >= 0) best++; else i++; }
+    return { share: words.length ? real / words.length : 0, quote: best };
+  }
+  var WHAT = [
+    'Правило ничего не помнит: каждая буква выбрана только по тому, как часто она встречается в романе. Частоты верные, текста нет. Цитата в пять-семь знаков здесь — совпадение, и это уровень, с которым сравнивать остальное.',
+    'Правило помнит одну букву назад. Появляются сочетания, которые можно произнести, и почти нет слов.',
+    'Две буквы назад. Слоги, короткие слова, язык уже узнаётся.',
+    'Три буквы назад. Настоящих слов около половины, фразы ещё нет.',
+    'Четыре буквы назад. Настоящие три слова из четырёх, появляются обороты и интонация романа — при том, что правило не знает ни слова, ни смысла.',
+    'Пять букв назад. Настоящих слов почти все, но правило уже переписывает роман кусками в несколько слов: это не порядок из правил, а память. Здесь опыт кончается.'
+  ];
+  function run() {
+    var k = +input.value, s = generate(k), m = measure(s);
+    out.textContent = s;
+    read.innerHTML = '<b>k = ' + k + '</b>. ' + WHAT[k] + ' Настоящих слов — ' + Math.round(m.share * 100) +
+      '%, самая длинная дословная цитата из романа — ' + m.quote + ' ' + (m.quote % 10 === 1 && m.quote % 100 !== 11 ? 'знак' : m.quote % 10 >= 2 && m.quote % 10 <= 4 && (m.quote % 100 < 10 || m.quote % 100 >= 20) ? 'знака' : 'знаков') + '.';
+  }
+  function load() {
+    fetch(root.getAttribute('data-src')).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (t) {
+      corpus = t; vocab = new Set(t.split(/[^а-яё-]+/).filter(function (w) { return w.length > 1; }));
+      input.disabled = again.disabled = false; run();
+    }).catch(function () { out.textContent = 'Роман не загрузился. Обновите страницу.'; });
+  }
+  input.addEventListener('input', run);
+  again.addEventListener('click', run);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '400px' });
+    io.observe(root);
+  } else load();
+})();
+</script>

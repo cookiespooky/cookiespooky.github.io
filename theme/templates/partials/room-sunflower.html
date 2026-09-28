@@ -1,0 +1,92 @@
+{{- /* Комната «подсолнух». Элементы — 900 точек; правило — каждую следующую повернуть
+       на один и тот же угол и отодвинуть так, чтобы площадь на точку была одна:
+       r ~ √i. Ручка — угол. Что видно, считается, а не подписывается на глаз:
+       цепная дробь доли оборота. Большое число в ней значит, что угол почти равен
+       простой дроби p/q, и точки ложатся в q лучей с дырами между ними — контроль.
+       У золотого угла дробь из одних единиц, он хуже всех приближается простыми
+       дробями, и знаменатели приближений — числа Фибоначчи: столько спиралей видно.
+       Защёлка ±0.03° на золотом угле: слайдер с шагом 0.01° в него не попадает.
+       Префикс rsun__. */ -}}
+<figure class="rsun" data-rsun style="margin:0">
+  <div class="rord-stage"><canvas role="img" aria-label="Точки, уложенные по спирали с выбранным углом поворота"></canvas></div>
+  <div class="rord-knob">
+    <label for="rsun-a">угол между соседними точками, градусы</label>
+    <input id="rsun-a" type="range" min="13000" max="14500" step="1" value="13600" data-rsun-a>
+    <div class="rord-ticks" aria-hidden="true">
+      <span class="is-start" style="left:0">130°</span>
+      <span style="left:33.33%">135° = 3/8</span>
+      <span style="left:50.05%">золотой</span>
+      <span class="is-end" style="left:100%">145°</span>
+    </div>
+  </div>
+  <p class="rord-read" data-rsun-read aria-live="polite"></p>
+  <figcaption class="rord-cap">Точка за точкой: повернуть на угол, отодвинуть. Больше ничего.</figcaption>
+</figure>
+<script>
+(function () {
+  var root = document.querySelector('[data-rsun]');
+  if (!root) return;
+  var canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  var input = root.querySelector('[data-rsun-a]'), read = root.querySelector('[data-rsun-read]');
+  var N = 900, GOLD = 180 * (3 - Math.sqrt(5)), deg = 136, gold = false;
+
+  // Цепная дробь x ∈ (0, 1): части a1..an и знаменатели приближений q1..qn.
+  function cf(x) {
+    var a = [], q = [], q0 = 1, q1 = 0, r = x;
+    for (var n = 0; n < 12 && r > 1e-9; n++) {
+      var inv = 1 / r, k = Math.floor(inv + 1e-9);
+      a.push(k); var qn = k * q0 + q1; q1 = q0; q0 = qn; q.push(qn);
+      r = inv - k;
+    }
+    return { a: a, q: q, ended: r <= 1e-9 };
+  }
+  function show(list, n) { return '[0; ' + list.slice(0, n).join(', ') + (list.length > n ? ', …' : '') + ']'; }
+
+  function draw() {
+    rordFit(canvas);
+    var s = canvas.width, c = s / 2, R = s * 0.46, k = R / Math.sqrt(N), th = deg * Math.PI / 180;
+    ctx.fillStyle = '#06080a'; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = '#e8ecff';
+    for (var i = 0; i < N; i++) {
+      var r = k * Math.sqrt(i + 0.5), a = i * th, d = s / 300 * (0.7 + 0.9 * r / R);
+      ctx.beginPath(); ctx.arc(c + r * Math.cos(a), c + r * Math.sin(a), d, 0, 6.2832); ctx.fill();
+    }
+  }
+  // Что видно на краю рисунка: самый большой знаменатель приближения, не больше QMAX
+  // (при 900 точках на краю помещается порядка полусотни рукавов). Дробь на нём
+  // кончилась — угол равен дроби точно, лучи прямые; следующее число большое — угол
+  // почти равен ей, лучи чуть закручены; иначе — спирали в обе стороны по двум
+  // последним знаменателям. Ближе к центру видны меньшие знаменатели того же ряда.
+  var QMAX = 60;
+  function text() {
+    var f = cf(deg / 360), a = f.a, q = f.q, n = -1;
+    for (var i = 0; i < q.length; i++) if (q[i] <= QMAX) n = i;
+    var lab = '<b>' + deg.toFixed(gold ? 3 : 2) + '°</b> — ', frac = show(a, Math.min(a.length, n + 3));
+    var near = q.slice(0, n + 1).join(', ');
+    if (gold) {
+      read.innerHTML = lab + 'золотой угол. Его цепная дробь — одни единицы после двойки, ' + show(a, 7) +
+        ': хуже него простыми дробями не приближается ничего. Знаменатели приближений — ' + near +
+        ', числа Фибоначчи. Столько спиралей и видно: от центра к краю по очереди, на краю — ' + q[n - 1] + ' в одну сторону и ' + q[n] + ' в другую.';
+    } else if (f.ended && n === q.length - 1) {
+      read.innerHTML = lab + 'цепная дробь ' + frac + ' кончилась: угол равен простой дроби оборота со знаменателем ' + q[n] +
+        ' точно. К краю точки ложатся в ' + q[n] + ' прямых лучей с пустотой между ними' + (n > 0 ? '; ближе к центру видны рукава по прежним знаменателям — ' + q.slice(0, n).join(', ') : '') + '.';
+    } else if (a[n + 1] >= 4) {
+      read.innerHTML = lab + 'цепная дробь ' + frac + ': после знаменателя ' + q[n] + ' в ней стоит ' + a[n + 1] +
+        '. Значит, угол почти равен простой дроби оборота со знаменателем ' + q[n] + ': к краю точки собираются в ' + q[n] +
+        ' лучей, чуть закрученных оттого, что «почти», и между лучами пустота.';
+    } else {
+      read.innerHTML = lab + 'цепная дробь ' + frac + ' — в ней одни малые числа, и простой дроби, на которую угол похож, нет. ' +
+        'Лучи не собираются: точки ложатся спиралями, на краю — ' + q[n - 1] + ' в одну сторону и ' + q[n] + ' в другую.';
+    }
+  }
+  function set() {
+    var v = +input.value / 100;
+    gold = Math.abs(v - GOLD) <= 0.03;
+    deg = gold ? GOLD : v;
+    draw(); text();
+  }
+  input.addEventListener('input', set);
+  window.addEventListener('resize', function () { if (rordFit(canvas)) draw(); });
+  set();
+})();
+</script>

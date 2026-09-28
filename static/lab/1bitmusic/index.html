@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONE BIT MUSIC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2306080a'/%3E%3Ctext x='8' y='12' font-size='11' text-anchor='middle' fill='%234fe08a' font-family='monospace'%3E1%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #06080a; --panel: #0d1115; --line: #1b2229; --line2: #242d36;
+    --fg: #c8d4dc; --dim: #5d6b77; --accent: #4fe08a; --hot: #e0a34f; --frozen: #6db4ff;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 12px/1.5 var(--mono); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 18px 16px 40px; }
+
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+           border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  h1 { font-size: 20px; letter-spacing: 5px; margin: 0; font-weight: 500; }
+  .sub { color: var(--dim); letter-spacing: 1px; }
+  .out-badge { margin-left: auto; border: 1px solid var(--line2); padding: 3px 9px;
+               color: var(--accent); letter-spacing: 2px; }
+
+  .transport { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; margin: 14px 0 10px; }
+  button { font: inherit; background: #12181d; color: var(--fg); border: 1px solid var(--line2);
+           padding: 7px 13px; cursor: pointer; letter-spacing: 1.5px; }
+  button:hover { background: #182027; border-color: #33404b; }
+  button:active { transform: translateY(1px); }
+  button.primary { border-color: #2f5f45; color: var(--accent); }
+  button.primary.on { background: #12301f; }
+  button.frz.on { border-color: #2f5378; color: var(--frozen); background: #101d2b; }
+
+  .chain { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 12px 0 0;
+           color: var(--dim); font-size: 11px; }
+  .chain b { color: var(--fg); font-weight: 500; letter-spacing: 1px;
+             border: 1px solid var(--line2); padding: 2px 8px; }
+  .chain b.tap { color: var(--accent); border-color: #2f5f45; }
+  .chain i { font-style: normal; color: var(--line2); }
+  .chain span { flex: 1 1 260px; min-width: 0; }
+  .master { display: flex; gap: 7px; align-items: center; color: var(--dim);
+            border: 1px solid var(--line2); padding: 5px 10px; letter-spacing: 1px; }
+  .master input { width: 90px; }
+  .master span { color: var(--hot); min-width: 26px; text-align: right; }
+  button#mute.on { border-color: #7a3b34; color: var(--hot); background: #2a1512; }
+
+  .seedbar { display: flex; gap: 10px; align-items: center; margin: 10px 0 14px;
+             flex-wrap: wrap; color: var(--dim); }
+  .seed { color: var(--hot); letter-spacing: 3px; font-size: 15px; }
+  .status { display: flex; gap: 16px; flex-wrap: wrap; border: 1px solid var(--line);
+            background: var(--panel); padding: 8px 12px; margin-bottom: 16px; }
+  .status b { color: var(--fg); font-weight: 500; }
+  .status .free { color: var(--dim); } .status .froz { color: var(--frozen); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 12px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); padding: 11px 13px 13px; }
+  .panel h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim); margin: 0 0 9px;
+              font-weight: 500; border-bottom: 1px solid var(--line); padding-bottom: 7px; }
+  /* minmax(0,1fr) обязателен: у input[type=range] есть собственная min-width,
+     и без этого колонка распирает панель, а число уезжает за её край. */
+  .ctl { display: grid; grid-template-columns: 96px minmax(0, 1fr) 54px; align-items: center;
+         gap: 8px; margin: 5px 0; }
+  .ctl label { color: var(--dim); font-size: 11px; }
+  .ctl .val { text-align: right; color: var(--hot); font-size: 11px; white-space: nowrap; }
+  .ctl input[type=range] { width: 100%; min-width: 0; }
+  .ctl select { grid-column: 2 / span 2; background: #12181d; color: var(--fg);
+                border: 1px solid var(--line2); padding: 3px 5px; font: inherit; }
+  input[type=range] { -webkit-appearance: none; appearance: none; height: 3px;
+                      background: var(--line2); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 15px;
+                      background: var(--accent); cursor: pointer; border-radius: 1px; }
+  input[type=range]::-moz-range-thumb { width: 11px; height: 15px; background: var(--accent);
+                      border: none; cursor: pointer; border-radius: 1px; }
+
+  .viz { margin-top: 16px; border: 1px solid var(--line); background: var(--panel); padding: 11px 13px 13px; }
+  .viz h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim); margin: 0 0 9px; font-weight: 500;
+            display: flex; gap: 14px; align-items: baseline; }
+  .viz h2 .duty { margin-left: auto; color: var(--hot); letter-spacing: 1px; }
+  #stream { color: var(--accent); font-size: 11px; line-height: 1.35; word-break: break-all;
+            opacity: .85; height: 46px; overflow: hidden; margin-bottom: 10px; }
+  canvas { width: 100%; display: block; background: #07090b; border: 1px solid var(--line); }
+  #scope { height: 130px; }
+  #spectrum { height: 70px; margin-top: 8px; }
+  .cap { color: var(--dim); font-size: 10px; margin-top: 6px; letter-spacing: .5px; }
+
+  footer { margin-top: 16px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+  #msg { color: var(--dim); margin-left: 6px; }
+  .hint { color: var(--dim); margin-top: 18px; font-size: 11px; line-height: 1.7; }
+  .hint code { color: var(--hot); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ONE BIT MUSIC</h1>
+    <span class="sub">Generative music from a binary stream</span>
+    <span class="out-badge">OUTPUT · 1 BIT</span>
+  </header>
+
+  <div class="chain">
+    <b>RAW 1-BIT</b><i>→</i><b class="tap">VERIFY / EXPORT</b><i>→</i><b>AUDIO OUTPUT</b>
+    <span>проверка и экспорт берут поток до любого браузерного и аппаратного тракта.
+      Громкость и фейды работают шириной импульсов, фильтра после кодера нет.</span>
+  </div>
+
+  <div class="transport">
+    <button id="play" class="primary">▶ PLAY</button>
+    <button id="new">🎲 NEW</button>
+    <button id="mutate">MUTATE</button>
+    <button id="fz-harmony" class="frz">FREEZE HARMONY</button>
+    <button id="fz-rhythm" class="frz">FREEZE RHYTHM</button>
+    <button id="fz-motif" class="frz">FREEZE MOTIF</button>
+    <button id="mute">MUTE</button>
+    <label class="master">MASTER<input type="range" id="master" min="0" max="100" value="100"><span id="masterVal">100</span></label>
+  </div>
+
+  <div class="seedbar">
+    <span>SEED</span><span class="seed" id="seed">------</span>
+    <button id="randseed">RANDOM SEED</button>
+    <span id="mutcount"></span>
+  </div>
+
+  <div class="status">
+    <span>HARMONY <b id="s-harmony" class="free">FREE</b></span>
+    <span>RHYTHM <b id="s-rhythm" class="free">FREE</b></span>
+    <span>MOTIF <b id="s-motif" class="free">FREE</b></span>
+    <span>SECTION <b id="s-section">—</b></span>
+    <span>CHORD <b id="s-chord">—</b></span>
+    <span>ARC <b id="s-arc">—</b></span>
+  </div>
+
+  <div class="grid" id="panels"></div>
+
+  <div class="viz">
+    <h2>1-BIT STREAM <span class="duty" id="duty">DUTY —</span></h2>
+    <div id="stream"></div>
+    <canvas id="scope"></canvas>
+    <canvas id="spectrum"></canvas>
+    <div class="cap">Осциллограф рисует те самые биты, что уходят в динамик, — два уровня, без промежуточных.
+      Ниже спектр того же потока в полосе до 2 кГц: гребёнка гармоник от всех голосов сразу.
+      У случайного набора битов её бы не было — там спектр плоский. Точную проверку даёт кнопка VERIFY 1 BIT.</div>
+  </div>
+
+  <footer>
+    <button id="save">SAVE STATE</button>
+    <button id="load">LOAD STATE</button>
+    <button id="wav">EXPORT WAV</button>
+    <button id="raw">EXPORT RAW 1-BIT</button>
+    <button id="verify">VERIFY 1 BIT</button>
+    <span id="msg"></span>
+    <input type="file" id="file" accept="application/json" hidden>
+  </footer>
+
+  <div class="hint">
+    Пробел — PLAY/STOP · <code>N</code> — NEW · <code>M</code> — MUTATE ·
+    <code>1 2 3</code> — freeze harmony / rhythm / motif · <code>X</code> — mute<br>
+    <a href="./bit-raster.html" style="color:var(--accent)">1-BIT RASTER LAB →</a>
+    растровый эксперимент: тот же поток, показанный как изображение<br>
+    <a href="./color-sound.html" style="color:var(--accent)">COLOR SOUND →</a> цвет как аккорд на одной битовой шине
+  </div>
+</div>
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>

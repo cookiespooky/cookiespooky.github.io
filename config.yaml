@@ -54,6 +54,8 @@ og_type_by_type:
   blog: "website"
   article: "article"
   tool: "website"
+  lab: "website"
+  idea: "article"
 
 paths:
   file_root: "./.notepub"

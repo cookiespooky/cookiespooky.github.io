@@ -27,6 +27,7 @@ PERMALINK = {
     "home": "/", "blog": "/blog/", "notes": "/notes/", "notfound": "/404/",
     "case": "/cases/{}/", "service": "/services/{}/", "article": "/blog/{}/",
     "tool": "/tools/{}/", "note": "/notes/{}/", "page": "/{}/",
+    "lab": "/lab/", "idea": "/lab/{}/",
 }
 
 

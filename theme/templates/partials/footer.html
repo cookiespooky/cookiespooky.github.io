@@ -19,6 +19,7 @@
       <a href="{{ .BaseURL }}/#cases">Кейсы</a>
       <a href="{{ .BaseURL }}/services/">Что делаю</a>
       <a href="{{ .BaseURL }}/tools/analiz-rechi/">Анализ речи</a>
+      <a href="{{ .BaseURL }}/lab/"{{ if eq .Page.Type "lab" }} aria-current="page"{{ else if eq .Page.Type "idea" }} aria-current="true"{{ end }}>Лаборатория</a>
       <a href="{{ .BaseURL }}/about/">Обо мне</a>
     </div>
     <div class="site-footer__col">

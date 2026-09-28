@@ -1,0 +1,100 @@
+{{- /* Серия «Порядок из правил»: шесть комнат на одной странице, по очереди
+       (research/positioning/07-vizualizacii.md, «Устройство серии»). Поле room у идеи одно,
+       поэтому room: "order" ведёт сюда, а здесь по порядку подключены комнаты.
+       У каждой одна ручка и одно значение, при котором порядка нет. Где порядок нельзя
+       честно назвать на глаз (кристалл, стая, жизнь частиц), комната меряет его сама
+       и печатает число — пороги сверены прогоном в node, см. research/lab/plan.md.
+       Общие классы rord-* — рамка, ручка, строка вывода; у каждой комнаты свой префикс.
+       Анимации стоят, пока комната не на экране. */ -}}
+<script>
+  // Общий запуск: комната крутит свой кадр, только пока видна. Каждая комната
+  // вызывает rordRun(корень, кадр) и получает функцию «разбудить».
+  window.rordRun = window.rordRun || function (root, frame) {
+    var on = false, raf = 0;
+    function loop() { if (!on) return; frame(); raf = requestAnimationFrame(loop); }
+    function start() { if (!on) { on = true; raf = requestAnimationFrame(loop); } }
+    if ('IntersectionObserver' in window)
+      new IntersectionObserver(function (es) { if (es[0].isIntersecting) start(); else { on = false; cancelAnimationFrame(raf); } }).observe(root);
+    else start();
+  };
+  // «↺ сначала»: ручка — к значению из разметки, комната получает rord-reset и сама расставляет элементы заново.
+  if (!window.rordResetBound) {
+    window.rordResetBound = true;
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-rord-reset]');
+      if (!b) return;
+      var room = b.closest('.rord__room');
+      room.querySelectorAll('input[type="range"]').forEach(function (r) {
+        if (r.disabled) return;
+        r.value = r.defaultValue;
+        r.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      room.dispatchEvent(new CustomEvent('rord-reset'));
+    });
+  }
+  window.rordFit = window.rordFit || function (canvas) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), s = Math.round(canvas.clientWidth * dpr);
+    if (canvas.width !== s) { canvas.width = canvas.height = s; return true; }
+    return false;
+  };
+</script>
+<div class="rord">
+  <section class="rord__room" id="room-zvuk" aria-labelledby="room-zvuk-h">
+    <header class="rord__head"><span class="rord__n">01</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-zvuk-h">Звук, который видно</h2>
+      <p class="rord__spec">ручка — отношение двух частот · контроль — нецелое отношение</p></header>
+    {{ template "room-lissajous.html" . }}
+  </section>
+  <section class="rord__room" id="room-podsolnuh" aria-labelledby="room-podsolnuh-h">
+    <header class="rord__head"><span class="rord__n">02</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-podsolnuh-h">Подсолнух</h2>
+      <p class="rord__spec">ручка — угол между соседними семечками · контроль — угол, близкий к простой дроби оборота</p></header>
+    {{ template "room-sunflower.html" . }}
+  </section>
+  <section class="rord__room" id="room-kristall" aria-labelledby="room-kristall-h">
+    <header class="rord__head"><span class="rord__n">03</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-kristall-h">Кристалл</h2>
+      <p class="rord__spec">ручка — температура · контроль — горячо</p></header>
+    {{ template "room-crystal.html" . }}
+  </section>
+  <section class="rord__room" id="room-staya" aria-labelledby="room-staya-h">
+    <header class="rord__head"><span class="rord__n">04</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-staya-h">Стая</h2>
+      <p class="rord__spec">ручка — вес одного правила из трёх · контроль — правило выключено</p></header>
+    {{ template "room-flock.html" . }}
+  </section>
+  <section class="rord__room" id="room-zhizn" aria-labelledby="room-zhizn-h">
+    <header class="rord__head"><span class="rord__n">05</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-zhizn-h">Жизнь частиц</h2>
+      <p class="rord__spec">ручка — одна клетка таблицы притяжений · контроль — симметричная таблица</p></header>
+    {{ template "room-particles.html" . }}
+  </section>
+  <section class="rord__room" id="room-bukvy" aria-labelledby="room-bukvy-h">
+    <header class="rord__head"><span class="rord__n">06</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-bukvy-h">Текст из букв</h2>
+      <p class="rord__spec">ручка — сколько предыдущих букв помнит правило · контроль — ноль</p></header>
+    {{ template "room-letters.html" . }}
+  </section>
+</div>
+<style>
+  .rord { display: grid; gap: 72px; }
+  .rord__room { scroll-margin-top: calc(var(--header-h) + 16px); }
+  .rord__head { max-width: 520px; margin-bottom: 20px; }
+  .rord__head { position: relative; }
+  .rord__n { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--muted-3); }
+  .rord__reset { position: absolute; right: 0; top: 0; font-family: var(--font-mono); font-size: 12px; }
+  .rord__head h2 { margin-top: 6px; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; }
+  .rord__spec { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: var(--muted-2); }
+
+  /* общие части комнат: та же рамка и ручка, что у Лиссажу (rliss) */
+  .rord-stage { position: relative; max-width: 520px; aspect-ratio: 1; background: #06080a; border: 1px solid var(--line-strong); }
+  .rord-stage canvas { display: block; width: 100%; height: 100%; }
+  .rord-knob { position: relative; display: grid; gap: 8px; max-width: 520px; margin-top: 18px; }
+  .rord-knob label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .rord-knob input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); }
+  .rord-ticks { position: relative; height: 16px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-3); }
+  .rord-ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .rord-ticks span.is-start { transform: none; }
+  .rord-ticks span.is-end { transform: translateX(-100%); }
+  .rord-read { max-width: 520px; margin-top: 10px; min-height: 3.2em; font-size: 17px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+  .rord-read b { font-weight: 500; font-family: var(--font-mono); font-size: 15px; }
+  .rord-cap { max-width: 520px; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: var(--ink-2); }
+  .rord-btn { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+  .rord-btn:hover { color: var(--ink); }
+  .rord-meter { position: absolute; left: 10px; top: 10px; padding: 3px 7px; background: rgba(6, 8, 10, .72);
+                font-family: var(--font-mono); font-size: 11px; color: #c9d1e8; pointer-events: none; }
+</style>

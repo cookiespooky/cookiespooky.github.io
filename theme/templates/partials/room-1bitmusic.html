@@ -1,0 +1,27 @@
+{{- /* Комната «1-bit-music»: тяжёлая вещь, поэтому сама она лежит статикой в
+       static/lab/1bitmusic/ (три страницы и src/, копия ~/Documents/np-personal/projects/1-bit-music без
+       README и backlog). Здесь не рамка, а вход: скриншот инструмента во время игры
+       (тот же, что у кейса one-bit-music) и ссылка на полную версию. Рамка на
+       странице идеи оказалась лишней — инструмент нужен целиком, а не в окне.
+       Префикс r1bm__, чтобы не пересечься ни с чем на странице. */ -}}
+<figure class="r1bm">
+  <a class="r1bm__shot" href="{{ .BaseURL }}/lab/1bitmusic/">
+    <img src="{{ .AssetsBase }}/shots/one-bit-music.webp" alt="Экран инструмента One Bit Music во время игры: битовый поток, осциллограф двух уровней и спектр" width="1440" height="1000" loading="lazy" />
+  </a>
+  <figcaption class="r1bm__cap">
+    <span>Всё, что слышно, — один поток нулей и единиц, ничего между.</span>
+    <span class="r1bm__open">
+      <a href="{{ .BaseURL }}/lab/1bitmusic/">Открыть инструмент →</a>
+      · <a href="{{ .BaseURL }}/lab/1bitmusic/color-sound.html">цвет как аккорд</a>
+    </span>
+  </figcaption>
+</figure>
+<style>
+  .r1bm { margin: 0; }
+  .r1bm__shot { display: block; border: 1px solid var(--line-strong); background: #06080a; }
+  .r1bm__shot img { display: block; width: 100%; height: auto; }
+  .r1bm__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 12px;
+               font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .r1bm__open a { color: var(--accent); }
+  .r1bm__open a:hover { color: var(--ink); }
+</style>

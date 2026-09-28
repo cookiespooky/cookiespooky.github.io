@@ -38,13 +38,12 @@ Pages через GitHub Actions.
 
 ## Как добавить кейс
 
-1. Создать `content/cases/<slug>.md`, взяв за образец любой существующий файл.
-2. Заполнить frontmatter: `group` (products | ai | components | research | lab | sites), `nav_order`,
-   `kicker`, `summary`, `status`, `status_kind`, `facts`, `highlights`, `stack`, `links`.
-3. Скриншот (webp) положить в `theme/assets/shots/` и указать имя файла в поле `shot`, затем прогнать
-   `python3 scripts/shots.py` — он сделает миниатюру для каталога и картинку для соцсетей. Если снимка нет —
-   задать `cover: grid | rings | waves | dots | beam`, будет нарисованная обложка.
-4. `git push` — сайт пересоберётся и опубликуется сам.
+Коротко: скопировать любой файл из `content/cases/`, положить скриншот в `theme/assets/shots/`, прогнать
+`python3 scripts/shots.py` (нужен Pillow), собрать и запушить.
+
+Полный порядок — в `CLAUDE.md`, раздел «Case frontmatter contract». Он один, и держать его надо там: в нём
+есть шаги, которые легко пропустить и которые сборка не поймает — `og_image` на сгенерированную карточку и
+три счётчика проектов в `content/home.md`, набранные руками.
 
 ## Деплой
 

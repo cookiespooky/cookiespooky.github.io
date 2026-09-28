@@ -1,0 +1,78 @@
+{{- /* Комната «ручка k»: настоящие данные consciousness-revelation, не игрушка.
+       k — сила, с которой предсказание модели меняет то, что она предсказывает.
+       По каждому k — доля из 40 прогонов (20 seed × 2 значения c, p = 32), где
+       самосогласованная модель существует (converged = 1). Три ветки: self — себя
+       включает; yoked — предсказывает двойника, контур замкнут, себя не включает;
+       self2 — та же self с другим случайным базисом, нулевой уровень разброса.
+       Числа посчитаны из raw_stability.csv (self, yoked) и raw_null.csv (self2)
+       и вставлены как есть; ветка self в обоих файлах одна и та же. Префикс rloop__. */ -}}
+<figure class="rloop" data-rloop>
+  <svg class="rloop__svg" role="img" aria-label="Доля прогонов, где самосогласованная модель существует, в зависимости от силы обратной связи k, для трёх веток"></svg>
+  <div class="rloop__knob">
+    <label class="rloop__label" for="rloop-k">k — насколько предсказание меняет предсказываемое</label>
+    <input id="rloop-k" class="rloop__range" type="range" min="0" max="20" step="1" value="4" data-rloop-k>
+  </div>
+  <p class="rloop__read" data-rloop-read aria-live="polite"></p>
+  <figcaption class="rloop__cap">
+    <span><i class="rloop__key rloop__key--self"></i>себя включает</span>
+    <span><i class="rloop__key rloop__key--yoked"></i>предсказывает двойника: контур тот же, себя не включает</span>
+    <span><i class="rloop__key rloop__key--self2"></i>та же система, другое случайное зерно</span>
+    <span class="rloop__src">Из сырых данных эксперимента: 40 прогонов на каждое k. Финальный прогон шёл при k = 0.4.</span>
+  </figcaption>
+  <script type="application/json" data-rloop-data>{"n":40,"k":[0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0],"self":[35,34,35,33,33,32,31,29,25,19,19,17,12,12,9,8,7,5,6,7,6],"yoked":[35,34,35,34,34,33,29,29,27,22,20,19,14,13,10,10,8,9,8,8,8],"self2":[33,36,34,34,32,31,28,25,23,18,13,12,13,11,8,6,8,9,10,10,12]}</script>
+</figure>
+<style>
+  .rloop { margin: 0; }
+  .rloop__svg { display: block; width: 100%; height: auto; background: var(--surface); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .rloop__svg text { font-family: var(--font-mono); font-size: 12px; fill: var(--muted-2); }
+  .rloop__knob { display: grid; gap: 8px; margin-top: 18px; }
+  .rloop__label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .rloop__range { width: 100%; accent-color: var(--accent); }
+  .rloop__read { margin-top: 12px; min-height: 3.2em; font-size: 17px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+  .rloop__cap { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: var(--ink-2); }
+  .rloop__src { margin-top: 4px; color: var(--muted-2); }
+  .rloop__key { display: inline-block; width: 18px; height: 0; margin-right: 8px; vertical-align: 4px; border-top: 2px solid; }
+  .rloop__key--self  { border-color: var(--accent); }
+  .rloop__key--yoked { border-color: var(--ink); border-top-style: dashed; }
+  .rloop__key--self2 { border-color: var(--muted-3); border-top-style: dotted; border-top-width: 3px; }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('[data-rloop]');
+  if (!root) return;
+  var d = JSON.parse(root.querySelector('[data-rloop-data]').textContent);
+  var svg = root.querySelector('svg'), NS = 'http://www.w3.org/2000/svg';
+  // Ширина viewBox — по месту, как у дерева: иначе на телефоне подписи осей ужимаются до 6 px.
+  var W = Math.max(340, Math.min(640, root.clientWidth || 640)), H = W < 480 ? 260 : 300;
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  var L = 44, R = W - 16, T = 16, B = H - 38;
+  var X = function (k) { return L + (R - L) * k / 2; }, Y = function (v) { return B - (B - T) * v / d.n; };
+  function el(name, a, p) { var n = document.createElementNS(NS, name); for (var k in a) n.setAttribute(k, a[k]); (p || svg).appendChild(n); return n; }
+  [0, 0.5, 1].forEach(function (f) {
+    el('line', { x1: L, x2: R, y1: Y(f * d.n), y2: Y(f * d.n), stroke: 'var(--line)' });
+    el('text', { x: L - 8, y: Y(f * d.n) + 4, 'text-anchor': 'end' }).textContent = Math.round(f * 100) + '%';
+  });
+  [0, 0.5, 1, 1.5, 2].forEach(function (k) { el('text', { x: X(k), y: B + 22, 'text-anchor': k === 0 ? 'start' : k === 2 ? 'end' : 'middle' }).textContent = (W < 480 ? '' : 'k = ') + k; });
+  el('line', { x1: X(0.4), x2: X(0.4), y1: T, y2: B, stroke: 'var(--line-strong)', 'stroke-dasharray': '2 4' });
+  var style = { self: ['var(--accent)', '', 2], yoked: ['var(--ink)', '6 4', 1.5], self2: ['var(--muted-3)', '1 4', 2.5] };
+  ['self2', 'yoked', 'self'].forEach(function (b) {
+    var pts = d[b].map(function (v, i) { return X(d.k[i]) + ',' + Y(v); }).join(' ');
+    el('polyline', { points: pts, fill: 'none', stroke: style[b][0], 'stroke-dasharray': style[b][1], 'stroke-width': style[b][2], 'stroke-linecap': 'round' });
+  });
+  var cursor = el('line', { y1: T, y2: B, stroke: 'var(--accent)', 'stroke-width': 1, opacity: 0.5 });
+  var dots = {};
+  ['self2', 'yoked', 'self'].forEach(function (b) { dots[b] = el('circle', { r: 4.5, fill: 'var(--surface)', stroke: style[b][0], 'stroke-width': 2 }); });
+  var input = root.querySelector('[data-rloop-k]'), read = root.querySelector('[data-rloop-read]');
+  function draw() {
+    var i = +input.value, k = d.k[i];
+    cursor.setAttribute('x1', X(k)); cursor.setAttribute('x2', X(k));
+    for (var b in dots) { dots[b].setAttribute('cx', X(k)); dots[b].setAttribute('cy', Y(d[b][i])); }
+    var s = d.self[i], y = d.yoked[i], z = d.self2[i];
+    read.textContent = 'При k = ' + k.toFixed(1) + ' самосогласованная модель нашлась в ' + s + ' прогонах из ' + d.n +
+      '; у двойника — в ' + y + ', у той же системы с другим зерном — в ' + z +
+      '. Самовключение сдвигает на ' + Math.abs(s - y) + ', смена зерна — на ' + Math.abs(s - z) + '.';
+  }
+  input.addEventListener('input', draw);
+  draw();
+})();
+</script>

@@ -82,7 +82,7 @@ img { max-width: 100%; height: auto; display: block; }
    размер. Высоту задаём одну, ширину считает пропорция. */
 .ico { display: block; flex: none; height: 22px; width: auto; aspect-ratio: 1; }
 .ico--threads { aspect-ratio: 166 / 192; }
-.site-nav a[aria-current="page"] { color: var(--ink); }
+.site-nav a[aria-current="page"], .site-nav a[aria-current="true"] { color: var(--ink); }
 
 .burger {
   display: none; width: 40px; height: 40px; padding: 0;
@@ -124,6 +124,7 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 17px; font-weight: 500; letter-spacing: -0.01em;
 }
 .drawer__nav a span:last-child { color: var(--muted-3); font-size: 14px; }
+.drawer__nav a[aria-current] span:last-child { color: var(--accent); }
 .drawer__foot { margin-top: auto; padding-top: 34px; padding-bottom: 8px; display: grid; gap: 20px; }
 .drawer__foot .contacts { justify-content: center; gap: 22px; padding: 4px 0; }
 
@@ -185,6 +186,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .site-footer__col { display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: var(--ink-2); min-width: 0; }
 .site-footer__col a { overflow-wrap: anywhere; }
+.site-footer__col a[aria-current] { color: var(--ink); font-weight: 600; }
 .site-footer__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted-3); }
 .site-footer__name { font-size: 16px; font-weight: 600; color: var(--ink); }
 .site-footer__role { font-size: 14px; color: var(--muted); }

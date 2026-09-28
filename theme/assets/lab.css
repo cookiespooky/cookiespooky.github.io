@@ -1,0 +1,140 @@
+/* Лаборатория: /lab/ и страницы идей. Грузится только на типах lab и idea.
+   Решётка превью здесь не заведена намеренно: единица — идея, одна колонка
+   текста, без картинок-карточек. Всё, что повторяется у каждой идеи, — прибор
+   из четырёх строк (.lab-law), и он одинаков по построению, а не по дисциплине. */
+
+.lab { --lab-measure: 44rem; padding-bottom: 120px; }
+
+/* ---------- прибор: четыре строки и оговорка ---------- */
+.lab-law {
+  margin: 0; max-width: var(--lab-measure);
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  font-family: var(--font-mono); font-size: 14px; line-height: 1.65; color: var(--ink-1);
+}
+.lab-law__row {
+  display: grid; grid-template-columns: 11ch minmax(0, 1fr); gap: 20px;
+  padding: 14px 0; border-top: 1px solid var(--line);
+}
+.lab-law__row:first-child { border-top: 0; }
+.lab-law dt { color: var(--muted-2); }
+.lab-law dd { margin: 0; text-wrap: pretty; }
+.lab-law__gap { color: var(--muted-3); }
+
+.lab-caveat {
+  /* Та же ширина, что у прибора: в ch они расходились, шрифты разные. */
+  max-width: var(--lab-measure); margin-top: 28px; padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--ink);
+}
+.lab-caveat__label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2);
+}
+.lab-caveat p { margin-top: 8px; font-size: 17px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+
+/* ---------- состояние вещи ---------- */
+.lab-status {
+  display: inline-flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--ink-2);
+}
+.lab-status::before {
+  content: ""; width: 7px; height: 7px; flex: none; margin-top: 0.45em; border-radius: 50%;
+  background: var(--dot-off);
+}
+.lab-status--live::before { background: var(--accent); }
+.lab-status--wip::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--accent); }
+/* Вещь была и выключена. Значение заведено заранее: в research/lab/README.md
+   оно ждёт второго такого экспоната, а класс ничего не стоит. */
+.lab-status--off::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--muted-3); }
+
+.lab-kicker {
+  display: block; margin-bottom: 22px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted-2);
+}
+
+/* ---------- /lab/: первый экран ---------- */
+.lab-entry {
+  display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  min-height: calc(100svh - var(--header-h)); padding-block: 56px 72px;
+}
+.lab-entry h1 { max-width: 14ch; }
+.lab-entry__lead { max-width: 34ch; font-size: 28px; line-height: 1.35; letter-spacing: -0.015em; color: var(--ink); text-wrap: pretty; }
+.lab-entry__note { max-width: 62ch; font-size: 18px; line-height: 1.6; color: var(--ink-1); text-wrap: pretty; }
+.lab-entry__body { max-width: 62ch; }
+
+/* ---------- /lab/: список идей ---------- */
+.lab-list__label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-3);
+}
+.lab-list__items { margin: 18px 0 0; padding: 0; list-style: none; counter-reset: idea; border-top: 1px solid var(--ink); }
+.lab-list__items > li { counter-increment: idea; border-bottom: 1px solid var(--line); }
+.lab-item {
+  display: grid; grid-template-columns: 5ch minmax(0, 1fr) minmax(0, 16rem);
+  grid-template-areas: "n title status" "n summary status";
+  column-gap: 32px; row-gap: 10px; padding: 32px 0 34px;
+}
+.lab-item::before {
+  grid-area: n; content: counter(idea, decimal-leading-zero);
+  padding-top: 6px; font-family: var(--font-mono); font-size: 13px; color: var(--muted-3);
+}
+.lab-item__title { grid-area: title; font-size: 30px; font-weight: 600; line-height: 1.12; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; transition: color 0.2s var(--ease); }
+.lab-item__summary { grid-area: summary; max-width: 62ch; font-size: 16px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.lab-item .lab-status { grid-area: status; align-self: start; padding-top: 9px; }
+.lab-item:hover { color: inherit; }
+.lab-item:hover .lab-item__title { color: var(--accent); }
+
+/* ---------- страница идеи ---------- */
+.lab-idea__head { padding-top: 26px; }
+.lab-idea__head h1 { max-width: 20ch; font-size: 56px; }
+.lab-idea__lead { margin-top: 24px; max-width: 46ch; font-size: 22px; line-height: 1.45; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.lab-idea__head .lab-status { margin-top: 24px; }
+
+.lab-room { margin-top: 48px; }
+
+.lab-links {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  margin: 36px 0 0; padding: 0; list-style: none;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.lab-links a { color: var(--accent); }
+.lab-links a:hover { color: var(--ink); }
+
+.lab-idea .lab-law { margin-top: 48px; }
+.lab-idea__body { max-width: 68ch; margin-top: 64px; }
+
+.lab-near { display: grid; gap: 40px; max-width: var(--lab-measure); margin-top: 88px; }
+.lab-near__label {
+  padding-bottom: 12px; border-bottom: 1px solid var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2);
+}
+.lab-near__item { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.lab-near__title { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); transition: color 0.2s var(--ease); }
+.lab-near__desc { font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.lab-near__item:hover .lab-near__title { color: var(--accent); }
+
+.lab-back { margin-top: 56px; font-family: var(--font-mono); font-size: 13px; }
+.lab-back a { color: var(--muted); }
+.lab-back a:hover { color: var(--ink); }
+
+/* ---------- адаптив ---------- */
+@media (max-width: 860px) {
+  .lab-item {
+    grid-template-columns: 4ch minmax(0, 1fr);
+    grid-template-areas: "n title" "n summary" "n status";
+    column-gap: 18px;
+  }
+  .lab-item .lab-status { padding-top: 2px; }
+  .lab-item__title { font-size: 25px; }
+  .lab-idea__head h1 { font-size: 42px; }
+}
+@media (max-width: 640px) {
+  .lab-entry { min-height: 0; padding-block: 36px 56px; }
+  .lab-entry__lead { font-size: 22px; }
+  .lab-law { font-size: 13px; }
+  .lab-law__row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; }
+  .lab-item__title { font-size: 22px; }
+  .lab-idea__head h1 { font-size: 32px; }
+  .lab-idea__lead { font-size: 18px; }
+}

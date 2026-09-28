@@ -1,0 +1,117 @@
+{{- /* Комната «одна фраза, которую тянут»: идея 3 из research/positioning/07-vizualizacii.md.
+       Ввода нет — примеры заготовлены. Одна ручка: четыре формулировки одного дела,
+       содержание не меняется, меняется только то, кто в них действует. Разбор —
+       грамматический, то есть проверяемый: есть ли во фразе говорящий, что стоит между
+       ним и действием. Шкалы «шансов» здесь нет нарочно: not_proven этой идеи говорит,
+       что агентность действие не предсказывает, и комната не должна утверждать обратное.
+       Последняя позиция несёт контроль — место, где правило кончается.
+       Примеры не из daily. Префикс rphr__. */ -}}
+<figure class="rphr" data-rphr>
+  <div class="rphr__tabs" role="tablist" aria-label="Ситуация" data-rphr-tabs></div>
+  <p class="rphr__phrase" data-rphr-phrase aria-live="polite"></p>
+  <div class="rphr__chain" data-rphr-chain aria-hidden="true"></div>
+  <div class="rphr__knob">
+    <label class="rphr__label" for="rphr-k">кто действует во фразе</label>
+    <input id="rphr-k" class="rphr__range" type="range" min="0" max="3" step="1" value="0" data-rphr-k>
+    <div class="rphr__stops" aria-hidden="true"><span>никто</span><span>обстоятельства</span><span>я хочу</span><span>я делаю</span></div>
+  </div>
+  <dl class="rphr__law" data-rphr-law></dl>
+  <p class="rphr__control" data-rphr-control hidden></p>
+</figure>
+<style>
+  .rphr { margin: 0; max-width: 44rem; }
+  .rphr__tabs { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: 12px; }
+  .rphr__tab { padding: 0 0 4px; background: none; border: 0; border-bottom: 1px solid transparent; color: var(--muted-2); font: inherit; cursor: pointer; }
+  .rphr__tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .rphr__phrase { margin-top: 28px; min-height: 1.3em; font-size: clamp(26px, 5vw, 38px); line-height: 1.25; letter-spacing: -0.015em; color: var(--ink); }
+  .rphr__phrase b { font-weight: inherit; box-shadow: inset 0 -0.14em 0 var(--accent); }
+  .rphr__chain { display: flex; align-items: center; gap: 10px; margin-top: 24px; font-family: var(--font-mono); font-size: 13px; }
+  .rphr__cell { padding: 8px 12px; border: 1px solid var(--line-strong); color: var(--ink-1); white-space: nowrap; transition: opacity .3s var(--ease); }
+  .rphr__cell--who { border-color: var(--accent); color: var(--accent); }
+  .rphr__cell--none { border-style: dashed; color: var(--muted-3); }
+  .rphr__cell--act { border-color: var(--ink); color: var(--ink); }
+  .rphr__arrow { color: var(--muted-3); }
+  .rphr__knob { display: grid; gap: 8px; margin-top: 28px; }
+  .rphr__label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .rphr__range { width: 100%; margin: 0; accent-color: var(--accent); }
+  .rphr__stops { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--muted-3); }
+  .rphr__law { margin: 24px 0 0; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--ink-1); }
+  .rphr__law div { display: grid; grid-template-columns: 15ch minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .rphr__law dt { color: var(--muted-2); }
+  .rphr__law dd { margin: 0; }
+  .rphr__control { margin-top: 20px; padding-left: 16px; border-left: 2px solid var(--ink); font-size: 16px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+  @media (max-width: 520px) {
+    .rphr__chain { flex-wrap: wrap; }
+    .rphr__law div { grid-template-columns: 1fr; gap: 2px; }
+    .rphr__stops span:nth-child(2) { visibility: hidden; }
+  }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('[data-rphr]');
+  if (!root) return;
+  // Фраза: *слово* — действующий, если он есть. chain: говорящий → посредник → действие;
+  // пустая строка — клетки нет, null у говорящего — говорящего во фразе нет.
+  var SETS = [
+    { tab: 'позвонить клиенту', stops: [
+      { p: 'Надо позвонить клиенту', chain: [null, 'надо', 'позвонить'],
+        who: 'Никто. «Надо» — требование без исполнителя.', what: 'Пока ничего: есть долг, звонка нет.', me: 'Вне фразы. Он под требованием, а не в деле.' },
+      { p: 'Не *получается* позвонить клиенту', chain: ['(у меня)', 'не получается', 'позвонить'],
+        who: 'Обстоятельства. Действует «оно», и у него не выходит.', what: 'Звонок не случается — и это описано как погода.', me: 'Тот, с кем это происходит. Не тот, кто делает.' },
+      { p: '*Хочу* позвонить клиенту', chain: ['я', 'хочу', 'позвонить'],
+        who: 'Я — но действие моё только хотение.', what: 'Желание. Звонок по-прежнему впереди.', me: 'Подлежащее, но не исполнитель звонка.' },
+      { p: '*Я позвоню* клиенту', chain: ['я', '', 'позвоню'],
+        who: 'Я.', what: 'Звонок. Одно действие, его можно увидеть.', me: 'Исполнитель. Между ним и делом ничего нет.' } ] },
+    { tab: 'начать проект', stops: [
+      { p: 'Надо начать проект', chain: [null, 'надо', 'начать'],
+        who: 'Никто.', what: 'Долг без исполнителя.', me: 'Вне фразы.' },
+      { p: 'Никак не *начинается*', chain: ['(у меня)', 'не начинается', ''],
+        who: 'Сам проект — он будто должен начаться без меня.', what: 'Ничего, и в этом никто не участвует.', me: 'Наблюдатель собственного дела.' },
+      { p: '*Хочу* наконец начать', chain: ['я', 'хочу', 'начать'],
+        who: 'Я — хотением.', what: 'Желание плюс досада на «наконец».', me: 'Подлежащее, но между мной и делом — желание.' },
+      { p: '*Не начал*, потому что *не решил*, что считать готовым', chain: ['я', '', 'не начал · не решил'],
+        who: 'Я, дважды.', what: 'Два моих действия, оба наблюдаемые. Второе можно сделать сегодня.', me: 'Исполнитель — и у него появилось, за что взяться.' } ] },
+    { tab: 'ответить на письмо', stops: [
+      { p: 'Надо бы ответить на письмо', chain: [null, 'надо бы', 'ответить'],
+        who: 'Никто, да ещё и с «бы».', what: 'Долг, смягчённый до пожелания.', me: 'Вне фразы.' },
+      { p: 'Письмо всё *висит*', chain: [null, 'висит', ''],
+        who: 'Письмо. Действует оно — висит.', what: 'Состояние вместо действия.', me: 'Его во фразе нет совсем.' },
+      { p: '*Хочу* разобраться с письмом', chain: ['я', 'хочу', 'разобраться'],
+        who: 'Я — хотением.', what: 'Желание, и «разобраться» шире, чем «ответить».', me: 'Подлежащее, не исполнитель.' },
+      { p: '*Отвечу* на письмо до обеда', chain: ['я', '', 'отвечу до обеда'],
+        who: 'Я.', what: 'Ответ, и у него есть срок.', me: 'Исполнитель.' } ] }
+  ];
+  var CONTROL = 'Дальше правило кончается. Если эта фраза сказана в пятый раз, а дело не сделано, формулировка ни при чём: расходится уже не сказанное с делаемым, а делаемое с ожидаемым.';
+  var tabs = root.querySelector('[data-rphr-tabs]'), input = root.querySelector('[data-rphr-k]');
+  var phrase = root.querySelector('[data-rphr-phrase]'), chain = root.querySelector('[data-rphr-chain]');
+  var law = root.querySelector('[data-rphr-law]'), control = root.querySelector('[data-rphr-control]');
+  var set = 0;
+  function esc(s) { return s.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
+  function cell(text, kind) { return '<span class="rphr__cell rphr__cell--' + kind + '">' + esc(text) + '</span>'; }
+  function draw() {
+    var s = SETS[set].stops[+input.value];
+    phrase.innerHTML = esc(s.p).replace(/\*([^*]+)\*/g, '<b>$1</b>');
+    var parts = [s.chain[0] === null ? cell('говорящего нет', 'none') : cell(s.chain[0], 'who')];
+    if (s.chain[1]) parts.push(cell(s.chain[1], 'mid'));
+    parts.push(s.chain[2] ? cell(s.chain[2], 'act') : cell('действия нет', 'none'));
+    chain.innerHTML = parts.join('<span class="rphr__arrow">→</span>');
+    law.innerHTML = [['кто действует', s.who], ['что происходит', s.what], ['где говорящий', s.me]]
+      .map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
+    control.hidden = +input.value !== 3;
+    control.textContent = CONTROL;
+  }
+  SETS.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'rphr__tab'; b.setAttribute('role', 'tab'); b.textContent = s.tab;
+    b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function () {
+      set = i;
+      tabs.querySelectorAll('button').forEach(function (x, j) { x.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+      draw();
+    });
+    tabs.appendChild(b);
+  });
+  input.addEventListener('input', draw);
+  draw();
+})();
+</script>

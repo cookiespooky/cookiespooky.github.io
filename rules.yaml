@@ -69,6 +69,13 @@ fields:
     - how_it_works   # slug статьи-объяснения
     # --- заметки (/notes/) ---
     - topic          # ярлык темы: лингвистика | системное мышление | наблюдение | метод
+    # --- лаборатория (/lab/): закон витрины, четыре строки и оговорка ---
+    - elements       # из чего сделано
+    - rule           # что с элементами происходит
+    - form           # что вышло; у идеи без вещи — «ещё нет» и чем станет
+    - control        # значение, при котором формы нет
+    - not_proven     # чего это не доказывает; у идеи обязательно, см. scripts/lab_check.py
+    - room           # живая вещь на странице идеи; idea.html выбирает партиал room-<room>.html
     # --- страница услуги ---
     - includes       # что входит в работу
     - price_from     # ориентир цены
@@ -133,6 +140,14 @@ types:
     template: "note.html"
     permalink: "/notes/{{ slug }}/"
     include_in: { sitemap: true, search: true }
+  lab:
+    template: "lab.html"
+    permalink: "/lab/"
+    include_in: { sitemap: true, search: false }
+  idea:
+    template: "idea.html"
+    permalink: "/lab/{{ slug }}/"
+    include_in: { sitemap: true, search: true }
   notfound:
     template: "notfound.html"
     permalink: "/404/"
@@ -142,8 +157,8 @@ links:
   - name: "related"
     kind: "field"
     field: "related"
-    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note"]
-    to_types: ["home", "case", "page", "article", "service", "note"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note", "lab", "idea"]
+    to_types: ["home", "case", "page", "article", "service", "note", "idea"]
     to: "slug"
     value_syntax: "auto"
     resolve:
@@ -153,9 +168,9 @@ links:
       case: "insensitive"
   - name: "wiki"
     kind: "wikilinks"
-    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note", "notfound"]
+    from_types: ["home", "case", "page", "article", "service", "blog", "tool", "notes", "note", "lab", "idea", "notfound"]
     resolve_by: "wikimap"
-    to_types: ["home", "case", "page", "article", "service", "note"]
+    to_types: ["home", "case", "page", "article", "service", "note", "idea"]
     resolve:
       order: ["path", "filename", "slug"]
       ambiguity: "error"
@@ -278,6 +293,16 @@ collections:
         - type_in: ["note"]
     sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
     limit: 3
+  # Порядок идей — руками, по nav_order: лаборатория не лента, дата ей ничего не говорит.
+  ideas_all:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - type_in: ["idea"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 100
   services_all:
     kind: "filter"
     materialize: true
@@ -297,13 +322,35 @@ collections:
         - fm_eq: { key: "draft", value: false }
         - type_in: ["case"]
     limit: 3
+  # Идея ссылается на идеи и заметки тем же полем related, что и на кейсы;
+  # related_cases их отбрасывает по типу, поэтому у каждого типа своя выборка.
+  related_ideas:
+    kind: "forward"
+    materialize: false
+    link: "related"
+    from_slug: "{{ page.slug }}"
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - type_in: ["idea"]
+    limit: 6
+  related_notes:
+    kind: "forward"
+    materialize: false
+    link: "related"
+    from_slug: "{{ page.slug }}"
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - type_in: ["note"]
+    limit: 3
 
 sitemap:
-  include_types: ["home", "case", "page", "service", "blog", "article", "tool", "notes", "note"]
+  include_types: ["home", "case", "page", "service", "blog", "article", "tool", "notes", "note", "lab", "idea"]
   exclude_drafts: true
 
 search:
-  include_types: ["case", "page", "service", "article", "tool", "note"]
+  include_types: ["case", "page", "service", "article", "tool", "note", "idea"]
   exclude_drafts: true
   fields_boost:
     title: 3
@@ -319,7 +366,7 @@ artifacts:
     dir: "collections"
 
 validation:
-  single_page_of_type: { home: 1, blog: 1, notes: 1 }
+  single_page_of_type: { home: 1, blog: 1, notes: 1, lab: 1 }
   duplicate_route: { action: "error" }
   unknown_type: { action: "error" }
   unique_slug: { action: "error" }

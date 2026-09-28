@@ -1,0 +1,91 @@
+{{- /* Комната «стая». Элементы — 150 точек на поле, замкнутом на себя; правила
+       Рейнольдса: не сталкиваться, держаться ближе, лететь как соседи. Первые два
+       включены всегда, ручка — вес третьего, выравнивания. Порядок меряется:
+       поляризация — длина среднего направления, 1 — все летят в одну сторону,
+       около 0 — каждый сам по себе. Прогон в node (3 зерна, 1600 шагов): вес 0 →
+       0.07–0.13, 0.16 → 0.25–0.40, 0.24 → 0.15–0.31, 0.4 → 0.38–0.80, 0.64 → 0.58–0.94,
+       0.8 → 0.92–0.95.
+       Переход лежит посередине ручки нарочно. Выключенное правило — контроль.
+       Префикс rflk__. */ -}}
+<figure class="rflk" data-rflk style="margin:0">
+  <div class="rord-stage"><canvas role="img" aria-label="Стая точек; направление полёта показано штрихом"></canvas>
+    <span class="rord-meter" data-rflk-meter></span></div>
+  <div class="rord-knob">
+    <label for="rflk-w">вес правила «лети как соседи»</label>
+    <input id="rflk-w" type="range" min="0" max="100" step="1" value="0" data-rflk-w>
+    <div class="rord-ticks" aria-hidden="true"><span class="is-start" style="left:0">выключено</span><span class="is-end" style="left:100%">1</span></div>
+  </div>
+  <p class="rord-read" data-rflk-read aria-live="polite"></p>
+  <figcaption class="rord-cap">Два других правила — не сталкиваться и держаться ближе — работают всегда. Вожака нет, и никто не знает, куда летит стая. После поворота ручки стая собирается не сразу — секунд восемь.</figcaption>
+</figure>
+<script>
+(function () {
+  var root = document.querySelector('[data-rflk]');
+  if (!root) return;
+  var canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  var input = root.querySelector('[data-rflk-w]'), read = root.querySelector('[data-rflk-read]'), meter = root.querySelector('[data-rflk-meter]');
+  var N = 150, W = 500, R = 40, RS = 12, VMIN = 1.2, VMAX = 3, align = 0;
+  var x = new Float64Array(N), y = new Float64Array(N), vx = new Float64Array(N), vy = new Float64Array(N);
+  var nx = new Float64Array(N), ny = new Float64Array(N);
+  function seed() { for (var i = 0; i < N; i++) { x[i] = Math.random() * W; y[i] = Math.random() * W; var a = Math.random() * 6.283; vx[i] = Math.cos(a) * 2; vy[i] = Math.sin(a) * 2; } }
+  seed();
+  function step() {
+    for (var i = 0; i < N; i++) {
+      var ax = 0, ay = 0, cx = 0, cy = 0, sx = 0, sy = 0, n = 0;
+      for (var j = 0; j < N; j++) {
+        if (i === j) continue;
+        var dx = x[j] - x[i], dy = y[j] - y[i];
+        dx -= W * Math.round(dx / W); dy -= W * Math.round(dy / W);
+        var d2 = dx * dx + dy * dy;
+        if (d2 > R * R) continue;
+        n++; ax += vx[j]; ay += vy[j]; cx += dx; cy += dy;
+        if (d2 < RS * RS) { var d = Math.sqrt(d2) || 1; sx -= dx / d; sy -= dy / d; }
+      }
+      var ux = vx[i], uy = vy[i];
+      if (n) {
+        ux += align * 0.01 * (ax / n - vx[i]); uy += align * 0.01 * (ay / n - vy[i]);
+        ux += 0.004 * cx / n; uy += 0.004 * cy / n;
+      }
+      ux += 0.35 * sx + (Math.random() - 0.5) * 0.3; uy += 0.35 * sy + (Math.random() - 0.5) * 0.3;
+      var s = Math.sqrt(ux * ux + uy * uy) || 1, c = Math.min(VMAX, Math.max(VMIN, s));
+      nx[i] = ux / s * c; ny[i] = uy / s * c;
+    }
+    for (i = 0; i < N; i++) { vx[i] = nx[i]; vy[i] = ny[i]; x[i] = (x[i] + vx[i] + W) % W; y[i] = (y[i] + vy[i] + W) % W; }
+  }
+  function polar() {
+    var sx = 0, sy = 0;
+    for (var i = 0; i < N; i++) { var s = Math.hypot(vx[i], vy[i]) || 1; sx += vx[i] / s; sy += vy[i] / s; }
+    return Math.hypot(sx, sy) / N;
+  }
+  var hist = [], frameN = 0;
+  function say() {
+    var m = 0; hist.forEach(function (v) { m += v; }); m = hist.length ? m / hist.length : polar();
+    meter.textContent = 'поляризация: ' + m.toFixed(2);
+    var lab = align === 0 ? '<b>Правило выключено</b>. ' : '<b>Вес ' + align.toFixed(2) + '</b>. ';
+    if (m > 0.75) read.innerHTML = lab + 'Поляризация ' + m.toFixed(2) + ': почти все летят в одну сторону, и сторону эту никто не выбирал.';
+    else if (m > 0.3) read.innerHTML = lab + 'Поляризация ' + m.toFixed(2) + ': стайки летят каждая своим курсом, сталкиваются и то сливаются, то распадаются.';
+    else read.innerHTML = lab + 'Поляризация ' + m.toFixed(2) + ': точки держатся вместе и не сталкиваются, но каждая летит куда хочет. Это рой, а не стая.';
+  }
+  function draw() {
+    rordFit(canvas);
+    var s = canvas.width, k = s / W;
+    ctx.fillStyle = '#06080a'; ctx.fillRect(0, 0, s, s);
+    ctx.strokeStyle = '#e8ecff'; ctx.lineWidth = Math.max(1.5, s / 280); ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (var i = 0; i < N; i++) {
+      var v = Math.hypot(vx[i], vy[i]) || 1, px = x[i] * k, py = y[i] * k;
+      ctx.moveTo(px, py); ctx.lineTo(px - vx[i] / v * 7 * k, py - vy[i] / v * 7 * k);
+    }
+    ctx.stroke();
+  }
+  input.addEventListener('input', function () { align = +input.value / 100; hist = []; say(); });
+  (root.closest('.rord__room') || root).addEventListener('rord-reset', function () { seed(); hist = []; say(); draw(); });
+  say(); draw();
+  // ~900 шагов до порядка при весе 0.8 (замер в node): два шага на кадр — около восьми секунд.
+  rordRun(root, function () {
+    step(); step();
+    if (++frameN % 15 === 0) { hist.push(polar()); if (hist.length > 8) hist.shift(); say(); }
+    draw();
+  });
+})();
+</script>

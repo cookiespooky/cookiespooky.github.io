@@ -1,0 +1,121 @@
+<article class="lab lab-idea">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .BaseURL }}/lab/">Лаборатория</a>
+      <span aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ .Page.Title }}</span>
+    </nav>
+
+    {{- /* Порядок сверху вниз закреплён в research/positioning/09-lending-laboratorii.md:
+           откуда пришла мысль → вещь → четыре строки → чего не доказывает → что дальше.
+           Сначала идея, потом вещь: лид говорит мысль, устройство вещи уходит в прибор. */}}
+    <header class="lab-idea__head">
+      {{- if .FM.kicker }}
+      <span class="lab-kicker">{{ .FM.kicker }}</span>
+      {{- end }}
+      <h1>{{ .Page.Title }}</h1>
+      {{- if .FM.lead }}
+      <p class="lab-idea__lead">{{ .FM.lead }}</p>
+      {{- else if .Page.Description }}
+      <p class="lab-idea__lead">{{ .Page.Description }}</p>
+      {{- end }}
+      {{- if .FM.status }}
+      <p class="lab-status lab-status--{{ if .FM.status_kind }}{{ .FM.status_kind }}{{ else }}idea{{ end }}">{{ .FM.status }}</p>
+      {{- end }}
+    </header>
+
+    {{- /* Комната — вещь, работающая прямо на странице, без кнопки «смотреть».
+           Имя партиала в шаблоне Go нельзя собрать из поля, поэтому каждая комната —
+           своя ветка здесь, по образцу demo: calc|plan|book в case.html. Партиал несёт
+           свои <style> и <script> и держит свой класс-префикс. Тяжёлая вещь лежит
+           статикой в static/lab/<имя>/, и её приводит сюда тот же room: партиал —
+           вход в неё (скриншот и ссылка), так что механизм комнат один. Проверяет lab_check.py. */}}
+    {{- $room := printf "%v" .FM.room }}
+    {{- if eq $room "1bitmusic" }}
+    <div class="lab-room">{{ template "room-1bitmusic.html" . }}</div>
+    {{- else if eq $room "order" }}
+    <div class="lab-room">{{ template "room-order.html" . }}</div>
+    {{- else if eq $room "phrase" }}
+    <div class="lab-room">{{ template "room-phrase.html" . }}</div>
+    {{- else if eq $room "selfloop" }}
+    <div class="lab-room">{{ template "room-selfloop.html" . }}</div>
+    {{- else if eq $room "tree" }}
+    <div class="lab-room">{{ template "room-tree.html" . }}</div>
+    {{- end }}
+
+    {{- if .FM.links }}
+    <ul class="lab-links">
+      {{- range .FM.links }}
+      <li><a href="{{ .url }}"{{ if not (eq (slice (printf "%v" .url) 0 1) "/") }} rel="noopener" target="_blank"{{ end }}>{{ .title }}<span aria-hidden="true"> →</span></a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+
+    {{ template "lab-law.html" . }}
+
+    {{- if .Body }}
+    <div class="lab-idea__body prose">{{ .Body }}</div>
+    {{- end }}
+
+    {{- if or .Collections.related_ideas.Items .Collections.related_notes.Items .Collections.related_cases.Items }}
+    <section class="lab-near" aria-label="Рядом">
+      {{- if .Collections.related_notes.Items }}
+      <div class="lab-near__group">
+        <h2 class="lab-near__label">Подробнее</h2>
+        {{- range .Collections.related_notes.Items }}
+        <a class="lab-near__item" href="{{ $.BaseURL }}/notes/{{ .Slug }}/"><span class="lab-near__title">{{ .Title }}</span><span class="lab-near__desc">{{ .Description }}</span></a>
+        {{- end }}
+      </div>
+      {{- end }}
+      {{- if .Collections.related_ideas.Items }}
+      <div class="lab-near__group">
+        <h2 class="lab-near__label">Смежные идеи</h2>
+        {{- range .Collections.related_ideas.Items }}
+        <a class="lab-near__item" href="{{ $.BaseURL }}/lab/{{ .Slug }}/"><span class="lab-near__title">{{ .Title }}</span><span class="lab-near__desc">{{ .FM.summary }}</span></a>
+        {{- end }}
+      </div>
+      {{- end }}
+      {{- if .Collections.related_cases.Items }}
+      <div class="lab-near__group">
+        <h2 class="lab-near__label">Проекты</h2>
+        {{- range .Collections.related_cases.Items }}
+        <a class="lab-near__item" href="{{ $.BaseURL }}/cases/{{ .Slug }}/"><span class="lab-near__title">{{ .Title }}</span><span class="lab-near__desc">{{ .FM.summary }}</span></a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </section>
+    {{- end }}
+
+    <p class="lab-back"><a href="{{ .BaseURL }}/lab/">← Все идеи</a></p>
+  </div>
+
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "url": {{ .Canonical }},
+    "inLanguage": "ru-RU",
+    {{- if .FM.og_image }}
+    "image": "{{ .BaseURL }}{{ .FM.og_image }}",
+    {{- else if .Settings.site_default_og_image }}
+    "image": {{ .Settings.site_default_og_image }},
+    {{- end }}
+    "author": { "@id": "{{ .BaseURL }}/#person" },
+    "creator": { "@id": "{{ .BaseURL }}/#person" },
+    "isPartOf": { "@id": "{{ .BaseURL }}/lab/#collection" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Лаборатория", "item": "{{ .BaseURL }}/lab/" },
+      { "@type": "ListItem", "position": 3, "name": {{ .Page.Title }} }
+    ]
+  }
+  ]</script>
+</article>

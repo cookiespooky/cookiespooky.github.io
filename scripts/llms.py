@@ -93,6 +93,12 @@ def main():
     for fm in sorted(notes, key=lambda f: f.get("published_at", ""), reverse=True):
         out.append(line(fm, f"{BASE}/notes/{fm['slug']}/"))
 
+    # Лаборатория: идеи и вещи, сделанные из интереса. Порядок ручной, как на /lab/.
+    out += ["", "## Лаборатория", ""]
+    ideas = collect("lab/*.md", "idea")
+    for fm in sorted(ideas, key=lambda f: int(f.get("nav_order") or 999)):
+        out.append(line(fm, f"{BASE}/lab/{fm['slug']}/"))
+
     out += ["", "## Инструменты", ""]
     for fm in collect("tools/*.md", "tool"):
         out.append(line(fm, f"{BASE}/tools/{fm['slug']}/"))
@@ -109,13 +115,14 @@ def main():
     out += [
         f"- [Блог]({BASE}/blog/): все статьи",
         f"- [Заметки]({BASE}/notes/): лингвистика, системное мышление, наблюдение",
+        f"- [Лаборатория]({BASE}/lab/): идеи и вещи, которые из них получились",
         f"- [Карта сайта]({BASE}/sitemap-index.xml): полный перечень адресов",
         "",
     ]
 
     (dist / "llms.txt").write_text("\n".join(out), encoding="utf-8")
     print(f"llms.txt: услуг {len(collect('services/*.md', 'service'))}, "
-          f"кейсов {len(cases)}, статей {len(posts)}, заметок {len(notes)}")
+          f"кейсов {len(cases)}, статей {len(posts)}, заметок {len(notes)}, идей {len(ideas)}")
     return 0
 
 

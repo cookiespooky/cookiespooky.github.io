@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1-BIT RASTER LAB</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2306080a'/%3E%3Crect x='3' y='3' width='4' height='4' fill='%23c8d4dc'/%3E%3Crect x='9' y='9' width='4' height='4' fill='%23c8d4dc'/%3E%3C/svg%3E">
+<style>
+  :root { --bg:#06080a; --panel:#0d1115; --line:#1b2229; --line2:#242d36;
+          --fg:#c8d4dc; --dim:#5d6b77; --accent:#4fe08a; --hot:#e0a34f; --bad:#e06a5a;
+          --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:12px/1.5 var(--mono); }
+  .wrap { max-width:1320px; margin:0 auto; padding:18px 16px 40px; }
+  header { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+           border-bottom:1px solid var(--line); padding-bottom:12px; }
+  h1 { font-size:18px; letter-spacing:4px; margin:0; font-weight:500; }
+  .sub { color:var(--dim); letter-spacing:1px; }
+  .rule { margin-left:auto; border:1px solid var(--line2); padding:3px 9px; color:var(--accent); letter-spacing:1px; }
+
+  button { font:inherit; background:#12181d; color:var(--fg); border:1px solid var(--line2);
+           padding:6px 12px; cursor:pointer; letter-spacing:1px; }
+  button:hover:not(:disabled) { background:#182027; border-color:#33404b; }
+  button:disabled { opacity:.4; cursor:default; }
+  button.on { border-color:#2f5f45; color:var(--accent); background:#12301f; }
+  button.w { padding:5px 9px; }
+  select, input[type=number] { background:#12181d; color:var(--fg); border:1px solid var(--line2);
+           padding:4px 6px; font:inherit; }
+  input[type=number] { width:70px; }
+
+  .panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; margin:14px 0; }
+  .panel { background:var(--panel); border:1px solid var(--line); padding:11px 13px 13px; }
+  .panel h2 { font-size:11px; letter-spacing:3px; color:var(--dim); margin:0 0 9px; font-weight:500;
+              border-bottom:1px solid var(--line); padding-bottom:7px; }
+  .row { display:flex; gap:7px; align-items:center; flex-wrap:wrap; margin:5px 0; }
+  .row label { color:var(--dim); min-width:74px; }
+
+  table { width:100%; border-collapse:collapse; font-size:11px; }
+  th { color:var(--dim); font-weight:500; text-align:right; padding:3px 6px; border-bottom:1px solid var(--line); }
+  th:first-child, td:first-child { text-align:left; }
+  td { text-align:right; padding:3px 6px; border-bottom:1px solid #12181d; }
+  td.hit { color:var(--accent); font-weight:600; }
+
+  #repeat { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:14px; }
+  .rep > div { display:flex; gap:10px; padding:3px 0; }
+  .rep .rl { color:var(--accent); letter-spacing:2px; font-weight:600;
+             border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:3px; }
+  .rep span { color:var(--dim); min-width:150px; }
+  .rep b { font-weight:500; }
+  .rep .ok b { color:var(--accent); }
+  .rep .bad b { color:var(--bad); }
+  .rep .warn b { color:var(--hot); }
+
+  .rasterbox { background:var(--panel); border:1px solid var(--line); padding:11px 13px 13px; margin-top:12px; }
+  .rasterbox h2 { font-size:11px; letter-spacing:3px; color:var(--dim); margin:0 0 9px; font-weight:500;
+                  display:flex; gap:14px; align-items:baseline; }
+  .rasterbox h2 .dims { margin-left:auto; color:var(--hot); }
+  #rasters { display:flex; gap:10px; align-items:flex-start; }
+  .rpanel { flex:1; min-width:0; }
+  .rhead { display:flex; gap:10px; align-items:center; margin-bottom:6px; font-size:11px; color:var(--dim); }
+  .rhead b { color:var(--accent); letter-spacing:2px; font-weight:600; }
+  .rhead button { margin-left:auto; padding:4px 10px; }
+  .view { position:relative; overflow:auto; max-height:620px; border:1px solid var(--line); background:#000; }
+  /* Никакой интерполяции: структура здесь толщиной в один пиксель, и любое
+     сглаживание покажет пустоту там, где она есть. Зум только целочисленный. */
+  .view canvas { display:block; image-rendering:pixelated; image-rendering:crisp-edges; }
+  .playhead { position:absolute; left:0; right:0; height:1px; background:var(--hot);
+              box-shadow:0 0 4px var(--hot); display:none; pointer-events:none; }
+  .cb { display:flex; gap:5px; align-items:center; color:var(--fg); min-width:0; }
+  .dinfo { margin-top:8px; color:var(--dim); font-size:11px; }
+  .dinfo b { color:var(--hot); font-weight:500; }
+  tr.grp td { border-top:1px solid var(--line); }
+  #scrub { width:100%; }
+  input[type=range] { -webkit-appearance:none; appearance:none; height:3px; background:var(--line2); outline:none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:11px; height:15px;
+              background:var(--hot); cursor:pointer; border-radius:1px; }
+  input[type=range]::-moz-range-thumb { width:11px; height:15px; background:var(--hot); border:none; border-radius:1px; }
+
+  footer { margin-top:12px; display:flex; gap:7px; align-items:center; flex-wrap:wrap; }
+  #msg { color:var(--dim); margin-left:6px; }
+  .note { color:var(--dim); font-size:11px; margin-top:16px; line-height:1.7; }
+  .note code { color:var(--hot); }
+  a { color:var(--dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>1-BIT RASTER LAB</h1>
+    <span class="sub">бит становится пикселем — и больше ничего</span>
+    <span class="rule">0 → BLACK · 1 → WHITE</span>
+  </header>
+
+  <div class="panels">
+    <section class="panel">
+      <h2>TEST SIGNAL</h2>
+      <div class="row"><label>Signal</label><select id="signal"></select></div>
+      <div class="row"><label>Tuning</label><select id="tuning"></select></div>
+      <div class="row"><label>Compare</label>
+        <label class="cb"><input type="checkbox" id="compare"> JUST и 12-TET рядом</label></div>
+      <div class="row"><label>Method</label><select id="method"></select></div>
+      <div class="row"><label>Dither</label><select id="dither"></select></div>
+      <div class="row"><label>Duration</label><select id="seconds"></select></div>
+      <div class="row"><label>Pulse w</label><input type="number" id="pulseWidth" min="0.5" max="12" step="0.5">
+        <span style="color:var(--dim)">сэмплов</span></div>
+      <div class="row"><button id="render">RENDER</button></div>
+    </section>
+
+    <section class="panel">
+      <h2>RASTER</h2>
+      <div class="row" id="widths"></div>
+      <div class="row">
+        <label>Width</label>
+        <button id="wminus">−1</button>
+        <input type="number" id="widthNum" min="8" max="4096">
+        <button id="wplus">+1</button>
+      </div>
+      <div class="row"><label>Height</label><span style="color:var(--dim)">auto</span></div>
+      <div class="row"><label>Zoom</label>
+        <select id="zoom"><option value="1">1×</option><option value="2">2×</option>
+        <option value="3">3×</option><option value="4">4×</option></select>
+        <span style="color:var(--dim)">только целые</span>
+      </div>
+      <div class="row" style="color:var(--dim)">← → меняют ширину на ±1</div>
+    </section>
+
+    <section class="panel" style="grid-column:1 / -1; min-width:0">
+      <h2>ГЕОМЕТРИЯ ПО ТОНАМ</h2>
+      <table>
+        <thead><tr><th>строй</th><th>тон</th><th>Гц</th><th>период, сэмплов</th><th>W mod P</th>
+          <th>наклон, px/строку</th><th>период битов</th><th>строк</th></tr></thead>
+        <tbody id="tones"></tbody>
+      </table>
+      <div id="dinfo" class="dinfo"></div>
+    </section>
+
+    <section class="panel" style="grid-column:1 / -1">
+      <h2>ПОВТОРЕНИЕ УЗОРА</h2>
+      <div id="repeat"></div>
+    </section>
+  </div>
+
+  <div class="rasterbox">
+    <h2>1-BIT RASTER</h2>
+    <div id="rasters"></div>
+    <div class="row" style="margin-top:10px">
+      <button id="sStart">|&lt;</button>
+      <button id="sPrev">&lt;</button>
+      <button id="sNext">&gt;</button>
+      <button id="sEnd">&gt;|</button>
+      <span id="pos" style="color:var(--dim)">—</span>
+    </div>
+    <input type="range" id="scrub" min="0" max="0" value="0">
+  </div>
+
+  <footer>
+    <button id="raw">EXPORT RAW</button>
+    <button id="png">EXPORT PNG</button>
+    <span id="msg"></span>
+  </footer>
+
+  <div class="note">
+    Картинка и звук берутся из одного сохранённого массива: сначала поток
+    рендерится офлайн детерминированно, потом из него строится растр, потом
+    воспроизводится он же. Двух независимых генераторов здесь нет.<br>
+    <code>DETERMINISTIC</code> заменяет случайный розыгрыш дробной части ширины
+    импульса накоплением ошибки. Со случайным дизером точного повторения не
+    бывает по построению — это тоже результат, его стоит посмотреть отдельно.<br>
+    <a href="./index.html">← ONE BIT MUSIC</a> · <a href="./color-sound.html">COLOR SOUND</a>
+  </div>
+</div>
+<script type="module" src="./src/experiments/rasterApp.js"></script>
+</body>
+</html>

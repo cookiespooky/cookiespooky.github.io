@@ -1,0 +1,104 @@
+{{- /* Комната «кристалл». Элементы — 120 одинаковых частиц в квадратной коробке,
+       замкнутой на себя; правило — Леннард-Джонс: издалека притягиваются, вблизи
+       отталкиваются. Ручка — температура (термостат подтягивает к ней скорости).
+       Порядок меряется, а не называется: у скольких частиц ровно шесть соседей ближе
+       1.4 диаметра — в шестиугольной решётке у всех. Прогон в node (по 3 зерна,
+       6000 шагов): T 0.05 → 0.57–0.83, T 0.35 → 0.54–0.67, T 0.8 → 0.23–0.24,
+       T 2 → 0.13–0.17. Горячо — контроль: шесть соседей там случайность.
+       Шестиугольники в квадрат без швов не ложатся, поэтому дефекты остаются и в
+       холоде — это сказано в подписи. Префикс rcry__. */ -}}
+<figure class="rcry" data-rcry style="margin:0">
+  <div class="rord-stage"><canvas role="img" aria-label="Частицы в коробке; те, у кого ровно шесть соседей, подсвечены"></canvas>
+    <span class="rord-meter" data-rcry-meter></span></div>
+  <div class="rord-knob">
+    <label for="rcry-t">температура</label>
+    <input id="rcry-t" type="range" min="0" max="100" step="1" value="85" data-rcry-t>
+    <div class="rord-ticks" aria-hidden="true"><span class="is-start" style="left:0">холодно</span><span class="is-end" style="left:100%">горячо</span></div>
+  </div>
+  <p class="rord-read" data-rcry-read aria-live="polite"></p>
+  <figcaption class="rord-cap">Синие — у кого ровно шесть соседей. Решётку никто не задавал, только притяжение издалека и отталкивание вблизи.
+    Шестиугольники в квадрат без швов не ложатся, поэтому швы остаются и в холоде. После поворота ручки нужно несколько секунд: остывание идёт само.</figcaption>
+</figure>
+<script>
+(function () {
+  var root = document.querySelector('[data-rcry]');
+  if (!root) return;
+  var canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  var input = root.querySelector('[data-rcry-t]'), read = root.querySelector('[data-rcry-read]'), meter = root.querySelector('[data-rcry-meter]');
+
+  var N = 120, rho = 0.8, L = Math.sqrt(N / rho), side = Math.ceil(Math.sqrt(N)), a0 = L / side;
+  var x = new Float64Array(N), y = new Float64Array(N), vx = new Float64Array(N), vy = new Float64Array(N);
+  var fx = new Float64Array(N), fy = new Float64Array(N), nb = new Int32Array(N);
+  function seed() {
+    for (var i = 0; i < N; i++) {
+      x[i] = (i % side + 0.5) * a0; y[i] = (Math.floor(i / side) + 0.5) * a0;
+      vx[i] = Math.random() - 0.5; vy[i] = Math.random() - 0.5;
+    }
+  }
+  seed();
+  var RC2 = 6.25, dt = 0.004, T = 1;
+  function forces() {
+    fx.fill(0); fy.fill(0);
+    for (var i = 0; i < N; i++) for (var j = i + 1; j < N; j++) {
+      var dx = x[i] - x[j], dy = y[i] - y[j];
+      dx -= L * Math.round(dx / L); dy -= L * Math.round(dy / L);
+      var r2 = dx * dx + dy * dy;
+      if (r2 > RC2) continue;
+      if (r2 < 0.64) r2 = 0.64;
+      var i2 = 1 / r2, i6 = i2 * i2 * i2, f = 24 * i2 * i6 * (2 * i6 - 1);
+      fx[i] += f * dx; fy[i] += f * dy; fx[j] -= f * dx; fy[j] -= f * dy;
+    }
+  }
+  function step() {
+    for (var i = 0; i < N; i++) {
+      vx[i] += 0.5 * dt * fx[i]; vy[i] += 0.5 * dt * fy[i];
+      x[i] = (x[i] + dt * vx[i] + L) % L; y[i] = (y[i] + dt * vy[i] + L) % L;
+    }
+    forces();
+    var k = 0;
+    for (i = 0; i < N; i++) { vx[i] += 0.5 * dt * fx[i]; vy[i] += 0.5 * dt * fy[i]; k += vx[i] * vx[i] + vy[i] * vy[i]; }
+    var s = Math.sqrt(1 + 0.05 * (T / Math.max(k / (2 * N), 1e-6) - 1));
+    for (i = 0; i < N; i++) { vx[i] *= s; vy[i] *= s; }
+  }
+  function six() {
+    nb.fill(0);
+    for (var i = 0; i < N; i++) for (var j = i + 1; j < N; j++) {
+      var dx = x[i] - x[j], dy = y[i] - y[j];
+      dx -= L * Math.round(dx / L); dy -= L * Math.round(dy / L);
+      if (dx * dx + dy * dy < 1.96) { nb[i]++; nb[j]++; }
+    }
+    var n = 0; for (i = 0; i < N; i++) if (nb[i] === 6) n++;
+    return n / N;
+  }
+  forces();
+
+  var hist = [], frameN = 0;
+  function say() {
+    var m = 0; hist.forEach(function (v) { m += v; }); m = hist.length ? m / hist.length : 0;
+    var pct = Math.round(m * 100);
+    meter.textContent = 'шесть соседей: ' + pct + '%';
+    var lab = '<b>T = ' + T.toFixed(2) + '</b> — ровно шесть соседей у ' + pct + '% частиц. ';
+    if (m > 0.5) read.innerHTML = lab + 'Частицы сели в шестиугольную решётку, её видно по синим островам.';
+    else if (m > 0.3) read.innerHTML = lab + 'Островки решётки плавают в жидкости и то собираются, то тают.';
+    else read.innerHTML = lab + 'Горячо: частицы летают, и шесть соседей у кого-то — просто совпадение.';
+  }
+  function draw() {
+    rordFit(canvas);
+    var s = canvas.width, k = s / L, r = 0.45 * k;
+    ctx.fillStyle = '#06080a'; ctx.fillRect(0, 0, s, s);
+    for (var i = 0; i < N; i++) {
+      ctx.fillStyle = nb[i] === 6 ? '#7a96ff' : '#4a505c';
+      ctx.beginPath(); ctx.arc(x[i] * k, y[i] * k, r, 0, 6.2832); ctx.fill();
+    }
+  }
+  function setT() { T = 0.05 * Math.pow(40, +input.value / 100); hist = []; }
+  input.addEventListener('input', function () { setT(); say(); });
+  (root.closest('.rord__room') || root).addEventListener('rord-reset', function () { seed(); hist = []; say(); });
+  setT(); hist.push(six()); say(); draw();
+  rordRun(root, function () {
+    for (var q = 0; q < 8; q++) step();
+    if (++frameN % 10 === 0) { hist.push(six()); if (hist.length > 12) hist.shift(); say(); }
+    draw();
+  });
+})();
+</script>

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The personal site of Anton Lozhkin at `cookiespooky.github.io` — a static site built with the
 [`notepub`](https://github.com/cookiespooky/notepub) engine (a separate Go repo, usually checked out at
-`../notepub`). Its purpose is lead generation for development work: sites, Telegram bots, parsers, automation
+`~/Documents/np-personal/projects/notepub`). Its purpose is lead generation for development work: sites, Telegram bots, parsers, automation
 and MVPs. Three content areas: **cases** (portfolio, the proof), **services** (commercial landings, the
 conversion) and **blog** (SEO traffic, written against keyword clusters).
 
@@ -15,6 +15,24 @@ Everything is in Russian.
 The site previously hosted an experiment where the homepage was generated on the fly by an LLM from a knowledge
 graph of "atoms". That produced ~200 thin pages and almost no search traffic, and has been removed — see
 `archive/llm-graph` if you need it back. Its backends survive under `lab/` as a non-core demo.
+
+## Before you touch anything
+
+The six mistakes here that cannot be taken back by the next commit, each explained further down:
+
+- **A push to `main` publishes the live site.** There is no staging branch.
+- **`CNAME` must reach `dist/`.** Without it GitHub Pages drops the custom domain.
+- **Never press Remove on the yellow "DNS Check in Progress"** in Settings → Pages — it revokes a working
+  certificate.
+- **Private material lives next door, never here.** Since 2026-09-25 `np-personal` is a plain folder with
+  two sibling repos: this one (`site/`) and `../life/` — Anton's private vault, with the old Diary under
+  `../life/archive/diary/` outside any git (live credentials, contracts, therapy). Nothing from there is
+  published without permission, and nothing from there is copied into this repo.
+- **An untracked directory at this repo's root is a warning.** Nothing private should ever sit inside
+  `site/` now — the last stray, `situation/` (a copy of a private letter), was moved into `../life/` on
+  2026-09-25. Stage paths, never `-A`, and read `git status --porcelain` before committing.
+- **Check `pwd` before git.** `np-personal` itself is not a repo: `git` answers in `site/` (public — a push
+  deploys) and in `../life/` (private).
 
 ## Build & run
 
@@ -28,9 +46,23 @@ the push publishes.
 python3 scripts/clusters_check.py         # registry ↔ content join; run after adding an article
 ```
 
+The rest of the commands live next to the section that explains them; this is the whole set in one place:
+
+| command | when |
+|---|---|
+| `./scripts/build.sh` | after any content or template change — the only correctness check there is |
+| `./.bin/notepub serve --config ./config.dev.yaml --rules ./rules.yaml` | preview on 127.0.0.1:8080; restart it after editing a template |
+| `python3 scripts/clusters_check.py` | after adding an article or touching `seo/clusters.yaml`; exits 1 on a broken join |
+| `python3 scripts/lab_check.py` | after adding or editing an idea in `content/lab/`; exits 1 on a broken law of the showcase |
+| `python3 scripts/shots.py` | after dropping a webp into `theme/assets/shots/` — **needs Pillow**, see *Screenshots and their derivatives* |
+| `python3 scripts/wordstat_queue.py` | before a measuring session — writes `seo/wordstat-queue.tsv` |
+| `python3 scripts/wordstat_import.py --dry-run` | after one — reads `seo/keys/*.csv` and the worksheet |
+| `python3 scripts/indexnow.py --dry-run --sitemap=dist/sitemap-0001.xml` | testing the selection offline; CI pings for real after a deploy |
+| `python3 ../life/observatory/observe.py context` | to get the research layer into context |
+
 Nothing installs `notepub` on PATH — `build.sh` puts it in `./.bin/`, so that is where `serve` is called from.
 
-A clean build prints its own census — `llms.txt: услуг N, кейсов N, статей N, заметок N`, then
+A clean build prints its own census — `llms.txt: услуг N, кейсов N, статей N, заметок N, идей N`, then
 `assistant-index.json: секций N`. It is the cheapest check that a new file landed in the type you meant:
 compare against the previous build, and the numbers move or they do not. This file deliberately does not
 repeat those numbers; they go stale with every article. **A build with no census still exits 0**: without
@@ -66,10 +98,15 @@ to a commit SHA at the top of the script, and CI pins the same one). It runs `va
 `404/index.html` to `404.html` for GitHub Pages.
 
 `static/` is the passthrough: its contents are copied to the **root** of `dist/`, unchanged and unindexed, for
-files the engine does not generate and that must answer at an exact address. Today that is three files, all
-described under *Analytics and Webmaster*: Google Search Console's `googlef059833b49e2a968.html`, Bing's
+files the engine does not generate and that must answer at an exact address. At the root that is three files,
+all described under *Analytics and Webmaster*: Google Search Console's `googlef059833b49e2a968.html`, Bing's
 `BingSiteAuth.xml` and the IndexNow key `ed8e07f3d48a4975c208f518b6d94488.txt`. The engine never sees these
-files, so they get no canonical, no sitemap entry and no template — which is what the verifiers want.
+files, so they get no canonical, no sitemap entry and no template — which is what the verifiers want. The one
+other occupant is `static/lab/<name>/`, heavy things a lab room points to (see *`/lab/`* below).
+
+Nothing else belongs at the root. `robots.txt`, `sitemap.xml`, `sitemap-index.xml` and `sitemap-0001.xml` are engine
+output written straight into `dist/`, and the passthrough runs *after* the build — so a copy of any of them in
+`static/` would not sit alongside the generated file, it would overwrite it.
 
 There is no test suite. Correctness means `./scripts/build.sh` exits clean — `validate` reports frontmatter,
 route and link errors, and unknown frontmatter keys are build errors, so a typo in a field name fails the build
@@ -85,9 +122,9 @@ for f in glob.glob('dist/**/index.html', recursive=True):
 EOF
 ```
 
-`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored, and so are `research/` and
-`Diary/` — so `git status` stays clean while those directories sit in the working directory. Do not "clean
-up" an untracked directory here; check *Context that is not in this repository* below first.
+`.bin/`, `dist/`, `dist-dev/`, `artifacts/` and `.notepub/` are gitignored. `.gitignore` still lists `life/`,
+`research/`, `daily/` and `Diary` — names private material had when it lived inside this repo — so that
+nothing under those names can ever surface here again.
 
 Bumping the engine means editing `NOTEPUB_REF` in **two** places — `scripts/build.sh` and the `env:` block of
 `.github/workflows/pages.yml` — or CI builds against a different commit than you do.
@@ -106,6 +143,8 @@ Page types, each a template plus a permalink:
 | `article` | `/blog/{slug}/` | `article.html` |
 | `notes` | `/notes/` | `notes.html` |
 | `note` | `/notes/{slug}/` | `note.html` |
+| `lab` | `/lab/` | `lab.html` |
+| `idea` | `/lab/{slug}/` | `idea.html` |
 | `page` | `/{slug}/` | `page.html` |
 | `notfound` | `/404/` | `notfound.html` |
 
@@ -121,8 +160,18 @@ some builds and page 1 on others. Templates read the slice through `.Collections
 The same engine release made the build deterministic (the history is in `docs/site-history.md`): two builds
 over identical content differ only in `search.json`'s `generated_at`, so a build diff is worth reading.
 
-`blog`, `home` and `notes` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
+`blog`, `home`, `notes` and `lab` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
+
+**The home page is frontmatter, not template.** `content/home.md` has an empty body: every word on `/` —
+`hero_kicker`, `hero_title`, `hero_lead`, `hero_note`, `hero_stats`, the whole four-step `razbor` block,
+`process`, `skills`, `cta_title`, `cta_note` — is a frontmatter key that `home.html` only arranges. Copy for
+`/services/` is the same: the seven-item `services:` list in `content/services.md`. Look for site text in
+`content/`, and change `home.html` only to change the arrangement. Two of those keys count things the build
+also counts and nothing reconciles them: `hero_stats[0].value` and the «N проектов» in `description` and
+`hero_note` are typed by hand, so they drift from the case census on every added case. A fourth copy sits in
+`config.dev.yaml`'s `site.description` and drifts the same way, harmlessly — the dev config never ships, and
+the production `config.yaml` deliberately carries no number at all.
 
 A `service` may also carry `demos: ["calc", "plan", "book"]`, which renders the live partials on the landing
 itself. Only `komponenty-dlya-sayta` uses it, and it should: the page that sells a calculator showed none
@@ -135,11 +184,20 @@ That link is load-bearing: before it existed the landings were near-orphans, rea
 article whose `cta_service` pointed at them. A new landing needs the item on `/services/` as much as it needs
 the file.
 
+**Site navigation is three hand-written lists, and nothing joins them to the content.** The header nav and the
+drawer are both in `partials/header.html`; the third is the column in `partials/footer.html`, which also
+hardcodes the two addresses that appear nowhere else in the chrome — `/tools/analiz-rechi/` and
+`/kak-ustroen-etot-sayt/`. No collection and no setting feeds any of them, so a new top-level section is three
+template edits that the build cannot check: `/notes/` needed all three. It is the `/services/` orphan one level
+up, and it fails the same silent way — the page exists, builds clean, and is reachable only by typing its
+address.
+
 Collections are declared, not hardcoded, and reach templates as `.Collections.<name>.Items`:
 
 - `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`,
   `cases_lab`, `cases_sites`) and `cases_featured` — consumed by `home.html`;
-- `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, for a home teaser);
+- `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, declared for a home teaser that
+  no template renders — nothing reads it today);
 - `notes_all` (the `/notes/` index, sorted by `fm.published_at` desc) and `notes_recent` (3, home teaser —
   note it sorts by `fm.nav_order` asc, not by date like every other notes/posts collection);
 - `services_all`;
@@ -154,7 +212,11 @@ page resolves to nothing and is skipped with a warning, not an error.
 ### Article frontmatter contract
 
 This is what the blog pipeline must emit. `type`, `slug`, `title` are required everywhere; unknown keys fail the
-build, so add new ones to `fields.optional` in `rules.yaml` first.
+build, so add new ones to `fields.optional` in `rules.yaml` first — **that list, not this file, is the full set
+of allowed keys.** The contracts here cover the fields something hangs off; eleven more are already declared
+and documented nowhere (`group_title`, `gallery`, `placeholder_note`, `stats`, `quick`, `more_items`,
+`more_services`, `cta_url`, `cta_button`, `tool_prompt`, `how_it_works`). Read `rules.yaml` before adding a
+field — half the time it is there under a name someone already chose.
 
 ```yaml
 type: article
@@ -181,6 +243,58 @@ print `date_label` and fall back to the raw ISO string when it is missing — al
 owns which cluster. One cluster must map to exactly one URL.
 
 Service pages add `includes`, `price_from`, `price_note`, `stack`, `faq` (list of `{q, a}`) and `service_cases`.
+
+### `/lab/` — ideas and the things that test them
+
+The second non-commercial section, next to `/notes/` and deliberately different from it: an `idea` is an
+instrument, not an essay. Every decision behind it (host, unit, first screen, register, design) is in
+`../life/knowledge/positioning/08-laboratoriya.md` and `09-lending-laboratorii.md`, the work order in
+`../life/projects/lab/plan.md`; drafts live in `../life/projects/lab/` and move to `content/lab/` when finished, because
+`../life/` is invisible to the engine and `draft: true` is not (see below).
+
+- **The four lines are a partial, not copy.** `partials/lab-law.html` prints `elements`, `rule`, `form`,
+  `control` and then `not_proven`, identically on every idea — and on `/lab/` itself, whose frontmatter fills
+  the same four fields with what each line *means*. An empty field prints as a dash rather than vanishing, so
+  a missing control shows as a hole.
+- **The engine cannot require them.** `fields.required` is global, so requiring the four lines would fail
+  every case and article. `scripts/lab_check.py` does it instead, `clusters_check.py`-style: the five fields
+  filled, no `cluster` or `cta_service` on an idea, every `related` slug real, every `room` backed by a partial
+  *and* a branch in `idea.html`.
+- **No offer on these pages, and nothing says so.** Neither template includes `cta.html` or the Telegram
+  aside, and no copy explains the absence — that is a decision in `08`, not an omission to fix.
+- **No preview grid.** `lab.css` has nothing resembling `case-row`: the index is one column of text, numbered
+  by a CSS counter (the engine has no arithmetic), and related cases on an idea render as text rows too.
+- **`room`** is the `demo` mechanism for ideas: a self-contained `partials/room-<name>.html` with its own
+  `<style>`/`<script>`. A template cannot pick a partial by a field's value, so each room is one explicit
+  branch in `idea.html`. A heavy thing goes to `static/lab/<name>/` and the room partial is its entrance — check
+  that no engine route answers at that address first, since `static/` is copied *after* the build and
+  overwrites silently. Five ideas carry a room: `1bitmusic`, `phrase`, `selfloop`, `tree` and `order`. `order` is a
+  series, not a room: `partials/room-order.html` includes six rooms in turn (Lissajous, sunflower, crystal, flock,
+  particle life, letters) and defines the shared `rord-*` classes and the `rordRun` helper, which runs a room's
+  animation only while it is on screen. Each room's header carries «↺ сначала» (`data-rord-reset`, one delegated handler in
+  `room-order.html`): every range input goes back to its `defaultValue` with an `input` event, then the room gets a
+  `rord-reset` event — crystal, flock and particles re-seed their elements, Lissajous clears its trace; a room with
+  state of its own must listen for it (`(root.closest('.rord__room') || root).addEventListener('rord-reset', …)`). Where the eye could be fooled — crystal, flock, particles, letters — the
+  room measures its own order and prints the number; the thresholds behind the words it prints were checked by
+  runs in node, and each partial's header comment carries them. Two rooms embed data that is regenerated, never
+  edited: `room-tree.html` holds the output of `~/Documents/np-personal/projects/thechoice/tree-export.js lyudi 5`, and
+  `room-selfloop.html` holds counts from the `consciousness-revelation` CSVs. The letters room fetches
+  `static/lab/letters/crime-and-punishment.txt` (the first 120 000 characters of the novel, lowercased).
+  `1bitmusic` is a copy of `~/Documents/np-personal/projects/1-bit-music` (the three
+  pages and `src/`, no README) in `static/lab/1bitmusic/`. On the harmony idea the partial shows the case's own screenshot
+  (`shots/one-bit-music.webp`) linking to the full instrument, not an iframe: a framed preview was tried on
+  2026-09-25 and dropped as redundant — the instrument wants the whole screen.
+  It is a copy, not a link, so a change in that repo reaches the site only by copying again.
+- **`notepub serve` does not serve `static/`**, so the lab address a room links to is a 404 in the usual preview. To see it, build
+  with the dev config into `dist-dev/` (`notepub build --config ./config.dev.yaml --rules ./rules.yaml
+  --dist ./dist-dev --artifacts ./.notepub/artifacts-dev`), copy `static/.` and `media/` into it and serve
+  it with `python3 -m http.server 8080` from inside `dist-dev/`. **Delete `.notepub/artifacts-dev` before every
+  such build**: `build` indexes only when that directory has no index, so a second build silently renders the
+  frontmatter as it was at the first one.
+- `related` from an idea resolves to cases, ideas and notes, and each lands in its own forward collection
+  (`related_cases`, `related_ideas`, `related_notes`) because a forward collection filters by type.
+- The header, the drawer and the footer all carry `/lab/`, highlighted on both `lab` and `idea` pages
+  (`aria-current="true"` on an idea, `"page"` on the index).
 
 ### `/notes/` — the non-commercial section
 
@@ -246,6 +360,9 @@ Adding a case, in order: copy an existing `content/cases/*.md`; set `group` to a
 four edits above); drop the webp into `theme/assets/shots/`, run `python3 scripts/shots.py` and point `og_image`
 at the generated `/assets/shots/og/` card; run `./scripts/build.sh` and check that the census shows one more
 кейс; then run `python3 scripts/clusters_check.py` and check that the case landed in the group split you meant.
+Last, bump the three hand-typed counts in `content/home.md` (`hero_stats`, `description`, `hero_note`) to the
+number the census just printed — see *Content model* above; they are the one thing adding a case silently
+leaves wrong.
 
 ### Screenshots and their derivatives
 
@@ -257,6 +374,11 @@ things from it and is idempotent, so run it after adding a screenshot and commit
   card must not silently lose the half of the screenshot that mattered. JPEG on purpose: every scraper reads
   it, which is not true of WebP.
 
+**This is the one script here with a third-party dependency**: `shots.py` imports Pillow, unlike `llms.py`,
+`clusters_check.py` and the wordstat pair, which parse by hand precisely so the build needs no packages.
+`build.sh` never calls it, so CI never notices — the requirement falls on whoever adds a screenshot, at the
+exact step the *Adding a case* checklist reaches for it.
+
 `shots/` holds one file more than there are cases with a `shot`: `obsidian-guide-inner.webp` is a spare with
 derivatives already generated. Count `shot:` in frontmatter (`grep -l '^shot:' content/cases/*.md`), not
 files on disk.
@@ -265,14 +387,11 @@ If you add a thumbnail somewhere new, point it at `shots/thumbs/`, never at `sho
 once made the home page pull 5.5 MB to draw 180 px rows.
 
 Thumbnails carry `alt="Экран проекта «{{ .Title }}»"` — the same wording as the full screenshot in
-`case.html`. They were `alt=""` in all eleven places that render a case thumbnail (six group sections in
-`home.html`, plus `case.html`, `service.html`, `note.html`, `tool.html`, `article.html`; `blog.html` and
-`notes.html` reuse the `case-row` class for posts but draw no image), which a Bing site
-scan reported on 2026-09-07 as "Alt attribute for images is missing" across 39 pages: **Bing counts an empty
-`alt` as a missing one**, so the WCAG argument that the adjacent case title makes the image decorative does
-not buy anything here. Two `alt=""` are deliberate and were left alone — the 30×30 brand photo in
-`partials/header.html` (the site name sits next to it) and the off-screen Metrika pixel in `layout.html`;
-Bing flagged neither. Copy the alt when you add a new `case-row`.
+`case.html`, in all eleven places that render a case thumbnail (six group sections in `home.html`, plus
+`case.html`, `service.html`, `note.html`, `tool.html`, `article.html`). **Bing counts an empty `alt` as a
+missing one**, so "the adjacent title makes it decorative" does not hold here — copy the alt when you add a
+new `case-row`. Two `alt=""` are deliberate: the brand photo in `partials/header.html` and the Metrika pixel
+in `layout.html`; Bing flags neither. The scan that found this is in `docs/site-history.md`.
 
 ### Live components on case pages
 
@@ -301,7 +420,8 @@ The engine builds canonical, robots, OpenGraph and sitemap entries itself; `og:t
 `config.yaml` under `og_type_by_type`. Site-wide copy and contact links live in `config.yaml` under `settings`
 and reach templates as `.Settings.*`. That map has no `note` or `notes` entry, so a note falls back to
 `og:type: website` while `note.html` calls the same page an `Article` in its JSON-LD — add the entry rather
-than the other way round if it ever matters. `config.dev.yaml` also lacks the `tool` line the production
+than the other way round if it ever matters. The reverse mismatch exists for ideas: `idea: "article"` in both
+configs, while `idea.html` emits `CreativeWork`. `config.dev.yaml` also lacks the `tool` line the production
 config has, which changes nothing today because the fallback is the same `website`.
 
 `og_image` in frontmatter overrides the site-wide `default_og_image`; the engine also picks up the first image
@@ -322,6 +442,8 @@ inside `<script type="application/ld+json">`:
 | `blog.html` | `Blog` with `blogPost` + `BreadcrumbList` |
 | `notes.html` | `CollectionPage` (`@id` `{base}/notes/#collection`) + `BreadcrumbList` |
 | `note.html` | `Article` + `BreadcrumbList`, `isPartOf` the notes `CollectionPage` |
+| `lab.html` | `CollectionPage` (`@id` `{base}/lab/#collection`) + `BreadcrumbList` |
+| `idea.html` | `CreativeWork` + `BreadcrumbList`, `isPartOf` the lab `CollectionPage` |
 | `tool.html` | `WebApplication` |
 
 `layout.html` additionally emits `{{ .Meta.JSONLD }}` — the engine's pass-through of a page's own `jsonld`
@@ -392,14 +514,13 @@ article names a `cta_service` (no search visitor lands on a dead end) and that a
 
 `stage` is hand-maintained and lags, and the check does not look at it — most `written` clusters have
 articles already live and in the sitemap, so read `stage` as intent, not as truth about what is published.
-The queue of what to write and measure next is in `research/backlog.md`. A `planned` cluster carries its chosen slug
+The queue of what to write and measure next is in `../life/knowledge/backlog.md`. A `planned` cluster carries its chosen slug
 and head phrase in `note`, not in `target_url`, which stays `null` until the page exists.
 
-**A cluster's `cases` list is a claim, not a fact — check it against the case files before writing.** Both
-clusters written on 2026-09-14 had wrong ones: `bot-vs-miniapp` named three «mini-app» cases of which none is
-a Telegram Mini App (a PWA, a Nuxt app, an Electron client), and `bot-hosting-serverless` named `order-flow`,
-which has nothing to do with cloud functions. The quality gate says a cluster without a case is not written,
-so a wrong list is how an article gets written with nothing behind it.
+**A cluster's `cases` list is a claim, not a fact — check it against the case files before writing.** Lists
+were written when clusters were seeded and have been wrong (examples in `docs/site-history.md`). The quality
+gate says a cluster without a case is not written, so a wrong list is how an article gets written with
+nothing behind it.
 
 **Pick the narrow formulation where top 3 is reachable over the big one where the ceiling is eighth.**
 Every Webmaster slice so far (2026-09-09, 09-11, 09-12) shows the same split: positions 1–3 bring all the
@@ -409,12 +530,13 @@ became the only page that clicks.
 
 **An article's CTA goes to `razbor` only when the reader arrives carrying a solution before a problem**
 (three do: tables, AI implementation, Obsidian). Everywhere else it goes to the service that does the
-thing the article describes. Checked across all fifteen articles on 2026-09-13 and nothing else fit;
-don't stretch it — razbor sells to people who do not yet know what to build, not to everyone.
+thing the article describes. Checked across the fifteen articles that existed on 2026-09-13 and nothing else
+fit; articles written since were not part of that pass, so re-read the rule rather than assuming it holds.
+Don't stretch it — razbor sells to people who do not yet know what to build, not to everyone.
 
 **Don't edit an article's text, title or description on data below 100 impressions for its cluster.**
 The thresholds above that (rewrite the snippet below position 10, add internal links at 4–10, leave
-top-3 alone) are in `research/backlog.md`, declared before the numbers could argue.
+top-3 alone) are in `../life/knowledge/backlog.md`, declared before the numbers could argue.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
@@ -448,7 +570,7 @@ Each phrase therefore carries three numbers, and they are not interchangeable:
 
 Four traps the first wave walked into; examples and numbers are in `seo/wordstat.md`:
 
-- **Set the region to Russia before taking numbers.** The first wave, and the four `research/` exports
+- **Set the region to Russia before taking numbers.** The first wave, and the four `../life/` exports
   added 2026-09-09, were taken on «все регионы» — comparable with each other, not with anything taken later.
 - **Rename every export after its target phrase.** Wordstat names them all `wordstat_top_queries (N).csv`
   with numbering restarting per session, so a second batch silently overwrites the first.
@@ -499,7 +621,7 @@ point: the engine transliterates heading anchors itself (`Три вида пам
 reimplementing that here would drift and start emitting links to anchors that do not exist. Verify after
 changing it by checking every anchor against the built HTML, not by eye.
 
-**The backend** is not in this repo. It lives at `~/Documents/website-ai-assistant`, deployed to
+**The backend** is not in this repo. It lives at `~/Documents/np-personal/projects/website-ai-assistant`, deployed to
 `assistant.antonlozhkin.ru` — the same server as hookapp (`45.90.33.166`, systemd unit `assistant`, nginx
 site `assistant`, TLS by certbot). It streams over SSE, so it could not be a Cloud Function like the two in
 `lab/`; `proxy_buffering off` in nginx and `X-Accel-Buffering: no` on the response are both load-bearing, or
@@ -537,6 +659,10 @@ for using visitor questions as a source of article topics.
 
 ## Backends in `lab/`
 
+**Not the `/lab/` section.** This root `lab/` predates it and shares only the name: nothing here is built,
+copied or served by `build.sh`, while the section lives in `content/lab/`, `static/lab/` and `lab.css`. A
+backend reaches the section only through a room partial that calls its endpoint.
+
 Two Yandex Cloud Functions, each deployed by its own `deploy.sh`. The code moved here from `ycf/`; nothing was
 deleted except the `ysc/` Serverless Container, which was a third copy of the graph runtime's streaming logic.
 
@@ -549,7 +675,8 @@ deleted except the `ysc/` Serverless Container, which was a third copy of the gr
   WebSocket (`ws-gateway.openapi.yaml`), sized for the free tier; `build.sh` bakes a graph JSON and a system
   prompt into the zip. Event contract: `start` → `delta`* → `phase`? → `meta` → `done`. **It has no page yet**
   and the graph it used to read was deleted with the atoms; the plan is to re-point it at the cases graph and
-  give it a `/lab/` page with a pre-generated static fallback so it renders with the backend switched off.
+  give it an `idea` in the `/lab/` section, its room carrying a pre-generated static fallback so it renders
+  with the backend switched off.
 
 ## Theme JS (`theme/assets/app.js`)
 
@@ -568,15 +695,19 @@ break:
 ### The tool page port
 
 `tool.html`, `theme/assets/tool.css` and `theme/assets/tool.js` were lifted off `archive/llm-graph`, where they
-lived inside the old theme's `styles.css` and `main.js`. Three things to know if you touch them:
+lived inside the old theme's `styles.css` and `main.js`, and re-laid in the site's own language on 2026-09-25:
+the frame of the live demos, mono labels, the result in rows like the lab instrument, the tone as a row of
+radio buttons instead of a dropdown. Three things to know if you touch them:
 
-- `tool.js` queries 21 `data-aa-*` hooks; the markup in `tool.html` must keep every one of them. Verify by
-  diffing the hook lists, not by reading.
-- the CSS came from a dark-panel palette whose `--surface-raised*` variables do not exist in the new theme, so
-  `tool.css` re-declares them scoped to `.agency-tool` in terms of the new `--panel*` tokens.
-- `tool.css`/`tool.js` load only when `.Page.Type` is `tool`. Two of the seven stylesheets are conditional
+- `tool.js` queries 19 `data-aa-*` hooks under a `data-agency-analyzer` root; the markup in `tool.html` must
+  keep every one of them. Verify by diffing the hook lists, not by reading:
+  `diff <(grep -oE 'data-aa-[a-z-]+' theme/assets/tool.js | sort -u) <(grep -oE 'data-aa-[a-z-]+' theme/templates/tool.html | sort -u)`
+- the widget has three modes — input, loading, result — and `setMode()` in `tool.js` is the only place that
+  shows or hides its parts. Input and result are never on screen together: the result repeats the phrase as its
+  first row. The dark panel of the old theme, and the `--surface-raised*` variables it needed, are gone.
+- `tool.css`/`tool.js` load only when `.Page.Type` is `tool`. Three of the eight stylesheets are conditional
   this way and the rest load everywhere: `blog.css` on `blog`/`article`/`service`/`tool`/`notes`/`note`,
-  `tool.css` on `tool` alone. `home.css` and `case.css` are still site-wide. Adding a stylesheet means
+  `tool.css` on `tool` alone, `lab.css` on `lab`/`idea`. `home.css` and `case.css` are still site-wide. Adding a stylesheet means
   deciding which list it joins in `layout.html`.
 
 The endpoint is frontmatter (`endpoint`), not hardcoded as it was before. The five `?` links next to the tone
@@ -604,6 +735,16 @@ the domain, the certificate or the Pages settings. What still applies:
 ### Analytics and Webmaster
 
 Metrika **108674124** is the counter, installed via `settings.metrika_id`, loaded as `tag.js?id=<counter>`.
+
+**The same counter also runs on `choice.antonlozhkin.ru`** — the choice game (`~/Documents/np-personal/projects/thechoice`, in
+`play.html`), where the number is hardcoded because that project has no build step, and the host is
+registered in the counter's «Дополнительные адреса сайта». One counter on purpose: a separate one would
+read a visit that walks from the site into the game as a visit that left the site. Two consequences worth
+knowing before reading any number. The counter id now lives in two repositories, so changing it is two
+edits. And **game traffic lands in this site's reports** — segment by host before comparing anything with
+the thresholds in `../life/knowledge/backlog.md`, or a wave in the game reads as growth of the site. The three goals
+(`partiya_nachata`, `shag_6`, `god_doigran`) are the game's funnel and are defined in the counter for it;
+the site itself declares no goals.
 
 Ownership is proved to three engines by three unrelated mechanisms, and none of them substitutes for another:
 
@@ -633,15 +774,14 @@ site's; `docs/deploy-history.md` has the details.
 - Whether the Webmaster host is verified by the `yandex_verification` meta tag in `config.yaml`
   (`74ea07470235e3be`) or by another method. If it is the tag, it is load-bearing; if not, it is dead weight
   that should be removed.
-- **Sitemaps are submitted and being processed.** `https://antonlozhkin.ru/sitemap-index.xml` went to
-  Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05. Yandex has taken it in: as of the
-  2026-09-14 export, 68 of 70 sitemap URLs are searchable, and articles published 09-09 and 09-10 were
-  already in. Coverage is therefore no longer the unknown — but traffic is too thin (27 impressions in
-  twelve days) to call any page weak; see the thresholds in `research/backlog.md`.
+- **Sitemaps are submitted** (`https://antonlozhkin.ru/sitemap-index.xml`, to Yandex Webmaster, Search
+  Console and Bing Webmaster). Yandex indexes new articles within days, so coverage is not the open question.
+  Before calling any page weak, take current numbers from Webmaster and compare them with the thresholds in
+  `../life/knowledge/backlog.md` — do not reason from a figure written down here.
 - **IndexNow effectively submits the whole site on every deploy**, which is the opposite of what the script
   was written for. `lastmod` equals the build date on every sitemap URL because `updated_at` is set in only a
   handful of files, so the "changed today" filter matches everything. Left alone on purpose (see
-  `research/backlog.md`): two articles reached the index within two days of publication and blanket submission
+  `../life/knowledge/backlog.md`): two articles reached the index within two days of publication and blanket submission
   probably helped, and at well under a hundred pages the noise is harmless. Revisit when the page count grows. Note that `--all` cannot be run from this
   sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
   `curl` to the same host works).
@@ -674,6 +814,12 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 - **No taxonomy routes and no RSS in the engine.** Collections only come in `filter` and `forward` kinds;
   `group_by` groups items inside a collection but generates no route, so `tags` still produce no pages. That
   is why articles carry tags from the start.
+- **`search.json` is built and nothing reads it.** `rules.yaml` carries a whole `search:` block —
+  `include_types`, `fields_boost`, `preview` — and the engine writes ~40 KB of `dist/search.json` on every
+  build, but no template and no script fetches it: there is no search on the site yet. So adding a type to
+  `search.include_types` changes that one file and nothing a visitor sees, and a page missing from search is
+  not a bug to chase. It is also the only source of build nondeterminism (`generated_at`). Leave it until the
+  search itself is written.
 - **Articles have no image of their own.** Their `Article` schema and `og:image` both fall back to the
   site-wide `media/og.png`, because nothing generates a per-article card. Cases have one; articles do not.
 - **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by
@@ -696,46 +842,66 @@ redesign: the home page is built around the catalogue with its sticky filter tab
 
 ## Context that is not in this repository
 
-**Two layers, one working directory.** Everything outside `research/` and `Diary/` is the **public layer**:
-the site, its SEO registry and scripts, deployed from this public repo. `research/` is the **research layer**
-— a separate private git repository nested here and ignored by this one. `Diary/` belongs to neither repo:
-it holds live credentials and syncs through Obsidian's `remotely-save`, so it stays out of git and is only
-read in place. The root directory is also the Obsidian vault, which is why the layers share it.
+**Two layers, and since 2026-09-25 they are two places.** This repo is the **public layer**: the site, its
+SEO registry and scripts. **`../life/`** is everything else — Anton's single Obsidian vault and a separate
+private git repository: dashboard, phone chat with Claude, tasks, journal with personal metrics, knowledge,
+projects, and the old Diary under `../life/archive/diary/` (outside every git repo: live credentials, contracts,
+therapy). It was `research/` plus `daily/` nested inside this repo until 2026-09-25; now it is a sibling. Its own `../life/CLAUDE.md` describes it; its paths are in
+`../life/lifeos.yaml`, where `site:` points back here.
 
 **The vault config is tracked, its workspace file is not.** `.obsidian/` sits in the public repo — the
-appearance, the plugin list and the `obsidian-git` plugin itself. `workspace.json` was there too and was
-removed from the index on 2026-09-16: it records `lastOpenFiles` for the whole vault, and the vault root is
-shared with `Diary/` and `research/`, so committing it publishes the names of private files. Nothing had
-leaked — the tracked copy still listed pre-restructure site paths — but it would have on the next commit
-that picked it up.
+appearance, the plugin list and the `obsidian-git` plugin itself. `.obsidian/workspace.json` is gitignored
+and must stay so: it records `lastOpenFiles`, and from the months when this vault also held the Diary and
+`research/` it still names private files.
 
 The public layer is not the most important part of the system, only the one with the most attention right
 now. What the current vector is, and how it should be corrected against the rest, lives in
-`research/vector.md` — read it before deciding what is urgent.
+`../life/knowledge/vector.md` — read it before deciding what is urgent.
 
 | where | what |
 |---|---|
-| `research/observatory/` | the observable system: Diary grouped into Obsidian canvases, hypotheses with kill criteria, an agent run on new data. **To get the system into context, run `python3 research/observatory/observe.py context`** (under a second, ~2k tokens), then descend with `show <id>`, `find <words>`, `near <note>`, `hyp <name>` instead of reading `Diary/` file by file; details in its `README.md` |
-| `research/vector.md` | the current vector of attention: what it is, why, until when, and what would correct it |
-| `research/backlog.md` | deliberately deferred tasks, each with a reason and a threshold for return — read it before "fixing" something that looks unfinished |
-| `research/context/` | map of the `Diary/` archive, the author's portrait, Threads mechanics, the 2031 horizon |
-| `research/niche/` | the search for a product niche: method, signal registry, Wordstat exports, the RFM and outstaff demos. Writes upstream into `seo/` — the tables clusters and the three rejections came from there. Has its own `CLAUDE.md` |
-| `research/positioning/` | positioning: diagnosis, Trout-style positions, self-presentations, verification protocol |
-| `research/threads-plan/` | Threads content plan, hook rules, profile packaging |
-| `research/situation/` | outbound: letters to studios, catalogues, TSVs of recipients |
-| `research/Пюре райтинг/` | notes from someone else's Threads channel on copywriting — a style sample to read, **not the author's own text**: nothing from it goes into `content/` |
-| `Diary/` | Obsidian archive, February 2025 → August 2026; outside both repos |
-| `~/Documents/consciousness-revelation` | separate public repo: a preregistered experiment with a negative result |
-| `../notepub` | the engine itself: the Go repo `build.sh` installs the binary from at `NOTEPUB_REF` |
+| `../life/observatory/` | the observable system: daily grouped into Obsidian canvases, hypotheses with kill criteria, an agent run on new data. **To get the system into context, run `python3 ../life/observatory/observe.py context`** (under a second, ~3k tokens; opens with today, data freshness and what is new), then descend with `show <id>`, `tree`, `find <words>`, `near <note>`, `hyp <name>` instead of reading `../life/archive/diary/` file by file; details in its `README.md` |
+| `../life/knowledge/vector.md` | the current vector of attention: what it is, why, until when, and what would correct it |
+| `../life/knowledge/backlog.md` | deliberately deferred tasks, each with a reason and a threshold for return — read it before "fixing" something that looks unfinished |
+| `../life/knowledge/context/` | map of the `../life/archive/diary/` archive, the author's portrait, Threads mechanics, the 2031 horizon |
+| `../life/projects/niche/` | the search for a product niche: method, signal registry, Wordstat exports, the RFM and outstaff demos. Writes upstream into `seo/` — the tables clusters and the three rejections came from there. Has its own `CLAUDE.md` |
+| `../life/knowledge/positioning/` | positioning: diagnosis, Trout-style positions, self-presentations, verification protocol |
+| `../life/projects/threads-plan/` | Threads content plan, hook rules, profile packaging |
+| `../life/references/Пюре райтинг/` | notes from someone else's Threads channel on copywriting — a style sample to read, **not the author's own text**: nothing from it goes into `content/` |
+| `~/Documents/np-personal/projects/thechoice` | the choice game (idea 9 from `../life/knowledge/positioning/`), its own **private** repo `cookiespooky/thechoice` since 2026-09-24 — so nothing on the site links to it — and live at `choice.antonlozhkin.ru`, with a password-protected staging copy at `staging.choice.antonlozhkin.ru` (`deploy.sh --staging`, same server, own unit and parties — test there before prod): `rules.js` holds the whole world, `engine.js` knows no plot, `node check.js` verifies the rules. It moved out of `research/vybor/` so that a third git repo would not answer from inside the vault. Party transcripts, the key and the author's research notes stay on disk and out of that repo |
+| `../life/knowledge/changelog.md` | why the research layer changed, newest first — priorities moved, territories closed, layers rebuilt. The private repo's git history says *what* |
+| `../life/archive/diary/` | Obsidian archive since February 2025 and the vault Obsidian opens on the Mac (its own `.obsidian`, synced to the phone by remotely-save through MinIO); outside both repos. Named `Diary/` until 2026-09-25 — `.gitignore` keeps both names, so an empty `Diary/` recreated by an old Obsidian entry cannot surface. The copy in `~/Yandex.Disk.localized/Diary/Diary` is retired: two vaults syncing one bucket is how notes get lost |
+| `~/Documents/np-personal/projects/consciousness-revelation` | separate public repo: a preregistered experiment with a negative result |
+| `~/Documents/np-personal/projects/notepub` | the engine itself: the Go repo `build.sh` installs the binary from at `NOTEPUB_REF` |
 
-A commit or push in `research/` goes to the private repo, not to the site — check `pwd` before running git,
+`../life/` carries its own `CLAUDE.md` (and `../life/projects/niche/` a second one) — read the one for the layer you
+are working in; this file describes the public layer only.
+
+A commit or push in `../life/` goes to the private repo, not to the site — check `pwd` before running git,
 since both repos answer from inside the vault.
 
-`Diary/` holds client contracts, therapy material and live credentials — nothing from it is published without
+`../life/archive/diary/` holds client contracts, therapy material and live credentials — nothing from it is published without
 explicit permission. Live keys in it are due for rotation.
 
 Durable facts about the author and the strategy are also in the session memory directory, which
-loads automatically; `research/context/` holds what is too long for that.
+loads automatically; `../life/knowledge/context/` holds what is too long for that.
+
+## Naming
+
+Russian for what a person reads — page copy, script output. English for what a machine addresses — files,
+directories, functions, flags, frontmatter keys, cluster ids. Transliteration **only in slugs**, because
+those are public and indexed.
+
+So a new content file is named in English while its `slug` stays transliterated: `content/lab/rules-before-objects.md`
+with `slug: pravilo-pervichnee-obekta`. The engine resolves by path, filename and slug, so the two are
+allowed to differ — but never rename an existing file's slug: they are in the sitemap and Pages cannot 301.
+
+`seo/clusters.yaml` ids already follow this. Transliterated filenames elsewhere are drift, not a decision;
+renaming them is tracked in `../life/knowledge/backlog.md`.
+
+**Renaming can lift a file out of `.gitignore`** — it matches by name, so a renamed private file becomes
+unignored and one `git add -A` publishes it. This happened on 2026-09-24 in a sibling repo and was caught
+before a push. It is the same reason this file says to stage paths and never `-A`.
 
 ## Commits
 

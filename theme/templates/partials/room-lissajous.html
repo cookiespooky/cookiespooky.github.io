@@ -1,0 +1,111 @@
+{{- /* Комната «звук, который видно»: фигура Лиссажу. Элементы — два колебания,
+       по горизонтали и по вертикали; правило — точка, у которой x и y колеблются
+       каждый со своей частотой; ручка одна — отношение частот. При целом отношении
+       (1:2, 2:3, 3:4…) фигура замыкается и стоит; при нецелом не замыкается никогда и
+       за несколько секунд заливает поле — это контроль. Рядом с простым отношением
+       фигура медленно проворачивается: это биения, та же вещь, что слышна ухом.
+       На простых отношениях у ручки защёлки: без них в 3:4 ползунком не попасть, и
+       читатель решил бы, что порядка нет. Защёлка узкая (±0.004), между ними — как есть.
+       Звук по кнопке: те же две частоты синусами, 220 Гц и 220·r. Префикс rliss__. */ -}}
+<figure class="rliss" data-rliss>
+  <div class="rliss__stage"><canvas class="rliss__canvas" aria-label="Фигура Лиссажу при выбранном отношении частот" role="img"></canvas></div>
+  <div class="rliss__knob">
+    <label class="rliss__label" for="rliss-r">отношение частот</label>
+    <input id="rliss-r" class="rliss__range" type="range" min="1000" max="2000" step="1" value="1487" data-rliss-r>
+    <div class="rliss__ticks" aria-hidden="true" data-rliss-ticks></div>
+  </div>
+  <p class="rliss__read" data-rliss-read aria-live="polite"></p>
+  <figcaption class="rliss__cap">
+    <span>Точка движется по горизонтали с одной частотой, по вертикали — с другой. Больше ничего.</span>
+    <button class="rliss__sound" type="button" data-rliss-sound aria-pressed="false">звук: выкл</button>
+  </figcaption>
+</figure>
+<style>
+  .rliss { margin: 0; }
+  .rliss__stage { max-width: 520px; aspect-ratio: 1; background: #06080a; border: 1px solid var(--line-strong); }
+  .rliss__canvas { display: block; width: 100%; height: 100%; }
+  .rliss__knob { position: relative; display: grid; gap: 8px; max-width: 520px; margin-top: 18px; }
+  .rliss__label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .rliss__range { width: 100%; margin: 0; accent-color: var(--accent); }
+  .rliss__ticks { position: relative; height: 16px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-3); }
+  .rliss__ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .rliss__ticks span:first-child { transform: none; }
+  .rliss__ticks span:last-child { transform: translateX(-100%); }
+  .rliss__read { max-width: 520px; margin-top: 10px; min-height: 3.2em; font-size: 17px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+  .rliss__cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; max-width: 520px; margin-top: 8px;
+                font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: var(--ink-2); }
+  .rliss__sound { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+  .rliss__sound:hover { color: var(--ink); }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('[data-rliss]');
+  if (!root) return;
+  var canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  var acc = document.createElement('canvas'), actx = acc.getContext('2d');
+  var input = root.querySelector('[data-rliss-r]'), read = root.querySelector('[data-rliss-read]');
+  // Защёлки: несократимые p/q в [1, 2] с q ≤ 4. Ширина та же, что в комментарии сверху.
+  var SNAP = [[1, 1], [5, 4], [4, 3], [3, 2], [5, 3], [7, 4], [2, 1]], WIN = 0.004;
+  var ticks = root.querySelector('[data-rliss-ticks]');
+  SNAP.forEach(function (s) {
+    var t = document.createElement('span');
+    t.style.left = ((s[0] / s[1] - 1) * 100) + '%';
+    t.textContent = s[1] + ':' + s[0];
+    ticks.appendChild(t);
+  });
+  var r = 1, snapped = null, t = 0, size = 0, PH = Math.PI / 4;
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    size = Math.round(canvas.clientWidth * dpr);
+    canvas.width = canvas.height = acc.width = acc.height = size;
+    clearAcc();
+  }
+  function clearAcc() { actx.fillStyle = '#06080a'; actx.fillRect(0, 0, size, size); t = 0; }
+  function pt(tt) { var m = size * 0.44, c = size / 2; return [c + m * Math.sin(tt), c - m * Math.sin(r * tt + PH)]; }
+  function setR() {
+    var v = +input.value / 1000; snapped = null; r = v;
+    SNAP.forEach(function (s) { if (Math.abs(v - s[0] / s[1]) <= WIN) { snapped = s; r = s[0] / s[1]; } });
+    if (snapped && snapped[0] === snapped[1])
+      read.textContent = '1 : 1 — частоты равны. Фигура замкнулась с первого оборота и стоит.';
+    else if (snapped)
+      read.textContent = snapped[1] + ' : ' + snapped[0] + ' — отношение целое. Фигура замыкается через ' + snapped[1] +
+        ' ' + (snapped[1] < 5 ? 'оборота' : 'оборотов') + ' и дальше идёт по своему же следу.';
+    else
+      read.textContent = r.toFixed(3) + ' — отношение нецелое. Фигура не замыкается никогда: каждый оборот ложится рядом с прошлым, и поле заливается.';
+    clearAcc(); sound();
+  }
+  var STEP = 0.02, PER = 90, TRAIL = Math.PI * 2 * 3, running = false;
+  function frame() {
+    if (!running) return;
+    actx.strokeStyle = 'rgba(122, 150, 255, 0.10)'; actx.lineWidth = Math.max(1, size / 520);
+    actx.beginPath(); var p = pt(t); actx.moveTo(p[0], p[1]);
+    for (var i = 0; i < PER; i++) { t += STEP; p = pt(t); actx.lineTo(p[0], p[1]); }
+    actx.stroke();
+    ctx.drawImage(acc, 0, 0);
+    ctx.strokeStyle = '#e8ecff'; ctx.lineWidth = Math.max(1.5, size / 300);
+    ctx.beginPath(); p = pt(t - TRAIL); ctx.moveTo(p[0], p[1]);
+    for (var s = t - TRAIL; s <= t; s += STEP) { p = pt(s); ctx.lineTo(p[0], p[1]); }
+    ctx.stroke();
+    requestAnimationFrame(frame);
+  }
+  function start() { if (!running) { running = true; requestAnimationFrame(frame); } }
+  // Звук — только по нажатию: браузер не даст его иначе, и так честнее.
+  var btn = root.querySelector('[data-rliss-sound]'), ac = null, o1, o2;
+  function sound() { if (o1) { o1.frequency.value = 220; o2.frequency.value = 220 * r; } }
+  btn.addEventListener('click', function () {
+    if (o1) { o1.stop(); o2.stop(); o1 = o2 = null; btn.textContent = 'звук: выкл'; btn.setAttribute('aria-pressed', 'false'); return; }
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    var g = ac.createGain(); g.gain.value = 0.06; g.connect(ac.destination);
+    o1 = ac.createOscillator(); o2 = ac.createOscillator();
+    o1.connect(g); o2.connect(g); sound(); o1.start(); o2.start();
+    btn.textContent = 'звук: вкл'; btn.setAttribute('aria-pressed', 'true');
+  });
+  input.addEventListener('input', setR);
+  (root.closest('.rord__room') || root).addEventListener('rord-reset', function () { clearAcc(); });
+  window.addEventListener('resize', function () { if (Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 2)) !== size) resize(); });
+  resize(); setR();
+  if ('IntersectionObserver' in window)
+    new IntersectionObserver(function (es) { if (es[0].isIntersecting) start(); else running = false; }).observe(root);
+  else start();
+})();
+</script>

@@ -35,3 +35,29 @@ What `scripts/clusters_check.py` was written to close:
   registry declared `cta_service: null` for the same six.
 - `ai-seo-po-nisham`, then `planned`, pointed `target_url` at `/blog/ai-seo-dlya-sayta-uslug/` before that
   page existed. The page has since been written and claims the cluster.
+
+## Empty `alt` on thumbnails, 2026-09-07
+
+A Bing site scan reported "Alt attribute for images is missing" across 39 pages. Every case thumbnail carried
+`alt=""` on the WCAG reasoning that the case title next to it makes the image decorative; Bing counts an
+empty `alt` as a missing one regardless. All eleven thumbnails got the same wording as the full screenshot
+in `case.html`. `blog.html` and `notes.html` reuse the `case-row` class for posts but draw no image, so they
+had nothing to fix.
+
+## Wrong `cases` lists, 2026-09-14
+
+Both clusters written that day named cases that did not prove them: `bot-vs-miniapp` listed three «mini-app»
+cases of which none is a Telegram Mini App (a PWA, a Nuxt app, an Electron client), and
+`bot-hosting-serverless` listed `order-flow`, which has nothing to do with cloud functions.
+
+## Indexing, first weeks
+
+The sitemap index went to Yandex Webmaster, Search Console and Bing Webmaster on 2026-09-05. By the
+2026-09-14 Yandex export, 68 of 70 sitemap URLs were searchable, including articles published 09-09 and
+09-10 — and the whole site had 27 impressions in twelve days.
+
+## `workspace.json`, 2026-09-16
+
+`.obsidian/workspace.json` was tracked in the public repo and was removed from the index. Nothing private had
+leaked — the tracked copy still listed pre-restructure site paths — but the next commit that picked it up
+would have published the names of files in `Diary/` and `research/`.

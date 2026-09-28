@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COLOR SOUND</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2306080a'/%3E%3Crect x='2' y='5' width='4' height='6' fill='%23a8d2fc'/%3E%3Crect x='10' y='5' width='4' height='6' fill='%234fe08a'/%3E%3C/svg%3E">
+<style>
+  :root { --bg:#06080a; --panel:#0d1115; --line:#1b2229; --line2:#242d36;
+          --fg:#c8d4dc; --dim:#5d6b77; --accent:#4fe08a; --hot:#e0a34f; --bad:#e06a5a;
+          --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:12px/1.5 var(--mono); }
+  .wrap { max-width:1280px; margin:0 auto; padding:18px 16px 40px; }
+  header { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+           border-bottom:1px solid var(--line); padding-bottom:12px; }
+  h1 { font-size:18px; letter-spacing:4px; margin:0; font-weight:500; }
+  .sub { color:var(--dim); letter-spacing:1px; }
+
+  .disclaimer { margin:12px 0 0; border:1px solid #3a2f1e; background:#15100a;
+                color:var(--hot); padding:8px 12px; font-size:11px; line-height:1.6; }
+  .disclaimer b { color:var(--fg); font-weight:500; }
+
+  button { font:inherit; background:#12181d; color:var(--fg); border:1px solid var(--line2);
+           padding:6px 12px; cursor:pointer; letter-spacing:1px; }
+  button:hover { background:#182027; border-color:#33404b; }
+  button.on { border-color:#2f5f45; color:var(--accent); background:#12301f; }
+  input[type=text], input[type=number] { background:#12181d; color:var(--fg);
+           border:1px solid var(--line2); padding:4px 6px; font:inherit; }
+  input[type=number] { width:78px; }
+  input[type=color] { width:46px; height:28px; padding:0; border:1px solid var(--line2);
+           background:#12181d; cursor:pointer; }
+
+  .bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:12px 0; }
+  .bar label { color:var(--dim); }
+  .cb { display:flex; gap:5px; align-items:center; color:var(--fg); }
+
+  .panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:12px; }
+  .panel { background:var(--panel); border:1px solid var(--line); padding:11px 13px 14px; min-width:0; }
+  .panel h2 { font-size:11px; letter-spacing:3px; color:var(--dim); margin:0 0 10px; font-weight:500;
+              border-bottom:1px solid var(--line); padding-bottom:7px; display:flex; gap:10px; align-items:baseline; }
+  .panel h2 em { font-style:normal; color:var(--line2); }
+
+  .swatch { width:100%; height:74px; border:1px solid var(--line2); }
+  .kv { display:flex; gap:10px; padding:3px 0; }
+  .kv span { color:var(--dim); min-width:132px; }
+  .kv b { font-weight:500; }
+  .ok b { color:var(--accent); } .bad b { color:var(--bad); } .warn b { color:var(--hot); }
+
+  table { width:100%; border-collapse:collapse; font-size:11px; margin-top:8px; }
+  th { color:var(--dim); font-weight:500; text-align:right; padding:3px 6px; border-bottom:1px solid var(--line); }
+  th:first-child, td:first-child { text-align:left; }
+  td { text-align:right; padding:3px 6px; border-bottom:1px solid #12181d; }
+  td.hit { color:var(--accent); } td.dim { color:var(--dim); }
+
+  .gradbar { position:relative; height:40px; border:1px solid var(--line2); margin:10px 0 6px; }
+  #gradPos { position:absolute; top:-3px; bottom:-3px; width:2px; background:#fff;
+             box-shadow:0 0 6px #fff; display:none; }
+  .gradnow { display:flex; gap:10px; align-items:center; margin-top:8px; }
+  #gradNow { width:40px; height:26px; border:1px solid var(--line2); }
+  #gradNowTxt { color:var(--dim); font-size:11px; }
+  #gradNowTxt b { color:var(--accent); }
+
+  #raster { display:block; image-rendering:pixelated; image-rendering:crisp-edges;
+            border:1px solid var(--line); background:#000; max-width:100%; }
+  #msg { color:var(--dim); }
+  .note { color:var(--dim); font-size:11px; margin-top:16px; line-height:1.7; }
+  .note code { color:var(--hot); }
+  a { color:var(--accent); }
+  #tetNote { display:none; margin-top:8px; }
+
+  #fcTrial[data-ready="1"] .notready { display:none; }
+  .fcbar { height:3px; background:var(--line2); margin:6px 0 18px; }
+  #fcBar { height:100%; background:var(--accent); width:0; transition:width .2s; }
+  .fcpair { display:flex; gap:18px; transition:opacity .15s; }
+  #fcTrial[data-ready="0"] .fcpair { opacity:.28; pointer-events:none; }
+  #fcTrial[data-ready="0"] #fcReplay { opacity:.4; pointer-events:none; }
+  .fcsw { flex:1; height:220px; border:1px solid var(--line2); cursor:pointer; position:relative; }
+  .fcsw:hover { border-color:var(--fg); }
+  .fcsw span { position:absolute; bottom:6px; left:0; right:0; text-align:center;
+               color:#0008; font-size:18px; }
+  .fcsw.right { outline:3px solid var(--accent); outline-offset:2px; }
+  .fcsw.wrong { opacity:.35; }
+  .fcv { display:flex; gap:12px; padding:6px 0; border-top:1px solid var(--line); }
+  .fcv b { min-width:230px; font-weight:600; }
+  .fcv span { color:var(--dim); flex:1; }
+  .fcv.ok b { color:var(--accent); }
+  .fcv.bad b { color:var(--bad); }
+  .fcv.warn b { color:var(--hot); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>COLOR SOUND</h1>
+    <span class="sub">RGB → отношения трёх голосов → единый 1-bit поток</span>
+  </header>
+
+  <div class="disclaimer">
+    <b>RGB channel values are used as integer ratios; this is a mathematical sonification,
+    not a physical model of light.</b><br>
+    Сырые восьмибитные значения берутся как есть, без линеаризации гаммы. Именно поэтому здесь
+    возникает целочисленная арифметика и период потока считается точно. Физическому свету
+    эти отношения не соответствуют, и «у мажора есть цвет» — пока гипотеза, а не результат.
+  </div>
+
+  <div id="lab">
+  <div class="bar">
+    <label>TUNING</label>
+    <button id="tune-just">JUST</button>
+    <button id="tune-tet">12-TET</button>
+    <label>база, Гц</label><input type="number" id="base" min="20" max="4000" step="1">
+    <label class="cb"><input type="checkbox" id="fold"> приводить в слышимый диапазон</label>
+    <span id="msg"></span>
+  </div>
+  <div class="disclaimer" id="tetNote">
+    В темперации отношения равны 2^(n/12) и иррациональны. Целого отношения каналов для них
+    не существует, поэтому цвет перестаёт точно кодировать частоты, а период битового потока
+    исчезает. Это отдельный режим, а не улучшение основного.
+  </div>
+
+  <div class="bar">
+    <button id="fcOpen">ПРОВЕРИТЬ ГИПОТЕЗУ: ТЕСТ НА СЛУХ →</button>
+    <span style="color:var(--dim)">различает ли ухо цвета, если убрать подсказку по яркости</span>
+  </div>
+
+  <div class="panels" style="margin-top:12px">
+    <section class="panel">
+      <h2>COLOR → CHORD <em>прямой ход</em></h2>
+      <div id="swatchA" class="swatch"></div>
+      <div class="bar">
+        <input type="color" id="pickA">
+        <input type="text" id="hexA" size="9">
+        <button id="playA">▶ PLAY</button>
+      </div>
+      <div class="kv"><span>R, G, B</span><b id="rgbA"></b></div>
+      <div class="kv"><span>сокращённое</span><b id="redA"></b></div>
+      <table>
+        <thead><tr><th>голос</th><th>значение</th><th>отношение</th><th>Гц</th>
+          <th>интервал</th><th>центов</th></tr></thead>
+        <tbody id="tblA"></tbody>
+      </table>
+      <div class="kv" style="margin-top:8px"><span>период потока</span><span id="perA"></span></div>
+    </section>
+
+    <section class="panel">
+      <h2>CHORD → COLOR <em>обратный ход</em></h2>
+      <div id="swatchB" class="swatch"></div>
+      <div class="bar">
+        <input type="text" id="ratio" size="12" placeholder="4:5:6">
+        <span id="hexB" style="color:var(--hot)"></span>
+        <button id="playB">▶ PLAY</button>
+      </div>
+      <div class="kv"><span>R, G, B</span><b id="rgbB"></b></div>
+      <table>
+        <thead><tr><th>голос</th><th>значение</th><th>отношение</th><th>Гц</th>
+          <th>интервал</th><th>центов</th></tr></thead>
+        <tbody id="tblB"></tbody>
+      </table>
+      <div id="invNote" style="margin-top:8px"></div>
+    </section>
+  </div>
+
+  <section class="panel" style="margin-top:12px">
+    <h2>GRADIENT <em>траектория в цветовом пространстве как изменение гармонии</em></h2>
+    <div class="bar">
+      <input type="color" id="pickG1"><div id="swatchG1" style="width:24px;height:24px;border:1px solid var(--line2)"></div>
+      <span style="color:var(--dim)">→</span>
+      <div id="swatchG2" style="width:24px;height:24px;border:1px solid var(--line2)"></div><input type="color" id="pickG2">
+      <label>секунд</label><input type="number" id="gradSeconds" min="2" max="120" step="1">
+      <button id="playG">▶ PLAY</button>
+    </div>
+    <div class="gradbar" id="gradbar"><div id="gradPos"></div></div>
+    <div id="gradInfo"></div>
+    <div class="gradnow"><div id="gradNow"></div><div id="gradNowTxt">—</div></div>
+  </section>
+
+  <section class="panel" style="margin-top:12px">
+    <h2>1-BIT RASTER <em>тот же поток, показанный как изображение</em>
+      <span id="rasterInfo" style="margin-left:auto;color:var(--hot)"></span></h2>
+    <div class="bar">
+      <label>ширина</label><input type="number" id="rw" min="8" max="4096" step="1">
+      <button id="rwPeriod">= период узора</button>
+    </div>
+    <canvas id="raster"></canvas>
+  </section>
+
+  </div><!-- /lab -->
+
+  <div id="test" style="display:none">
+    <section class="panel">
+      <h2>ТЕСТ С ВЫНУЖДЕННЫМ ВЫБОРОМ <em>слышно ли, какому цвету принадлежит аккорд</em>
+        <button id="fcClose" style="margin-left:auto">← назад в лабораторию</button></h2>
+
+      <div id="fcSetup">
+        <p style="color:var(--dim);max-width:75ch">
+          Показываются два цвета, звучит аккорд одного из них — надо выбрать какого.
+          Пробы трёх типов идут вперемешку, и порядок вы не знаете:
+        </p>
+        <div id="fcConditions" style="margin:10px 0"></div>
+        <p style="color:var(--dim);max-width:75ch">
+          Условие «контроль» — это проверка самой процедуры: там частоты идентичны, и результат
+          выше случайного означал бы утечку, а не открытие. Без него любой положительный
+          результат ничего не стоит.
+        </p>
+        <div class="bar">
+          <label>проб на условие</label>
+          <select id="fcPer"><option>10</option><option selected>20</option><option>40</option></select>
+          <label>сид</label><input type="number" id="fcSeed" style="width:100px">
+          <label class="cb"><input type="checkbox" id="fcFeedback"> показывать правильный ответ</label>
+          <button id="fcStart">НАЧАТЬ</button>
+        </div>
+        <p style="color:var(--dim);font-size:11px;max-width:75ch">
+          С включённой обратной связью проверяется не природное соответствие, а обучаемость —
+          это другой вопрос, и смешивать их в одном блоке нельзя.
+          Слушать лучше в наушниках и без спешки.
+        </p>
+      </div>
+
+      <div id="fcTrial" data-ready="0" style="display:none">
+        <div class="bar"><b id="fcProgress"></b><span id="fcHint" style="color:var(--hot)"></span><span class="notready" style="color:var(--dim)">готовлю звук…</span></div>
+        <div class="fcbar"><div id="fcBar"></div></div>
+        <div class="fcpair">
+          <div class="fcsw" id="fcLeft"><span>←</span></div>
+          <div class="fcsw" id="fcRight"><span>→</span></div>
+        </div>
+        <div class="bar" style="justify-content:center">
+          <button id="fcReplay">↻ ПОВТОРИТЬ ЗВУК (пробел)</button>
+        </div>
+      </div>
+
+      <div id="fcResults" style="display:none">
+        <table>
+          <thead><tr><th>условие</th><th>попаданий</th><th>доля</th><th>95% ДИ</th>
+            <th>p</th><th>порог</th><th>вывод</th></tr></thead>
+          <tbody id="fcTable"></tbody>
+        </table>
+        <div id="fcVerdict" style="margin-top:12px"></div>
+        <p id="fcPower" style="color:var(--dim);font-size:11px;max-width:80ch;margin-top:10px"></p>
+        <div class="bar">
+          <button id="fcAgain">ЕЩЁ БЛОК</button>
+          <button id="fcExport">ЭКСПОРТ РЕЗУЛЬТАТОВ</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="note">
+    Частота канала равна <code>base · value / 255</code>. Отсюда без единого назначенного
+    правила следует: яркость задаёт регистр, отношения каналов задают интервалы,
+    серый <code>R=G=B</code> даёт унисон, чёрный — тишину.<br>
+    Отношения каналов всегда рациональны, поэтому у любого цвета в режиме JUST есть точный
+    период битового потока. Нажми «= период узора», чтобы совместить с ним ширину растра —
+    строки должны сойтись.<br>
+    Свободный параметр здесь ровно один — база, то есть общий масштаб высоты. Отношения между
+    голосами не свободны ни в чём.<br>
+    <a href="./index.html">← ONE BIT MUSIC</a> · <a href="./bit-raster.html">1-BIT RASTER LAB</a>
+  </div>
+</div>
+<script type="module" src="./src/experiments/colorApp.js"></script>
+</body>
+</html>

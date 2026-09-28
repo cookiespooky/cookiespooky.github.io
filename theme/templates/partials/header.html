@@ -9,6 +9,9 @@
       <a href="{{ .BaseURL }}/services/"{{ if eq .Page.Slug "services" }} aria-current="page"{{ end }}>Что делаю</a>
       <a href="{{ .BaseURL }}/blog/"{{ if eq .Page.Slug "blog" }} aria-current="page"{{ end }}>Блог</a>
       <a href="{{ .BaseURL }}/notes/"{{ if eq .Page.Slug "notes" }} aria-current="page"{{ end }}>Заметки</a>
+      {{- /* Раздел подсвечен и на странице идеи, не только на /lab/: внутри
+             лаборатории это единственный знак того, где ты. */}}
+      <a href="{{ .BaseURL }}/lab/"{{ if eq .Page.Type "lab" }} aria-current="page"{{ else if eq .Page.Type "idea" }} aria-current="true"{{ end }}>Лаборатория</a>
       <a href="{{ .BaseURL }}/about/"{{ if eq .Page.Slug "about" }} aria-current="page"{{ end }}>Обо мне</a>
       <div class="contact-menu" data-contact-menu>
         <button class="btn--outline-sm" type="button" data-contact-toggle aria-expanded="false" aria-controls="contact-panel">Связаться</button>
@@ -39,6 +42,7 @@
     <a href="{{ .BaseURL }}/services/"><span>Что делаю</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/blog/"><span>Блог</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/notes/"><span>Заметки</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/lab/"{{ if eq .Page.Type "lab" }} aria-current="page"{{ else if eq .Page.Type "idea" }} aria-current="true"{{ end }}><span>Лаборатория</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/about/"><span>Обо мне</span><span aria-hidden="true">→</span></a>
   </nav>
   <div class="drawer__foot">

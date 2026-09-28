@@ -1,0 +1,17 @@
+{{- /* Закон витрины: четыре строки, одинаковые у всех идей по построению.
+       Партиал читает только поля страницы, поэтому лендинг /lab/ рисует тот же
+       прибор из своих полей — там в строках стоит, что каждая строка значит.
+       Пустая строка печатается как пустая, а не пропадает: дырка в сетке должна
+       быть видна, это и есть защита от «убрать контроль ради красоты». */ -}}
+<dl class="lab-law">
+  <div class="lab-law__row"><dt>элементы</dt><dd>{{ if .FM.elements }}{{ .FM.elements }}{{ else }}<span class="lab-law__gap">—</span>{{ end }}</dd></div>
+  <div class="lab-law__row"><dt>правило</dt><dd>{{ if .FM.rule }}{{ .FM.rule }}{{ else }}<span class="lab-law__gap">—</span>{{ end }}</dd></div>
+  <div class="lab-law__row"><dt>форма</dt><dd>{{ if .FM.form }}{{ .FM.form }}{{ else }}<span class="lab-law__gap">—</span>{{ end }}</dd></div>
+  <div class="lab-law__row"><dt>контроль</dt><dd>{{ if .FM.control }}{{ .FM.control }}{{ else }}<span class="lab-law__gap">—</span>{{ end }}</dd></div>
+</dl>
+{{- if .FM.not_proven }}
+<section class="lab-caveat" aria-label="Чего это не доказывает">
+  <h2 class="lab-caveat__label">Чего это не доказывает</h2>
+  <p>{{ .FM.not_proven }}</p>
+</section>
+{{- end }}

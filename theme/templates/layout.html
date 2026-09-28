@@ -39,6 +39,9 @@
   {{- if eq .Page.Type "tool" }}
   <link rel="stylesheet" href="{{ .AssetsBase }}/tool.css" />
   {{- end }}
+  {{- if or (eq .Page.Type "lab") (eq .Page.Type "idea") }}
+  <link rel="stylesheet" href="{{ .AssetsBase }}/lab.css" />
+  {{- end }}
   <title>{{ .Title }}</title>
 </head>
 <body>
