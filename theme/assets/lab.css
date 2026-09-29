@@ -54,8 +54,8 @@
 
 /* ---------- /lab/: первый экран ---------- */
 .lab-entry {
-  display: flex; flex-direction: column; justify-content: center; gap: 28px;
-  min-height: calc(100svh - var(--header-h)); padding-block: 56px 72px;
+  display: flex; flex-direction: column; gap: 16px;
+  padding-block: 48px 40px;
 }
 .lab-entry h1 { max-width: 14ch; }
 .lab-entry__lead { max-width: 34ch; font-size: 28px; line-height: 1.35; letter-spacing: -0.015em; color: var(--ink); text-wrap: pretty; }
@@ -130,7 +130,7 @@
   .lab-idea__head h1 { font-size: 42px; }
 }
 @media (max-width: 640px) {
-  .lab-entry { min-height: 0; padding-block: 36px 56px; }
+  .lab-entry { padding-block: 32px 28px; }
   .lab-entry__lead { font-size: 22px; }
   .lab-law { font-size: 13px; }
   .lab-law__row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; }

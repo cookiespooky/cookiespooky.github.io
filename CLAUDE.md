@@ -253,9 +253,10 @@ instrument, not an essay. Every decision behind it (host, unit, first screen, re
 `../life/` is invisible to the engine and `draft: true` is not (see below).
 
 - **The four lines are a partial, not copy.** `partials/lab-law.html` prints `elements`, `rule`, `form`,
-  `control` and then `not_proven`, identically on every idea — and on `/lab/` itself, whose frontmatter fills
-  the same four fields with what each line *means*. An empty field prints as a dash rather than vanishing, so
-  a missing control shows as a hole.
+  `control` and then `not_proven`, identically on every idea. An empty field prints as a dash rather than
+  vanishing, so a missing control shows as a hole. **`/lab/` itself does not carry it** (since 2026-09-29): the
+  index is the title, one line and straight into the ideas — no full-screen first screen, no explanation of
+  the four lines. Don't bring the explanation back to the landing.
 - **The engine cannot require them.** `fields.required` is global, so requiring the four lines would fail
   every case and article. `scripts/lab_check.py` does it instead, `clusters_check.py`-style: the five fields
   filled, no `cluster` or `cta_service` on an idea, every `related` slug real, every `room` backed by a partial
