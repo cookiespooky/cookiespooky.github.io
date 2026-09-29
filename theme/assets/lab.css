@@ -100,6 +100,9 @@
 .lab-links a { color: var(--accent); }
 .lab-links a:hover { color: var(--ink); }
 
+/* те же ссылки кнопками в конце идеи */
+.lab-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 48px; }
+
 .lab-idea .lab-law { margin-top: 48px; }
 .lab-idea__body { max-width: 68ch; margin-top: 64px; }
 

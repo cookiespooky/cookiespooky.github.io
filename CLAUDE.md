@@ -293,6 +293,9 @@ instrument, not an essay. Every decision behind it (host, unit, first screen, re
   it with `python3 -m http.server 8080` from inside `dist-dev/`. **Delete `.notepub/artifacts-dev` before every
   such build**: `build` indexes only when that directory has no index, so a second build silently renders the
   frontmatter as it was at the first one.
+- **`links` on an idea render twice**: as a text list right under the thing and as buttons at the end of the page
+  (`lab-actions`, the first one filled) — a reader who got to the end should not scroll back up to open the thing. So
+  the first link is the thing itself (the instrument, the game, the tool), not its code.
 - `related` from an idea resolves to cases, ideas and notes, and each lands in its own forward collection
   (`related_cases`, `related_ideas`, `related_notes`) because a forward collection filters by type.
 - The header, the drawer and the footer all carry `/lab/`, highlighted on both `lab` and `idea` pages

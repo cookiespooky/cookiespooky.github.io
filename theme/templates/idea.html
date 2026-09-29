@@ -59,6 +59,16 @@
     <div class="lab-idea__body prose">{{ .Body }}</div>
     {{- end }}
 
+    {{- /* Вещь ещё раз в конце — явными кнопками из тех же links, что стоят под вещью наверху:
+           дочитавший до конца не должен листать обратно, чтобы открыть её. Первая — главная. */}}
+    {{- if .FM.links }}
+    <div class="lab-actions">
+      {{- range $i, $l := .FM.links }}
+      <a class="btn {{ if eq $i 0 }}btn--ink{{ else }}btn--ghost{{ end }}" href="{{ $l.url }}"{{ if not (eq (slice (printf "%v" $l.url) 0 1) "/") }} rel="noopener" target="_blank"{{ end }}>{{ $l.title }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
     {{- if or .Collections.related_ideas.Items .Collections.related_notes.Items .Collections.related_cases.Items }}
     <section class="lab-near" aria-label="Рядом">
       {{- if .Collections.related_notes.Items }}

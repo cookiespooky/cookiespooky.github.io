@@ -14,7 +14,6 @@
       <span class="rtree__key rtree__key--good"></span>хорошо
       <span class="rtree__key rtree__key--mid"></span>так себе
       <span class="rtree__key rtree__key--bad"></span>плохо — чем кончилось бы, если бы здесь свернуть, а дальше поступать так же</p>
-    <p class="rtree__src">Прогон прототипа: случайный игрок, цель «<span data-rtree-goal></span>», seed <span data-rtree-seed></span>. Повторяется командой <code>node tree-export.js lyudi 5</code>.</p>
   </figcaption>
   <script type="application/json" data-rtree-data>{"source":"thechoice/tree-export.js","goal":"Жизнь среди людей","seed":5,"ending":{"id":"iznos","title":"Год на износ","tone":"bad"},"steps":[{"name":"январь","offered":[{"text":"Помогать другим бесплатно","chosen":true},{"text":"Купить курс","ending":{"id":"bankrot","title":"Деньги кончились","tone":"bad"}},{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"февраль","offered":[{"text":"Больше времени с близкими","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}},{"text":"Отказаться от заказа ради идеи","chosen":true},{"text":"Взять месяц отдыха","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"март","offered":[{"text":"Рассказать об идее публично","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Назвать цену за разбор","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Устроить встречу для знакомых","chosen":true}]},{"name":"апрель","offered":[{"text":"Разобрать мысли на листе","chosen":true},{"text":"Больше времени с близкими","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}},{"text":"Пойти в штат","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"май","offered":[{"text":"Взять месяц отдыха","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","chosen":true},{"text":"Помогать другим бесплатно","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"июнь","offered":[{"text":"Помогать другим бесплатно","chosen":true},{"text":"Устроить встречу для знакомых","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Взять месяц отдыха","ending":{"id":"pochti","title":"Почти готово","tone":"mid"}}]},{"name":"июль","offered":[{"text":"Разобрать мысли на листе","chosen":true},{"text":"Вечерами делать идею","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}}]},{"name":"август","offered":[{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","chosen":true},{"text":"Взять заказ на разработку","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]},{"name":"сентябрь","offered":[{"text":"Больше времени с близкими","ending":{"id":"iznos","title":"Год на износ","tone":"bad"}},{"text":"Взять заказ на разработку","chosen":true},{"text":"Помогать другим бесплатно","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}}]},{"name":"октябрь","offered":[{"text":"Позвать партнёра","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Взять кредит на идею","chosen":true}]},{"name":"ноябрь","offered":[{"text":"Устроить встречу для знакомых","ending":{"id":"krug","title":"Вокруг люди","tone":"good"}},{"text":"Вечерами делать идею","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Разобрать мысли на листе","chosen":true}]},{"name":"декабрь","offered":[{"text":"Взять месяц отдыха","ending":{"id":"god","title":"Год прошёл","tone":"mid"}},{"text":"Помогать другим бесплатно","chosen":true},{"text":"Пойти в штат","ending":{"id":"stol","title":"Стабильно. Идея в столе","tone":"mid"}}]}]}</script>
 </figure>
@@ -29,8 +28,6 @@
   .rtree__cap { margin-top: 14px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--ink-2); }
   .rtree__cap p + p { margin-top: 6px; }
   .rtree__end { min-height: 1.6em; color: var(--ink); }
-  .rtree__src { color: var(--muted-2); font-size: 12px; }
-  .rtree__src code { font-family: inherit; }
   .rtree__key { display: inline-block; width: 9px; height: 9px; margin: 0 6px 0 10px; border-radius: 50%; vertical-align: -1px; }
   .rtree__key--path { margin-left: 0; background: var(--accent); }
   .rtree__key--good { background: #2e8b57; opacity: .55; }
@@ -48,8 +45,6 @@
   var ROW = 40, X0 = narrow ? 64 : 96, COL = narrow ? 26 : 34, TX = X0 + COL * 2 + 22, W = narrow ? 360 : 720;
   var H = 24 + ROW * d.steps.length;
   svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-  root.querySelector('[data-rtree-goal]').textContent = d.goal;
-  root.querySelector('[data-rtree-seed]').textContent = d.seed;
   function el(name, attrs, parent) {
     var n = document.createElementNS(NS, name);
     for (var k in attrs) n.setAttribute(k, attrs[k]);
