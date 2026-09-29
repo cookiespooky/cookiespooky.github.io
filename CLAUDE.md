@@ -272,8 +272,9 @@ instrument, not an essay. Every decision behind it (host, unit, first screen, re
   overwrites silently. Five ideas carry a room: `1bitmusic`, `phrase`, `selfloop`, `tree` and `order`. `order` is a
   series, not a room: `partials/room-order.html` includes six rooms in turn (Lissajous, sunflower, crystal, flock,
   particle life, letters) and defines the shared `rord-*` classes and the `rordRun` helper, which runs a room's
-  animation only while it is on screen. Each room's header carries «↺ сначала» (`data-rord-reset`, one delegated handler in
-  `room-order.html`): every range input goes back to its `defaultValue` with an `input` event, then the room gets a
+  animation only while it is on screen. Each room carries «↺ сначала» in the row of its knob's label, next to the slider — it is a control too, not a header
+  ornament (`data-rord-reset`, one delegated handler in `room-order.html`); under each room's title a `rord__idea`
+  paragraph says what the thought is and why the mechanism works: every range input goes back to its `defaultValue` with an `input` event, then the room gets a
   `rord-reset` event — crystal, flock and particles re-seed their elements, Lissajous clears its trace; a room with
   state of its own must listen for it (`(root.closest('.rord__room') || root).addEventListener('rord-reset', …)`). Where the eye could be fooled — crystal, flock, particles, letters — the
   room measures its own order and prints the number; the thresholds behind the words it prints were checked by

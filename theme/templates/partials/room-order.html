@@ -40,33 +40,39 @@
 </script>
 <div class="rord">
   <section class="rord__room" id="room-zvuk" aria-labelledby="room-zvuk-h">
-    <header class="rord__head"><span class="rord__n">01</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-zvuk-h">Звук, который видно</h2>
-      <p class="rord__spec">ручка — отношение двух частот · контроль — нецелое отношение</p></header>
+    <header class="rord__head"><span class="rord__n">01</span><h2 id="room-zvuk-h">Звук, который видно</h2>
+      <p class="rord__spec">ручка — отношение двух частот · контроль — нецелое отношение</p>
+      <p class="rord__idea">То, что ухо слышит как созвучие, глаз видит как замкнутую фигуру. При целом отношении частот у двух колебаний есть общий период: через несколько оборотов оба возвращаются в начало одновременно, и точка идёт по своему же следу. При нецелом общего периода нет, и каждый оборот ложится рядом с прошлым.</p></header>
     {{ template "room-lissajous.html" . }}
   </section>
   <section class="rord__room" id="room-podsolnuh" aria-labelledby="room-podsolnuh-h">
-    <header class="rord__head"><span class="rord__n">02</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-podsolnuh-h">Подсолнух</h2>
-      <p class="rord__spec">ручка — угол между соседними семечками · контроль — угол, близкий к простой дроби оборота</p></header>
+    <header class="rord__head"><span class="rord__n">02</span><h2 id="room-podsolnuh-h">Подсолнух</h2>
+      <p class="rord__spec">ручка — угол между соседними семечками · контроль — угол, близкий к простой дроби оборота</p>
+      <p class="rord__idea">Спирали подсолнуха никто не рисует — они следуют из одного угла. Если угол — простая дробь оборота, каждая q-я точка встаёт на тот же луч, и выходят лучи с дырами между ними. Золотой угол хуже всех остальных приближается простыми дробями, поэтому точки не собираются в лучи и заполняют круг ровно, а видимые спирали — знаменатели лучших приближений, числа Фибоначчи.</p></header>
     {{ template "room-sunflower.html" . }}
   </section>
   <section class="rord__room" id="room-kristall" aria-labelledby="room-kristall-h">
-    <header class="rord__head"><span class="rord__n">03</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-kristall-h">Кристалл</h2>
-      <p class="rord__spec">ручка — температура · контроль — горячо</p></header>
+    <header class="rord__head"><span class="rord__n">03</span><h2 id="room-kristall-h">Кристалл</h2>
+      <p class="rord__spec">ручка — температура · контроль — горячо</p>
+      <p class="rord__idea">Решётку никто не задаёт — её собирает притяжение. Каждой частице выгоднее всего стоять на одном расстоянии от соседей, а на плоскости теснее всего это получается, когда соседей вокруг шесть. Пока горячо, движение сильнее притяжения и сесть никто не успевает; остывая, частицы занимают выгодные места, и появляется шестиугольная решётка.</p></header>
     {{ template "room-crystal.html" . }}
   </section>
   <section class="rord__room" id="room-staya" aria-labelledby="room-staya-h">
-    <header class="rord__head"><span class="rord__n">04</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-staya-h">Стая</h2>
-      <p class="rord__spec">ручка — вес одного правила из трёх · контроль — правило выключено</p></header>
+    <header class="rord__head"><span class="rord__n">04</span><h2 id="room-staya-h">Стая</h2>
+      <p class="rord__spec">ручка — вес одного правила из трёх · контроль — правило выключено</p>
+      <p class="rord__idea">Стае не нужен вожак — достаточно, чтобы каждый смотрел на ближайших. Каждая точка чуть поворачивает к среднему направлению соседей, соседи у соседей общие, и согласие расползается по всей стае. Пока правило слабое, случайные повороты сильнее и общего направления нет; когда сильнее правило, его подхватывают все.</p></header>
     {{ template "room-flock.html" . }}
   </section>
   <section class="rord__room" id="room-zhizn" aria-labelledby="room-zhizn-h">
-    <header class="rord__head"><span class="rord__n">05</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-zhizn-h">Жизнь частиц</h2>
-      <p class="rord__spec">ручка — одна клетка таблицы притяжений · контроль — симметричная таблица</p></header>
+    <header class="rord__head"><span class="rord__n">05</span><h2 id="room-zhizn-h">Жизнь частиц</h2>
+      <p class="rord__spec">ручка — одна клетка таблицы притяжений · контроль — симметричная таблица</p>
+      <p class="rord__idea">Бесконечное движение возможно, только если силы неравны: один тянется к другому сильнее, чем тот к нему. При симметричной таблице каждая пара тянет друг друга одинаково, у системы есть энергия, и трение её съедает — частицы встают всегда. Несимметричная нарушает «действие равно противодействию»: один догоняет, другой убегает. Движение она допускает, но не обещает — при некоторых значениях частицы встают и так.</p></header>
     {{ template "room-particles.html" . }}
   </section>
   <section class="rord__room" id="room-bukvy" aria-labelledby="room-bukvy-h">
-    <header class="rord__head"><span class="rord__n">06</span><button class="rord-btn rord__reset" type="button" data-rord-reset aria-label="Вернуть ручку и начать комнату сначала">↺ сначала</button><h2 id="room-bukvy-h">Текст из букв</h2>
-      <p class="rord__spec">ручка — сколько предыдущих букв помнит правило · контроль — ноль</p></header>
+    <header class="rord__head"><span class="rord__n">06</span><h2 id="room-bukvy-h">Текст из букв</h2>
+      <p class="rord__spec">ручка — сколько предыдущих букв помнит правило · контроль — ноль</p>
+      <p class="rord__idea">Слова появляются из одной статистики, без словаря и без смысла. Правило выбирает следующую букву так же часто, как она шла в романе после тех же нескольких букв. Чем длиннее память, тем больше сочетаний она удерживает: сначала слоги, потом слова. Но на пяти буквах правило уже не сочиняет, а переписывает роман кусками — там порядок становится копией.</p></header>
     {{ template "room-letters.html" . }}
   </section>
 </div>
@@ -74,10 +80,12 @@
   .rord { display: grid; gap: 72px; }
   .rord__room { scroll-margin-top: calc(var(--header-h) + 16px); }
   .rord__head { max-width: 520px; margin-bottom: 20px; }
-  .rord__head { position: relative; }
   .rord__n { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--muted-3); }
-  .rord__reset { position: absolute; right: 0; top: 0; font-family: var(--font-mono); font-size: 12px; }
+  /* «↺ сначала» — тоже ручка, поэтому стоит в строке подписи ручки, над ползунком */
+  .rord-knob__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .rord-btn.rord__reset { flex: none; font-family: var(--font-mono); font-size: 12px; }
   .rord__head h2 { margin-top: 6px; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; }
+  .rord__idea { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--ink-1); text-wrap: pretty; }
   .rord__spec { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: var(--muted-2); }
 
   /* общие части комнат: та же рамка и ручка, что у Лиссажу (rliss) */
