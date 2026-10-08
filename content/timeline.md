@@ -13,38 +13,80 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 8 октября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Главная страница — Главная страница открывается и в редакторе VS Code. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/home/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сайт из своих записей — Готово оформление, на котором будет собран шаблон сайта. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/site/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сделки по стадиям — Сделка собирается из отдельных записей: у каждого платежа, счёта и поставки своя запись со ссылкой на источник. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/deals/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Что ищут по вашей услуге — Спрос по фразе, по городам и по месяцам запрашивается одной командой. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/demand/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** — У Life OS появился сайт: что это, для кого и что внутри.
-- **[antonlozhkin.ru](https://antonlozhkin.ru/)** — Появилась лента изменений: по одной строке на каждое заметное изменение в открытых проектах. [Открыть →](https://antonlozhkin.ru/timeline/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Главная страница</span><span class="tl-text">Главная страница открывается и в редакторе VS Code. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/home/">Открыть →</a></span></li>
+<li><span class="tl-part">Сайт из своих записей</span><span class="tl-text">Готово оформление, на котором будет собран шаблон сайта. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/site/">Открыть →</a></span></li>
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Сделка собирается из отдельных записей: у каждого платежа, счёта и поставки своя запись со ссылкой на источник. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+<li><span class="tl-part">Что ищут по вашей услуге</span><span class="tl-text">Спрос по фразе, по городам и по месяцам запрашивается одной командой. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/demand/">Открыть →</a></span></li>
+<li><span class="tl-text">У Life OS появился сайт: что это, для кого и что внутри.</span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Появилась лента изменений: по одной строке на каждое заметное изменение в открытых проектах. <a class="tl-more" href="https://antonlozhkin.ru/timeline/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## 5 октября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Экран для сотрудников — Первый вариант экрана: сделки компании открываются в браузере. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сделки по стадиям — Появились сделки по стадиям. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/deals/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сводка нового — Сводка раскладывает входящее по местам, сравнивая с тем, что уже записано. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/news/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Экран для сотрудников</span><span class="tl-text">Первый вариант экрана: сделки компании открываются в браузере. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/">Открыть →</a></span></li>
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Появились сделки по стадиям. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+<li><span class="tl-part">Сводка нового</span><span class="tl-text">Сводка раскладывает входящее по местам, сравнивая с тем, что уже записано. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/news/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## 4 октября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сообщения из Telegram — Вложения из новых сообщений сохраняются сами. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Сообщения из Telegram — Сообщения приходят через отдельного бота: личную переписку система больше не читает. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Сообщения из Telegram</span><span class="tl-text">Вложения из новых сообщений сохраняются сами. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/">Открыть →</a></span></li>
+<li><span class="tl-part">Сообщения из Telegram</span><span class="tl-text">Сообщения приходят через отдельного бота: личную переписку система больше не читает. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## 2 октября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Страница человека — Телефоны, адреса и реквизиты вынесены в отдельную папку и в разговор с системой больше не попадают. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/people/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Страница человека</span><span class="tl-text">Телефоны, адреса и реквизиты вынесены в отдельную папку и в разговор с системой больше не попадают. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/people/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## 1 октября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Идея с доводами за и против — У каждой идеи появилась своя страница с доводами за и против. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/ideas/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Главная страница — Что показывать на главной странице, задаётся настройками, а не программой. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/home/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Идея с доводами за и против</span><span class="tl-text">У каждой идеи появилась своя страница с доводами за и против. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/ideas/">Открыть →</a></span></li>
+<li><span class="tl-part">Главная страница</span><span class="tl-text">Что показывать на главной странице, задаётся настройками, а не программой. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/home/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## 15 сентября 2026
 
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Направление внимания и гипотезы — Первая идея превращена в предположение со сроком и условием, при котором оно считается неверным. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/vector/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Направление внимания и гипотезы — Появилось направление внимания: система хранит его и сверяет с ним новое. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/vector/)
-- **[Life OS](https://lifeos.antonlozhkin.ru/)** · Направление внимания и гипотезы — Система показывает, где сделанное расходится с записанным и заявленным. [Открыть →](https://lifeos.antonlozhkin.ru/chto-vnutri/vector/)
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Первая идея превращена в предположение со сроком и условием, при котором оно считается неверным. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
+<li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Появилось направление внимания: система хранит его и сверяет с ним новое. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
+<li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Система показывает, где сделанное расходится с записанным и заявленным. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
+</ul>
+</div>
+
 
 ## Проекты
 

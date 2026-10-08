@@ -242,3 +242,23 @@ img { max-width: 100%; height: auto; display: block; }
   h2, .cta h2 { font-size: 28px; }
   .prose { font-size: 16px; }
 }
+
+/* ---------- лента изменений (/timeline/): карточка на проект, события точками на одной линии ----------
+   Разметку пишет scripts/timeline.py; здесь только вид. */
+.prose .tl-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+.prose .tl-card + .tl-card { margin-top: 12px; }
+.prose .tl-card__head { font-weight: 600; font-size: 17px; color: var(--ink); margin-bottom: 14px; }
+.prose .tl-card__head a { color: inherit; text-decoration: none; }
+.prose .tl-card__head a:hover { color: var(--accent); }
+.prose .tl-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.prose .tl-list li { position: relative; padding-left: 24px; display: grid; gap: 3px; }
+.prose .tl-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--accent); box-sizing: border-box; }
+.prose .tl-list li::after { content: ""; position: absolute; left: 4px; top: calc(0.5em + 12px); bottom: -17px; width: 1px; background: var(--line-strong); }
+.prose .tl-list li:last-child::after { display: none; }
+.prose .tl-part { font-size: 13px; font-family: var(--font-mono); color: var(--muted); }
+.prose .tl-kind { justify-self: start; font-size: 12px; font-family: var(--font-mono); color: var(--ink-1); border: 1px dashed var(--line-strong); border-radius: 4px; padding: 1px 6px; }
+.prose .tl-text { color: var(--ink-1); }
+.prose .tl-more { white-space: nowrap; font-size: 14px; text-decoration: none; }
+.prose .tl-more:hover { text-decoration: underline; }
+.prose .tl-card--offer { border-color: var(--ink); }
+.prose .tl-card--offer p { margin: 0 0 10px; }

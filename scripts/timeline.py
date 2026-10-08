@@ -9,7 +9,7 @@ life/): список публичных проектов, события по о
 берёт из хранилища; каждая строка проверена при записи там. Страница и данные лежат в git оба: CI собирает сайт без
 хранилища. Одни и те же данные — одни и те же байты. Только stdlib.
 """
-import json, os, sys
+import html, json, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA, OUT = os.path.join(ROOT, 'data', 'timeline.json'), os.path.join(ROOT, 'content', 'timeline.md')
@@ -35,23 +35,31 @@ def date_ru(d):
 
 
 def build():
+    """Под датой — карточка на проект, в ней события этого дня точками на одной линии. Каждая карточка — подряд
+    идущие строки разметки без пустых: так движок принимает её одним куском; вид — классы tl-* в base.css."""
     data = json.load(open(DATA, encoding='utf-8'))
     projects = {p['id']: p for p in data['projects']}
+    esc = lambda s: html.escape(str(s), quote=True)
     out = [HEAD]
     offer = data.get('offer')
     if offer:
-        out += ['## Сейчас', '', f'**{offer["title"]}.** {offer["text"]}', '', f'[{offer["action"][0].upper() + offer["action"][1:]} →]({offer["link"]})', '']
-    day = None
-    for e in data['events']:
-        if e['date'] != day:
-            day = e['date']
-            out += ['', f'## {date_ru(day)}', '']
-        p = projects[e['project']]
-        name = f'[{p["title"]}]({p["url"]})' if p['url'] else p['title']
-        kind = f' · *{e["kind"]}*' if e['kind'] not in ('', 'новое') else ''
-        part = f' · {e["part"]}' if e['part'] else ''
-        more = f' [Открыть →]({e["link"]})' if e['link'] and e['link'] != p['url'] else ''
-        out.append(f'- **{name}**{part}{kind} — {e["text"]}{more}')
+        out += ['<div class="tl-card tl-card--offer">', f'<div class="tl-card__head">{esc(offer["title"])}</div>', f'<p>{esc(offer["text"])}</p>',
+                f'<p><a class="tl-more" href="{esc(offer["link"])}">{esc(offer["action"][0].upper() + offer["action"][1:])} →</a></p>', '</div>', '']
+    days = {}
+    for e in data['events']:                     # порядок выгрузки: дата, затем проект — он и сохраняется
+        days.setdefault(e['date'], {}).setdefault(e['project'], []).append(e)
+    for day, by_project in days.items():
+        out += ['', f'## {date_ru(day)}', '']
+        for pid, events in by_project.items():
+            p = projects[pid]
+            name = f'<a href="{esc(p["url"])}">{esc(p["title"])}</a>' if p['url'] else esc(p['title'])
+            card = ['<div class="tl-card">', f'<div class="tl-card__head">{name}</div>', '<ul class="tl-list">']
+            for e in events:
+                part = f'<span class="tl-part">{esc(e["part"])}</span>' if e['part'] else ''
+                kind = f'<span class="tl-kind">{esc(e["kind"])}</span>' if e['kind'] not in ('', 'новое') else ''
+                more = f' <a class="tl-more" href="{esc(e["link"])}">Открыть →</a>' if e['link'] and e['link'] != p['url'] else ''
+                card.append(f'<li>{part}{kind}<span class="tl-text">{esc(e["text"])}{more}</span></li>')
+            out += ['\n'.join(card + ['</ul>', '</div>']), '']
     out += ['', '## Проекты', '']
     out += [f'- [{p["title"]}]({p["url"]}) — {p["summary"]}' if p['url'] else f'- {p["title"]} — {p["summary"]}' for p in data['projects']]
     return '\n'.join(out) + '\n'
@@ -63,4 +71,4 @@ if '--check' in sys.argv:
     print('страница совпадает с данными' if same else 'content/timeline.md расходится с data/timeline.json — python3 scripts/timeline.py')
     sys.exit(0 if same else 1)
 open(OUT, 'w', encoding='utf-8').write(text)
-print(f'content/timeline.md: событий {text.count(chr(10) + "- **")}')
+print(f'content/timeline.md: событий {text.count("<li>")}, карточек {text.count(chr(34) + "tl-card" + chr(34))}')
