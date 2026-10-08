@@ -495,6 +495,19 @@ the script is under *Build & run*.
   selection offline.
 - **Search-engine verification files** live in `static/` and are described under *Analytics and Webmaster*.
 
+### `/timeline/` — the feed of changes
+
+`content/timeline.md` is **generated** — never edit it by hand. `python3 scripts/timeline.py` writes it from
+`data/timeline.json`, and that file is an export from Anton's vault: `lifeos timeline export ../site/data`, run in
+`../life/`. It is the one thing this repo takes from the vault, with his permission of 2026-10-08, and every line
+in it was checked when it was written there (a list of public projects, stop words for clients' names, no vault
+links, e-mails or phones). Both files are committed, because CI builds without the vault;
+`python3 scripts/timeline.py --check` says whether the page still matches the data. The page is a plain `page`
+(Markdown lists under date headings, an offer block on top when the export carries one) and is in no menu: the
+entry to it is the link in the Threads profile. An event is written at a commit that changes something a stranger
+can see, in any public project — `lifeos timeline log <project> "…"`; the rule and the list of projects are in the
+root `CLAUDE.md` and `../life/lifeos.yaml`.
+
 ## The SEO factory (`seo/`)
 
 `seo/clusters.yaml` is the registry the blog is written against, and `seo/README.md` is its long-form

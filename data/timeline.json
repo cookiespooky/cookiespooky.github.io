@@ -1,0 +1,206 @@
+{
+ "events": [
+  {
+   "date": "2026-10-08",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/home/",
+   "part": "Главная страница",
+   "project": "lifeos",
+   "text": "Главная страница открывается и в редакторе VS Code."
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/site/",
+   "part": "Сайт из своих записей",
+   "project": "lifeos",
+   "text": "Готово оформление, на котором будет собран шаблон сайта."
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/deals/",
+   "part": "Сделки по стадиям",
+   "project": "lifeos",
+   "text": "Сделка собирается из отдельных записей: у каждого платежа, счёта и поставки своя запись со ссылкой на источник."
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/demand/",
+   "part": "Что ищут по вашей услуге",
+   "project": "lifeos",
+   "text": "Спрос по фразе, по городам и по месяцам запрашивается одной командой."
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "новое",
+   "link": "https://lifeos.antonlozhkin.ru/",
+   "part": "",
+   "project": "lifeos",
+   "text": "У Life OS появился сайт: что это, для кого и что внутри."
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "новое",
+   "link": "https://antonlozhkin.ru/timeline/",
+   "part": "",
+   "project": "site",
+   "text": "Появилась лента изменений: по одной строке на каждое заметное изменение в открытых проектах."
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/",
+   "part": "Экран для сотрудников",
+   "project": "lifeos",
+   "text": "Первый вариант экрана: сделки компании открываются в браузере."
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/deals/",
+   "part": "Сделки по стадиям",
+   "project": "lifeos",
+   "text": "Появились сделки по стадиям."
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/news/",
+   "part": "Сводка нового",
+   "project": "lifeos",
+   "text": "Сводка раскладывает входящее по местам, сравнивая с тем, что уже записано."
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/",
+   "part": "Сообщения из Telegram",
+   "project": "lifeos",
+   "text": "Вложения из новых сообщений сохраняются сами."
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/",
+   "part": "Сообщения из Telegram",
+   "project": "lifeos",
+   "text": "Сообщения приходят через отдельного бота: личную переписку система больше не читает."
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/people/",
+   "part": "Страница человека",
+   "project": "lifeos",
+   "text": "Телефоны, адреса и реквизиты вынесены в отдельную папку и в разговор с системой больше не попадают."
+  },
+  {
+   "date": "2026-10-01",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/ideas/",
+   "part": "Идея с доводами за и против",
+   "project": "lifeos",
+   "text": "У каждой идеи появилась своя страница с доводами за и против."
+  },
+  {
+   "date": "2026-10-01",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/home/",
+   "part": "Главная страница",
+   "project": "lifeos",
+   "text": "Что показывать на главной странице, задаётся настройками, а не программой."
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/vector/",
+   "part": "Направление внимания и гипотезы",
+   "project": "lifeos",
+   "text": "Первая идея превращена в предположение со сроком и условием, при котором оно считается неверным."
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/vector/",
+   "part": "Направление внимания и гипотезы",
+   "project": "lifeos",
+   "text": "Появилось направление внимания: система хранит его и сверяет с ним новое."
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "",
+   "link": "https://lifeos.antonlozhkin.ru/chto-vnutri/vector/",
+   "part": "Направление внимания и гипотезы",
+   "project": "lifeos",
+   "text": "Система показывает, где сделанное расходится с записанным и заявленным."
+  }
+ ],
+ "kinds": [
+  "новое",
+  "лучше",
+  "исправлено",
+  "не получилось",
+  "отложено"
+ ],
+ "offer": null,
+ "projects": [
+  {
+   "id": "lifeos",
+   "order": 10,
+   "summary": "Рабочая система для своих дел: всё, что приходит, собирается в одном месте, и об этом можно спросить.",
+   "title": "Life OS",
+   "url": "https://lifeos.antonlozhkin.ru/"
+  },
+  {
+   "id": "site",
+   "order": 20,
+   "summary": "Сайт Антона Ложкина: услуги, лаборатория идей, инструменты и блог.",
+   "title": "antonlozhkin.ru",
+   "url": "https://antonlozhkin.ru/"
+  },
+  {
+   "id": "vybor",
+   "order": 30,
+   "summary": "Симуляция года: двенадцать шагов, на каждом три варианта, и в конце видно всё, что не случилось.",
+   "title": "«Выбор»",
+   "url": "https://choice.antonlozhkin.ru/"
+  },
+  {
+   "id": "haze",
+   "order": 40,
+   "summary": "Приложение для кальянного мастера: столы, таймеры, угли и деньги смены на одном экране.",
+   "title": "Haze",
+   "url": "https://haze-tech.ru/"
+  },
+  {
+   "id": "tutor",
+   "order": 50,
+   "summary": "Тьютор для занятий языком в Telegram и ВКонтакте.",
+   "title": "Языковой тьютор",
+   "url": "https://t.me/linguotutorobot"
+  },
+  {
+   "id": "notepub",
+   "order": 60,
+   "summary": "Движок, который собирает сайт из папки с текстами.",
+   "title": "Notepub",
+   "url": "https://github.com/cookiespooky/notepub"
+  },
+  {
+   "id": "onebit",
+   "order": 70,
+   "summary": "Музыкальный инструмент на одном бите.",
+   "title": "One Bit Music",
+   "url": "https://antonlozhkin.ru/lab/1bitmusic/"
+  },
+  {
+   "id": "experiment",
+   "order": 80,
+   "summary": "Заранее зарегистрированный эксперимент: гипотеза не подтвердилась, и это записано как есть.",
+   "title": "Эксперимент с отрицательным результатом",
+   "url": "https://github.com/cookiespooky/consciousness-revelation"
+  }
+ ]
+}
