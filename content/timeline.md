@@ -10,14 +10,12 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-## Коротко
-
-С середины сентября главное происходило в Life OS: появились сделки по стадиям, и теперь они собираются сами из платежей, счетов и поставок; сообщения из Telegram приходят через отдельного бота, а телефоны и реквизиты лежат отдельно от всего, что читает система; у Life OS появился свой сайт. На antonlozhkin.ru появилась эта лента.
-
 *17 изменений в 2 проектах: с 15 сентября 2026 по 8 октября 2026.*
 
 
 ## 8 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>У Life OS появился сайт, сделки стали собираться сами из отдельных записей, а спрос по фразе узнаётся одной командой. На antonlozhkin.ru появилась эта лента.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
@@ -40,6 +38,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 5 октября 2026
 
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Life OS появились сделки по стадиям и первый экран для сотрудников; сводка стала раскладывать входящее по местам.</p>
+
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
@@ -52,6 +52,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 4 октября 2026
 
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Сообщения из Telegram приходят через отдельного бота, вместе с вложениями; личную переписку система больше не читает.</p>
+
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
@@ -63,6 +65,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 2 октября 2026
 
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Телефоны, адреса и реквизиты отделены от всего, что читает система.</p>
+
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
@@ -72,6 +76,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 
 ## 1 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>У каждой идеи появилась своя страница с доводами, а главная страница стала задаваться настройками.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
@@ -83,6 +89,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 
 ## 15 сентября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Система начала сверять новое с направлением внимания, вести идеи как предположения со сроком и показывать, где сделанное расходится с записанным.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>

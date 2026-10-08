@@ -51,20 +51,20 @@ def build():
     projects = {p['id']: p for p in data['projects']}
     esc = lambda s: html.escape(str(s), quote=True)
     offer, events = data.get('offer'), data['events']
-    out = [head(offer), '## Что нового' if offer else '## Коротко', '']
+    out = [head(offer)]
     if offer:
-        out += [LEAD, '']
-    if data.get('summary'):
-        out += [data['summary'], '']
+        out += ['## Что нового', '', LEAD, '']
     if events:
         n = len({e['project'] for e in events})
         out += [f'*{plural(len(events), "изменение", "изменения", "изменений")} в {plural(n, "проекте", "проектах", "проектах")}: '
                 f'с {date_ru(events[-1]["date"])} по {date_ru(events[0]["date"])}.*', '']
-    days = {}
+    days, short = {}, data.get('summaries') or {}
     for e in data['events']:                     # порядок выгрузки: дата, затем проект — он и сохраняется
         days.setdefault(e['date'], {}).setdefault(e['project'], []).append(e)
     for day, by_project in days.items():
         out += ['', f'## {date_ru(day)}', '']
+        if day in short:                         # «коротко»: что изменилось за этот день, одной-двумя фразами
+            out += [f'<p class="tl-short"><span class="tl-short__label">Коротко</span>{esc(short[day])}</p>', '']
         for pid, events in by_project.items():
             p = projects[pid]
             name = f'<a href="{esc(p["url"])}">{esc(p["title"])}</a>' if p['url'] else esc(p['title'])

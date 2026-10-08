@@ -263,3 +263,5 @@ img { max-width: 100%; height: auto; display: block; }
 .prose .tl-card--offer { border-color: var(--ink); }
 .prose .tl-card--offer p { margin: 0 0 10px; }
 .page-hero__actions { margin: 28px 0 0; }
+.prose .tl-short { margin: 0 0 14px; color: var(--ink-1); }
+.prose .tl-short__label { display: block; margin-bottom: 4px; font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
