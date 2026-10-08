@@ -503,7 +503,7 @@ the script is under *Build & run*.
 in it was checked when it was written there (a list of public projects, stop words for clients' names, no vault
 links, e-mails or phones). Both files are committed, because CI builds without the vault;
 `python3 scripts/timeline.py --check` says whether the page still matches the data. The page is a plain `page`
-(under each date a card per project with that day's events as dots on one vertical line, an offer card on top when the export carries one; the generator writes the cards as markup with `tl-*` classes, which the `safe` HTML policy lets through, and their look is at the end of `theme/assets/base.css`) and is in no menu: the
+(under each date a card per project with that day's events as dots on one vertical line, a summary paragraph and a count on top; **the page's hero is the screen of the current offer** — title, text and a button from the export (`hero_cta_label`, `hero_cta_url` in `page.html`), repeated in the bottom call — and only while there is no offer does it speak about the feed itself; the generator writes the cards as markup with `tl-*` classes, which the `safe` HTML policy lets through, and their look is at the end of `theme/assets/base.css`) and is in no menu: the
 entry to it is the link in the Threads profile. An event is written at a commit that changes something a stranger
 can see, in any public project — `lifeos timeline log <project> "…"`; the rule and the list of projects are in the
 root `CLAUDE.md` and `../life/lifeos.yaml`.

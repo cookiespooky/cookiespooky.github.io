@@ -14,6 +14,9 @@
       {{- if .FM.hero_lead }}
       <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
       {{- end }}
+      {{- if .FM.hero_cta_url }}
+      <p class="page-hero__actions"><a class="btn btn--ink" href="{{ .FM.hero_cta_url }}" rel="noopener" target="_blank">{{ .FM.hero_cta_label }}</a></p>
+      {{- end }}
     </section>
 
     {{- if .FM.services }}

@@ -12,21 +12,31 @@ life/): список публичных проектов, события по о
 import html, json, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA, OUT = os.path.join(ROOT, 'data', 'timeline.json'), os.path.join(ROOT, 'content', 'timeline.md')
+DATA = os.environ.get('TIMELINE_DATA') or os.path.join(ROOT, 'data', 'timeline.json')      # другие пути — только для пробы
+OUT = os.environ.get('TIMELINE_OUT') or os.path.join(ROOT, 'content', 'timeline.md')
 MONTHS = 'января февраля марта апреля мая июня июля августа сентября октября ноября декабря'.split()
 
-HEAD = '''---
-type: page
-slug: timeline
-title: "Лента изменений"
-description: "Что нового в открытых проектах Антона Ложкина: по одной строке на каждое заметное изменение, от нового к старому."
-draft: false
+# Шапка страницы — всегда экран текущего предложения (Антон, 8.10); пока предложения нет — о самой ленте.
+PLAIN = {'hero_kicker': 'Лента', 'hero_title': 'Что нового',
+         'hero_lead': 'Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное.'}
+LEAD = 'Изменения в открытых проектах — по одной строке на каждое заметное со стороны, от нового к старому.'
 
-hero_kicker: "Лента"
-hero_title: "Что нового"
-hero_lead: "Изменения в открытых проектах — по одной строке на каждое, от нового к старому. Строка появляется, когда меняется то, что заметно со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
----
-'''
+
+def head(offer):
+    q = lambda v: json.dumps(v, ensure_ascii=False)
+    fm = dict(PLAIN)
+    if offer:
+        button = offer['action'][0].upper() + offer['action'][1:]
+        fm = {'hero_kicker': 'Сейчас', 'hero_title': offer['title'], 'hero_lead': offer['text'], 'hero_cta_label': button, 'hero_cta_url': offer['link'],
+              'cta_title': offer['title'], 'cta_note': offer['text'], 'cta_button': button, 'cta_url': offer['link']}
+    rows = ['---', 'type: page', 'slug: timeline', 'title: "Лента изменений"',
+            'description: "Что нового в открытых проектах Антона Ложкина: по одной строке на каждое заметное изменение, от нового к старому."', 'draft: false', '']
+    return '\n'.join(rows + [f'{k}: {q(v)}' for k, v in fm.items()] + ['---', ''])
+
+
+def plural(n, one, few, many):
+    n10, n100 = n % 10, n % 100
+    return f'{n} ' + (one if n10 == 1 and n100 != 11 else few if 2 <= n10 <= 4 and not 12 <= n100 <= 14 else many)
 
 
 def date_ru(d):
@@ -40,11 +50,16 @@ def build():
     data = json.load(open(DATA, encoding='utf-8'))
     projects = {p['id']: p for p in data['projects']}
     esc = lambda s: html.escape(str(s), quote=True)
-    out = [HEAD]
-    offer = data.get('offer')
+    offer, events = data.get('offer'), data['events']
+    out = [head(offer), '## Что нового' if offer else '## Коротко', '']
     if offer:
-        out += ['<div class="tl-card tl-card--offer">', f'<div class="tl-card__head">{esc(offer["title"])}</div>', f'<p>{esc(offer["text"])}</p>',
-                f'<p><a class="tl-more" href="{esc(offer["link"])}">{esc(offer["action"][0].upper() + offer["action"][1:])} →</a></p>', '</div>', '']
+        out += [LEAD, '']
+    if data.get('summary'):
+        out += [data['summary'], '']
+    if events:
+        n = len({e['project'] for e in events})
+        out += [f'*{plural(len(events), "изменение", "изменения", "изменений")} в {plural(n, "проекте", "проектах", "проектах")}: '
+                f'с {date_ru(events[-1]["date"])} по {date_ru(events[0]["date"])}.*', '']
     days = {}
     for e in data['events']:                     # порядок выгрузки: дата, затем проект — он и сохраняется
         days.setdefault(e['date'], {}).setdefault(e['project'], []).append(e)

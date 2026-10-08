@@ -42,6 +42,8 @@ fields:
     - hero_title
     - hero_lead
     - hero_note
+    - hero_cta_label # кнопка в шапке страницы: надпись
+    - hero_cta_url   # и адрес; сейчас их ставит только scripts/timeline.py — экран текущего предложения
     - stats
     - hero_stats
     - services
