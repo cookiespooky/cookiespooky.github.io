@@ -1,24 +1,24 @@
-/* Дизайн-токены. Светлая палитра из макета: тёплая бумага, тонкие линии, синий акцент. */
+/* Дизайн-токены. Палитра та же, что у сайта Life OS: серый фон, один цвет текста, один приглушённый акцент. */
 :root {
-  --paper: #fbfbfa;
-  --paper-2: #f3f2ef;
+  --paper: #f5f6f7;
+  --paper-2: #eceef0;
   --surface: #ffffff;
-  --line: #e4e3df;
-  --line-strong: #d6d5d0;
-  --ink: #14161a;
-  --ink-1: #40444a;
-  --ink-2: #55595f;
-  --muted: #6b6f76;
-  --muted-2: #8a8e95;
-  --muted-3: #a0a3a9;
-  --accent: #3b5bdb;
+  --line: #e3e5e7;
+  --line-strong: #c6c9cd;
+  --ink: #1b2128;
+  --ink-1: #3b424a;
+  --ink-2: #4b5158;
+  --muted: #60666d;
+  --muted-2: #7c8289;
+  --muted-3: #999ea4;
+  --accent: #3e5368;
   --accent-ink: #ffffff;
-  --panel: #14161a;
-  --panel-ink: #f4f3f0;
-  --panel-muted: #b4b8be;
-  --panel-line: #3a3d44;
-  --panel-kicker: #7c8189;
-  --dot-off: #c9c8c3;
+  --panel: #1b2128;
+  --panel-ink: #f5f6f7;
+  --panel-muted: #b3b8be;
+  --panel-line: #3b424a;
+  --panel-kicker: #7c8289;
+  --dot-off: #c6c9cd;
 
   --shell: 1180px;
   --shell-pad: 40px;

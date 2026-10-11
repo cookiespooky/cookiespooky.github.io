@@ -1,32 +1,26 @@
 <header class="site-header">
   <div class="shell site-header__inner">
-    <a class="brand" href="{{ .BaseURL }}/">
-      <img class="brand__photo" src="{{ .AssetsBase }}/anton.webp" alt="" width="30" height="30" />
-      <span>{{ .Settings.owner_name }}</span>
+    <a class="brand" href="{{ .BaseURL }}/" aria-label="{{ .Settings.owner_name }} — на главную">
+      <img class="brand__photo" src="{{ .AssetsBase }}/anton.webp" alt="" width="40" height="40" />
     </a>
     <nav class="site-nav" aria-label="Основная навигация">
-      <a href="{{ .BaseURL }}/#cases">Кейсы</a>
-      <a href="{{ .BaseURL }}/services/"{{ if eq .Page.Slug "services" }} aria-current="page"{{ end }}>Что делаю</a>
-      <a href="{{ .BaseURL }}/blog/"{{ if eq .Page.Slug "blog" }} aria-current="page"{{ end }}>Блог</a>
-      <a href="{{ .BaseURL }}/notes/"{{ if eq .Page.Slug "notes" }} aria-current="page"{{ end }}>Заметки</a>
+      <a href="{{ .BaseURL }}/#projects">Проекты</a>
       {{- /* Раздел подсвечен и на странице идеи, не только на /lab/: внутри
              лаборатории это единственный знак того, где ты. */}}
       <a href="{{ .BaseURL }}/lab/"{{ if eq .Page.Type "lab" }} aria-current="page"{{ else if eq .Page.Type "idea" }} aria-current="true"{{ end }}>Лаборатория</a>
+      <a href="{{ .BaseURL }}/notes/"{{ if eq .Page.Slug "notes" }} aria-current="page"{{ end }}>Заметки</a>
+      <a href="{{ .BaseURL }}/blog/"{{ if eq .Page.Slug "blog" }} aria-current="page"{{ end }}>Блог</a>
+      <a href="{{ .BaseURL }}/cases/"{{ if eq .Page.Type "catalog" }} aria-current="page"{{ end }}>Кейсы</a>
       <a href="{{ .BaseURL }}/about/"{{ if eq .Page.Slug "about" }} aria-current="page"{{ end }}>Обо мне</a>
-      <div class="contact-menu" data-contact-menu>
-        <button class="btn--outline-sm" type="button" data-contact-toggle aria-expanded="false" aria-controls="contact-panel">Связаться</button>
-        <div class="contact-menu__panel" id="contact-panel" data-contact-panel hidden>
-          <a href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tg"/></svg><span>Telegram</span></a>
-          <a href="{{ .Settings.whatsapp_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
-          <a href="{{ .Settings.vk_url }}" rel="me noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-vk"/></svg><span>ВКонтакте</span></a>
-          <a href="mailto:{{ .Settings.email }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg><span>{{ .Settings.email }}</span></a>
-          <a href="tel:{{ .Settings.phone }}"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg><span>{{ .Settings.phone_label }}</span></a>
-        </div>
-      </div>
     </nav>
-    <button class="burger" type="button" data-drawer-open aria-controls="site-drawer" aria-expanded="false" aria-label="Открыть меню">
-      <span aria-hidden="true"></span>
-    </button>
+    <div class="site-header__actions">
+      <a class="tg-btn" href="{{ .Settings.telegram_url }}" rel="me noopener" target="_blank" aria-label="Написать в Telegram">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20.500 4.500 3.500 11l5 2 2 5.500 3-3.500 4.500 3.500zM8.500 13l12-8.500" fill="none" stroke="currentColor" stroke-width="1.400" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </a>
+      <button class="burger" type="button" data-drawer-open aria-controls="site-drawer" aria-expanded="false" aria-label="Открыть меню">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -38,11 +32,11 @@
   </div>
   <nav class="drawer__nav">
     <a href="{{ .BaseURL }}/"><span>Главная</span><span aria-hidden="true">→</span></a>
-    <a href="{{ .BaseURL }}/#cases"><span>Кейсы</span><span aria-hidden="true">→</span></a>
-    <a href="{{ .BaseURL }}/services/"><span>Что делаю</span><span aria-hidden="true">→</span></a>
-    <a href="{{ .BaseURL }}/blog/"><span>Блог</span><span aria-hidden="true">→</span></a>
-    <a href="{{ .BaseURL }}/notes/"><span>Заметки</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/#projects"><span>Проекты</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/lab/"{{ if eq .Page.Type "lab" }} aria-current="page"{{ else if eq .Page.Type "idea" }} aria-current="true"{{ end }}><span>Лаборатория</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/notes/"><span>Заметки</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/blog/"><span>Блог</span><span aria-hidden="true">→</span></a>
+    <a href="{{ .BaseURL }}/cases/"><span>Кейсы</span><span aria-hidden="true">→</span></a>
     <a href="{{ .BaseURL }}/about/"><span>Обо мне</span><span aria-hidden="true">→</span></a>
   </nav>
   <div class="drawer__foot">

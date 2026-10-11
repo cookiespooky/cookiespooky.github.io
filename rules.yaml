@@ -15,6 +15,7 @@ fields:
     # --- карточка кейса ---
     - group          # sites | products | ai | research | lab | components
     - group_title
+    - area           # где кейс стоит: lang | dev | ai | ideas — секция главной; client — страница /cases/
     - kicker         # надпись над заголовком
     - summary        # одно предложение для карточки
     - featured       # показывать на главной
@@ -55,7 +56,10 @@ fields:
     - cta_note
     - cta_url        # куда ведёт кнопка призыва; иначе settings.telegram_url
     - cta_button     # надпись на кнопке призыва
-    - razbor         # блок «Разбор» на главной: title/text/items/link
+    - razbor         # блок «Разбор» на странице кейсов: title/text/items/link
+    - lifeos         # главная, секция Life OS: kicker/title/text/parts
+    - areas          # главная, четыре направления: lang/dev/ai/ideas, у каждого title и text
+    - about          # главная, последняя секция: title/text/cases_note
     - quick          # строки в карточке первого экрана
     - more_items     # небольшие работы без отдельных страниц
     # --- блог ---
@@ -107,6 +111,10 @@ types:
   home:
     template: "home.html"
     permalink: "/"
+    include_in: { sitemap: true, search: false }
+  catalog:
+    template: "catalog.html"
+    permalink: "/cases/"
     include_in: { sitemap: true, search: false }
   case:
     template: "case.html"
@@ -189,6 +197,97 @@ collections:
         - type_in: ["case"]
     sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
     limit: 100
+  # Главная и страница кейсов делят кейсы по area, а не по group: group остаётся прежней разбивкой по типу задачи.
+  home_lang:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "lang" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  home_dev:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "dev" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  home_ai:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "ai" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  home_ideas:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "ideas" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  cases_client:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "client" }
+        - type_in: ["case"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  ideas_lang:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "lang" }
+        - type_in: ["idea"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  ideas_dev:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "dev" }
+        - type_in: ["idea"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  ideas_ai:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "ai" }
+        - type_in: ["idea"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
+  ideas_ideas:
+    kind: "filter"
+    materialize: true
+    where:
+      all:
+        - fm_eq: { key: "draft", value: false }
+        - fm_eq: { key: "area", value: "ideas" }
+        - type_in: ["idea"]
+    sort: { by: "fm.nav_order", dir: "asc", nulls_last: true }
+    limit: 50
   cases_featured:
     kind: "filter"
     materialize: true
@@ -348,7 +447,7 @@ collections:
     limit: 3
 
 sitemap:
-  include_types: ["home", "case", "page", "service", "blog", "article", "tool", "notes", "note", "lab", "idea"]
+  include_types: ["home", "catalog", "case", "page", "service", "blog", "article", "tool", "notes", "note", "lab", "idea"]
   exclude_drafts: true
 
 search:
@@ -368,7 +467,7 @@ artifacts:
     dir: "collections"
 
 validation:
-  single_page_of_type: { home: 1, blog: 1, notes: 1, lab: 1 }
+  single_page_of_type: { home: 1, catalog: 1, blog: 1, notes: 1, lab: 1 }
   duplicate_route: { action: "error" }
   unknown_type: { action: "error" }
   unique_slug: { action: "error" }

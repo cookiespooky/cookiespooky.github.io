@@ -3,7 +3,7 @@ site:
   base_url: "https://antonlozhkin.ru"
   media_base_url: "https://antonlozhkin.ru/media"
   title: "Антон Ложкин"
-  description: "Лингвист и разработчик: сайты, телеграм-боты, парсеры, автоматизация и MVP. Кейсы с задачами и результатами, блог о разработке."
+  description: "Лингвист и разработчик. От хаоса — к системе: Life OS, свои продукты, проекты и идеи на стыке языка, разработки и ИИ."
   default_og_image: "/media/og.png"
 
 runtime:
@@ -24,7 +24,7 @@ markdown:
 
 settings:
   site_title: "Антон Ложкин"
-  site_description: "Лингвист и разработчик. От хаоса — к системе: сайты, боты, автоматизация и разбор смысла."
+  site_description: "Лингвист и разработчик. От хаоса — к системе: Life OS, свои продукты, проекты и идеи на стыке языка, разработки и ИИ."
   owner_name: "Антон Ложкин"
   owner_role: "Лингвист и разработчик"
   telegram_url: "https://t.me/cookiespooky"

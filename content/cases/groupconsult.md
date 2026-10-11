@@ -7,6 +7,7 @@ draft: false
 nav_order: 13
 featured: false
 group: sites
+area: client
 kicker: "Интернет-магазин обучения · охрана труда"
 summary: "Клиент выбирает курс, оплачивает на сайте — и сделка сама попадает в CRM отдела продаж, без ручного переноса."
 status: "Работает"

@@ -7,6 +7,7 @@ draft: false
 nav_order: 11
 featured: true
 group: sites
+area: client
 kicker: "Сайт сервиса · Ижевск"
 summary: "Сайт ремонтного сервиса для сельхоз- и спецтехники: что чинят, за какой срок, с какой гарантией — и как оставить заявку."
 status: "Работает"

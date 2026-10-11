@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The personal site of Anton Lozhkin at `cookiespooky.github.io` — a static site built with the
 [`notepub`](https://github.com/cookiespooky/notepub) engine (a separate Go repo, usually checked out at
-`~/Documents/np-personal/projects/notepub`). Its purpose is lead generation for development work: sites, Telegram bots, parsers, automation
-and MVPs. Three content areas: **cases** (portfolio, the proof), **services** (commercial landings, the
-conversion) and **blog** (SEO traffic, written against keyword clusters).
+`~/Documents/np-personal/projects/notepub`). **Since 2026-10-11 it presents Anton's own work, not development to
+order** (his decision; arguments in `../life/knowledge/ideas/site-own-projects-graph.md`): the home page is a graph
+of his products, projects and ideas, and everything made for clients lives on one page, `/cases/`. Nothing was
+thrown away — the **services** landings and the **blog** written against commercial keyword clusters are still
+there, reachable from `/cases/` and from each other, but the home page and the header no longer lead to them.
 
 Everything is in Russian.
 
@@ -136,6 +138,7 @@ Page types, each a template plus a permalink:
 | type | permalink | template |
 |---|---|---|
 | `home` | `/` | `home.html` |
+| `catalog` | `/cases/` | `catalog.html` |
 | `case` | `/cases/{slug}/` | `case.html` |
 | `service` | `/services/{slug}/` | `service.html` |
 | `blog` | `/blog/` | `blog.html` |
@@ -160,18 +163,28 @@ some builds and page 1 on others. Templates read the slice through `.Collections
 The same engine release made the build deterministic (the history is in `docs/site-history.md`): two builds
 over identical content differ only in `search.json`'s `generated_at`, so a build diff is worth reading.
 
-`blog`, `home`, `notes` and `lab` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
+`blog`, `home`, `catalog`, `notes` and `lab` are singletons (`validation.single_page_of_type`). `/services/` itself is a `page`
 (`content/services.md`), not a `service` — the `service` type is only for individual landings.
 
-**The home page is frontmatter, not template.** `content/home.md` has an empty body: every word on `/` —
-`hero_kicker`, `hero_title`, `hero_lead`, `hero_note`, `hero_stats`, the whole four-step `razbor` block,
-`process`, `skills`, `cta_title`, `cta_note` — is a frontmatter key that `home.html` only arranges. Copy for
-`/services/` is the same: the seven-item `services:` list in `content/services.md`. Look for site text in
-`content/`, and change `home.html` only to change the arrangement. Two of those keys count things the build
-also counts and nothing reconciles them: `hero_stats[0].value` and the «N проектов» in `description` and
-`hero_note` are typed by hand, so they drift from the case census on every added case. A fourth copy sits in
-`config.dev.yaml`'s `site.description` and drifts the same way, harmlessly — the dev config never ships, and
-the production `config.yaml` deliberately carries no number at all.
+**The home page is frontmatter, not template — except the graph.** `content/home.md` has an empty body: the hero
+text (`hero_kicker`, `hero_title`, `hero_lead`), the Life OS block (`lifeos`), the four areas (`areas.dev|lang|ai|ideas`,
+each a `title` and a `text`) and `about` are frontmatter keys that `home.html` only arranges. `lifeos.show: false`
+hides the four-cell Life OS section without deleting it; while it is hidden Life OS is the first row of the tools
+area, linking to its idea in the lab. The blocks about work to order — `razbor`, `process`, `skills`, `cta_*` —
+moved to `content/cases.md` and are arranged by `catalog.html`. Copy for `/services/` is the same pattern: the
+seven-item `services:` list in `content/services.md`.
+
+**The hero graph is `partials/home-graph.html`, and its coordinates are typed in.** The engine has no arithmetic,
+so every node carries its own numbers: `data-x`/`data-y` for the wide layout (viewBox `0 0 1200 600`) and, on the
+nodes a phone shows, `data-mx`/`data-my`/`data-mly` for the narrow one (four children per area, fanned). A node is
+an `<a href="#…">` to a section or a row (`p-<case slug>`, `i-<idea slug>`, `p-lifeos`), so the graph works with
+no script; the script at the end of `home.html` switches the layout at 760px, drifts the nodes and moves the
+lines with them, and shows the header once the page is scrolled (on the home page the header and the assistant
+button are hidden over the hero — `body:has(.home)` in `base.css`). **Adding, removing or renaming a node is a
+hand edit of that partial**: the node, its line in `hg__edges`, and room among its neighbours' labels — the
+area's nodes share a column and their labels collide if two sit on one height. A node whose target id does not
+exist scrolls nowhere and nothing checks it; after touching the partial, compare the `href="#…"` of every
+`hg__node` in `dist/index.html` with the ids on that page.
 
 A `service` may also carry `demos: ["calc", "plan", "book"]`, which renders the live partials on the landing
 itself. Only `komponenty-dlya-sayta` uses it, and it should: the page that sells a calculator showed none
@@ -194,8 +207,10 @@ address.
 
 Collections are declared, not hardcoded, and reach templates as `.Collections.<name>.Items`:
 
-- `cases_all` plus one per group (`cases_products`, `cases_ai`, `cases_components`, `cases_research`,
-  `cases_lab`, `cases_sites`) and `cases_featured` — consumed by `home.html`;
+- `home_lang`, `home_dev`, `home_ai`, `home_ideas` (cases by `area`) and `ideas_lang|dev|ai|ideas` (lab ideas by
+  `area`) — the four sections of `home.html`; `cases_client` (`area: client`) — the list on `/cases/`;
+- `cases_all`, one per `group` (`cases_products`, `cases_ai`, …) and `cases_featured` — declared, and since
+  2026-10-11 rendered by no template: `group` is the old split by kind of task, kept for `clusters_check.py`;
 - `posts_all` (blog feed, sorted by `fm.published_at` desc), `posts_recent` (4, declared for a home teaser that
   no template renders — nothing reads it today);
 - `notes_all` (the `/notes/` index, sorted by `fm.published_at` desc) and `notes_recent` (3, home teaser —
@@ -334,7 +349,8 @@ description: "..."        # meta description
 draft: false
 nav_order: 21             # sorts every cases_* collection, asc, nulls last
 featured: true            # puts it in cases_featured
-group: products           # products | ai | components | research | lab | sites — picks the section
+group: products           # products | ai | components | research | lab | sites — the old split, shown nowhere now
+area: dev                 # dev | lang | ai | ideas — the home section; client — the /cases/ page; none — listed nowhere
 kicker: "..."             # eyebrow above the title
 summary: "..."            # one sentence, the catalogue row
 status: "Работает, развивается"
@@ -352,22 +368,20 @@ facts: [{value: "...", label: "..."}]   # the number tiles
 links: [{title: "...", url: "..."}]
 ```
 
-`group` decides which section a case lands in; the counts on the home page's tabs come from
-`len .Collections.cases_<group>.Items`, so a typo in `group` silently empties a tab rather than failing the
-build — `scripts/clusters_check.py` prints the current split, so an empty group shows up there. Adding a group means four
-edits that nothing validates together: the `group` value in frontmatter, a `cases_<group>` collection in
-`rules.yaml`, a `<button data-filter>` tab and a `<section data-group>` block in `home.html`. Miss the section
-and the tab scrolls nowhere; miss the tab and the section is unreachable from the filter bar.
+`area` decides where a case is listed, and a typo in it silently drops the case from every list rather than
+failing the build — a case with no `area` (five have none on purpose: `graphreach`, `recca`, `marketing-os`,
+`bizos`, `gorod-katalog`, taken off the home page on 2026-10-11) keeps its page and its place in the sitemap and
+is reached only through `related` links. Within an area rows sort by `nav_order`; the first six of the tools
+area carry 1–6 for that reason. A row's id is `p-<slug>`, which the hero graph links to. The breadcrumb on a case
+page reads «Кейсы» → `/cases/` for `area: client` and «Проекты» → `/#projects` for everything else, and the
+`BreadcrumbList` says the same.
 
 A case has either a `shot` or a `cover` (`grid | rings | waves | dots | beam`, drawn by `partials/cover.html`).
 
-Adding a case, in order: copy an existing `content/cases/*.md`; set `group` to an existing value (or make the
-four edits above); drop the webp into `theme/assets/shots/`, run `python3 scripts/shots.py` and point `og_image`
-at the generated `/assets/shots/og/` card; run `./scripts/build.sh` and check that the census shows one more
-кейс; then run `python3 scripts/clusters_check.py` and check that the case landed in the group split you meant.
-Last, bump the three hand-typed counts in `content/home.md` (`hero_stats`, `description`, `hero_note`) to the
-number the census just printed — see *Content model* above; they are the one thing adding a case silently
-leaves wrong.
+Adding a case, in order: copy an existing `content/cases/*.md`; set `area` (and `group`); drop the webp into
+`theme/assets/shots/`, run `python3 scripts/shots.py` and point `og_image` at the generated `/assets/shots/og/`
+card; run `./scripts/build.sh` and check that the census shows one more кейс and that the row appeared in the
+section you meant. A node in the hero graph is a separate, optional hand edit (above).
 
 ### Screenshots and their derivatives
 
@@ -392,7 +406,7 @@ If you add a thumbnail somewhere new, point it at `shots/thumbs/`, never at `sho
 once made the home page pull 5.5 MB to draw 180 px rows.
 
 Thumbnails carry `alt="Экран проекта «{{ .Title }}»"` — the same wording as the full screenshot in
-`case.html`, in all eleven places that render a case thumbnail (six group sections in `home.html`, plus
+`case.html`, in every place that renders a case thumbnail (the four area sections in `home.html`, `catalog.html`,
 `case.html`, `service.html`, `note.html`, `tool.html`, `article.html`). **Bing counts an empty `alt` as a
 missing one**, so "the adjacent title makes it decorative" does not hold here — copy the alt when you add a
 new `case-row`. Two `alt=""` are deliberate: the brand photo in `partials/header.html` and the Metrika pixel
@@ -705,10 +719,12 @@ break:
   header is taller on narrow screens (~85px), so `app.js` measures the header and writes the CSS variables
   itself, re-running on resize, orientation change and `document.fonts.ready`. CSS and JS must agree on one
   number — don't reintroduce a hardcoded offset in a stylesheet.
-- **The catalogue tabs are navigation, not a filter.** They scroll to a `data-group` section; nothing is ever
-  hidden, so there is no empty state to design for. A scroll-spy updates the pressed tab and stays silent
-  during programmatic scrolling, otherwise the pressed tab walks through every section the page flies past.
-  The no-JS build simply shows all groups in order.
+- **The catalogue tabs are gone from every page** (2026-10-11), but their code in `app.js` and the `.filters*`
+  rules in `home.css` are still there, inert: the script returns at once when no `[data-filter]` exists.
+- **`scroll-padding-top` follows the measured header** (`calc(var(--header-h) + 20px)` in `base.css`), so an
+  anchor lands under the header on any page; do not put a fixed number back.
+- **On phones the rows of an area are cards in one horizontally scrolling line** (`@media (max-width: 640px)` at
+  the end of `home.css`): equal height, one card and the edge of the next in view.
 
 ### The tool page port
 
@@ -804,26 +820,16 @@ site's; `docs/deploy-history.md` has the details.
   sandbox anyway — the local Python has no CA bundle (`CERTIFICATE_VERIFY_FAILED` on every https, while
   `curl` to the same host works).
 
-## `/cases/` redirects to the home page
+## `/cases/` is the page of work to order
 
-Settled. `case` pages live at `/cases/{slug}/` and the catalogue is a section of the home page, so `/cases/`
-itself has nothing to serve — but it is the most guessable path on the site and is where the previous cases
-site lived. `content/cases.md` now redirects it to `/`.
+Until 2026-10-11 `/cases/` redirected to the home page, whose catalogue held every case. Now `content/cases.md`
+is the one page of type `catalog`: the cases with `area: client` (six jobs for companies and the three site
+components), then the blocks that used to open the home page — «Сначала разбор», «Как идёт работа», the stack —
+the link to `/services/` and the call to write about a task. It is the only place in the site's chrome where
+work to order is offered; the header carries «Кейсы», the footer does not, and `/services/` is linked from here
+and from the articles' `cta_service` only.
 
-The engine does redirects natively: `redirect_to` in frontmatter makes the route a 301 in `serve` and, in a
-static build, a stub page carrying `meta http-equiv="refresh"` plus a canonical to the target. That is as close
-to a 301 as GitHub Pages allows. `noindex: true` keeps the stub out of the sitemap.
-
-Anchors do not survive the round trip: the engine percent-encodes the `#`, so `redirect_to: "/#cases"` sends
-visitors to `/%23cases`. Redirect to a path, not to a fragment.
-
-`case.html` breadcrumbs still read Главная → Кейсы → case with the middle step pointing at `/#cases`, and the
-`BreadcrumbList` mirrors that exactly — structured breadcrumbs are supposed to match the visible ones. The
-alternative, moving the catalogue off the home page and making `/cases/` a real canonical page, stays a
-redesign: the home page is built around the catalogue with its sticky filter tabs.
-
-`config.yaml` still carries an `og_type_by_type: catalog: website` entry for a type that does not exist in
-`rules.yaml` — a leftover, harmless, and the name to reuse if that redesign ever happens.
+Anchors do not survive a `redirect_to`: the engine percent-encodes the `#`. Redirect to a path, not to a fragment.
 
 ## Known gaps
 

@@ -30,7 +30,7 @@
   padding-block: 0;
   min-height: 72px;
   display: flex; align-items: center;
-  background: rgba(251, 251, 250, 0.94); backdrop-filter: blur(8px);
+  background: rgba(245, 246, 247, 0.94); backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
 .filters-shell { width: 100%; max-width: var(--shell); margin-inline: auto; }
@@ -186,3 +186,100 @@
 .notes-section { padding-block: 8px 96px; }
 .notes-list { border-top: 1px solid var(--line); margin-top: 40px; }
 .notes-list .case-row { grid-template-columns: minmax(0, 1fr) 20px; }
+
+/* ---------- главная: первый экран с графом ---------- */
+/* первый экран — в высоту окна, граф по центру; шапки на нём нет, поэтому отступ сверху не нужен */
+.hero--graph { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; min-height: 100svh; padding: 24px 0; }
+.hg { position: relative; }
+/* заголовок страницы стоит под фото в центре графа, с отступом от него: 51% — это y≈306 из 600 в координатах графа */
+.hg__title { position: absolute; left: 50%; top: 51%; width: 27%; min-width: 280px; transform: translateX(-50%); text-align: center; }
+.hg__kicker { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2); }
+.hg__title h1 { margin-top: 8px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; letter-spacing: -0.02em; }
+.hg__title p { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+.hg__title a { display: inline-block; margin-top: 12px; font-size: 13px; }
+.hg__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hg__edge { stroke: var(--line-strong); stroke-width: 1; }
+.hg__edge--ent { stroke: var(--line); }
+.hg__node { cursor: pointer; }
+.hg__node text {
+  font-family: var(--font-mono); font-size: 12.5px; fill: var(--muted-2);
+  paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round;
+  transition: fill 0.2s var(--ease);
+}
+.hg__node circle { transition: fill 0.2s var(--ease), stroke 0.2s var(--ease); }
+/* сущности тусклее кластеров; вид точки — продукт, проект или идея */
+.hg__node--product circle { fill: var(--muted-2); }
+/* главный проект: точка крупнее, подпись цветом текста */
+.hg__node--main circle { fill: var(--ink-2); }
+.hg__node--main text { fill: var(--ink-1); }
+.hg__node--project circle { fill: var(--paper); stroke: var(--muted-2); stroke-width: 1.5; }
+.hg__node--idea circle { fill: var(--paper); stroke: var(--muted-2); stroke-width: 1.5; stroke-dasharray: 2.5 2.5; }
+.hg__node--cluster circle { fill: var(--ink); }
+.hg__node--cluster text { font-family: var(--font); font-size: 14px; font-weight: 400; fill: var(--ink); }
+.hg__ring { fill: var(--paper); stroke: var(--line-strong); stroke-width: 1; }
+.hg__node--me image { filter: grayscale(1) contrast(1.05); }
+.hg__node:hover text, .hg__node:focus-visible text { fill: var(--accent); }
+.hg__node--product:hover circle, .hg__node--cluster:hover circle { fill: var(--accent); }
+.hg__node--project:hover circle, .hg__node--idea:hover circle, .hg__node--me:hover .hg__ring { stroke: var(--accent); }
+.hg__node:focus { outline: none; }
+.hg__legend { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-3); }
+.hg__key { width: 9px; height: 9px; border-radius: 50%; margin-left: 14px; box-sizing: border-box; }
+.hg__key--product { background: var(--muted-2); margin-left: 0; }
+.hg__key--project { border: 1.5px solid var(--muted-2); }
+.hg__key--idea { border: 1.5px dashed var(--muted-2); }
+
+/* секции направлений: без панели фильтров, заголовок направления держится под шапкой */
+.cases--areas { padding-block: 8px 96px; }
+.cases--areas .catalog-group__head { top: calc(var(--header-h) + 32px); }
+.cases--areas .catalog-group__head h3 { font-size: 28px; letter-spacing: -0.02em; }
+.area__more { grid-column: 2; margin-top: 4px; font-size: 14px; }
+.case-row__thumb--word { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-3); }
+.case-row:target { background: var(--paper-2); }
+.case-row:target::before { transform: scaleY(1); }
+.about-section { padding-block: 8px 104px; }
+.about-section .hero__actions { margin-top: 24px; }
+.about__who { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.about__photo { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.05); background: var(--paper-2); flex: none; }
+@media (max-width: 640px) { .about__photo { width: 88px; height: 88px; } .about__who { gap: 16px; } }
+.about__cases { margin-top: 22px; font-size: 14px; color: var(--muted); }
+.catalog-list--page { margin-top: 48px; }
+
+@media (max-width: 1140px) {
+  /* строки заметок без миниатюры: общая двухколоночная сетка строк им не подходит */
+  .notes-list .case-row { grid-template-columns: minmax(0, 1fr) !important; }
+  .hero--graph { display: flex !important; padding: 24px 0 !important; }
+  .area__more { grid-column: 1; }
+}
+@media (max-width: 760px) {
+  /* на телефоне граф идёт во всю ширину экрана: у каждого направления четыре главных узла веером (раскладку ставит
+     скрипт), заголовок страницы — под графом. Пока скрипт раскладку не поставил, сущностей не видно. */
+  .hg:not(.hg--m) .hg__node--ent, .hg:not(.hg--m) .hg__edge--ent, .hg__legend { display: none; }
+  .hg__svg { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); overflow: hidden; }
+  .hg__node text { font-size: 12px; stroke-width: 4px; }
+  .hg__node--cluster text { font-size: 14px; font-weight: 500; }
+  /* заголовок на телефоне стоит над графом */
+  .hg { display: flex; flex-direction: column; }
+  .hg__title { position: static; order: -1; width: auto; min-width: 0; transform: none; margin: 0 0 28px; }
+  .hg__title h1 { font-size: 28px; }
+  .hg__title p { font-size: 15px; }
+}
+
+/* телефон: строки направления и заметок — карточки одной высоты в ряд, листаются по горизонтали */
+@media (max-width: 640px) {
+  .area .catalog-list, .notes-list {
+    display: flex; align-items: stretch; gap: 12px; border-top: 0;
+    overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--shell-pad)); padding-inline: var(--shell-pad); scroll-padding-inline: var(--shell-pad);
+  }
+  .area .catalog-list::-webkit-scrollbar, .notes-list::-webkit-scrollbar { display: none; }
+  .area .case-row, .notes-list .case-row {
+    display: flex !important; flex-direction: column; gap: 12px !important;
+    flex: 0 0 78%; margin: 0 !important; padding: 14px !important;
+    border: 1px solid var(--line); background: var(--surface); scroll-snap-align: start;
+  }
+  .area .case-row::before, .notes-list .case-row::before { display: none; }
+  .area .case-row:hover, .notes-list .case-row:hover { background: var(--surface); }
+  .area .case-row__status { margin-top: auto !important; padding-top: 4px; align-self: flex-start; }
+  .area .case-row:target { border-color: var(--accent); }
+  .cases--areas .catalog-group { padding-top: 40px; }
+}

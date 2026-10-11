@@ -7,6 +7,7 @@ draft: false
 nav_order: 53
 featured: false
 group: lab
+area: dev
 kicker: "Пробы и заметки на полях"
 summary: "То, что делалось из интереса и заняло вечер: анимация на чистом CSS, работа с платой по USB, скрипты и бытовые утилиты."
 status: "Эксперименты"

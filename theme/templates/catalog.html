@@ -1,0 +1,126 @@
+<article class="page">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{ .BaseURL }}/">Главная</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Кейсы</span>
+    </nav>
+
+    <section class="page-hero">
+      <span class="eyebrow"><span>{{ .FM.hero_kicker }}</span></span>
+      <h1>{{ .FM.hero_title }}</h1>
+      <p class="page-hero__lead">{{ .FM.hero_lead }}</p>
+    </section>
+
+    <div class="catalog-list catalog-list--page">
+      {{- range .Collections.cases_client.Items }}
+      <a class="case-row" id="p-{{ .Slug }}" href="{{ $.BaseURL }}/cases/{{ .Slug }}/">
+        <span class="case-row__thumb">
+          {{- if .FM.shot }}
+          <img src="{{ $.AssetsBase }}/shots/thumbs/{{ .FM.shot }}" alt="Экран проекта «{{ .Title }}»" loading="lazy" width="180" height="125" />
+          {{- else }}
+          {{ template "cover.html" . }}
+          {{- end }}
+        </span>
+        <span class="case-row__body">
+          <span class="case-row__kicker">{{ .FM.kicker }}</span>
+          <span class="case-row__title">{{ .Title }}</span>
+          <span class="case-row__desc">{{ .FM.summary }}</span>
+        </span>
+        <span class="case-row__status{{ if eq (printf "%v" .FM.status_kind) "live" }} case-row__status--live{{ end }}">{{ .FM.status }}</span>
+        <span class="case-row__arrow" aria-hidden="true">→</span>
+      </a>
+      {{- end }}
+    </div>
+    <p class="razbor__more"><a class="link-accent" href="{{ .BaseURL }}/services/">Что делаю для заказчиков: семь форматов работы →</a></p>
+  </div>
+
+  {{- if .FM.razbor }}
+  <section class="shell process-section" id="razbor">
+    <span class="eyebrow"><span>С чего начинается работа</span></span>
+    <div class="section-head">
+      <h2>{{ .FM.razbor.title }}</h2>
+      <p>{{ .FM.razbor.text }}</p>
+    </div>
+    {{- if .FM.razbor.steps }}
+    <ol class="process">
+      {{- range .FM.razbor.steps }}
+      <li>
+        <div class="process__num">{{ .num }}</div>
+        <strong>{{ .title }}</strong>
+        <p>{{ .text }}</p>
+      </li>
+      {{- end }}
+    </ol>
+    {{- end }}
+    {{- if .FM.razbor.link_service }}
+    <p class="razbor__more"><a class="link-accent" href="{{ .BaseURL }}/services/{{ .FM.razbor.link_service }}/">{{ if .FM.razbor.link_title }}{{ .FM.razbor.link_title }}{{ else }}Подробнее{{ end }} →</a></p>
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{- if .FM.process }}
+  <section class="shell process-section" id="process">
+    <span class="eyebrow"><span>Процесс</span></span>
+    <div class="section-head">
+      <h2>Как идёт работа</h2>
+      <p>Короткий цикл: сначала рабочая версия, потом уточнения. Вы видите результат на каждом шаге, а не после месяца молчания.</p>
+    </div>
+    <ol class="process">
+      {{- range .FM.process }}
+      <li>
+        <div class="process__num">{{ .num }}</div>
+        <strong>{{ .title }}</strong>
+        <p>{{ .text }}</p>
+      </li>
+      {{- end }}
+    </ol>
+  </section>
+  {{- end }}
+
+  {{- if .FM.skills }}
+  <section class="shell tools-section" id="tools">
+    <span class="eyebrow"><span>Инструменты</span></span>
+    <div class="section-head">
+      <h2>Чем работаю</h2>
+      <p>Технологии — это средство. Выбираю то, что даёт результат быстрее и дешевле в поддержке.</p>
+    </div>
+    <div class="stacks">
+      {{- range .FM.skills }}
+      <div class="stack">
+        <div class="stack__title">{{ .title }}</div>
+        <div class="stack__items">
+          {{- range .items }}
+          <span>{{ . }}</span>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{ template "cta.html" . }}
+
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "{{ .BaseURL }}/cases/#collection",
+    "url": "{{ .BaseURL }}/cases/",
+    "name": {{ .Page.Title }},
+    "description": {{ .Page.Description }},
+    "inLanguage": "ru-RU",
+    "isPartOf": { "@id": "{{ .BaseURL }}/#website" },
+    "author": { "@id": "{{ .BaseURL }}/#person" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ .BaseURL }}/" },
+      { "@type": "ListItem", "position": 2, "name": "Кейсы", "item": "{{ .BaseURL }}/cases/" }
+    ]
+  }
+  ]</script>
+</article>

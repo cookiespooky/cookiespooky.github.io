@@ -1,0 +1,74 @@
+{{- /* Граф первого экрана. Координаты посчитаны один раз и вписаны сюда: движок не умеет арифметику.
+       Узел — ссылка на якорь секции или строки, поэтому без скрипта граф стоит и работает.
+       data-x, data-y — место узла на широком экране (viewBox 0 0 1200 600). На узком экране (viewBox 0 65 460 562)
+       показаны только узлы с data-mx, data-my — по четыре главных у направления, веером над или под ним, каждый на своей высоте;
+       подпись такого узла стоит по центру на data-mly от точки. Раскладку и плавное движение узлов и линий
+       делает скрипт в конце home.html.
+       Место под фото (x 440–760, y 285–470) на широком экране свободно: там стоит заголовок страницы. */ -}}
+  <svg class="hg__svg" viewBox="0 0 1200 600" role="group" aria-label="Карта проектов: четыре направления и то, что в них сделано">
+    <defs><clipPath id="hg-photo"><circle cx="600" cy="196" r="58"/></clipPath></defs>
+    <g class="hg__edges" aria-hidden="true">
+      <line class="hg__edge hg__edge--main" data-a="me" data-b="dev" x1="600" y1="196" x2="820" y2="128"/>
+      <line class="hg__edge hg__edge--main" data-a="me" data-b="lang" x1="600" y1="196" x2="380" y2="128"/>
+      <line class="hg__edge hg__edge--main" data-a="me" data-b="ai" x1="600" y1="196" x2="862" y2="300"/>
+      <line class="hg__edge hg__edge--main" data-a="me" data-b="ideas" x1="600" y1="196" x2="338" y2="300"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-0" x1="380" y1="128" x2="202" y2="28"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-1" x1="380" y1="128" x2="264" y2="70"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-2" x1="380" y1="128" x2="202" y2="111"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-3" x1="380" y1="128" x2="264" y2="153"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-4" x1="380" y1="128" x2="202" y2="194"/>
+      <line class="hg__edge hg__edge--ent" data-a="lang" data-b="lang-5" x1="380" y1="128" x2="264" y2="236"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-l" x1="820" y1="128" x2="998" y2="20"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-0" x1="820" y1="128" x2="936" y2="53"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-1" x1="820" y1="128" x2="998" y2="85"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-2" x1="820" y1="128" x2="936" y2="118"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-3" x1="820" y1="128" x2="998" y2="150"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-4" x1="820" y1="128" x2="936" y2="183"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-5" x1="820" y1="128" x2="998" y2="215"/>
+      <line class="hg__edge hg__edge--ent" data-a="dev" data-b="dev-6" x1="820" y1="128" x2="936" y2="248"/>
+      <line class="hg__edge hg__edge--ent" data-a="ai" data-b="ai-0" x1="862" y1="300" x2="998" y2="318"/>
+      <line class="hg__edge hg__edge--ent" data-a="ai" data-b="ai-1" x1="862" y1="300" x2="936" y2="380"/>
+      <line class="hg__edge hg__edge--ent" data-a="ai" data-b="ai-2" x1="862" y1="300" x2="998" y2="442"/>
+      <line class="hg__edge hg__edge--ent" data-a="ai" data-b="ai-3" x1="862" y1="300" x2="936" y2="504"/>
+      <line class="hg__edge hg__edge--ent" data-a="ai" data-b="ai-4" x1="862" y1="300" x2="998" y2="566"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-0" x1="338" y1="300" x2="202" y2="318"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-1" x1="338" y1="300" x2="264" y2="368"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-2" x1="338" y1="300" x2="202" y2="417"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-3" x1="338" y1="300" x2="264" y2="467"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-4" x1="338" y1="300" x2="202" y2="516"/>
+      <line class="hg__edge hg__edge--ent" data-a="ideas" data-b="ideas-5" x1="338" y1="300" x2="264" y2="566"/>
+    </g>
+    <a class="hg__node hg__node--ent hg__node--product" href="#p-analiz-rechi" data-id="lang-0" data-mx="54" data-my="194" data-mly="-14" data-x="202" data-y="28" data-amp="16"><circle cx="202" cy="28" r="5"/><text x="189" y="32" text-anchor="end">Анализ речи</text></a>
+    <a class="hg__node hg__node--ent hg__node--product" href="#p-gpt-tutor" data-id="lang-1" data-mx="170" data-my="166" data-mly="-14" data-x="264" data-y="70" data-amp="16"><circle cx="264" cy="70" r="5"/><text x="251" y="74" text-anchor="end">Тьютор</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-english-training" data-id="lang-2" data-x="202" data-y="111" data-amp="16"><circle cx="202" cy="111" r="5"/><text x="189" y="115" text-anchor="end">Тренажёр</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-cognitive-reconstruction" data-id="lang-3" data-mx="78" data-my="128" data-mly="-14" data-x="264" data-y="153" data-amp="16"><circle cx="264" cy="153" r="5"/><text x="251" y="157" text-anchor="end">Реконструкция</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-thinking-graph" data-id="lang-4" data-mx="150" data-my="94" data-mly="-14" data-x="202" data-y="194" data-amp="16"><circle cx="202" cy="194" r="5"/><text x="189" y="198" text-anchor="end">Граф мышления</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-tekst-o-realnosti" data-id="lang-5" data-x="264" data-y="236" data-amp="16"><circle cx="264" cy="236" r="5"/><text x="251" y="240" text-anchor="end">Текст о реальности</text></a>
+    <a class="hg__node hg__node--ent hg__node--product hg__node--main" href="#p-lifeos" data-id="dev-l" data-mx="386" data-my="94" data-mly="-14" data-x="998" data-y="20" data-amp="16"><circle cx="998" cy="20" r="6"/><text x="1011" y="24" text-anchor="start">Life OS</text></a>
+    <a class="hg__node hg__node--ent hg__node--product" href="#p-notepub" data-id="dev-0" data-mx="290" data-my="194" data-mly="-14" data-x="936" data-y="53" data-amp="16"><circle cx="936" cy="53" r="5"/><text x="949" y="57" text-anchor="start">Notepub</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-threads-service" data-id="dev-1" data-mx="314" data-my="128" data-mly="-14" data-x="998" data-y="85" data-amp="16"><circle cx="998" cy="85" r="5"/><text x="1011" y="89" text-anchor="start">Threads</text></a>
+    <a class="hg__node hg__node--ent hg__node--product" href="#p-hookapp" data-id="dev-2" data-mx="406" data-my="166" data-mly="-14" data-x="936" data-y="118" data-amp="16"><circle cx="936" cy="118" r="5"/><text x="949" y="122" text-anchor="start">Haze</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-order-flow" data-id="dev-3" data-x="998" data-y="150" data-amp="16"><circle cx="998" cy="150" r="5"/><text x="1011" y="154" text-anchor="start">Сбор из Telegram</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-trade-radar" data-id="dev-4" data-x="936" data-y="183" data-amp="16"><circle cx="936" cy="183" r="5"/><text x="949" y="187" text-anchor="start">Trade Radar</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-td-graph" data-id="dev-5" data-x="998" data-y="215" data-amp="16"><circle cx="998" cy="215" r="5"/><text x="1011" y="219" text-anchor="start">td-graph</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-pravilo-pervichnee-obekta" data-id="dev-6" data-x="936" data-y="248" data-amp="16"><circle cx="936" cy="248" r="5"/><text x="949" y="252" text-anchor="start">Правило, не объект</text></a>
+    <a class="hg__node hg__node--ent hg__node--product" href="#p-website-ai-assistant" data-id="ai-0" data-mx="386" data-my="596" data-mly="22" data-x="998" data-y="318" data-amp="16"><circle cx="998" cy="318" r="5"/><text x="1011" y="322" text-anchor="start">Ассистент сайта</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-ai-qualification-bot" data-id="ai-1" data-mx="314" data-my="562" data-mly="22" data-x="936" data-y="380" data-amp="16"><circle cx="936" cy="380" r="5"/><text x="949" y="384" text-anchor="start">Бот-квалификатор</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-pensieve" data-id="ai-2" data-mx="406" data-my="524" data-mly="22" data-x="998" data-y="442" data-amp="16"><circle cx="998" cy="442" r="5"/><text x="1011" y="446" text-anchor="start">Pensieve</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-voice-to-obsidian" data-id="ai-3" data-mx="290" data-my="496" data-mly="22" data-x="936" data-y="504" data-amp="16"><circle cx="936" cy="504" r="5"/><text x="949" y="508" text-anchor="start">Голос в записи</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-sayt-kotorogo-net" data-id="ai-4" data-x="998" data-y="566" data-amp="16"><circle cx="998" cy="566" r="5"/><text x="1011" y="570" text-anchor="start">Сайт, которого нет</text></a>
+    <a class="hg__node hg__node--ent hg__node--product" href="#i-mir-stroitsya-pod-vybor" data-id="ideas-0" data-mx="54" data-my="496" data-mly="22" data-x="202" data-y="318" data-amp="16"><circle cx="202" cy="318" r="5"/><text x="189" y="322" text-anchor="end">Выбор</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-one-bit-music" data-id="ideas-1" data-mx="170" data-my="524" data-mly="22" data-x="264" data-y="368" data-amp="16"><circle cx="264" cy="368" r="5"/><text x="251" y="372" text-anchor="end">One Bit Music</text></a>
+    <a class="hg__node hg__node--ent hg__node--project" href="#p-reality-simulator" data-id="ideas-2" data-x="202" data-y="417" data-amp="16"><circle cx="202" cy="417" r="5"/><text x="189" y="421" text-anchor="end">Симулятор</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-poryadok-iz-pravil" data-id="ideas-3" data-mx="150" data-my="596" data-mly="22" data-x="264" data-y="467" data-amp="16"><circle cx="264" cy="467" r="5"/><text x="251" y="471" text-anchor="end">Порядок из правил</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-tot-kto-nablyudaet-sebya" data-id="ideas-4" data-mx="78" data-my="562" data-mly="22" data-x="202" data-y="516" data-amp="16"><circle cx="202" cy="516" r="5"/><text x="189" y="520" text-anchor="end">Наблюдающий себя</text></a>
+    <a class="hg__node hg__node--ent hg__node--idea" href="#i-garmoniya-kak-otnoshenie" data-id="ideas-5" data-x="264" data-y="566" data-amp="16"><circle cx="264" cy="566" r="5"/><text x="251" y="570" text-anchor="end">Гармония</text></a>
+    <a class="hg__node hg__node--cluster" href="#dev" data-id="dev" data-mx="348" data-my="250" data-mly="27" data-x="820" data-y="128" data-amp="11"><circle cx="820" cy="128" r="8"/><text x="820" y="112" text-anchor="middle">Инструменты</text></a>
+    <a class="hg__node hg__node--cluster" href="#lang" data-id="lang" data-mx="112" data-my="250" data-mly="27" data-x="380" data-y="128" data-amp="11"><circle cx="380" cy="128" r="8"/><text x="380" y="112" text-anchor="middle">Язык</text></a>
+    <a class="hg__node hg__node--cluster" href="#ai" data-id="ai" data-mx="348" data-my="440" data-mly="-16" data-x="862" data-y="300" data-amp="11"><circle cx="862" cy="300" r="8"/><text x="862" y="284" text-anchor="middle">ИИ</text></a>
+    <a class="hg__node hg__node--cluster" href="#ideas" data-id="ideas" data-mx="112" data-my="440" data-mly="-16" data-x="338" data-y="300" data-amp="11"><circle cx="338" cy="300" r="8"/><text x="338" y="284" text-anchor="middle">Идеи</text></a>
+    <a class="hg__node hg__node--me" href="#about" data-id="me" data-mx="230" data-my="345" data-mly="0" data-x="600" data-y="196" data-mscale="0.8" data-amp="4" aria-label="Антон Ложкин — обо мне">
+      <circle class="hg__ring" cx="600" cy="196" r="62"/>
+      <image href="{{ .AssetsBase }}/anton.webp" x="542" y="138" width="116" height="116" clip-path="url(#hg-photo)" preserveAspectRatio="xMidYMid slice"/>
+    </a>
+  </svg>
