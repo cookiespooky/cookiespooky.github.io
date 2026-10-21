@@ -10,12 +10,12 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*40 изменений в 4 проектах: с 15 сентября 2026 по 22 октября 2026.*
+*41 изменение в 4 проектах: с 15 сентября 2026 по 22 октября 2026.*
 
 
 ## 22 октября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub перешёл на версию 0.1.9: сборка проверяет SEO, у блогов есть RSS, а ссылки на сайтах снова открываются в той же вкладке.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub перешёл на версию 0.1.9: появились три шаблона — документация, сайт услуг и блог, сборка проверяет SEO, а ссылки на сайтах снова открываются в той же вкладке.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
@@ -23,6 +23,7 @@ hero_lead: "Изменения в открытых проектах — по о�
 <li><span class="tl-kind">лучше</span><span class="tl-text">Документация Notepub обновлена под версию 0.1.9: новый раздел про SEO, рабочие ссылки между страницами <a class="tl-more" href="https://antonlozhkin.ru/np/ru/">Открыть →</a></span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">Сборка сама проверяет SEO страниц и подсказывает, где нет описания или повторяется заголовок; у записей появились RSS, даты из истории и разметка для поисковиков <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.9">Открыть →</a></span></li>
 <li><span class="tl-kind">исправлено</span><span class="tl-text">Ссылки на сайтах Notepub снова открываются в той же вкладке, а не каждая в новой <a class="tl-more" href="https://antonlozhkin.ru/np-template-docs/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Три готовых шаблона сайта, который ведётся в Obsidian: документация, сайт услуг и личный блог — у каждого живое демо и кнопка, чтобы взять его себе <a class="tl-more" href="https://antonlozhkin.ru/np/ru/docs/template-repos/">Открыть →</a></span></li>
 </ul>
 </div>
 
