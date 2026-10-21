@@ -77,3 +77,8 @@ rules_path: "./rules.yaml"
 cache:
   html_ttl_seconds: 600
   stale_if_error_seconds: 604800
+
+robots:
+  # Сайт документации Notepub живёт под /np/, а поисковики читают robots.txt только в корне домена.
+  extra: |
+    Sitemap: https://antonlozhkin.ru/np/sitemap.xml

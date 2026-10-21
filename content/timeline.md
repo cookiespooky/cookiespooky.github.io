@@ -10,12 +10,121 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*20 изменений в 3 проектах: с 15 сентября 2026 по 11 октября 2026.*
+*40 изменений в 4 проектах: с 15 сентября 2026 по 22 октября 2026.*
+
+
+## 22 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub перешёл на версию 0.1.9: сборка проверяет SEO, у блогов есть RSS, а ссылки на сайтах снова открываются в той же вкладке.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Документация Notepub обновлена под версию 0.1.9: новый раздел про SEO, рабочие ссылки между страницами <a class="tl-more" href="https://antonlozhkin.ru/np/ru/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Сборка сама проверяет SEO страниц и подсказывает, где нет описания или повторяется заголовок; у записей появились RSS, даты из истории и разметка для поисковиков <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.9">Открыть →</a></span></li>
+<li><span class="tl-kind">исправлено</span><span class="tl-text">Ссылки на сайтах Notepub снова открываются в той же вкладке, а не каждая в новой <a class="tl-more" href="https://antonlozhkin.ru/np-template-docs/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 17 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Life OS заведена новая часть — статьи и страницы сайта по городам и направлениям, пока в разработке.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Статьи и страницы по городам</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/articles/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 16 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>На главной Life OS теперь показано, как работают все пять процессов — сообщение, сделка, документ, идея и вопрос — каждый своей схемой на примере производства мебели.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">На главной Life OS у каждого процесса — сообщения, сделки, документа, идеи и вопроса — своя живая схема: видно, как пришедшее становится записью и строкой на дашборде. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/#how">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 15 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Чат с ассистентом снова открывается на главной с телефона, а ссылка на сайт Life OS в мессенджерах приходит с картинкой.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Ссылка на сайт Life OS в мессенджерах и соцсетях приходит с картинкой, у вкладки появился значок.</span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">исправлено</span><span class="tl-text">Чат с ассистентом снова открывается на главной с телефона.</span></li>
+</ul>
+</div>
+
+
+## 14 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Разговор с Life OS с первого вопроса знает, что происходит в деле: сделки, деньги и задачи на сегодня.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Вопрос по всему своему</span><span class="tl-text">Новый разговор с первого вопроса знает, что сейчас происходит в деле — сделки, деньги, задачи на сегодня — и начинается дешевле <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/ask/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 13 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Главная сайта Life OS стала презентацией: схема от входящего до результата, пять преимуществ и два способа получить систему.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Документ по шаблону</span><span class="tl-text">Документ теперь собирается и с экрана компании: на странице сделки — кнопка шаблона, система спрашивает только то, чего в сделке нет, и печатает PDF. Шаблон может повторять сложное оформление своего образца — шапку с логотипом, таблицу товаров. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/documents/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">На главной сайта видно, что приходит в систему, что она с этим делает и что получается на выходе — схемой в три экрана, с описанием каждой точки.</span></li>
+<li><span class="tl-part">Экран для сотрудников</span><span class="tl-text">На экране компании появился раздел настроек: подключения почты, доски сделок, банка и соцсетей — что подключено, чего не хватает, поля для ключей и кнопка проверки связи. Ключи хранятся на своём компьютере; страница показывает только, задан ключ или нет. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/">Открыть →</a></span></li>
+<li><span class="tl-part">Экран для сотрудников</span><span class="tl-text">У экрана компании появилось меню слева с открытыми сделками, одна домашняя страница с вкладками, страницы контактов и сотрудников. На странице сделки сразу видно, чего не хватает для закрытия, а на домашней — короткая лента: что пришло и что с этим сделано. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 12 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Life OS пришли операции по счёту в банке, сканы документов стали читаться, а у сотрудников появился экран компании, который обновляется сам.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Новое обращение можно завести сделкой сразу, даже когда ещё не известно, через какое юрлицо она пойдёт и кто её ведёт: пульт сам показывает, чего в сделке не названо <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+<li><span class="tl-part">Деньги: план и факт</span><span class="tl-text">Операции по счёту в банке приходят в систему сами, только на чтение: приход находит свой счёт клиенту, расход — выставленный счёт подрядчика, личные покупки по карте идут отдельно от дел. Пока один банк — Сбер <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/money/">Открыть →</a></span></li>
+<li><span class="tl-part">Сводка нового</span><span class="tl-text">Сканы документов в PDF теперь читаются: текст распознаётся на компьютере владельца, без сторонних сервисов; распознанное помечено, чтобы цифры сверяли с оригиналом <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/news/">Открыть →</a></span></li>
+<li><span class="tl-part">Экран для сотрудников</span><span class="tl-text">Экран компании открывается в браузере на своём компьютере и обновляется сам: изменилась запись — открытая страница показывает новое без перезагрузки. Входящие разбирает система, понятное записывает сразу, а о непонятном спрашивает — ответить можно кнопкой прямо на странице. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/staff-app/">Открыть →</a></span></li>
+</ul>
+</div>
 
 
 ## 11 октября 2026
 
 <p class="tl-short"><span class="tl-short__label">Коротко</span>Сайт перестал предлагать разработку на заказ и показывает своё: главная стала картой проектов, в лаборатории появилась идея Life OS, а у тьютора — первые результаты.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Календари</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/calendar/">Открыть →</a></span></li>
+<li><span class="tl-part">Публикация по расписанию</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/posting/">Открыть →</a></span></li>
+<li><span class="tl-part">Статистика соцсетей</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/social-stats/">Открыть →</a></span></li>
+<li><span class="tl-part">Почта</span><span class="tl-text">можно подключить второй ящик, например Gmail: письма каждого читаются отдельно <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/mail/">Открыть →</a></span></li>
+</ul>
+</div>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
