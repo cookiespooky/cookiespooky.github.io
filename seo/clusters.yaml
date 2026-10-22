@@ -292,7 +292,7 @@ clusters:
     page_type: service
     money_distance: 1
     cta_service: avtomatizaciya
-    cases: [bizos, order-flow, ai-qualification-bot]
+    cases: [order-flow, ai-qualification-bot]
     target_url: "/services/avtomatizaciya/"
     competition: null
     total_count: 890
@@ -585,7 +585,7 @@ clusters:
     page_type: article
     money_distance: 2
     cta_service: razbor
-    cases: [bizos, ai-qualification-bot, marketing-os]
+    cases: [ai-qualification-bot, marketing-os]
     target_url: "/blog/vnedrenie-ii-v-biznes-processy/"
     competition: null
     total_count: 444
@@ -615,3 +615,18 @@ clusters:
       - { phrase: "заказать оптимизацию сайта под нейросети", count: null, count_wide: 81 }
       - { phrase: "заказать ai аудит сайта", count: null, count_wide: 74 }
     note: "Заведён как замер, а не как план. Найден в хвостах 2026-09-10: территории не было в реестре вовсе, интент коммерческий и свежий — люди заказывают не SEO, а видимость сайта в ответах моделей. Услуги под это на сайте нет, поэтому target_url и cta_service пустые: сначала решение, продаём ли мы такое, потом страница. ВАЖНО: это не кандидат в статью. Интент покупательский, статья его растратит — если территория берётся, то лендингом. Соседняя «заказать аудит сайта» (259) сознательно не взята: это классический SEO-аудит, которого мы не делаем. Пересечение с ai-seo-po-nisham: там информационный интент и структура сайта, здесь — заказ работы."
+
+  - id: lifeos-company
+    direction: automation
+    intent: informational
+    stage: written
+    page_type: article
+    money_distance: 1
+    cta_service: avtomatizaciya
+    cases: []
+    target_url: "/blog/life-os-dlya-kompanii/"
+    competition: null
+    total_count: null
+    keys:
+      - { phrase: "life os для компании", count: null, count_wide: null }
+    note: "Заведён не под спрос, а под заказчиков (Антон, 2026-10-22): страница, которую отправляют, когда потенциальный заказчик просит «подробнее про продукт». Спрос не мерили — фраза условная, держит адрес, чтобы кластер был у одной страницы. Без имён заказчиков и их числа, только про продукт. cta — avtomatizaciya: внедрение Life OS для компании ближе всего к ней; отдельной услуги «Life OS» на сайте нет."
