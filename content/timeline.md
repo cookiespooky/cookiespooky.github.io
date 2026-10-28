@@ -10,16 +10,59 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*41 изменение в 4 проектах: с 15 сентября 2026 по 22 октября 2026.*
+*55 изменений в 4 проектах: с 6 февраля 2026 по 28 октября 2026.*
 
 
-## 22 октября 2026
+## 28 октября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub перешёл на версию 0.1.9: появились три шаблона — документация, сайт услуг и блог, сборка проверяет SEO, а ссылки на сайтах снова открываются в той же вкладке.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Life OS заведена новая часть — дело одним описанием: виды записей и экран «Сегодня» задаются файлом, а не программированием; пока в разработке.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Дело одним описанием</span><span class="tl-text">Виды записей торговой компании и шесть списков экрана «Сегодня» описаны одним файлом и дают те же записи, что прежний код; ответ ИИ на вопрос о сделке по такой схеме в первой пробе стоил на четверть дешевле <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/kinds/">Открыть →</a></span></li>
+<li><span class="tl-part">Дело одним описанием</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/kinds/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 23 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub научился проверять готовый сайт по SEO-чек-листу и сам собирать llms.txt; на его сайте и на antonlozhkin.ru пропали ссылки, которые вели через перенаправление.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
 <ul class="tl-list">
+<li><span class="tl-text">Готовый сайт можно проверить по SEO-чек-листу одной командой, без интернета: битые ссылки, ссылки через перенаправление, страницы-сироты, OG-картинки, карта сайта; новый вид страниц добавляется одной командой, а llms.txt собирается сам <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.10">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 22 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Notepub перешёл на версию 0.1.9 и открыт по лицензии MIT: три шаблона — документация, сайт услуг и блог, сборка проверяет SEO, ссылки снова открываются в той же вкладке. На сайте появилась подробная страница про Life OS для компаний.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Задачи</span><span class="tl-text">Задачи из общего списка видны на дашборде: по разделам и к сроку, просроченные первыми. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/tasks/">Открыть →</a></span></li>
+<li><span class="tl-part">Страница человека</span><span class="tl-text">На странице человека — его открытые задачи. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/people/">Открыть →</a></span></li>
+<li><span class="tl-part">Главная страница</span><span class="tl-text">Один дашборд для любого дела: люди, задачи, сделки и деньги появляются на нём по тому, что уже есть в системе, — у частного человека и у компании одинаково. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/home/">Открыть →</a></span></li>
+<li><span class="tl-part">Страница «Сегодня»</span><span class="tl-text">Страница «Сегодня» стала одним экраном: четыре плитки с главными числами, карточки того, что требует внимания, по срочности, задачи со сроком значком, воронка сделок по стадиям и план-факт по месяцам с подсказкой при наведении <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/today/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Для компаний — подробная страница про Life OS: что видно на дашборде, откуда берутся данные, где они хранятся и как проходит внедрение <a class="tl-more" href="https://antonlozhkin.ru/blog/life-os-dlya-kompanii/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Notepub открыт по лицензии MIT: его можно брать, менять и использовать в своих проектах.</span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">Документация Notepub обновлена под версию 0.1.9: новый раздел про SEO, рабочие ссылки между страницами <a class="tl-more" href="https://antonlozhkin.ru/np/ru/">Открыть →</a></span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">Сборка сама проверяет SEO страниц и подсказывает, где нет описания или повторяется заголовок; у записей появились RSS, даты из истории и разметка для поисковиков <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.9">Открыть →</a></span></li>
 <li><span class="tl-kind">исправлено</span><span class="tl-text">Ссылки на сайтах Notepub снова открываются в той же вкладке, а не каждая в новой <a class="tl-more" href="https://antonlozhkin.ru/np-template-docs/">Открыть →</a></span></li>
@@ -218,6 +261,18 @@ hero_lead: "Изменения в открытых проектах — по о�
 </div>
 
 
+## 28 сентября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>На сайте открылась лаборатория: семь идей и комнаты, где их можно проверить руками.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Открылась лаборатория: семь идей и интерактивные комнаты, где каждую можно проверить руками. <a class="tl-more" href="https://antonlozhkin.ru/lab/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
 ## 15 сентября 2026
 
 <p class="tl-short"><span class="tl-short__label">Коротко</span>Система начала сверять новое с направлением внимания, вести идеи как предположения со сроком и показывать, где сделанное расходится с записанным.</p>
@@ -228,6 +283,49 @@ hero_lead: "Изменения в открытых проектах — по о�
 <li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Первая идея превращена в предположение со сроком и условием, при котором оно считается неверным. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
 <li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Появилось направление внимания: система хранит его и сверяет с ним новое. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
 <li><span class="tl-part">Направление внимания и гипотезы</span><span class="tl-text">Система показывает, где сделанное расходится с записанным и заявленным. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/vector/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 10 сентября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>На сайте заработал ассистент, которому можно задать вопрос о работах и услугах; Notepub научился делить длинные списки на страницы.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">На сайте появился ассистент: о работах и услугах можно спросить прямо на странице.</span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Длинные списки делятся на страницы, а одна и та же папка всегда даёт один и тот же сайт. <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.8">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 4 сентября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Сайт переехал на antonlozhkin.ru: работы с живыми демо, страницы услуг и блог.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Сайт переехал на antonlozhkin.ru: работы с живыми демо, страницы услуг и блог о сайтах и ботах.</span></li>
+</ul>
+</div>
+
+
+## 6 февраля 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Вышла первая версия Notepub — движка, который собирает сайт из папки с текстами.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://github.com/cookiespooky/notepub">Notepub</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Вышла первая версия Notepub: сайт из папки с текстами собирается одной командой. <a class="tl-more" href="https://github.com/cookiespooky/notepub/releases/tag/v0.1.0">Открыть →</a></span></li>
 </ul>
 </div>
 
