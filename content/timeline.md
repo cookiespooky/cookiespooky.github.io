@@ -10,7 +10,55 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*55 изменений в 4 проектах: с 6 февраля 2026 по 28 октября 2026.*
+*64 изменения в 5 проектах: с 6 февраля 2026 по 1 ноября 2026.*
+
+
+## 1 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Вышла первая версия Proxy Tunnel для Mac и Windows — с подсказкой «?», сообщением о новых версиях и инструкцией, по которой ИИ-помощник проводит через установку; на сайте у неё своя страница.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Появилась страница Proxy Tunnel — что программа делает, как начать и где скачать <a class="tl-more" href="https://antonlozhkin.ru/cases/proxy-tunnel/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Вышла первая версия для Mac и Windows: Claude и выбранные сайты идут через свой сервер, остальное — напрямую, сервер настраивается из программы одной кнопкой <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.0">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Программа сама сообщает, когда вышла новая версия, а кнопка «?» в её окне объясняет, с чего начать</span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Установку можно пройти вместе с ИИ-помощником: он ведёт по шагам по инструкции из репозитория и знает, что делать при каждой ошибке <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel#readme">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 31 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Life OS пишет статьи для любого сайта по общим правилам, первый сайт — блог Life OS.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Статьи для сайта</span><span class="tl-text">статьи пишутся для любого сайта по общим правилам и настройке сайта, а не только для каталога по городам; первый сайт — блог Life OS <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/articles/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 30 октября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Life OS появились доска сделок по стадиям с регламентом, маржа по видам сделок и фильтры документов на дашборде.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Документ по шаблону</span><span class="tl-text">Документы на дашборде: фильтры по виду, контрагенту, месяцу и «без сделки» <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/documents/">Открыть →</a></span></li>
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Доска сделок по стадиям: карточки с отметками — регламент, просроченные задачи, вопросы, забыта; перенос перетаскиванием с подтверждением закрытия и «Вернуть» <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+<li><span class="tl-part">Деньги: план и факт</span><span class="tl-text">Маржа по видам сделок по закрытым: какой вид работ выгоднее продавать — таблица в «Деньгах» и график на главной <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/money/">Открыть →</a></span></li>
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Регламент сделки: правила «что должно быть со стадии и за сколько дней» — документ, оплата в процентах или поле сделки; невыполненное и просроченное видно на главной и на странице сделки <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+</ul>
+</div>
 
 
 ## 28 октября 2026
@@ -78,7 +126,7 @@ hero_lead: "Изменения в открытых проектах — по о�
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
-<li><span class="tl-part">Статьи и страницы по городам</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/articles/">Открыть →</a></span></li>
+<li><span class="tl-part">Статьи для сайта</span><span class="tl-text">заведено: в разработке <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/articles/">Открыть →</a></span></li>
 </ul>
 </div>
 
@@ -338,5 +386,6 @@ hero_lead: "Изменения в открытых проектах — по о�
 - [Haze](https://haze-tech.ru/) — Приложение для кальянного мастера: столы, таймеры, угли и деньги смены на одном экране.
 - [Языковой тьютор](https://t.me/linguotutorobot) — Тьютор для занятий языком в Telegram и ВКонтакте.
 - [Notepub](https://github.com/cookiespooky/notepub) — Движок, который собирает сайт из папки с текстами.
+- [Proxy Tunnel](https://antonlozhkin.ru/cases/proxy-tunnel/) — Программа для Mac и Windows: Claude и выбранные сайты идут через свой сервер, остальное — напрямую.
 - [One Bit Music](https://antonlozhkin.ru/lab/1bitmusic/) — Музыкальный инструмент на одном бите.
 - [Эксперимент с отрицательным результатом](https://github.com/cookiespooky/consciousness-revelation) — Заранее зарегистрированный эксперимент: гипотеза не подтвердилась, и это записано как есть.
