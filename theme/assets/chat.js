@@ -4,9 +4,10 @@
  *
  * 1. Ничего не выводится в HTML страницы — виджет целиком создаётся здесь.
  *    Робот видит документ ровно таким, каким он был без чата.
- * 2. Бэкенд не ответил по любой причине — виджета нет. Не кнопка с ошибкой,
- *    не «сервис недоступен», а тишина: посетитель не должен знать, что тут
- *    что-то предполагалось.
+ * 2. Бэкенд не ответил — виджет всё равно есть, но честно говорит, что на
+ *    сервере технические работы, и ведёт в Telegram. Раньше виджет молча
+ *    пропадал; Антон решил (2.11), что тихий отвал хуже объявления. При
+ *    каждом открытии окна бэкенд проверяется снова, и чат оживает сам.
  * 3. Проверка бэкенда откладывается до простоя браузера, а стили
  *    вставляются только вместе с виджетом, поэтому на загрузку страницы
  *    это не влияет.
@@ -53,18 +54,28 @@
   }
   var history = [];
   var busy = false;
+  var online = false;
   var els = {};
+
+  var DOWN_TEXT =
+    'Сейчас на сервере идут технические работы, и ассистент временно недоступен. ' +
+    'Загляните чуть позже — или напишите сразу в [Telegram](https://t.me/cookiespooky).';
 
   var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1200); };
 
-  idle(function () {
+  // Отвечает true, только если бэкенд жив и его индекс загружен.
+  function check(done) {
     var ctl = new AbortController();
     var timer = setTimeout(function () { ctl.abort(); }, 4000);
-    fetch(endpoint + '/api/assistant/health', { signal: ctl.signal })
+    fetch(endpoint + '/api/assistant/health', { signal: ctl.signal, cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function (s) { if (s && s.ready) mount(); })
-      .catch(function () { /* тишина — это и есть предусмотренное поведение */ })
+      .then(function (s) { done(!!(s && s.ready)); })
+      .catch(function () { done(false); })
       .finally(function () { clearTimeout(timer); });
+  }
+
+  idle(function () {
+    check(function (ok) { online = ok; mount(); });
   });
 
   function css() {
@@ -80,6 +91,12 @@
     '.npchat__dot::before,.npchat__dot::after{content:"";position:absolute;inset:0;border-radius:50%;' +
       'background:var(--npchat-live);animation:npchat-ripple 2.8s ease-out infinite}' +
     '.npchat__dot::after{animation-delay:1.4s}' +
+    // Техработы: точка серая и неподвижная, рядом приписка.
+    '.npchat__off{display:none;color:var(--muted)}' +
+    '.npchat--down .npchat__off{display:inline}' +
+    '.npchat--down .npchat__dot{background:var(--muted)}' +
+    '.npchat--down .npchat__dot::before,.npchat--down .npchat__dot::after{display:none}' +
+    '.npchat__input[disabled]{opacity:.6;cursor:not-allowed}' +
     '@keyframes npchat-ripple{0%{transform:scale(1);opacity:.5}70%{opacity:0}100%{transform:scale(3.4);opacity:0}}' +
     '.npchat__panel{display:none;flex-direction:column;width:min(400px,calc(100vw - 40px));height:min(560px,calc(100vh - 120px));' +
       'background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.16);' +
@@ -154,6 +171,7 @@
     btn.type = 'button';
     btn.appendChild(el('span', 'npchat__dot'));
     btn.appendChild(el('span', null, 'AI-поддержка'));
+    btn.appendChild(el('span', 'npchat__off', '· техработы'));
 
     var panel = el('div', 'npchat__panel');
     panel.setAttribute('role', 'dialog');
@@ -195,6 +213,7 @@
     document.body.appendChild(root);
 
     els = { root: root, log: log, input: input, send: send };
+    setOnline(online);
 
     // Блокировка прокрутки на телефоне. overflow:hidden на body iOS не
     // соблюдает, поэтому body фиксируется со сдвигом на текущую прокрутку,
@@ -271,8 +290,22 @@
       // preventScroll: без него iOS подтягивает поле в вид, сдвигая страницу.
       input.focus({ preventScroll: true });
       if (!log.childNodes.length) {
-        say('assistant', 'Спрашивайте про услуги, кейсы и статьи — отвечу по тому, что есть на сайте, и дам ссылку. Чего на сайте нет, так и скажу.');
+        if (online) greet();
+        else withLinks(say('assistant', ''), DOWN_TEXT);
       }
+      // Пока сервер лежит, каждое открытие — новая попытка: вернулся — оживаем.
+      if (!online) {
+        check(function (ok) {
+          if (!ok || online) return;
+          setOnline(true);
+          say('assistant', 'Ассистент снова на связи.');
+          greet();
+        });
+      }
+    }
+
+    function greet() {
+      say('assistant', 'Спрашивайте про услуги, кейсы и статьи — отвечу по тому, что есть на сайте, и дам ссылку. Чего на сайте нет, так и скажу.');
     }
 
     function hide() {
@@ -301,7 +334,7 @@
       setTimeout(function () {
         typeOut(bubble, HOW_TEXT, function () {
           busy = false;
-          els.send.disabled = false;
+          els.send.disabled = !online;
         });
       }, 260);
     }
@@ -345,6 +378,14 @@
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(); });
   }
 
+  function setOnline(v) {
+    online = v;
+    els.root.classList.toggle('npchat--down', !v);
+    els.input.disabled = !v;
+    els.send.disabled = !v || busy;
+    els.input.placeholder = v ? 'Например: что такое разбор?' : 'Ассистент временно недоступен';
+  }
+
   function typingDots() {
     var t = el('span', 'npchat__typing');
     t.setAttribute('aria-label', 'Ассистент печатает');
@@ -382,7 +423,7 @@
   }
 
   function ask() {
-    if (busy) return;
+    if (busy || !online) return;
     var q = els.input.value.trim();
     if (!q) return;
 
@@ -456,12 +497,17 @@
       // приписку о том, что продолжения не будет.
       if (answer) {
         withLinks(bubble, answer + '\n\n— связь прервалась на середине. Дописать это можно в [Telegram](https://t.me/cookiespooky).');
-      } else {
-        withLinks(bubble, 'Связь с ассистентом прервалась. Напишите в [Telegram](https://t.me/cookiespooky).');
+        return;
       }
+      // Сервер пропал между проверкой и вопросом — переходим в режим техработ.
+      check(function (ok) {
+        if (ok) { withLinks(bubble, 'Связь с ассистентом прервалась. Напишите в [Telegram](https://t.me/cookiespooky).'); return; }
+        withLinks(bubble, DOWN_TEXT);
+        setOnline(false);
+      });
     }).finally(function () {
       busy = false;
-      els.send.disabled = false;
+      els.send.disabled = !online;
       els.log.scrollTop = els.log.scrollHeight;
     });
   }

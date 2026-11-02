@@ -109,12 +109,29 @@
       textArea.focus();
     }
 
+    // Сервер не отвечает или за ним лежит бэкенд — говорим об этом прямо,
+    // а не «Failed to fetch».
+    var DOWN_TEXT = "Сейчас на сервере идут технические работы — сервис временно недоступен. Попробуйте чуть позже.";
+
     async function submitOnce(text) {
-      var response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: text })
-      });
+      // Лежащий сервер может не отвечать минутами: браузер ждёт соединения.
+      // 90 секунд — с запасом против самого долгого настоящего разбора.
+      var ctl = new AbortController();
+      var timer = setTimeout(function () { ctl.abort(); }, 90000);
+      var response;
+      try {
+        response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: text }),
+          signal: ctl.signal
+        });
+      } catch (e) {
+        throw new Error(DOWN_TEXT);
+      } finally {
+        clearTimeout(timer);
+      }
+      if (response.status === 502 || response.status === 503 || response.status === 504) throw new Error(DOWN_TEXT);
       var data = await response.json().catch(function () { return {}; });
       if (!response.ok) {
         throw new Error((data && (data.details || data.error)) || "Что-то пошло не так. Попробуйте ещё раз.");

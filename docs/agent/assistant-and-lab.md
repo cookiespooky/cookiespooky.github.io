@@ -26,8 +26,12 @@ route is a separate generic proxy used by other projects — do not change it.
 **The widget** is `theme/assets/chat.js`, wired in `layout.html` behind `settings.assistant_endpoint`. Two
 rules it exists to satisfy: nothing reaches the HTML (the site built with and without it differs by one
 `<script defer>` line, so a crawler sees an unchanged document), and if the backend does not answer
-`/health` there is no button, no error and no trace. It carries its own CSS and injects it only when it
-mounts, the same pattern as the demo partials.
+`/health` (4 s) the widget still mounts, in a maintenance state: grey dot, «· техработы» on the button, a
+notice with a Telegram link in the panel, input disabled. Every opening re-checks `/health` and revives the
+chat when the server is back. Until 2026-11-02 it vanished silently instead; Anton reversed that the day
+Beget went down, because a vanished service looks broken rather than paused. It carries its own CSS and
+injects it only when it mounts, the same pattern as the demo partials. The speech-analysis tool
+(`tool.js`) shows the same maintenance message on a network error, a 502/503/504 or no answer in 90 s.
 
 **The widget is live for visitors as of 2026-09-10**: `settings.assistant_endpoint` is set in both
 `config.yaml` and `config.dev.yaml`. Turning it off is the reverse one-line change — remove the key from
