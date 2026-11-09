@@ -10,7 +10,103 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*64 изменения в 5 проектах: с 6 февраля 2026 по 1 ноября 2026.*
+*83 изменения в 6 проектах: с 6 февраля 2026 по 9 ноября 2026.*
+
+
+## 9 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Haze переехал на новый сервер после потери данных у старого хостинга и получил правки от мастера: отложенный разогрев, кальян без микса, оплату задним числом и отзывы гостей по QR-коду.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://haze-tech.ru/">Haze</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">исправлено</span><span class="tl-text">Haze снова работает на новом сервере после атаки на хостинг; данные до сбоя восстановить не удалось, мастерам объясняет страница с инструкцией <a class="tl-more" href="https://haze-tech.ru/posle-sboya/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Мастер записывает заказ сразу и запускает разогрев кнопкой позже, ставит кальян без микса, правит оплату у уже забранного кальяна и собирает отзывы гостей по QR-коду — мастер их не скрывает</span></li>
+</ul>
+</div>
+
+
+## 8 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Пульт Life OS перестал зависеть от связи: открывается сразу со старыми данными, а записи ждут на телефоне и уходят сами. Систему впервые поставили целиком на машину клиента — без серверов автора.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Главная страница</span><span class="tl-text">В карточке сервера видно, есть ли связь с пультом и от какого часа данные; сервер можно подключить и без отдельного сервиса статистики <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/home/">Открыть →</a></span></li>
+<li><span class="tl-part">Телефон</span><span class="tl-text">Пульт открывается сразу, даже без связи: видны последние данные, а новые записи и правки сохраняются на телефоне и уходят сами, когда связь вернётся <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/phone/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 7 ноября 2026
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Публикация по расписанию</span><span class="tl-text">Автопостер ведёт второй аккаунт Threads из того же хранилища: в записи поста указан аккаунт, и пост выходит в него, а статистика и залетевшие посты у аккаунта свои <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/posting/">Открыть →</a></span></li>
+<li><span class="tl-part">Задачи</span><span class="tl-text">У задачи может быть дата начала, а не только срок: по ней диаграмма Ганта на «Сегодня» показывает, когда работа идёт <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/tasks/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 5 ноября 2026
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Телефон</span><span class="tl-text">Вкладки пульта переставляются долгим нажатием, у правки записи видно, сохранена ли она на компьютере, а у прикреплённого файла — сколько уже загрузилось <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/phone/">Открыть →</a></span></li>
+<li><span class="tl-part">Страница «Сегодня»</span><span class="tl-text">Карточки на странице встают плотно, как на доске Pinterest: короткая карточка больше не оставляет пустого места под собой. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/today/">Открыть →</a></span></li>
+<li><span class="tl-part">Страница «Сегодня»</span><span class="tl-text">Кнопка «обновить» в карточках показывает, что сейчас происходит, и пишет ошибку прямо в карточке, а нажатие повторяет запрос <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/today/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 4 ноября 2026
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Страница «Сегодня»</span><span class="tl-text">«Сегодня» собирается из блоков: по просьбе в чате их добавляют и переставляют, а цифры сервера обновляются одной кнопкой <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/today/">Открыть →</a></span></li>
+<li><span class="tl-part">Сделки по стадиям</span><span class="tl-text">Доска сделок, деньги, документы и регламент открываются в общем пульте рядом с чатом; стадию и записи меняет чат по просьбе <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/deals/">Открыть →</a></span></li>
+<li><span class="tl-part">Телефон</span><span class="tl-text">Запись, которую правят на телефоне в пульте, сохраняется сама, без кнопки; настройки пульта — по вкладкам <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/phone/">Открыть →</a></span></li>
+<li><span class="tl-part">Телефон</span><span class="tl-text">С телефона открывается весь пульт с чатом по своему адресу — вход паролем и кодом из приложения, а записи остаются на компьютере <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/phone/">Открыть →</a></span></li>
+<li><span class="tl-part">Страница «Сегодня»</span><span class="tl-text">Страница «Сегодня» дела компании — первая вкладка общего пульта: цифры, тревоги и задачи пересчитываются сами, когда записи изменились <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/today/">Открыть →</a></span></li>
+<li><span class="tl-part">Дело одним описанием</span><span class="tl-text">задумано: Описание дела одним файлом пока снято: ни одна часть системы его не читала; вернётся вместе с формами записей <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/kinds/">Открыть →</a></span></li>
+<li><span class="tl-part">Группы записей</span><span class="tl-text">задумано: Раскладка по совпадению слов убрана: группы не получались осмысленными, правили их руками один раз из сотен; дальше — раскладка по смыслу с объяснением, почему записи рядом <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/groups/">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 3 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В Proxy Tunnel 1.2 через свой сервер по умолчанию идут ещё Gemini и Codex.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Gemini и Codex идут через свой сервер сразу после установки, без ручной настройки списка сайтов <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.2">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 2 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Life OS запустила первый сайт не для себя — сайт таролога: страницы на Notepub, статьи блога по замеру спроса из хранилища. На antonlozhkin.ru сервисы во время техработ на сервере больше не пропадают молча, а говорят, что временно недоступны.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">На Life OS работает сайт таролога: страницы собраны на Notepub, а статьи блога пишутся по замеру спроса прямо из хранилища. <a class="tl-more" href="https://veralozhkina.ru/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Когда на сервере идут техработы, чат с ассистентом и разбор речи прямо говорят об этом и ведут в Telegram, а не пропадают молча.</span></li>
+</ul>
+</div>
 
 
 ## 1 ноября 2026
