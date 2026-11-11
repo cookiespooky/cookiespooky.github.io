@@ -277,3 +277,9 @@ body:has(.home):has(.site-header:not(.is-shown)) .npchat:not(.npchat--open) { op
 .page-hero__actions { margin: 28px 0 0; }
 .prose .tl-short { margin: 0 0 14px; color: var(--ink-1); }
 .prose .tl-short__label { display: block; margin-bottom: 4px; font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* callout из заметки: > [!info] Заголовок — движок делает из него блок с заголовком (заметки о Life OS, 11.11) */
+.prose .callout { margin-block: 24px; padding: 14px 18px; background: var(--surface, #fff); border: 1px solid var(--line, #e3e5e8); border-radius: 10px; }
+.prose .callout-title { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #6b7178); }
+.prose .callout-body { margin-top: 4px; }
+.prose .callout-body > * + * { margin-top: 8px; }
