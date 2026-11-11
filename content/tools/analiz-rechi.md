@@ -9,7 +9,7 @@ nav_order: 1
 kicker: "Разбор речи"
 lead: "Введите фразу о проблеме, намерении или тупике — инструмент покажет, как она звучит в более объективном языке: где появляется субъект, где возвращается ответственность и где действие перестаёт прятаться за абстракцией."
 
-endpoint: "https://functions.yandexcloud.net/d4ekhrgiv52qh61jqjls"
+endpoint: "https://assistant.antonlozhkin.ru/analiz-rechi"
 tool_prompt: "Опишите ситуацию, которую хотите решить"
 how_it_works: "kak-rabotaet-analiz-rechi"
 

@@ -1,7 +1,6 @@
 "use strict";
 
 const crypto = require("node:crypto");
-const aws4 = require("aws4");
 
 const REQUIRED_FILTERS = [
   "neutral",
@@ -112,6 +111,8 @@ async function callDocApi(target, payload) {
     body
   };
 
+  // aws4 нужен только для записи в YDB: на своём сервере (server.js) она выключена, и зависимость там не ставится
+  const aws4 = require("aws4");
   aws4.sign(request, {
     accessKeyId: DOCAPI_ACCESS_KEY_ID,
     secretAccessKey: DOCAPI_SECRET_ACCESS_KEY
