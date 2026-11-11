@@ -10,12 +10,12 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*90 изменений в 7 проектах: с 6 февраля 2026 по 11 ноября 2026.*
+*91 изменение в 7 проектах: с 6 февраля 2026 по 11 ноября 2026.*
 
 
 ## 11 ноября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>Вернулись страницы проектов, пропавшие после переезда сайта на свой сервер. Гайд по Obsidian обновлён: метод Life OS, работа с ИИ-агентом и где его запускать, бесплатный шаблон хранилища теперь можно скачать; сайт Life OS называет её экосистемой управления процессами.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Вернулись страницы проектов, пропавшие после переезда сайта на свой сервер. Гайд по Obsidian обновлён: метод Life OS, работа с ИИ-агентом, бесплатный шаблон хранилища можно скачать, а шаблон «С памятью» — купить; сайт Life OS называет её экосистемой управления процессами.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
@@ -31,6 +31,7 @@ hero_lead: "Изменения в открытых проектах — по о�
 <li><span class="tl-kind">лучше</span><span class="tl-text">В гайде по Obsidian — где работать с ИИ-агентом: в VS Code или Cursor, в приложении Claude или Codex и в Life OS. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/obsidian-ai-agent/">Открыть →</a></span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">Гайд по Obsidian обновлён: метод Life OS, статья о работе с ИИ-агентом, страница шаблонов хранилища и оформление гайда «Вайбкодинг с нуля». <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/">Открыть →</a></span></li>
 <li><span class="tl-kind">исправлено</span><span class="tl-text">Страницы проектов под antonlozhkin.ru — гайд по Obsidian, документация и шаблоны Notepub — снова открываются. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Шаблон Life OS «С памятью» — вектор, цели, план дня, журнал решений и интеграции поверх бесплатного — можно купить. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/lifeos-templates/">Открыть →</a></span></li>
 </ul>
 </div>
 
