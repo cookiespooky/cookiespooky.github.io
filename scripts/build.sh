@@ -92,6 +92,8 @@ if command -v python3 >/dev/null 2>&1; then
   # Индекс для ассистента: те же страницы, разрезанные по заголовкам.
   # Собирается из dist/, поэтому якоря совпадают с реальными id заголовков.
   python3 "$ROOT_DIR/scripts/assistant_index.py"
+  # Метка версии у стилей и скриптов: сервер держит assets/ неделю, без метки посетитель видит старый файл.
+  python3 "$ROOT_DIR/scripts/asset_version.py"
 else
   echo "python3 не найден — llms.txt и assistant-index.json не собраны" >&2
 fi
