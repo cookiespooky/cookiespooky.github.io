@@ -29,7 +29,7 @@ hero_lead: "Изменения в открытых проектах — по о�
 <ul class="tl-list">
 <li><span class="tl-kind">лучше</span><span class="tl-text">Бесплатный шаблон хранилища Obsidian для работы с ИИ-агентом можно скачать — архивом или с GitHub. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/lifeos-templates/">Открыть →</a></span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">В гайде по Obsidian — где работать с ИИ-агентом: в VS Code или Cursor, в приложении Claude или Codex и в Life OS. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/obsidian-ai-agent/">Открыть →</a></span></li>
-<li><span class="tl-kind">лучше</span><span class="tl-text">Гайд по Obsidian обновлён: метод Life OS, статья о работе с ИИ-агентом, страница шаблонов хранилища и оформление курса «Вайбкодинг с нуля». <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Гайд по Obsidian обновлён: метод Life OS, статья о работе с ИИ-агентом, страница шаблонов хранилища и оформление гайда «Вайбкодинг с нуля». <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/">Открыть →</a></span></li>
 <li><span class="tl-kind">исправлено</span><span class="tl-text">Страницы проектов под antonlozhkin.ru — гайд по Obsidian, документация и шаблоны Notepub — снова открываются. <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/">Открыть →</a></span></li>
 </ul>
 </div>
