@@ -32,7 +32,7 @@ facts:
   - value: "Ваши файлы"
     label: "результат остаётся обычными заметками"
 placeholder_note: "База содержит рабочие материалы и клиентские контексты, поэтому публичного снимка экрана нет. Схему и обезличенный пример покажу по запросу."
-related: ["cognitive-reconstruction", "obsidian-analysis", "bizos"]
+related: ["cognitive-reconstruction", "obsidian-analysis"]
 ---
 
 ## Задача

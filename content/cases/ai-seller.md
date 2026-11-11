@@ -33,7 +33,7 @@ facts:
   - value: "24/7"
     label: "первый ответ клиенту без участия менеджера"
 placeholder_note: "Публичной ссылки пока нет: ассистент готов и работает в контуре заказчика, подключение к сайту — на его стороне. Демонстрацию покажу в чате."
-related: ["docs-platform", "ai-qualification-bot", "bizos"]
+related: ["docs-platform", "ai-qualification-bot"]
 ---
 
 ## Задача
