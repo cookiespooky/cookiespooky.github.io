@@ -70,6 +70,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 7 ноября 2026
 
+<p class="tl-short"><span class="tl-short__label">Коротко</span>У задачи появилась дата начала, и диаграмма Ганта показывает, когда идёт работа. Автопостер ведёт второй аккаунт Threads из того же хранилища.</p>
+
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
@@ -80,6 +82,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 
 ## 5 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Карточки на «Сегодня» встают плотно, без пустот, и сами показывают, что обновляется и где ошибка. С телефона вкладки переставляются долгим нажатием, видно, сохранена ли правка и сколько загрузилось файла.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
@@ -92,6 +96,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 
 ## 4 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Пульт Life OS открывается с телефона целиком, с чатом и входом по паролю и коду. Страница «Сегодня» стала первой вкладкой общего пульта: цифры и тревоги пересчитываются сами, а блоки добавляются просьбой в чате.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
