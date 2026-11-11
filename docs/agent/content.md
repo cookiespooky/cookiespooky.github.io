@@ -22,39 +22,6 @@ Page types, each a template plus a permalink:
 | `idea` | `/lab/{slug}/` | `idea.html` |
 | `page` | `/{slug}/` | `page.html` |
 | `notfound` | `/404/` | `notfound.html` |
-| `homenew` | `/novaya-glavnaya/` | `home-new.html` — a draft of the next home page, `noindex`, in no sitemap and no menu |
-| `projects` | `/projects/` | `projects.html` — «Всё, что сделано»: the four area sections of today's home page, `noindex` until the swap |
-
-**Anton, 2026-10-28: this draft is an experiment and stays one — it does not become the home page.** The published
-home page stays as it is, and the rework of the site in the working tree after the published version is
-experimental too: none of it is rolled out. Publishing anything else here, commit only that and check that the home
-page built from the commit matches the published one.
-
-**A draft of the next home page lives beside the real one since 2026-10-11** (Anton: the home page should hold only
-what is ready to hand over now, in one line through Life OS; the full list moves to its own page — arguments in
-`../life/knowledge/ideas/site-home-one-line.md`). **Since 2026-10-12 the draft is a ladder of four sections** — язык,
-ИИ, инструменты, лаборатория (`steps` in its frontmatter: a description, **one** key action — `links` holds exactly one
-line, a blue link with an arrow — and `cards`, a horizontal row under the scheme with only what belongs to the section's thought;
-other products stay on `/projects/`; the cards of the Life OS section are its features, «в разработке» in a kicker
-following the component registry by hand; the generated `lifeos_groups` and `works_with` are no longer drawn by the template) — Anton's note of that day, arguments in
-`../life/knowledge/ideas/site-own-projects-graph.md`. Every graph node leads to a section of the page, not to another
-page. A YAML comment above `steps` lists the texts that do not exist yet and where each will stand.
-**The first three sections carry a live scheme** (2026-10-12; the lab has none for now — Anton, the same day): `partials/line-live.html` is one script that draws them into the
-`<div class="lm" data-lm="map|ask|flow">` that `home-new.html` puts under the section head (one explicit branch
-per section `id`) — the same graph of a made-up workshop in three states (a heap laid out into a map; a question
-answered along a path; incoming messages changing the map and a «Сегодня» list in a loop), drawn straight on the
-page with no card or frame around it. The company, the sums and the answers are written out in that file: it calls no model. Styles are
-the `.lm*` rules in `home.css`; without the script the boxes stay empty and are hidden.
-`content/home-new.md` is frontmatter like `home.md`; its
-`lifeos_groups` block is **generated**: `python3 scripts/home_new.py` rewrites the lines between the two marker
-comments from `data/components.json` — the Life OS component registry (`lifeos component export ../site/data`, run in
-`life/`; the same file `lifeos-site/` is built from), parts with status «работает» only. `--check` says whether page
-and data differ and compares the graph (`partials/home-graph-new.html`, hand-typed like the old one) with the
-sections: every node must lead to an `id` in `steps`, and every section must have a node. The graph script is a copy in `partials/hg-script.html` —
-`home.html` was not touched. `projects.html` is a copy of the four area sections of `home.html`, fed by the same
-collections; `content/projects.md` repeats the `areas` and `lifeos` texts of `home.md`. **Swapping the pages is not
-done**: it means moving `type: home` and the JSON-LD block (`WebSite` + `Person`) to the new template, dropping
-`noindex` from both pages, and deleting the duplicates.
 
 **A template that calls a function the engine does not have empties every page, and the build still exits 0** —
 seen 2026-10-11 with `hasPrefix`: all pages came out 3 KB with an empty `<main>`. The census is the alarm:

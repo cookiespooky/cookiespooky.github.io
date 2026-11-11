@@ -37,8 +37,8 @@ The mistakes here that cannot be taken back by the next commit:
 - **An untracked directory at this repo's root is a warning.** Stage paths, never `-A`, and read
   `git status --porcelain` before committing. Renaming can lift a file out of `.gitignore` — it matches by name.
 - **Check `pwd` before git** — `np-personal` is not a repo; `git` answers here (public) and in `../life/` (private).
-- **The new home page is an experiment** (`scripts/home_new.py`, `content/home-new.md`, Anton 28.10): never swap it
-  in; a push carries only the files it is about.
+- **There is no new home page** — the draft `/novaya-glavnaya/` and `/projects/` were deleted (Anton, 11.11); do not
+  bring the idea back.
 - **Never rename an existing slug** — slugs are in the sitemap and Pages cannot 301.
 
 ## Build & run
@@ -52,7 +52,6 @@ The mistakes here that cannot be taken back by the next commit:
 |---|---|
 | `python3 scripts/clusters_check.py` | after adding an article or touching `seo/clusters.yaml`; exits 1 on a broken join |
 | `python3 scripts/lab_check.py` | after adding or editing an idea in `content/lab/` |
-| `python3 scripts/home_new.py --check` | after `data/components.json` or the draft home page changed |
 | `python3 scripts/shots.py` | after dropping a webp into `theme/assets/shots/` — needs Pillow |
 | `python3 scripts/wordstat_queue.py` / `wordstat_import.py --dry-run` | before / after a Wordstat session (`docs/agent/seo.md`) |
 | `python3 scripts/indexnow.py --dry-run --sitemap=dist/sitemap-0001.xml` | testing the IndexNow selection offline; CI pings for real |
