@@ -69,9 +69,9 @@ related: ["proxy-tunnel", "notepub"]
 
 ## Что из этого можно взять
 
-- **Бесплатный шаблон хранилища** — папки и правила, по которым агент понимает записи с первого разговора, без кода: [шаблоны Life OS](https://antonlozhkin.ru/obsidian-guide/lifeos-templates/), он же открыт [на GitHub](https://github.com/cookiespooky/lifeos-template).
-- **Шаблон «С памятью»** — идеи с доводами, журнал решений, цели и план дня поверх бесплатного: [купить за 5 000 ₽](https://app.lava.top/products/61f1ed2c-baa7-413a-99bf-6bce4d35e5d9).
-- **Life OS целиком** — поставить самому с обучением или заказать внедрение: [lifeos.antonlozhkin.ru](https://lifeos.antonlozhkin.ru/).
+- **Базовое хранилище** — папки и правила, по которым агент понимает записи с первого разговора: [шаблон Life OS](https://antonlozhkin.ru/obsidian-guide/lifeos-templates/), открыт [на GitHub](https://github.com/cookiespooky/lifeos-template). Код Life OS тоже будет открыт.
+- **Как сделать, чтобы агент читал только нужное** — инструкция по устройству файлов проекта, с замерами: [[kak-agent-ne-chitaet-ves-proekt|Как агент перестаёт читать весь проект]].
+- **Life OS под ваши процессы** — заказать внедрение: [lifeos.antonlozhkin.ru](https://lifeos.antonlozhkin.ru/).
 - **Как работать с хранилищем через агента**, не покупая ничего, — [Obsidian и ИИ-агент](https://antonlozhkin.ru/obsidian-guide/obsidian-ai-agent/).
 
 Что делать, когда вашей вещью начинают пользоваться другие люди, — в материале [Когда звать человека](https://vibewiki.github.io/kogda-zvat-cheloveka/).
