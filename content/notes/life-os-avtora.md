@@ -71,6 +71,7 @@ related: ["proxy-tunnel", "notepub"]
 
 - **Базовое хранилище** — папки и правила, по которым агент понимает записи с первого разговора: [шаблон Life OS](https://antonlozhkin.ru/obsidian-guide/lifeos-templates/), открыт [на GitHub](https://github.com/cookiespooky/lifeos-template). Код Life OS тоже будет открыт.
 - **Как сделать, чтобы агент читал только нужное** — инструкция по устройству файлов проекта, с замерами: [[kak-agent-ne-chitaet-ves-proekt|Как агент перестаёт читать весь проект]].
+- **Сколько это экономит** — все замеры одной таблицей: правила по уровням дают ~3 тыс. токенов на вопрос вместо ~30 тыс., а устройство записей на моём хранилище — 27 верных ответов из 27 вместо 21: [[zamery-pamyati|Сколько стоит память модели]].
 - **Life OS под ваши процессы** — заказать внедрение: [lifeos.antonlozhkin.ru](https://lifeos.antonlozhkin.ru/).
 - **Как работать с хранилищем через агента**, не покупая ничего, — [Obsidian и ИИ-агент](https://antonlozhkin.ru/obsidian-guide/obsidian-ai-agent/).
 
