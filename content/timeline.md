@@ -10,12 +10,26 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*98 изменений в 7 проектах: с 6 февраля 2026 по 14 ноября 2026.*
+*101 изменение в 7 проектах: с 6 февраля 2026 по 14 ноября 2026.*
 
 
 ## 14 ноября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>Proxy Tunnel 1.2.1 и 1.3: на Mac работает одна копия программы, а Codex и Gemini в терминале и, по желанию, VS Code идут через свой сервер сами.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Инструкция о том, как агент читает только нужное, и шаблон Life OS — базовое хранилище. Proxy Tunnel 1.2.1 и 1.3: одна копия программы на Mac, Codex и Gemini в терминале и, по желанию, VS Code — через свой сервер.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">Шаблон Life OS — базовое хранилище: папки, правила для агента и мастер первого запуска, без кода и серверов <a class="tl-more" href="https://antonlozhkin.ru/obsidian-guide/lifeos-templates/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Инструкция: как устроить файлы проекта, чтобы Claude Code и Codex читали на задачу только нужное, с готовым текстом для агента <a class="tl-more" href="https://antonlozhkin.ru/notes/kak-agent-ne-chitaet-ves-proekt/">Открыть →</a></span></li>
+</ul>
+</div>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
@@ -28,6 +42,8 @@ hero_lead: "Изменения в открытых проектах — по о�
 
 ## 13 ноября 2026
 
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Замеры памяти: что в устройстве хранилища экономит агенту шаги. В Life OS — выбор темы пульта, несколько разговоров вкладками, видео в Threads и шаблон сайта.</p>
+
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
 <ul class="tl-list">
@@ -35,6 +51,13 @@ hero_lead: "Изменения в открытых проектах — по о�
 <li><span class="tl-part">Сайт из своих записей</span><span class="tl-text">Готов шаблон сайта, который можно дать другому человеку: главная, страницы и материалы по разделам, сборка одной командой; система заводит и наполняет его по просьбе «сделай сайт». <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/site/">Открыть →</a></span></li>
 <li><span class="tl-part">Вопрос по всему своему</span><span class="tl-text">Можно вести несколько разговоров сразу — каждый своей вкладкой рядом с остальными, со своей кнопкой «Стоп» <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/ask/">Открыть →</a></span></li>
 <li><span class="tl-part">Публикация по расписанию</span><span class="tl-text">Пост в Threads может быть видео: система ждёт, пока Threads обработает ролик, и только потом публикует <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/posting/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">Замеры: что в устройстве хранилища экономит агенту шаги, на двух хранилищах одной таблицей <a class="tl-more" href="https://antonlozhkin.ru/notes/zamery-pamyati/">Открыть →</a></span></li>
 </ul>
 </div>
 
