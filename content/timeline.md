@@ -10,7 +10,33 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*92 изменения в 7 проектах: с 6 февраля 2026 по 11 ноября 2026.*
+*98 изменений в 7 проектах: с 6 февраля 2026 по 14 ноября 2026.*
+
+
+## 14 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Proxy Tunnel 1.2.1 и 1.3: на Mac работает одна копия программы, а Codex и Gemini в терминале и, по желанию, VS Code идут через свой сервер сами.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">На Mac Codex и Gemini в терминале идут через свой сервер сами, без ручных команд; по желанию — расширение Codex или весь VS Code, а точка у значка показывает состояние туннеля <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.3">Открыть →</a></span></li>
+<li><span class="tl-kind">исправлено</span><span class="tl-text">На Mac всегда работает одна копия Proxy Tunnel: старая копия, оставшаяся на диске, больше не запускается рядом после перезагрузки <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.2.1">Открыть →</a></span></li>
+</ul>
+</div>
+
+
+## 13 ноября 2026
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Главная страница</span><span class="tl-text">В пульте можно выбрать светлую, тёмную или системную тему; в записи есть отмена и возврат правки и удаление в корзину <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/home/">Открыть →</a></span></li>
+<li><span class="tl-part">Сайт из своих записей</span><span class="tl-text">Готов шаблон сайта, который можно дать другому человеку: главная, страницы и материалы по разделам, сборка одной командой; система заводит и наполняет его по просьбе «сделай сайт». <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/site/">Открыть →</a></span></li>
+<li><span class="tl-part">Вопрос по всему своему</span><span class="tl-text">Можно вести несколько разговоров сразу — каждый своей вкладкой рядом с остальными, со своей кнопкой «Стоп» <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/ask/">Открыть →</a></span></li>
+<li><span class="tl-part">Публикация по расписанию</span><span class="tl-text">Пост в Threads может быть видео: система ждёт, пока Threads обработает ролик, и только потом публикует <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/posting/">Открыть →</a></span></li>
+</ul>
+</div>
 
 
 ## 11 ноября 2026
@@ -123,7 +149,7 @@ hero_lead: "Изменения в открытых проектах — по о�
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
 <ul class="tl-list">
-<li><span class="tl-kind">лучше</span><span class="tl-text">Gemini и Codex идут через свой сервер сразу после установки, без ручной настройки списка сайтов <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.2">Открыть →</a></span></li>
+<li><span class="tl-kind">лучше</span><span class="tl-text">Сайты Gemini и ChatGPT идут через свой сервер сразу после установки, без ручной настройки списка сайтов <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.2">Открыть →</a></span></li>
 </ul>
 </div>
 
