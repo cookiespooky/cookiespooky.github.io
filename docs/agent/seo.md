@@ -47,9 +47,13 @@ thing the article describes. Checked across the fifteen articles that existed on
 fit; articles written since were not part of that pass, so re-read the rule rather than assuming it holds.
 Don't stretch it — razbor sells to people who do not yet know what to build, not to everyone.
 
-**Don't edit an article's text, title or description on data below 100 impressions for its cluster.**
-The thresholds above that (rewrite the snippet below position 10, add internal links at 4–10, leave
-top-3 alone) are in `../life/knowledge/backlog.md`, declared before the numbers could argue.
+**Articles are edited for content, not only on data** (Anton, 2026-11-15: the 100-impressions threshold is
+lifted for every article). Webmaster has returned zeros since 2026-10-07 while Metrika still shows search visits,
+and no cluster had reached 100 impressions even before that. The format for a rewrite: context with links instead of
+retelling neighbouring articles, then the point, its explanation, what follows; headings are bridges carrying the
+cluster's phrases (`../life/knowledge/ideas/emkie-stati.md`). Still keep: a slug never changes, the cluster's keys
+stay in title, description and headings, and `sayt-iz-zametok-obsidian`'s section «Что ломается при переносе» —
+the likely cause of the site's only clicks — is not cut.
 
 Each cluster carries a `stage` (`seed → measured → planned → written → published → tracked`), a `direction`,
 an `intent`, the `cases` that prove it, and `money_distance` 1–5 — how many steps from the query to paid work.
