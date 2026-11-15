@@ -10,17 +10,24 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*102 изменения в 7 проектах: с 6 февраля 2026 по 15 ноября 2026.*
+*103 изменения в 7 проектах: с 6 февраля 2026 по 15 ноября 2026.*
 
 
 ## 15 ноября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>Тексты сайта стали короче на пятую часть: в каждом одна мысль, повторы заменены ссылками.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Тексты сайта стали короче на пятую часть: в каждом одна мысль, повторы заменены ссылками. Proxy Tunnel на Windows сам пускает Codex и Gemini в терминале через свой сервер.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
 <ul class="tl-list">
 <li><span class="tl-kind">лучше</span><span class="tl-text">Статьи переписаны коротко: в каждой одна мысль в начале, повторы между ними заменены ссылками, а замеры расхода ИИ-агента собраны в одну инструкцию <a class="tl-more" href="https://antonlozhkin.ru/notes/kak-agent-ne-chitaet-ves-proekt/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/cases/proxy-tunnel/">Proxy Tunnel</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">На Windows Codex и Gemini в терминале идут через свой сервер сами, без ручных команд, а при оборванной связи не уходят напрямую; уведомление о новой версии теперь видят только те, для чьей системы она вышла <a class="tl-more" href="https://github.com/cookiespooky/proxy-tunnel/releases/tag/v1.3.1">Открыть →</a></span></li>
 </ul>
 </div>
 
