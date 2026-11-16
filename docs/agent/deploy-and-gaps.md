@@ -56,8 +56,11 @@ the domain, the certificate or the Pages settings. What still applies:
   `search.include_types` changes that one file and nothing a visitor sees, and a page missing from search is
   not a bug to chase. It is also the only source of build nondeterminism (`generated_at`). Leave it until the
   search itself is written.
-- **Articles have no image of their own.** Their `Article` schema and `og:image` both fall back to the
-  site-wide `media/og.png`, because nothing generates a per-article card. Cases have one; articles do not.
+- **Most articles have no image of their own yet.** Without `og_image` their `Article` schema and `og:image` fall
+  back to the site-wide `media/og.png`. Since 2026-11-16 `lifeos articles visual <slug> --site ../site` → a scheme in
+  `seo/visuals/<slug>.yaml` → `lifeos articles draw <slug> --site ../site` draws one (settings — `seo/project.yaml`,
+  `visual:`): an SVG shown above the text (`visual`, `article.html`) and a 1200×630 PNG set as `og_image`, both in
+  `theme/assets/visuals/`. Commit the two files with the article.
 - **Two slugs are provisional.** `/tools/analiz-rechi/` and `/blog/kak-rabotaet-analiz-rechi/` were named by
   hand before any keyword research, and their clusters (`speech-agency-tool`, `speech-agency-explainer`)
   were written around the existing names afterwards. Renaming costs nothing while the site has no traffic;

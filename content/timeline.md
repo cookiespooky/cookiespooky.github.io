@@ -10,7 +10,27 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*103 изменения в 7 проектах: с 6 февраля 2026 по 15 ноября 2026.*
+*106 изменений в 7 проектах: с 6 февраля 2026 по 16 ноября 2026.*
+
+
+## 16 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>В блоге veralozhkina.ru вышли десять статей: о колоде, карте по дате рождения, архетипах, Тени, синхроничности, архетипах Юнга, Аниме и Анимусе, снах, Персоне и вопросах о работе. У инструкции о том, как агент перестаёт читать весь проект, появилась схема замеров.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">У инструкции о том, как агент перестаёт читать весь проект, появилась схема замеров — над текстом и в превью ссылки. <a class="tl-more" href="https://antonlozhkin.ru/notes/kak-agent-ne-chitaet-ves-proekt/">Открыть →</a></span></li>
+</ul>
+</div>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://veralozhkina.ru/">veralozhkina.ru</a></div>
+<ul class="tl-list">
+<li><span class="tl-text">В блоге пять новых статей: как выбрать колоду, карта по дате рождения, архетипы и старшие арканы по порядку, Тень по Юнгу, синхроничность. <a class="tl-more" href="https://veralozhkina.ru/blog/">Открыть →</a></span></li>
+<li><span class="tl-text">Ещё четыре статьи в блоге: архетипы Юнга, Анима и Анимус, Персона и вопросы таро о работе; статьи связаны ссылками друг с другом. <a class="tl-more" href="https://veralozhkina.ru/blog/">Открыть →</a></span></li>
+</ul>
+</div>
 
 
 ## 15 ноября 2026

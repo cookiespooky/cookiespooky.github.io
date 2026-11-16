@@ -1,0 +1,11 @@
+# Настройка `lifeos articles` для этого сайта. Реестр (clusters.yaml) ведётся руками и генератору только читается;
+# здесь пока только картинки статей: `lifeos articles visual <slug>` → seo/visuals/<slug>.yaml → `lifeos articles draw`.
+name: "antonlozhkin.ru"
+visual:
+  dir: theme/assets/visuals       # отдаётся как /assets/visuals/
+  url: /assets/visuals/
+  kicker: "antonlozhkin.ru"
+  colors: {bg: "#F5F6F7", surface: "#FFFFFF", ink: "#1B2128", accent: "#3E5368"}   # tokens.css: --paper, --surface, --ink, --accent
+  font: "Golos Text"
+  font_mono: "JetBrains Mono"
+  fonts_css: theme/assets/fonts.css

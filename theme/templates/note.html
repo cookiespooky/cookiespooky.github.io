@@ -30,7 +30,12 @@
     </section>
 
     <div class="case-body">
-      <div class="prose">{{ .Body }}</div>
+      <div class="prose">
+        {{- if .FM.visual }}
+        <figure class="post-visual"><img src="{{ .BaseURL }}{{ .FM.visual }}" alt="Схема к заметке «{{ .Page.Title }}»" width="1200" height="600" /></figure>
+        {{- end }}
+        {{ .Body }}
+      </div>
 
       <aside class="case-aside">
         {{- if .FM.tags }}

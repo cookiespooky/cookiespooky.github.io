@@ -7,6 +7,7 @@ fields:
     - draft
     - noindex
     - og_image        # картинка для og:image; иначе берётся default_og_image
+    - visual          # схема статьи (SVG) над текстом; рисует `lifeos articles draw`, он же ставит og_image
     - person_page     # страница-визитка: даёт ProfilePage вместо WebPage
     - redirect_to     # адрес назначения; движок отдаёт 301, в статике — страницу-редирект
     - nav_order

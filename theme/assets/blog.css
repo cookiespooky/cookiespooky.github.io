@@ -62,3 +62,7 @@
   margin-top: 20px;
 }
 .service-demos .shot { margin: 0; }
+
+/* Схема статьи над текстом — SVG из `lifeos articles draw` (поле visual); фон и сетка уже в самой картинке. */
+.post-visual { margin: 0 0 32px; }
+.post-visual img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
