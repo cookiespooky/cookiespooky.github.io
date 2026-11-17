@@ -10,12 +10,34 @@ hero_title: "Что нового"
 hero_lead: "Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное."
 ---
 
-*106 изменений в 7 проектах: с 6 февраля 2026 по 16 ноября 2026.*
+*111 изменений в 7 проектах: с 6 февраля 2026 по 17 ноября 2026.*
+
+
+## 17 ноября 2026
+
+<p class="tl-short"><span class="tl-short__label">Коротко</span>Life OS стал безопаснее снаружи: пульт с телефона открывается только на своём устройстве, а сервер в пути ничего не видит. Сотрудникам — поручения на их доске и задачи по команде в рабочем чате, в сводке — сообщения из ВКонтакте.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Сообщения из Telegram</span><span class="tl-text">Бот слушает рабочую группу, даже если в неё его добавил сотрудник, а не владелец, и сам возвращает группы, которые потерял <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/telegram/">Открыть →</a></span></li>
+<li><span class="tl-part">Сводка нового</span><span class="tl-text">В сводку нового попадают сообщения, которые клиенты пишут в сообщества компании во ВКонтакте <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/news/">Открыть →</a></span></li>
+<li><span class="tl-part">Поручения сотрудникам</span><span class="tl-text">Поручение сотруднику уходит на его рабочую доску после согласия владельца, сводка показывает, что сделано, а сотрудник может спросить свои задачи командой в рабочем чате <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/staff-tasks/">Открыть →</a></span></li>
+<li><span class="tl-part">Телефон</span><span class="tl-text">Пульт с телефона открывается только на устройстве, которому выдан свой сертификат, а сервер по дороге не видит ни записей, ни пароля; логин на странице входа телефон запоминает сам <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/phone/">Открыть →</a></span></li>
+</ul>
+</div>
 
 
 ## 16 ноября 2026
 
 <p class="tl-short"><span class="tl-short__label">Коротко</span>В блоге veralozhkina.ru вышли девять статей: о колоде, карте по дате рождения, архетипах, Тени, синхроничности, архетипах Юнга, Аниме и Анимусе, Персоне и вопросах о работе. У инструкции о том, как агент перестаёт читать весь проект, появилась схема замеров.</p>
+
+<div class="tl-card">
+<div class="tl-card__head"><a href="https://lifeos.antonlozhkin.ru/">Life OS</a></div>
+<ul class="tl-list">
+<li><span class="tl-part">Статьи для сайта</span><span class="tl-text">К статье рисуется схема того, о чём она: над текстом и в превью ссылки в соцсетях — в цветах и шрифтах сайта, с числами из самой статьи. <a class="tl-more" href="https://lifeos.antonlozhkin.ru/chto-vnutri/articles/">Открыть →</a></span></li>
+</ul>
+</div>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
