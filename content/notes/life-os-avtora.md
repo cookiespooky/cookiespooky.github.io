@@ -56,7 +56,7 @@ Life OS — вайбкод-вещь, которую я сделал для св�
 
 ## Что из этого можно взять
 
-- **Базовое хранилище** — папки и правила, по которым агент понимает записи с первого разговора: [шаблон Life OS](https://antonlozhkin.ru/obsidian-guide/lifeos-templates/), открыт [на GitHub](https://github.com/cookiespooky/lifeos-template). Код Life OS тоже будет открыт.
+- **Базовое хранилище** — папки и правила, по которым агент понимает записи с первого разговора: [шаблон Life OS](https://antonlozhkin.ru/obsidian-guide/lifeos-templates/), открыт [на GitHub](https://github.com/cookiespooky/lifeos-template). Код Life OS скоро тоже будет открыт: желающие потестировать на своих проектах — напишите в [Telegram](https://t.me/cookiespooky).
 - **Чтобы агент читал только нужное** — [[kak-agent-ne-chitaet-ves-proekt|Как агент перестаёт читать весь проект]], с замерами каждого приёма.
 - **Работать с хранилищем через агента без покупки** — [Obsidian и ИИ-агент](https://antonlozhkin.ru/obsidian-guide/obsidian-ai-agent/).
 - **Life OS под ваши процессы** — [lifeos.antonlozhkin.ru](https://lifeos.antonlozhkin.ru/).
