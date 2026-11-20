@@ -20,6 +20,9 @@ MONTHS = 'января февраля марта апреля мая июня и
 PLAIN = {'hero_kicker': 'Лента', 'hero_title': 'Что нового',
          'hero_lead': 'Изменения в открытых проектах — по одной строке на каждое заметное со стороны: новое, улучшенное, исправленное, не получившееся и отложенное.'}
 LEAD = 'Изменения в открытых проектах — по одной строке на каждое заметное со стороны, от нового к старому.'
+# Схема над лентой (visual) и превью ссылки (og_image): рисует `lifeos articles draw timeline --site ../site` из seo/visuals/timeline.yaml.
+# Шапку эта страница пишет сама, поэтому ключи, которые draw вписал, держит здесь — иначе выгрузка их сотрёт.
+VISUAL = {'visual': '/assets/visuals/timeline.svg', 'og_image': '/assets/visuals/timeline.png'}
 
 
 def head(offer):
@@ -29,7 +32,8 @@ def head(offer):
         button = offer['action'][0].upper() + offer['action'][1:]
         fm = {'hero_kicker': 'Сейчас', 'hero_title': offer['title'], 'hero_lead': offer['text'], 'hero_cta_label': button, 'hero_cta_url': offer['link'],
               'cta_title': offer['title'], 'cta_note': offer['text'], 'cta_button': button, 'cta_url': offer['link']}
-    rows = ['---', 'type: page', 'slug: timeline', 'title: "Лента изменений"',
+    fm.update({k: v for k, v in VISUAL.items() if os.path.exists(os.path.join(ROOT, 'theme', v.lstrip('/')))})
+    rows =['---', 'type: page', 'slug: timeline', 'title: "Лента изменений"',
             'description: "Что нового в открытых проектах Антона Ложкина: по одной строке на каждое заметное изменение, от нового к старому."', 'draft: false', '']
     return '\n'.join(rows + [f'{k}: {q(v)}' for k, v in fm.items()] + ['---', ''])
 

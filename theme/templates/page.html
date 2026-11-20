@@ -48,7 +48,12 @@
     {{- end }}
 
     <div class="case-body" style="grid-template-columns: minmax(0, 1fr);">
-      <div class="prose" style="max-width: 68ch;">{{ .Body }}</div>
+      <div class="prose" style="max-width: 68ch;">
+        {{- if .FM.visual }}
+        <figure class="post-visual"><img src="{{ .BaseURL }}{{ .FM.visual }}" alt="Схема к странице «{{ .Page.Title }}»" width="1200" height="600" /></figure>
+        {{- end }}
+        {{ .Body }}
+      </div>
     </div>
   </div>
 

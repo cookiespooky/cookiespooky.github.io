@@ -189,6 +189,10 @@ body:has(.home):has(.site-header:not(.is-shown)) .npchat:not(.npchat--open) { op
 .cta p { margin-top: 20px; max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--panel-muted); text-wrap: pretty; }
 .cta__actions { display: flex; flex-direction: column; gap: 22px; }
 
+/* схема над текстом (visual — рисует `lifeos articles draw`): заметки, статьи, страницы */
+.post-visual { margin: 0 0 32px; }
+.post-visual img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
+
 /* ---------- подвал ---------- */
 .site-footer {
   display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
