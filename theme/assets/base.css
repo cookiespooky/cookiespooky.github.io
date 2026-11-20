@@ -188,8 +188,6 @@ body:has(.home):has(.site-header:not(.is-shown)) .npchat:not(.npchat--open) { op
 .cta h2 { margin-top: 22px; font-size: 46px; max-width: 640px; }
 .cta p { margin-top: 20px; max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--panel-muted); text-wrap: pretty; }
 .cta__actions { display: flex; flex-direction: column; gap: 22px; }
-.cta__contacts { justify-content: center; gap: 24px; padding: 6px 0 2px; }
-.cta__contacts .ico { height: 26px; }
 
 /* ---------- подвал ---------- */
 .site-footer {

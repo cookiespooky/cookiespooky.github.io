@@ -101,6 +101,26 @@ written *from* every type (`wiki` also from `notfound`), but resolve *to* a narr
 `home`/`case`/`page`/`article`/`service`/`note`. A `related` entry pointing at a `tool`, `blog` or `notes`
 page resolves to nothing and is skipped with a warning, not an error.
 
+### CTA: wording and buttons (Anton, 2026-11-16)
+
+The CTA block (`partials/cta.html`, filled from `cta_title`, `cta_note`, `cta_button`, `cta_url`) and the side box
+`aside-cta` invite a conversation; they do not sell. Rewriting the note on how an agent stops reading the whole
+project settled the rules:
+
+- **A question, not an offer.** «Разберём ваш проект?», not «Настрою так же в вашем проекте»: the offer head-on
+  reads as pushing.
+- **Interest in the reader's project, not a good deed done to them.** Not «я разбираю проект и раскладываю его так
+  же» (Anton: «это не приглашение к диалогу, а причинение добра»), but what is curious about their case, in the
+  page's own terms: «где агент буксует у вас: в правилах, в записях или в самой постановке задачи».
+- **No «можно», no imperative** («опишите», «напишите»), no promised result. The first step is small and named:
+  «Для начала хватит пары строк о том, что за проект.»
+- **One button, Telegram.** The row of VK, WhatsApp, phone and mail icons under it was removed from
+  `partials/cta.html` on the same day; contacts stay in the header and the footer.
+
+The template's own fallback texts (cta.html: «Расскажите, что нужно сделать», «Напишите в Telegram… В ответ —
+понятный план и цена») and the side box («Напишите пару предложений о задаче — отвечу…») predate these rules and
+still break them; they are rewritten with Anton, in the chat first.
+
 ### Article frontmatter contract
 
 This is what the blog pipeline must emit. `type`, `slug`, `title` are required everywhere; unknown keys fail the
