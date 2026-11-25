@@ -12,16 +12,17 @@ visual: "/assets/visuals/timeline.svg"
 og_image: "/assets/visuals/timeline.png"
 ---
 
-*113 изменений в 7 проектах: с 6 февраля 2026 по 20 ноября 2026.*
+*114 изменений в 7 проектах: с 6 февраля 2026 по 20 ноября 2026.*
 
 
 ## 20 ноября 2026
 
-<p class="tl-short"><span class="tl-short__label">Коротко</span>У ленты изменений появилась схема: над лентой и в превью ссылки.</p>
+<p class="tl-short"><span class="tl-short__label">Коротко</span>У ленты изменений появилась схема, а в инструкции об агенте — замер: ошибки шли от устаревших фактов в правилах, а не от нехватки контекста.</p>
 
 <div class="tl-card">
 <div class="tl-card__head"><a href="https://antonlozhkin.ru/">antonlozhkin.ru</a></div>
 <ul class="tl-list">
+<li><span class="tl-kind">лучше</span><span class="tl-text">В инструкции о том, как агент перестаёт читать весь проект, новый замер: агент ошибался не от нехватки контекста, а от устаревших фактов в правилах, и после их чистки ответил верно на все 20 вопросов. <a class="tl-more" href="https://antonlozhkin.ru/notes/kak-agent-ne-chitaet-ves-proekt/">Открыть →</a></span></li>
 <li><span class="tl-kind">лучше</span><span class="tl-text">Над лентой изменений появилась схема — она же превью ссылки на ленту. <a class="tl-more" href="https://antonlozhkin.ru/timeline/">Открыть →</a></span></li>
 </ul>
 </div>
